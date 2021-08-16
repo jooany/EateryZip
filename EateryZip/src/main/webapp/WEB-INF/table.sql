@@ -1,6 +1,6 @@
 -- 메뉴 테이블 
 CREATE TABLE menu(
-	b_id NUMBER NOT NULL, --사업자번호(음식점 고유번호)
+	b_id VARCHAR2(100) NOT NULL, --사업자번호(음식점 고유번호)
 	section_num NUMBER NOT NULL, --카테고리번호
 	section_name VARCHAR2(100) NOT NULL, --카테고리명
 	menu_name VARCHAR2(100) NOT NULL, --메뉴명
@@ -10,7 +10,7 @@ CREATE TABLE menu(
 -- 리뷰 테이블 
 CREATE TABLE review(
 	review_num NUMBER PRIMARY KEY, --글번호
-	b_id NUMBER NOT NULL, --사업자번호(음식점 고유번호)
+	b_id VARCHAR2(100) NOT NULL, --사업자번호(음식점 고유번호)
 	writer VARCHAR2(100) NOT NULL, --작성자
 	review_image VARCHAR2(100) NOT NULL, --리뷰 이미지경로
 	review_content CLOB NOT NULL, -- 리뷰 내용
@@ -26,7 +26,7 @@ CREATE TABLE review_recommendation(
 );
 -- 리뷰 추천 테이블 
 CREATE TABLE eatery_scrap(
-	b_id NUMBER, --사업자번호(음식점 고유번호)
+	b_id VARCHAR2(100), --사업자번호(음식점 고유번호)
 	g_id VARCHAR2(100) --리뷰를 추천한 사용자
 );
 
