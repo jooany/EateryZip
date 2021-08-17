@@ -10,6 +10,7 @@
 <body>
 <div id="container">
 	<h1>추천 맛집</h1>
+	<p></p>
 </div>
 </body>
 </html>
