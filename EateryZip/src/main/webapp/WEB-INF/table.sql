@@ -63,7 +63,30 @@ VALUES('zzzzz', 'zzzzz','이름', '경기도 부천시', 'zzz@zzz','01012345678'
 INSERT INTO B_USER (B_ID,B_PWD,B_NAME,B_ADDRESS,B_EMAIL,B_PHONE,B_DATE,CLASS)
 VALUES('11111111', '11111111','이름','경기도 부천시', 'aaa@aaa','01012345678',sysdate,'business');
 
+-- 가게등록 테이블
+CREATE TABLE b_Store(
+	b_id VARCHAR2(100) PRIMARY KEY, -- 사업자주소
+	b_name VARCHAR2(100) NOT NULL, -- 상호명
+	b_address VARCHAR2(100) NOT NULL, -- 가게주소
+	b_kind VARCHAR2(100) NOT NULL, -- 업종
+	intro VARCHAR2(60) NOT NULL, -- 소개글 (30자 이내)
+	b_img_f VARCHAR2(100) NOT NULL, -- 가게 대표이미지
+	b_phone VARCHAR2(100) NOT NULL, -- 가게연락처
+	b_date VARCHAR2(100) NOT NULL, -- 영업일(매일 / 주말 / 평일)
+	b_open VARCHAR2(100) NOT NULL, -- 가게 오픈시간
+	b_close VARCHAR2(100) NOT NULL, -- 가게 마감시간
+	b_holiday VARCHAR2(100), -- 가게 휴일
+	notice VARCHAR2(100), -- 가게 공지사항
+	service VARCHAR2(100) NOT NULL, -- 예약 , 포장 선택
+	ex_keyword VARCHAR2(100) NOT NULL -- 편의사항/ 기타
+);
+-- 가게 등록 예시
+INSERT INTO b_Store(b_id,b_name,b_address,b_kind,intro,b_img_f,
+						b_phone,b_date,b_open,b_close,b_holiday,notice,service,ex_keyword )
+VALUES ('1111111111', 'acorn', '서울특별시 강남구 테헤란로 124 삼원타워 5층', '브런치','안녕하세요','https://dummyimage.com/600x400/000/fff&text=dummy',
+			'025398879','매일','09:30','18:00','일요일','만반잘부','예약/방문포장','주차/노키즈존/프라이빗');
 
+-- 예약 테이블
 CREATE TABLE reservation(
 	reservation_num NUMBER PRIMARY KEY,
 	g_id VARCHAR2(100),
@@ -75,9 +98,9 @@ CREATE TABLE reservation(
 	reservation_phone VARCHAR2(100) NOT NULL,
 	reservation_memo VARCHAR2(200)
 );
-
 CREATE SEQUENCE reservation_seq;
 
+-- 포장 테이블
 CREATE TABLE takeout(
 	takeout_num NUMBER PRIMARY KEY,
 	b_id VARCHAR2(100),
@@ -91,8 +114,10 @@ CREATE TABLE takeout(
 	takeout_count NUMBER,
 	takeout_price NUMBER
 );
-
 CREATE SEQUENCE takeout_seq;
+
+
+
 
 
 
