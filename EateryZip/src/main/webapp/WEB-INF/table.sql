@@ -80,12 +80,43 @@ CREATE TABLE b_Store(
 	service VARCHAR2(100) NOT NULL, -- 예약 , 포장 선택
 	ex_keyword VARCHAR2(100) NOT NULL -- 편의사항/ 기타
 );
-
 -- 가게 등록 예시
 INSERT INTO b_Store(b_id,b_name,b_address,b_kind,intro,b_img_f,
 						b_phone,b_date,b_open,b_close,b_holiday,notice,service,ex_keyword )
 VALUES ('1111111111', 'acorn', '서울특별시 강남구 테헤란로 124 삼원타워 5층', '브런치','안녕하세요','https://dummyimage.com/600x400/000/fff&text=dummy',
 			'025398879','매일','09:30','18:00','일요일','만반잘부','예약/방문포장','주차/노키즈존/프라이빗');
+
+-- 예약 테이블
+CREATE TABLE reservation(
+	reservation_num NUMBER PRIMARY KEY,
+	g_id VARCHAR2(100),
+	b_id VARCHAR2(100),
+	reservation_name VARCHAR2(100) NOT NULL,
+	reservation_date DATE NOT NULL,
+	reservation_time VARCHAR2(100) NOT NULL,
+	reservation_people VARCHAR2(100) NOT NULL,
+	reservation_phone VARCHAR2(100) NOT NULL,
+	reservation_memo VARCHAR2(200)
+);
+CREATE SEQUENCE reservation_seq;
+
+-- 포장 테이블
+CREATE TABLE takeout(
+	takeout_num NUMBER PRIMARY KEY,
+	b_id VARCHAR2(100),
+	G_ID VARCHAR2(100),
+	takeout_name VARCHAR2(100) NOT NULL,
+	takeout_date DATE,
+	takeout_time VARCHAR2(100) NOT NULL,
+	takeout_phone VARCHAR2(100) NOT NULL,
+	takeout_memo VARCHAR2(200), 
+	takeout_menu VARCHAR2(100),
+	takeout_count NUMBER,
+	takeout_price NUMBER
+);
+CREATE SEQUENCE takeout_seq;
+
+
 
 
 
