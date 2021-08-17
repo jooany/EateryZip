@@ -64,7 +64,35 @@ INSERT INTO B_USER (B_ID,B_PWD,B_NAME,B_ADDRESS,B_EMAIL,B_PHONE,B_DATE,CLASS)
 VALUES('11111111', '11111111','이름','경기도 부천시', 'aaa@aaa','01012345678',sysdate,'business');
 
 
+CREATE TABLE reservation(
+	reservation_num NUMBER PRIMARY KEY,
+	g_id VARCHAR2(100),
+	b_id VARCHAR2(100),
+	reservation_name VARCHAR2(100) NOT NULL,
+	reservation_date DATE NOT NULL,
+	reservation_time VARCHAR2(100) NOT NULL,
+	reservation_people VARCHAR2(100) NOT NULL,
+	reservation_phone VARCHAR2(100) NOT NULL,
+	reservation_memo VARCHAR2(200)
+);
 
+CREATE SEQUENCE reservation_seq;
+
+CREATE TABLE takeout(
+	takeout_num NUMBER PRIMARY KEY,
+	b_id VARCHAR2(100),
+	G_ID VARCHAR2(100),
+	takeout_name VARCHAR2(100) NOT NULL,
+	takeout_date DATE,
+	takeout_time VARCHAR2(100) NOT NULL,
+	takeout_phone VARCHAR2(100) NOT NULL,
+	takeout_memo VARCHAR2(200), 
+	takeout_menu VARCHAR2(100),
+	takeout_count NUMBER,
+	takeout_price NUMBER
+);
+
+CREATE SEQUENCE takeout_seq;
 
 
 
