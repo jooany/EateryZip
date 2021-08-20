@@ -19,7 +19,8 @@
          <li>${tmp }</li>
       </c:forEach>
    </ul>
-   
+   <a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
+   <a href="${pageContext.request.contextPath}/eatery/menu_insertform.do">menu_insertform</a>
 </div>
 </body>
 </html>
