@@ -89,31 +89,31 @@ VALUES ('1111111111', 'acorn', '서울특별시 강남구 테헤란로 124 삼�
 
 -- 예약 테이블
 CREATE TABLE reservation(
-	reservation_num NUMBER PRIMARY KEY,
-	g_id VARCHAR2(100),
-	b_id VARCHAR2(100),
-	reservation_name VARCHAR2(100) NOT NULL,
-	reservation_date DATE NOT NULL,
-	reservation_time VARCHAR2(100) NOT NULL,
-	reservation_people VARCHAR2(100) NOT NULL,
-	reservation_phone VARCHAR2(100) NOT NULL,
-	reservation_memo VARCHAR2(200)
+	reservation_num NUMBER PRIMARY KEY, -- 방문 예약 번호
+	g_id VARCHAR2(100), -- 로그인 id
+	b_id VARCHAR2(100), -- 사업자 번호
+	reservation_name VARCHAR2(100) NOT NULL, --예약자 이름
+	reservation_date DATE NOT NULL, -- 방문 날짜
+	reservation_time VARCHAR2(100) NOT NULL, -- 방문 시간
+	reservation_people VARCHAR2(100) NOT NULL, -- 방문 인원
+	reservation_phone VARCHAR2(100) NOT NULL, -- 연락처
+	reservation_memo VARCHAR2(200) -- 요청 사항
 );
 CREATE SEQUENCE reservation_seq;
 
 -- 포장 테이블
 CREATE TABLE takeout(
-	takeout_num NUMBER PRIMARY KEY,
-	b_id VARCHAR2(100),
-	G_ID VARCHAR2(100),
-	takeout_name VARCHAR2(100) NOT NULL,
-	takeout_date DATE,
-	takeout_time VARCHAR2(100) NOT NULL,
-	takeout_phone VARCHAR2(100) NOT NULL,
-	takeout_memo VARCHAR2(200), 
-	takeout_menu VARCHAR2(100),
-	takeout_count NUMBER,
-	takeout_price NUMBER
+	takeout_num NUMBER PRIMARY KEY, -- 포장 번호
+	b_id VARCHAR2(100), -- 로그인 아이디
+	G_ID VARCHAR2(100), -- 사업자 번호
+	takeout_name VARCHAR2(100) NOT NULL, -- 예약자 이름
+	takeout_date DATE, -- 예약 날짜( 당일날짜)
+	takeout_time VARCHAR2(100) NOT NULL, --픽업시간
+	takeout_phone VARCHAR2(100) NOT NULL, -- 연락처
+	takeout_memo VARCHAR2(200), --요청사항
+	takeout_menu VARCHAR2(100), -- 메뉴
+	takeout_count NUMBER, -- 수량
+	takeout_price NUMBER -- 가격
 );
 CREATE SEQUENCE takeout_seq;
 
