@@ -16,7 +16,8 @@ CREATE TABLE review(
 	review_image VARCHAR2(100) NOT NULL, --리뷰 이미지경로
 	review_content CLOB NOT NULL, -- 리뷰 내용
 	regdate DATE, -- 작성 날짜
-	keyword_review VARCHAR2(100) -- 키워드 리뷰
+	keyword_review VARCHAR2(100), -- 키워드 리뷰
+	review_kind VARCHAR2(10) -- 포장 OR 예약
 );
 -- 리뷰 번호 얻어낼 시퀀스
 CREATE SEQUENCE review_seq; 

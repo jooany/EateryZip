@@ -4,9 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
  <configuration>
  	<typeAliases>
+ 		<typeAlias type="com.sixnicorn.eateryzip.eatery.dto.MenuDto" alias="menuDto" />
  	</typeAliases>
  
  	<mappers>
+ 		<mapper resource="com/sixnicorn/eateryzip/mybatis/MenuMapper.xml"></mapper>
  	</mappers>
  	
  </configuration>
