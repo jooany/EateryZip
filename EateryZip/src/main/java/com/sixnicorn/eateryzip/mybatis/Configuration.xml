@@ -3,10 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
  <configuration>
- 	<typeAliases>
- 	</typeAliases>
+	<typeAliases>
+		<typeAlias type="com.sixnicorn.eateryzip.user.dto.b_StoreDto" alias="b_StoreDto"/>
+	</typeAliases>
  
  	<mappers>
+ 		<mapper resource="com/sixnicorn/eateryzip/mybatis/b_StoreMapper.xml" />
  	</mappers>
  	
  </configuration>

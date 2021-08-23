@@ -11,12 +11,8 @@
 </head>
 <body>
 <h1>메인페이지 입니다.</h1>
+	
+	<a href="${pageContext.request.contextPath}/store/store_insertform.do">가게등록</a>
+	<a href="${pageContext.request.contextPath}/store/store_insert.do">가게정보</a>
 </body>
 </html>
-
-
-
-
-
-
-
