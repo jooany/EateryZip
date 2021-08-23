@@ -19,15 +19,15 @@
 	        		</li>
       			</ul>
       			<c:choose>
-      				<c:when test="${empty id }">
-      					<a class="btn btn-outline-primary btn-sm me-2" href="${pageContext.request.contextPath}/users/signup_form.jsp">회원가입</a>
-      				<a class="btn btn-outline-success btn-sm me-2" href="${pageContext.request.contextPath}/users/loginform.jsp">로그인</a>	
+      				<c:when test="${empty b_id }">
+      					<a class="btn btn-outline-primary btn-sm me-2" href="${pageContext.request.contextPath}/users/b_signup_form.do">회원가입</a>
+      				<a class="btn btn-outline-success btn-sm me-2" href="${pageContext.request.contextPath}/users/g_login_form.do">로그인</a>	
       				</c:when>
       				<c:otherwise>
       					<span class="navbar-text me-2">
-      					<a href="${pageContext.request.contextPath}/users/private/info.jsp">${id }</a> 로그인중...
+      					<a href="${pageContext.request.contextPath}/users/private/info.jsp">${b_id }</a> 로그인중...
       				</span>
-      				<a class="btn btn-outline-danger btn-sm me-2" href="${pageContext.request.contextPath}/users/logout.jsp">로그아웃</a>
+      				<a class="btn btn-outline-danger btn-sm me-2" href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
       				</c:otherwise>
       			</c:choose>
     		</div>

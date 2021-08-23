@@ -10,9 +10,14 @@
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
 </head>
 <body>
+
 <h1>메인페이지 입니다.</h1>
 	
 	<a href="${pageContext.request.contextPath}/store/store_insertform.do">가게등록</a>
 	<a href="${pageContext.request.contextPath}/store/store_insert.do">가게정보</a>
+  <a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
+  <a href="${pageContext.request.contextPath}/eatery/menu_insertform.do">menu_insertform</a>
+
+
 </body>
 </html>
