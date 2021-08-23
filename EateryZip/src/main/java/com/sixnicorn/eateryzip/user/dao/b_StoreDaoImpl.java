@@ -13,6 +13,12 @@ public class b_StoreDaoImpl implements b_StoreDao {
 	// 핵심의존 객체
 	@Autowired
 	private SqlSession session;
+
+	@Override
+	public void insert(b_StoreDto dto) {
+		session.insert("store.insert", dto);
+		
+	}
 	
 	
 

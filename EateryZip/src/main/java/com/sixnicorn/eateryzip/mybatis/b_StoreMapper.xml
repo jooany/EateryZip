@@ -3,8 +3,8 @@
 <mapper namespace="b_store">
 	<insert id="insert" parameterType="b_StoreDto">
 		INSERT INTO board_cafe
-		(b_id,b_name,b_Store_Address,b_kind,intro,b_img_f,b_Store_phone,b_Store_date,b_open,b_close,b_holiday,notice,service,ex_keyword)
-		VALUES(#{b_id},#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_img_f},#{b_Store_phone},
+		(b_name,b_Store_Address,b_kind,intro,b_img_f,b_Store_phone,b_Store_date,b_open,b_close,b_holiday,notice,service,ex_keyword)
+		VALUES(#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_img_f},#{b_Store_phone},
 			#{b_Store_date},#{b_open},#{b_close},#{b_holiday},#{notice},#{service},#{ex_keyword})
 	</insert>
 

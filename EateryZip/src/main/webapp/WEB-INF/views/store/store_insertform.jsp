@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 </head>
 <body>
 	<div id="container">
-		<form class="content row g-3" id="insertForm" action="store_insert.jsp" enctype="multipart/form-data" method="post">
+		<form class="content row g-3" id="insertForm" action="${pageContext.request.contextPath}/store/store_insert.do" enctype="multipart/form-data" method="post">
 			<legend>가게등록</legend>
 			<!-- 사업자 번호 입력란 수정 x -->
 			<div class="wrap mb-3">
@@ -199,10 +200,9 @@
 			</div>
 		</form>
 	</div>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js.gura_util.js"></script>
 <script>
-//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
 	document.querySelector("#insertForm").addEventListener("submit", function(e){
 		// 입력한 내용을 여기서 검증하고 
 		const b_name=document.querySelector("#b_name").value;
@@ -227,61 +227,6 @@
 			e.preventDefault();
 		}
 	});
-
-	// 저장버튼을 누르면
-	function submit(){
-		// name="b_id"인 input 값
-		var b_id= $('input[name=b_id]').val();
-		// name="b_name"인 input 값
-		var b_name= $('input[name=b_name]').val();
-		// name="b_Store_Address"인 input 값
-		var b_Store_Address= $('input[name=b_Store_Address]').val();
-		// name="b_kind"인 select 값
-		var b_kind= $('select[name=b_kind]').val();
-		// name="intro"인 input 값
-		var intro= $('input[name=intro]').val();
-		// name="b_img_f"인 input 값
-		var b_img_f= $('input[name=b_img_f]').val();
-		// name="b_Store_phone"인 input 값
-		var b_Store_phone= $('input[name=b_Store_phone]').val();
-		// name="b_Store_date"인 select 값
-		var b_Store_date= $('select[name=b_Store_date]').val();
-		// name="b_open"인 select 값
-		var b_open= $('select[name=b_open]').val();
-		// name="b_close"인 select 값
-		var b_close= $('select[name=b_close]').val();
-		// name="b_holiday"인 select 값
-		var b_holiday= $('select[name=b_holiday]').val();
-		// name="notice"인 input 값
-		var notice= $('input[name=notice]').val();
-		// name="service"인 checked 값(array나열)
-		var service = $("[name=service]");
-		var serviceArray = new Array(); // 배열 선언
-		$('input:checkbox[name=service]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
-			serviceArray.push(this.value);
-		});		
-		// name="ex_keyword"인 checked 값(array나열)
-		var obj = $("[name=ex_keyword]");
-		var keywordArray = new Array(); // 배열 선언
-		$('input:checkbox[name=ex_keyword]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
-			keywordArray.push(this.value);
-		});
-		
-		console.log(b_id);
-		console.log(b_name);
-		console.log(b_Store_Address);
-		console.log(b_kind);
-		console.log(intro);
-		console.log(b_img_f);
-		console.log(b_Store_phone);
-		console.log(b_Store_date);
-		console.log(b_open);
-		console.log(b_close);
-		console.log(b_holiday);
-		console.log(notice);
-		console.log(serviceArray);
-		console.log(keywordArray);
-	}
 </script>
 </body>
 </html>
