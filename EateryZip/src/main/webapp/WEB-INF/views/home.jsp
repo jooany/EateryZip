@@ -11,26 +11,13 @@
 </head>
 <body>
 
-<div class="container">
+<h1>메인페이지 입니다.</h1>
+	
+	<a href="${pageContext.request.contextPath}/store/store_insertform.do">가게등록</a>
+	<a href="${pageContext.request.contextPath}/store/store_insert.do">가게정보</a>
+  <a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
+  <a href="${pageContext.request.contextPath}/eatery/menu_insertform.do">menu_insertform</a>
 
-   <h1>인덱스 페이지 입니다.</h1>
-   
-   <h2>공지사항</h2>
-   <ul>
-      <c:forEach var="tmp" items="${notice }">
-         <li>${tmp }</li>
-      </c:forEach>
-   </ul>
-   <a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
-   <a href="${pageContext.request.contextPath}/eatery/menu_insertform.do">menu_insertform</a>
-</div>
 
 </body>
 </html>
-
-
-
-
-
-
-
