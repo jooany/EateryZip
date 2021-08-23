@@ -5,10 +5,14 @@
  <configuration>
  	<typeAliases>
  		<typeAlias type="com.sixnicorn.eateryzip.eatery.dto.MenuDto" alias="menuDto" />
+ 		<typeAlias type="com.sixnicorn.eateryzip.user.dto.b_UserDto" alias="b_userDto"/>
+ 		<typeAlias type="com.sixnicorn.eateryzip.user.dto.g_UserDto" alias="g_userDto"/>
  	</typeAliases>
  
  	<mappers>
- 		<mapper resource="com/sixnicorn/eateryzip/mybatis/MenuMapper.xml"></mapper>
+    <mapper resource="com/sixnicorn/eateryzip/mybatis/MenuMapper.xml" />
+ 		<mapper resource="com/sixnicorn/eateryzip/mybatis/b_UserMapper.xml"/>
+ 		<mapper resource="com/sixnicorn/eateryzip/mybatis/g_UserMapper.xml"/>
  	</mappers>
  	
  </configuration>
