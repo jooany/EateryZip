@@ -1,18 +1,25 @@
 package com.sixnicorn.eateryzip.eatery.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.sixnicorn.eateryzip.eatery.dao.MenuDao;
+import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
 
 
 @Service
 public class MenuServiceImpl implements MenuService{
-	
+	@Autowired
+	private MenuDao menuDao;
 
 	
 	@Override
@@ -46,6 +53,37 @@ public class MenuServiceImpl implements MenuService{
 		map.put("imagePath", "/upload/"+saveFileName);
 		
 		return map;
+	}
+	
+	//메뉴 추가 
+	@Override
+	public List<MenuDto> saveMenu(HttpServletRequest request) {
+		
+		// 정규식으로 각 섹션 번호_메뉴 번호에 해당하는 input name을 통해 요청파라미터에서 카테고리번호,메뉴번호,카테고리명,메뉴명,이미지경로,가격 정보를 가져옴.
+		// 전체 메뉴 개수 만큼 DTO를 생성해서 각각 값들을 넣어주고,
+		// menuDao.insert(dto) 시켜줌.
+		
+		// [ updateform에 전달하는 방법 ]
+		// DTO 리스트에 해당 DTO들 전부 넣어줌.
+		// DTO 리스트를 return함.
+		
+		// updateform에 해당 DTO 리스트를 받아와서
+		// 각 value 값에 데이터를 넣어줌 
+		
+		// 섹션 끝 번호와 총 메뉴 수를 가져옴.
+		int section_num=Integer.parseInt(request.getParameter("section_num"));
+		int menu_count=Integer.parseInt(request.getParameter("menu_count"));
+		
+		// 각 섹션에 해당하는 메뉴 개수를 가져옴.
+		for(int i=1;i<section_num;i++) {
+			Integer.parseInt(request.getParameter("section_"+i));
+		}
+		
+		List<MenuDto> menuList = new ArrayList<MenuDto>();
+		
+		//menuDao.insert(dto);
+		
+		return menuList;
 	}
 	
 
