@@ -15,8 +15,11 @@
 	
 	<a href="${pageContext.request.contextPath}/store/store_insertform.do">가게등록</a>
 	<a href="${pageContext.request.contextPath}/store/store_insert.do">가게정보</a>
-  <a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
-  <a href="${pageContext.request.contextPath}/eatery/menu_insertform.do">menu_insertform</a>
+	<a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
+  
+  <h2>주연 테스트 링크</h2>
+  <a href="${pageContext.request.contextPath}/users/b_mypage/menu_insertform.do">menu_insertform</a>
+  <h2>-----------------</h2>
 
 
 </body>

@@ -19,23 +19,23 @@ public class MenuController {
 	@Autowired
 	private MenuService service;
 	
-	@RequestMapping("/eatery/menu_insertform")
+	@RequestMapping("/users/b_mypage/menu_insertform")
 	public String insertForm(HttpServletRequest request) {		
 		
-		return "eatery/menu_insertform";
+		return "users/b_mypage/menu_insertform";
 	}
 	
-	@RequestMapping("/eatery/private/menu_insert")
+	@RequestMapping("/users/b_mypage/private/menu_insert")
 	public String insert(HttpServletRequest request) {		
 		//사업자 번호 가져오기 
 		//String b_id=(String)session.getAttribute("b_id");
 		//String b_id=(String)session.setAttribute("0101234",b_id);
 		
-		return "eatery/menu_insert";
+		return "users/b_mypage/menu_insert";
 	}
 	
 	//ajax 프로필 사진 업로드 요청처리
-	@RequestMapping(value = "/eatery/ajax_menu_img_upload",
+	@RequestMapping(value = "/users/b_mypage/ajax_menu_img_upload",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> authAjaxProfileUpload(HttpServletRequest request,

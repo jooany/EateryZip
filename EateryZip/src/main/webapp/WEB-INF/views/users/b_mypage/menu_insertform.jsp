@@ -182,7 +182,7 @@ button{
 				</div>
 				<div class="wrap_menu">
 					 
-					<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/eatery/private/menu_insert.do" method="post">
+					<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/private/menu_insert.do" method="post">
 						<div class="wrap_menu_name">
 							<input type="text" class="menu_name" name="menu_name" placeholder="메뉴 1" />
 						</div>
@@ -222,7 +222,7 @@ button{
 		
 
 		
-		<form action="${pageContext.request.contextPath}/eatery/ajax_menu_img_upload.do" method="post" id="imageForm" enctype="multipart/form-data">
+		<form action="${pageContext.request.contextPath}/users/b_mypage/ajax_menu_img_upload.do" method="post" id="imageForm" enctype="multipart/form-data">
 					<input type="file" name="image" id="image" 
 						accept=".jpg, .jpeg, .png, .JPG, .JPEG, .gif"/>
 		</form>
