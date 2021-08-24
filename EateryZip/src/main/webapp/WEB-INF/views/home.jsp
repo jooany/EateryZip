@@ -11,6 +11,8 @@
 </head>
 <body>
 <h1>메인페이지 입니다.</h1>
+
+<a href="${pageContext.request.contextPath}/eatery/reservation_form.do">예약 폼</a>
 </body>
 </html>
 
