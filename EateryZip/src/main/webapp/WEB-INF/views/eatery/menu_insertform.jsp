@@ -181,7 +181,7 @@ button{
 					</button>
 				</div>
 				<div class="wrap_menu">
-					<!--  
+					 
 					<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/eatery/private/menu_insert.do" method="post">
 						<div class="wrap_menu_name">
 							<input type="text" class="menu_name" name="menu_name" placeholder="메뉴 1" />
@@ -200,7 +200,7 @@ button{
 						<button id="insertMenuBtn">등록</button>
 						<button id="deleteMenuBtn">삭제</button>
 					</form>
-					-->			
+							
 				</div>
 				
 				<a id="addMenuFormBtn" href="#">
