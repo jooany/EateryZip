@@ -13,40 +13,40 @@
    <h4>유효성 검사가 완전하지 않으니 우선 다 입력 부탁드려요</h4>
    <h1>회원 가입 폼 입니다.</h1>
    <!-- 절대 경로로 쓰면 확인하기가 쉽다. -->
-   <form action="b_signup.do" method="post" id="myForm">
-   	  <input type="hidden" name="grade" value="business" />
+   <form action="g_signup.do" method="post" id="myForm">
+   	  <input type="hidden" name="grade" value="general" />
       <div>
-         <label class="control-label" for="b_id">사업자번호</label>
-         <input class="form-control" type="text" name="b_id" id="b_id"/>
+         <label class="control-label" for="g_id">아이디</label>
+         <input class="form-control" type="text" name="g_id" id="g_id"/>
          <small class="form-text text-muted">영문자 소문자로 시작하고 5글자~10글자 이내로 입력하세요.</small> <!-- 조금은 흐린 글씨로 나옴 -->
          <div class="invalid-feedback">사용 할 수 없는 아이디 입니다.</div>
       </div>
       <div>
-         <label class="control-label" for="b_pwd">비밀번호</label>
-         <input class="form-control" type="password" name="b_pwd" id="b_pwd"/>
+         <label class="control-label" for="g_pwd">비밀번호</label>
+         <input class="form-control" type="password" name="g_pwd" id="g_pwd"/>
          <small class="form-text text-muted" >5글자~10글자 이내로 입력하세요.</small>
          <div class="invalid-feedback">비밀번호를 확인 하세요.</div>
       </div>
       <div>
-         <label class="control-label" for="b_pwd2">비밀번호 확인</label>
-         <input class="form-control" type="password" name="b_pwd2" id="b_pwd2"/>
+         <label class="control-label" for="g_pwd2">비밀번호 확인</label>
+         <input class="form-control" type="password" name="g_pwd2" id="g_pwd2"/>
       </div>
       <div>
-         <label class="control-label" for="b_name">이름</label>
-         <input class="form-control" type="text" name="b_name" id="b_name"/>
+         <label class="control-label" for="g_name">이름</label>
+         <input class="form-control" type="text" name="g_name" id="g_name"/>
       </div>
       <div>
-         <label class="control-label" for="b_address">주소</label>
-         <input class="form-control" type="text" name="b_address" id="b_address"/>
+         <label class="control-label" for="g_address">주소</label>
+         <input class="form-control" type="text" name="g_address" id="g_address"/>
       </div>
       <div>
-         <label class="control-label" for="b_email">이메일</label>
-         <input class="form-control" type="text" name="b_email" id="b_email"/>
+         <label class="control-label" for="g_email">이메일</label>
+         <input class="form-control" type="text" name="g_email" id="g_email"/>
          <div class="invalid-feedback">이메일 형식을 확인 하세요.</div>
       </div> 
       <div>
-         <label class="control-label" for="b_phone">연락처</label>
-         <input class="form-control" type="text" name="b_phone" id="b_phone"/>
+         <label class="control-label" for="g_phone">연락처</label>
+         <input class="form-control" type="text" name="g_phone" id="g_phone"/>
       </div>
       <button type="submit" class="btn btn-primary">가입</button>
    </form>

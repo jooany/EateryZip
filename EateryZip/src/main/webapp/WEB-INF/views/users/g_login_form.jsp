@@ -10,7 +10,7 @@
 <body>
 <div class="container">
    <h1>로그인 폼 입니다.</h1>
-   <form action="${pageContext.request.contextPath}/users/login.do" method="post">
+   <form action="${pageContext.request.contextPath}/users/g_login.do" method="post">
       <c:choose>
          <c:when test="${ empty param.url }">
             <input type="hidden" name="url" value="${pageContext.request.contextPath}/"/>
@@ -20,12 +20,12 @@
          </c:otherwise>
       </c:choose>
       <div>
-         <label for="id">아이디</label>
-         <input type="text" name="id" id="id"/>
+         <label for="g_id">아이디</label>
+         <input type="text" name="g_id" id="g_id"/>
       </div>
       <div>
-         <label for="pwd">비밀번호</label>
-         <input type="password" name="pwd" id="pwd"/>
+         <label for="g_pwd">비밀번호</label>
+         <input type="password" name="g_pwd" id="g_pwd"/>
       </div>
       <button type="submit">로그인</button>
       <a href="${pageContext.request.contextPath}/users/b_login_form.do">비즈니스회원 로그인으로 이동</a>	

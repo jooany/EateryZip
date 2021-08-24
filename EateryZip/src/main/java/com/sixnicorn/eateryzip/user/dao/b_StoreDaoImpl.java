@@ -16,7 +16,7 @@ public class b_StoreDaoImpl implements b_StoreDao {
 
 	@Override
 	public void insert(b_StoreDto dto) {
-		session.insert("store.insert", dto);
+		session.insert("b_store.insert", dto);
 		
 	}
 	
