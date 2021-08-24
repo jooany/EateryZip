@@ -1,5 +1,7 @@
 package com.sixnicorn.eateryzip.user.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class b_StoreDto {
 
 	// 필드
@@ -8,6 +10,7 @@ public class b_StoreDto {
 	private String b_Store_Address;
 	private String b_kind;
 	private String intro;
+	// 파일 시스템에 저장된 파일명
 	private String b_img_f;
 	private String b_Store_phone;
 	private String b_Store_date;
@@ -17,13 +20,15 @@ public class b_StoreDto {
 	private String notice;
 	private String service;
 	private String ex_keyword;
+	// 파일 업로드 처리를 하기위한 필드
+	private MultipartFile storeFile;
 	
 	// 디폴트 생성자
 	public b_StoreDto() {}
 
 	public b_StoreDto(String b_id, String b_name, String b_Store_Address, String b_kind, String intro, String b_img_f,
 			String b_Store_phone, String b_Store_date, String b_open, String b_close, String b_holiday, String notice,
-			String service, String ex_keyword) {
+			String service, String ex_keyword, MultipartFile storeFile) {
 		super();
 		this.b_id = b_id;
 		this.b_name = b_name;
@@ -39,6 +44,7 @@ public class b_StoreDto {
 		this.notice = notice;
 		this.service = service;
 		this.ex_keyword = ex_keyword;
+		this.storeFile = storeFile;
 	}
 
 	public String getB_id() {
@@ -151,6 +157,14 @@ public class b_StoreDto {
 
 	public void setEx_keyword(String ex_keyword) {
 		this.ex_keyword = ex_keyword;
+	}
+
+	public MultipartFile getStoreFile() {
+		return storeFile;
+	}
+
+	public void setStoreFile(MultipartFile storeFile) {
+		this.storeFile = storeFile;
 	}
 	
 }

@@ -1,5 +1,3 @@
-<%@page import="com.sixnicorn.eateryzip.user.dto.b_StoreDto"%>
-<%@page import="com.sixnicorn.eateryzip.user.dao.b_StoreDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -7,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/views/store/store_insertform.jsp</title>
+<title>/views/store/store_updateform.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style type="text/css">
 	#container{
@@ -18,20 +16,22 @@
 </head>
 <body>
 	<div id="container">
-		<form class="content row g-3" name="insertForm" id="insertForm" action="${pageContext.request.contextPath}/store/store_insert.do" enctype="multipart/form-data" method="post">
+		<form class="content row g-3" id="insertForm" action="${pageContext.request.contextPath}/store/store_info.do" enctype="multipart/form-data" method="post">
 			<legend>가게등록</legend>
 			<!-- 사업자 번호 입력란 수정 x -->
-			<input type="hidden" name="b_id" id="b_id" class="form-control" value="b_id">
-
+			<div class="wrap mb-3">
+				<label for="b_id" class="form-label">사업자 번호</label>
+				<input type="hidden" name="b_id" id="b_id" class="form-control" value="${b_id }" disabled>
+			</div>
 			<!-- 상호명 입력란 -->
 			<div class="box mb-3">
 				<label for="b_name" class="form-label">상호명</label>
-				<input class="form-control" type="text" name="b_name" id="b_name" placeholder="상호명을 입력하세요." required>
+				<input class="form-control" type="text" name="b_name" id="b_name" value="${b_name }" placeholder="상호명을 입력하세요." required>
 			</div>
 			<!-- 주소 입력 (민재님 주소 api설정되시면 복사해서 옮겨놓기) -->
 			<div class="box mb-3">
 				<label for="b_Store_Address" class="form-label">주소</label>
-				<input class="form-control" type="text" name="b_Store_Address" id="b_Store_Address" placeholder="주소를 입력하세요." required>
+				<input class="form-control" type="text" name="b_Store_Address" id="b_Store_Address" value="${b_Store_Address }" placeholder="주소를 입력하세요." required>
 			</div>
 			<!-- 업종 선택 -->
 			<div class="box mb-3">
@@ -60,7 +60,16 @@
 				<!-- <img class="mb-3" id="b_img_f" src="https://dummyimage.com/100x100/fff/000.jpg&text=+Attachments"/> -->
 				<input class="form-control form-control-sm" style="display: block;" type="file" name="b_img_f" id="b_img_f" type="file" accept=".jpg, .jpeg, .png, .JPG, .JPEG" required>
 			</div>
-
+			<a id="B_img_f_link" href="javascript:">
+				<c:choose>
+					<c:when test="${empty dto.b_img_f }">
+						<i class="far fa-image"></i>
+					</c:when>
+					<c:otherwise>
+						<img id="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f }" />
+					</c:otherwise>
+				</c:choose>
+			</a>
 			<!--가게 연락처 숫자만 추출하려면 정규표현식 사용 /\d/ /[0-9]/-->
 			<div class="mb-3">
 				<label for="b_Store_phone" class="form-label">연락처</label>
@@ -157,6 +166,7 @@
 					</div>
 				</div>
 			</fieldset>
+			
 			<!-- 편의사항 키워드 1개이상 10개이하 data에 넣기 선택안되어있다면 required -->
 			<fieldset>
 				<legend>편의사항 / 기타</legend>
@@ -198,100 +208,32 @@
 			</div>
 		</form>
 	</div>
-<!-- 
-<script src="${pageContext.request.contextPath}/resources/js.gura_util.js"></script>
- -->
-<!--
+<script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script>
--->	
-<!--	
-	//폼에 submit 이벤트가 발생했을때 실행할 함수 등록
-	document.querySelector("#saveBtn").addEventListener("submit", function(e){
-		const info = document.insertForm.b_name.value;
-		if(info==""){
-			document.insertForm.b_name.focuse();
-			return
-		}
+	//프로필 이미지 링크를 클릭하면 
+	document.querySelector("#B_img_f_link").addEventListener("click", function(){
+		// input type="file" 을 강제 클릭 시킨다. 
+		document.querySelector("#image").click();
 	});
--->	
-<!--	
-	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
-	document.querySelector("#insertForm").addEventListener("submit", function(e){
-	    // 사용하기 쉽도록 변수를 선언하여 담아주고,
-	    //const b_id = document.querySelector("b_id").value;
-	    const b_name = document.querySelector("b_name").value;
-	    const b_Store_Address = document.querySelector("b_Store_Address").value;
-	    const b_kind = document.querySelector("b_kind").value;
-	    const intro = document.querySelector("intro").value;
-	    const b_img_f = document.querySelector("b_img_f").value;
-	    const b_Store_phone = document.querySelector("b_Store_phone").value;
-	    const b_Store_date = document.querySelector("b_Store_date").value;
-	    const b_open = document.querySelector("b_open").value;
-	    const b_close = document.querySelector("b_close").value;
-	    const b_holiday = document.querySelector("b_holiday").value;
-	    const notice = document.querySelector("notice").value;
-	    //const service = document.querySelector("service").value;
-	    const service = new Array();
-	    service = service.join("/");
-	    //const ex_keyword = document.querySelector("ex_keyword").value;
-	    const ex_keyword = new Array();
-	    ex_keyword = ex_keyword.join("/");
-
-		if(b_name == null || b_name == ""){
-			document.querySelector("b_name").focus();
-			e.preventDefault();
-		}
-		if(b_Store_Address == null || b_Store_Address == ""){
-			document.querySelector("b_Store_Address").focus();
-			e.preventDefault();
-		}
-		if(b_kind == null || b_kind == ""){
-			document.querySelector("b_kind").focus();
-			e.preventDefault();
-		}
-		if(b_img_f == null || b_img_f == ""){
-			document.querySelector("b_img_f").focus();
-			e.preventDefault();
-		}
-		if(b_Store_phone == null || b_Store_phone == ""){
-			document.querySelector("b_Store_phone").focus();
-			e.preventDefault();
-		}
-		if(b_Store_date == null || b_Store_date == ""){
-			document.querySelector("b_Store_date").focus();
-			e.preventDefault();
-		}
-		if(b_open == null || b_open == ""){
-			document.querySelector("b_open").focus();
-			e.preventDefault();
-		}
-		if(b_close == null || b_close == ""){
-			document.querySelector("b_close").focus();
-			e.preventDefault();
-		}
-		if(notice == null || notice == ""){
-			document.querySelector("notice").focus();
-			e.preventDefault();
-		}
-//		if(service == null || service == ""){
-//			document.querySelector("service").focus();		
-//			e.preventDefault();
-//		}
-//		if(ex_keyword == null || ex_keyword == ""){
-//			document.querySelector("ex_keyword").focus();
-//			e.preventDefault();
-//		}
-
--->		
-<!--    
-	    $("input:checkbox[name=checkParam]:checked").each(function(){
-	    	arrayParam.push($(this).val());
-
-	    });
-   
--->
-<!-- 
+	//이미지를 선택했을때 실행할 함수 등록 
+	document.querySelector("#image").addEventListener("change", function(){
+		
+		let form=document.querySelector("#imageForm");
+		
+		// gura_util.js 에 정의된 함수를 호출하면서 ajax 전송할 폼의 참조값을 전달하면 된다. 
+		ajaxFormPromise(form)
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(data){
+			// data 는 {imagePath:"/upload/xxx.jpg"} 형식의 object 이다.
+			console.log(data);
+			let img=`<img id="profileImage" src="${pageContext.request.contextPath}\${data.imagePath}"/>`;
+			document.querySelector("#profileLink").innerHTML=img;
+			// input name="profile" 요소의 value 값으로 이미지 경로 넣어주기
+			document.querySelector("input[name=profile]").value=data.imagePath;
+		});
+	});
 </script>
--->	
 </body>
 </html>

@@ -2,10 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="b_store">
 	<insert id="insert" parameterType="b_StoreDto">
-		INSERT INTO board_cafe
-		(b_name,b_Store_Address,b_kind,intro,b_img_f,b_Store_phone,b_Store_date,b_open,b_close,b_holiday,notice,service,ex_keyword)
-		VALUES(#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_img_f},#{b_Store_phone},
+		INSERT B_Store
+		(b_id,b_name,b_Store_Address,b_kind,intro,b_img_f,b_Store_phone,b_Store_date,b_open,b_close,b_holiday,notice,service,ex_keyword)
+		VALUES(#{b_id}#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_img_f},#{b_Store_phone},
 			#{b_Store_date},#{b_open},#{b_close},#{b_holiday},#{notice},#{service},#{ex_keyword})
 	</insert>
+	<select id="getData" parameterType="String" resultType="b_StoreDto">
+		SELECT result1.*
+		FROM
+			(SELECT b_id,b_name,b_Store_Address,b_kind,intro,b_img_f,b_Store_phone,b_Store_date,b_open,b_close,b_holiday,notice,service,ex_keyword,
+			FROM b_Store) result1
+		WHERE b_id=#{b_id }
+	</select>
+	
+	<update id="update" parameterType="b_StoreDto">
+		UPDATE b_Store
+		SET b_name=#{b_name},b_Store_Address=#{b_Store_Address},b_kind=#{b_kind},intro=#{intro},b_img_f=#{b_img_f},b_Store_phone=#{b_Store_phone},b_Store_date=#{b_Store_date},
+		b_open=#{b_open},b_close=#{b_close},b_holiday=#{b_holiday},notice=#{notice},service=#{service},ex_keyword=#{ex_keyword}
+		WHERE b_id=#{b_id }
+	</update>
+	
 
 </mapper>

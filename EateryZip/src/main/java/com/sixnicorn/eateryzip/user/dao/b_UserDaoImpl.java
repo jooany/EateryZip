@@ -24,5 +24,18 @@ public class b_UserDaoImpl implements b_UserDao {
 	public void insert(b_UserDto b_dto) {
 		session.insert("b_user.b_insert", b_dto);
 	}
+
+	
+	
+	
+	
+	
+	
+	// 비즈니스회원정보 수정하기
+	@Override
+	public void update(b_UserDto b_dto) {
+		
+		session.update("b_users.update", b_dto);
+	}
 		
 }
