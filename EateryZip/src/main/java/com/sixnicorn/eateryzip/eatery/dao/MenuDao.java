@@ -1,5 +1,7 @@
 package com.sixnicorn.eateryzip.eatery.dao;
 
-public interface MenuDao {
+import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
 
+public interface MenuDao {
+	public void insert(MenuDto dto);
 }
