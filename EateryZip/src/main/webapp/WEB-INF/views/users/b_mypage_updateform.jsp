@@ -84,8 +84,8 @@
 			console.log(data);
 			let img=`<img id="b_profileImage" src="${pageContext.request.contextPath}\${data.b_imagePath}"/>`;
 			document.querySelector("#profileLink").innerHTML=img;
-			// input name="profile" 요소의 value 값으로 이미지 경로 넣어주기
-			document.querySelector("input[name=b_profile]").value=data.imagePath;
+			// input name="b_profile" 요소의 value 값으로 이미지 경로 넣어주기
+			document.querySelector("input[name=b_profile]").value=data.b_imagePath;
 		});
 	});
 </script>
