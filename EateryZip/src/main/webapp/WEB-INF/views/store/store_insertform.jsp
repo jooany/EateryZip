@@ -19,6 +19,7 @@
 		<form class="content row g-3" id="insertForm" action="${pageContext.request.contextPath}/store/store_insert.do" enctype="multipart/form-data" method="post">
 			<legend>가게등록</legend>
 			<!-- 사업자 번호 입력란 수정 x -->
+			<input type="hidden" name="b_id" value="1111111111" />
 			<div class="wrap mb-3">
 				<label for="b_id" class="form-label">사업자 번호</label>
 				<input type="text" name="b_id" id="b_id" class="form-control" value="1111111112" disabled>

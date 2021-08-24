@@ -7,15 +7,15 @@
 	<typeAliases>
     <typeAlias type="com.sixnicorn.eateryzip.user.dto.b_StoreDto" alias="b_StoreDto"/>
     <typeAlias type="com.sixnicorn.eateryzip.eatery.dto.MenuDto" alias="menuDto" />
- 		<typeAlias type="com.sixnicorn.eateryzip.user.dto.b_UserDto" alias="b_userDto"/>
- 		<typeAlias type="com.sixnicorn.eateryzip.user.dto.g_UserDto" alias="g_userDto"/>
+ 		<typeAlias type="com.sixnicorn.eateryzip.user.dto.BUserDto" alias="BuserDto"/>
+ 		<typeAlias type="com.sixnicorn.eateryzip.user.dto.GUserDto" alias="GuserDto"/>
 	</typeAliases>
  
  	<mappers>
  		<mapper resource="com/sixnicorn/eateryzip/mybatis/b_StoreMapper.xml" />
     <mapper resource="com/sixnicorn/eateryzip/mybatis/MenuMapper.xml" />
- 		<mapper resource="com/sixnicorn/eateryzip/mybatis/b_UserMapper.xml"/>
- 		<mapper resource="com/sixnicorn/eateryzip/mybatis/g_UserMapper.xml"/>
+ 		<mapper resource="com/sixnicorn/eateryzip/mybatis/BUserMapper.xml"/>
+ 		<mapper resource="com/sixnicorn/eateryzip/mybatis/GUserMapper.xml"/>
  	</mappers>
  	
  </configuration>

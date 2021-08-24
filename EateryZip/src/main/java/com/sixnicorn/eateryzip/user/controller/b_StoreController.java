@@ -30,6 +30,7 @@ import com.sixnicorn.eateryzip.user.service.b_StoreService;
 
 @Controller
 public class b_StoreController {
+	
 	@Autowired
 	private b_StoreService service;
 
@@ -122,6 +123,7 @@ public class b_StoreController {
 		
 		return "store/store_insertform";
 	}
+	
 	// 가게등록 요청처리(post방식요청은 요청 method를 명시하는 것이 좋다.)
 	@RequestMapping(value="/store/store_insert", method=RequestMethod.POST)
 	public ModelAndView insert(HttpSession session ,ModelAndView mView, b_StoreDto dto) {
