@@ -11,8 +11,10 @@ import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
 
 public interface MenuService {
 	
+	public void getList(HttpServletRequest request);
 	public Map<String, Object> saveMenuImage(HttpServletRequest request, 
 			MultipartFile mFile);
 	public List<MenuDto> saveMenu(HttpServletRequest request);
+	public void deleteMenu(int num);
 
 }
