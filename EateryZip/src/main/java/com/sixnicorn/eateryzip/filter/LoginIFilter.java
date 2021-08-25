@@ -14,25 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/*
- * 
- * 1.인코딩전
- * /users/loginform.jsp?url=/test/xxx.jsp?a=xxx(request.getPara,eter("url"))
- * 
- * 2.인코딩후
- *  /=> %2F
- *  > => %3f
- *  = => %3D
- *  
- *  /users/loginform.jsp?url=%2Ftest%2Fxxx.jsp%3Fa%D1xxx%b%3Dxxx
- * */
-
-/*
- * 	@WebFilter(urlPatterns={"필터링할경로1","필터링할경로2",...) 
- */
-//어노테이션
+//로그인 필터는 회원의 경우에만 적용
 //@WebFilter(urlPatterns = {"/gallery/private/*","/users/private/*"}) 
-public class loginIFilter implements Filter {
+public class LoginIFilter implements Filter {
 
 	@Override
 	public void destroy() {
@@ -42,11 +26,12 @@ public class loginIFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-			//1. 로그인을 했는지 로그인 된 아이디를 읽어와본다. (HttpSession 객체)
+			//1. 로그인을 했는지 로그인 된 일반회원 아이디를 읽어와본다. 
 		     HttpServletRequest req=(HttpServletRequest)request;
 		     HttpSession session=req.getSession();
-		     String id = (String)session.getAttribute("id");
-		    if(id != null) {
+		    
+		    String g_id = (String)session.getAttribute("g_id");
+		    if(g_id != null) {
 				//2. 만일 로그인 을 했다면 관여 하지 않고 요청의 흐름을 이어간다. ( FilterChain 객체)
 			    chain.doFilter(request, response);
 		    }else {
@@ -72,10 +57,13 @@ public class loginIFilter implements Filter {
 			    //3. 로그인을 하지 않았다면 /users/loginform.do 페이지로 리다일렉트 이동시킨다. (HttpServletResponse 객체)
 			    HttpServletResponse resp =(HttpServletResponse)response;
 				String cPath = req.getContextPath();
-				resp.sendRedirect(cPath+"/users/login_form.do?url="+encodedUrl); 
-		    }   //get 방식 파라미터도 들고가는것
+				resp.sendRedirect(cPath+"/users/g_login_form.do?url="+encodedUrl); 
+		    }
+		    
+		    
 	}
 
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 			

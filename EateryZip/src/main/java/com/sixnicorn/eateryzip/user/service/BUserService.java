@@ -8,20 +8,21 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sixnicorn.eateryzip.user.dto.b_UserDto;
+import com.sixnicorn.eateryzip.user.dto.BUserDto;
 
-public interface b_UserService {
+public interface BUserService {
 	//비즈니스 회원 로그인 
-	public void loginProcess(b_UserDto b_dto, HttpSession session);
+	public void loginProcess(BUserDto dto, HttpSession session);
 	//비즈니스 회원 추가
-	public void addUser(b_UserDto dto);
+	public void addUser(BUserDto dto);
+	
 	
 	
 	
 	// 비즈니스 회원 정보
 	public void getMypage(HttpSession session, ModelAndView mView);
 	// 비즈니스회원 정보수정
-	public void updateUsers(b_UserDto b_dto, HttpSession session);
+	public void updateUsers(BUserDto b_dto, HttpSession session);
 	// 비즈니스회원 프로필이미지
 	public Map<String, Object> saveB_profile(HttpServletRequest request, MultipartFile b_image);
 }

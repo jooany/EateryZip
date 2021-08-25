@@ -18,16 +18,16 @@
 	          			<a class="nav-link" href="#">우와우와우왕</a>
 	        		</li>
       			</ul>
-      			<c:choose>
-      				<c:when test="${empty b_id }">
-      					<a class="btn btn-outline-primary btn-sm me-2" href="${pageContext.request.contextPath}/users/b_signup_form.do">회원가입</a>
-      				<a class="btn btn-outline-success btn-sm me-2" href="${pageContext.request.contextPath}/users/g_login_form.do">로그인</a>	
+				<c:choose>
+      				<c:when test="${empty g_id}">
+      				    <a class="btn btn-outline-success btn-sm me-2" href="${pageContext.request.contextPath}/users/g_login_form.do">로그인</a>	
+      					<a class="btn btn-outline-primary btn-sm me-2" href="${pageContext.request.contextPath}/users/select_signup_form.do">회원가입</a>
       				</c:when>
       				<c:otherwise>
       					<span class="navbar-text me-2">
-      					<a href="${pageContext.request.contextPath}/users/b_mypage.do">${b_id }</a> 로그인중...
-      				</span>
-      				<a class="btn btn-outline-danger btn-sm me-2" href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
+      						<a href="${pageContext.request.contextPath}/users/private/info.jsp">${g_id }</a> 로그인중...
+      					</span>
+      					<a class="btn btn-outline-danger btn-sm me-2" href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
       				</c:otherwise>
       			</c:choose>
     		</div>

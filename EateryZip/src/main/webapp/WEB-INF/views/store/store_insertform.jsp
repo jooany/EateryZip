@@ -22,7 +22,10 @@
 			<legend>가게등록</legend>
 			<!-- 사업자 번호 입력란 수정 x -->
 			<input type="hidden" name="b_id" id="b_id" class="form-control" value="b_id">
-
+			<div class="wrap mb-3">
+				<label for="b_id" class="form-label">사업자 번호</label>
+				<input type="text" name="b_id" id="b_id" class="form-control" value="1111111112" disabled>
+			</div>
 			<!-- 상호명 입력란 -->
 			<div class="box mb-3">
 				<label for="b_name" class="form-label">상호명</label>

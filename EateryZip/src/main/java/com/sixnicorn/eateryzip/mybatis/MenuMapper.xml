@@ -3,7 +3,7 @@
 <mapper namespace="Menu">
 	<insert id="insert" parameterType="menuDto">
 		INSERT INTO menu
-		(b_id,section_num,menu_num,section_name,menu_name,menu_image,menu_price)
-		VALUES(#{b_id},#{section_num},#{menu_num},#{section_name},#{menu_name},#{menu_image},#{menu_price})
+		(menu_num,b_id,section_num,menu_num_in_section,section_name,menu_name,menu_image,menu_price)
+		VALUES(menu_seq.NEXTVAL,#{b_id},#{section_num},#{menu_num_in_section},#{section_name},#{menu_name},#{menu_image},#{menu_price})
 	</insert>
 </mapper>

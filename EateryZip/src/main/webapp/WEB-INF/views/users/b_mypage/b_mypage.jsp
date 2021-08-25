@@ -57,7 +57,7 @@
 			<td>${b_dto.b_regdate }</td>
 		</tr>
 	</table>
-	<a href="${pageContext.request.contextPath}/users/b_mypage_updateform.do">개인정보 수정</a>
+	<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보 수정</a>
 </div>
 </body>
 </html>

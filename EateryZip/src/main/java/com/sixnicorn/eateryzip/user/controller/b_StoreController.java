@@ -84,7 +84,22 @@ public class b_StoreController {
       
       return mView;
    }
-   
+
+	// 전송되는 파라미터명이 dto의 필드명과 일치해야한다.
+	@RequestMapping(value="/store/store_insertform",method=RequestMethod.GET)
+	public String insertForm() {
+		
+		return "store/store_insertform";
+	}
+	
+	// 가게등록 요청처리(post방식요청은 요청 method를 명시하는 것이 좋다.)
+//	@RequestMapping(value="/store/store_insert", method=RequestMethod.POST)
+//	public ModelAndView insert(HttpSession session ,ModelAndView mView, b_StoreDto dto) {
+		
+//		service.addStore(dto);
+//		mView.setViewName("store/store_insert");
+//		return mView;
+//	}
 }
 
 

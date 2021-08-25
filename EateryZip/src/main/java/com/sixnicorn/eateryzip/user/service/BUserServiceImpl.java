@@ -14,49 +14,51 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sixnicorn.eateryzip.user.dao.b_UserDao;
-import com.sixnicorn.eateryzip.user.dto.b_UserDto;
+import com.sixnicorn.eateryzip.user.dao.BUserDao;
+import com.sixnicorn.eateryzip.user.dto.BUserDto;
 
 @Service
-public class b_UserServiceImpl implements b_UserService {
+public class BUserServiceImpl implements BUserService {
 	
 	@Autowired
-	private b_UserDao b_dao;
+	private BUserDao Bdao;
 
 	//비즈니스회원 로그인 처리 과정
 	@Override
-	public void loginProcess(b_UserDto b_dto, HttpSession session) {
+	public void loginProcess(BUserDto dto, HttpSession session) {
 		//입력한 정보가 맞는지 확인 - 기본 값 false
 		boolean isValid= false;
 		
-		b_UserDto result=b_dao.getData(b_dto.getB_id());
+		BUserDto result=Bdao.getData(dto.getB_id());
 		if(result != null) {
 			//만일 존재하는 아이디라면, 비밀번호가 일치하는지 확인한다.
 			String encodedPwd=result.getB_pwd();
-			String inputPwd=b_dto.getB_pwd();	
+			String inputPwd=dto.getB_pwd();	
 			isValid=BCrypt.checkpw(inputPwd, encodedPwd);
 		}
 		
 		if(isValid) { //만일 위의 정보가 모두 충족될 시,
 			//session 영역에 아이디를 저장한다.
-			session.setAttribute("b_id", b_dto.getB_id());
+			session.setAttribute("b_id", dto.getB_id());
 		}
 		
 	}
 
 	//비즈니스 회원가입 로직
 	@Override
-	public void addUser(b_UserDto b_dto) {
+	public void addUser(BUserDto dto) {
 		//입력 받은 비밀번호를 암호화 하는 로직
-		String pwd = b_dto.getB_pwd();
+		String pwd = dto.getB_pwd();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encodedPwd = encoder.encode(pwd);
 		//암호화한 비밀번호를 Dto에 다시 넣어준다.
-		b_dto.setB_pwd(encodedPwd);
+		dto.setB_pwd(encodedPwd);
 		
-		b_dao.insert(b_dto);
+		Bdao.insert(dto);
 	}
 
+	
+	
 	
 	
 	
@@ -65,22 +67,22 @@ public class b_UserServiceImpl implements b_UserService {
 	@Override
 	public void getMypage(HttpSession session, ModelAndView mView) {
 		// 로그인된 아이디를 읽어온다.
-		String b_id = (String)session.getAttribute("b_id");
+		String B_id = (String)session.getAttribute("B_id");
 		// DB에서 회원정보를 얻어와서
-		b_UserDto b_dto = b_dao.getData(b_id);
+		BUserDto b_dto = Bdao.getData(B_id);
 		
 		// ModelAndView 객체에 담아준다.
 		mView.addObject("b_dto", b_dto);
 	}
 	// 비즈니스회원가입 정보 수정하기
 	@Override
-	public void updateUsers(b_UserDto b_dto, HttpSession session) {
+	public void updateUsers(BUserDto b_dto, HttpSession session) {
 		// 수정할 회원의 아이디
-		String b_id = (String)session.getAttribute("b_id");
+		String B_id = (String)session.getAttribute("B_id");
 		// b_UserDto에 아이디도 담아주고
-		b_dto.setB_id(b_id);
+		b_dto.setB_id(B_id);
 		// b_UserDao를 이용해서 수정반영한다.
-		b_dao.update(b_dto);
+		Bdao.update(b_dto);
 		
 	}
 	// 비즈니스회원 프로필이미지

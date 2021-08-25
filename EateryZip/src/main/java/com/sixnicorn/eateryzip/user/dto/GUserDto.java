@@ -1,6 +1,6 @@
 package com.sixnicorn.eateryzip.user.dto;
 
-public class g_UserDto {
+public class GUserDto {
 	private String g_id;
 	private String g_pwd;
 	private String g_newPwd; 
@@ -12,9 +12,9 @@ public class g_UserDto {
 	private String g_regdate;
 	private String grade;
 	
-	public g_UserDto() {}
+	public GUserDto() {}
 
-	public g_UserDto(String g_id, String g_pwd, String g_newPwd, String g_name, String g_address, String g_email,
+	public GUserDto(String g_id, String g_pwd, String g_newPwd, String g_name, String g_address, String g_email,
 			String g_phone, String g_profile, String g_regdate, String grade) {
 		super();
 		this.g_id = g_id;
@@ -108,7 +108,5 @@ public class g_UserDto {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-
 	
-
 }
