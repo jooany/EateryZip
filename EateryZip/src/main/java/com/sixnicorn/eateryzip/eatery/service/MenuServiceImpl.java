@@ -21,6 +21,20 @@ public class MenuServiceImpl implements MenuService{
 	@Autowired
 	private MenuDao menuDao;
 
+	//리스트 가져오기 + 섹션 최대 개수 가져오기
+	@Override
+	public void getList(HttpServletRequest request) {
+		//세션에 로그인 된 비즈니스 아이디를 읽어와서
+		String b_id=(String)request.getSession().getAttribute("b_id");
+		//저장된 카테고리 개수를 얻어낸다.
+		int sectionCount=menuDao.getSectionCount(b_id);
+		//전체 메뉴 list를 얻어낸다.
+		List<MenuDto> list=menuDao.getList(b_id);
+		
+		//view page 에서 필요한 값 request 에 담기
+		request.setAttribute("sectionCount", sectionCount);
+		request.setAttribute("list",list);
+	}
 	
 	@Override
 	public Map<String, Object> saveMenuImage(HttpServletRequest request, MultipartFile mFile) {
@@ -84,6 +98,14 @@ public class MenuServiceImpl implements MenuService{
 		//menuDao.insert(dto);
 		
 		return menuList;
+	}
+	//메뉴 삭제
+	@Override
+	public void deleteMenu(HttpServletRequest request) {
+		int menu_num=Integer.parseInt(request.getParameter("menu_num"));
+		
+		menuDao.deleteMenu(menu_num);
+		
 	}
 	
 

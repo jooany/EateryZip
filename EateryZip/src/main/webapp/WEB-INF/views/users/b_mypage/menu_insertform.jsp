@@ -164,53 +164,72 @@ button{
 	<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
 	<div id="container" class="inner">	
 		<div class="sections">
-			<div class="wrap_section" data-section="1">
-				<div class="section_header">
-					<select name="section_name" class="select">
-						<option value="" disabled selected hidden>분류 1</option>
-						<option value="main">메인 메뉴</option>
-						<option value="set">세트</option>
-						<option value="side">사이드</option>
-						<option value="dessert">디저트</option>
-						<option value="beverage">음료</option>
-					</select>
-					<button id="deleteSectionBtn">
-						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-  							<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+		
+			<!-- 저장된 카테고리 개수만큼 섹션을 생성함. -->
+			<c:forEach var="i" begin="1" end="${sectionCount }">
+				<div class="wrap_section" data-section="1">
+					<div class="section_header">
+						<select name="section_name" class="select">
+							<option value="" disabled selected hidden>분류 1</option>
+							<option value="main">메인 메뉴</option>
+							<option value="set">세트</option>
+							<option value="side">사이드</option>
+							<option value="dessert">디저트</option>
+							<option value="beverage">음료</option>
+						</select>
+						<button id="deleteSectionBtn">
+							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+	  							<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+							</svg>
+						</button>
+					</div>
+					<div class="wrap_menu">
+					
+						<!-- 모든 메뉴 list 중에서 i번째 섹션에 저장된 메뉴 정보를 가져옴. -->
+						<c:forEach var="tmp" items="${list }">
+							<c:if test="${tmp.section_num eq i }">
+								<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/private/menu_insert.do" method="post">
+									
+									<input type="hidden" name="menu_image" value="${tmp.menu_image}" />
+									
+									<div class="wrap_menu_name">
+										<input type="text" class="menu_name" name="menu_name" placeholder="메뉴 1" value="${tmp.menu_name }"/>
+									</div>
+									<div class="wrap_img_n_price">
+										<a class="menu_img_btn" data-menuNum="${tmp.menu_num}" href="#">
+											<div id="imgNum${tmp.menu_num}" class="menu_img_wrap">
+												<c:choose>
+													<c:when test="${empty tmp.menu_image }">
+														<i class="far fa-image"></i>
+													</c:when>
+													<c:otherwise>
+														<img class="menu_img" src="${pageContext.request.contextPath}${tmp.menu_name}"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+										</a>							
+										<div class="wrap_price">
+											<input id="price" name="menu_price" type="text" value="${tmp.menu_price }" style="text-align:right;" />
+											<span>원</span>
+										</div>
+									</div>
+									<!--  <button id="insertMenuBtn">등록</button>-->
+									<a href="${pageContext.request.contextPath}/users/b_mypage/menu_updateform.do?menu_num=${tmp.menu_num })">수정,삭제</a>
+									<a href="javascript:deleteConfirm()" id="deleteMenuBtn">삭제</button>
+								</form>	
+								</c:if>
+						</c:forEach>  
+					</div>
+	
+					<a id="addMenuFormBtn" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+						  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 						</svg>
-					</button>
+						<span>메뉴 추가</span>
+					</a>
 				</div>
-				<div class="wrap_menu">
-					 
-					<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/private/menu_insert.do" method="post">
-						<div class="wrap_menu_name">
-							<input type="text" class="menu_name" name="menu_name" placeholder="메뉴 1" />
-						</div>
-						<div class="wrap_img_n_price">
-							<a class="menu_img_btn" data-sectionNum="1" data-menuNum="1" href="#">
-								<div id="menuImgWrap_1_1" class="menu_img_wrap">
-									<i class="far fa-image"></i>
-								</div>
-							</a>							
-							<div class="wrap_price">
-								<input id="price" name="menu_price" type="text" style="text-align:right;" />
-								<span>원</span>
-							</div>
-						</div>
-						<button id="insertMenuBtn">등록</button>
-						<button id="deleteMenuBtn">삭제</button>
-					</form>
-							
-				</div>
-				
-				<a id="addMenuFormBtn" href="#">
-					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-					  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-					</svg>
-					<span>메뉴 추가</span>
-				</a>
-			</div>
-			<!-- section_wrap.end -->
+				<!-- section_wrap.end -->
+			</c:forEach>
 		</div>
 		<!-- sections.end -->
 		
@@ -240,6 +259,13 @@ button{
 	let thisSection;
 	let thisMenu;
 	
+	function deleteConfirm(){
+		const isDelete=confirm("해당 메뉴를 삭제하시겠습니까?");
+		if(isDelete){
+			location.href="${pageContext.request.contextPath}/users/b_mypage/delete.do";
+		}
+	}
+	
 	
 	//프로필 이미지 링크를 클릭하면 
 	$(".menu_img_btn").click(function(){
@@ -266,7 +292,6 @@ button{
 			document.querySelector("#menuImgWrap_"+thisSection+"_"+thisMenu).innerHTML=img;
 			// input name="profile" 요소의 value 값으로 이미지 경로 넣어주기
 			 //let inputMenuImagePath=`<input type="hidden" name="menuimg_`+thisSection+`_`+thisMenu+`">`;
-			 let inputMenuImagePath=`<input type="hidden" name="menu_image">`;
 			 $("#menuForm").append(inputMenuImagePath);
 			 document.querySelector("input[name=menu_image]").value=data.imagePath;
 			 console.log(inputMenuImagePath);

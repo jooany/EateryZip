@@ -10,6 +10,8 @@ public class MenuDto {
 	private String menu_image;
 	private int menu_price;
 	
+	public MenuDto() {}
+	
 	public MenuDto(int menu_num, String b_id, int section_num, int menu_num_in_section, String section_name,
 			String menu_name, String menu_image, int menu_price) {
 		super();
