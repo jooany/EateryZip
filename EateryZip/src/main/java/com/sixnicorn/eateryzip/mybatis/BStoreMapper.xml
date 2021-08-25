@@ -6,7 +6,7 @@
 	<insert id="insert" parameterType="BStoreDto">
 	insert into b_Store
 	(b_id, b_name, b_Store_Address)
-	values(b_id, #{b_name}, #{b_address})
+	values(#{b_name} #{b_name}, #{b_address})
 	</insert>
 
 

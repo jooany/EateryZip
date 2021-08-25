@@ -1,15 +1,20 @@
 package com.sixnicorn.eateryzip.user.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 
 @Controller
 public class BStoreController {
 
 	// 가게정보 등록하기 b_id로 사업자번호 인식
 	@RequestMapping("/store/store_insertform")
-	public String insertform() {
-		// 가게등록폼으로 이동시키면 된다.
+	public String insertform(HttpServletRequest request) {
+		// request : session영역 b_id 가져오는데 사용
 		return "store/store_insertform";
 	}
 	
