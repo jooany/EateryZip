@@ -4,10 +4,10 @@ import com.sixnicorn.eateryzip.user.dto.b_StoreDto;
 
 public interface b_StoreDao {
 
-	// 인자로 전달된 아이디가 존재하는지 여부를 리턴하는 메소드
-	// public boolean isExist(String inputB_id);
-	// 인자로 전달된 가게정보를 DB에 저장하는 메소드
+	// 가게정보 입력하기
 	public void insert(b_StoreDto dto);
-	
-	
+	// 가게정보 얻어오기
+	public b_StoreDto getData(String b_id);
+	// 가게정보 수정
+	public void update(b_StoreDto dto);
 }

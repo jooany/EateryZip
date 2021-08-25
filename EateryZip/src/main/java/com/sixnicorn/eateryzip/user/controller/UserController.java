@@ -1,7 +1,9 @@
 package com.sixnicorn.eateryzip.user.controller;
 
 import java.net.URLEncoder;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sixnicorn.eateryzip.user.dto.BUserDto;
@@ -89,21 +93,33 @@ public class UserController {
 		return mView;
 	}
 	
-	//일반 회원 가입 
-	@RequestMapping(value="/users/g_signup", method=RequestMethod.POST)
-	public ModelAndView G_signup(ModelAndView mView, GUserDto dto) {
+	
+	
+	
+	
+	// 비즈니스 회원가입정보보기
+	@RequestMapping("/users/b_mypage")
+	public ModelAndView authMypage(HttpSession session, ModelAndView mView) {
 		
-		Gservice.addUser(dto);
-		mView.setViewName("users/g_signup");
+		Bservice.getMypage(session, mView);
+		
+		mView.setViewName("users/b_mypage");
 		return mView;
 	}
-	
-	//일반 , 비즈니스 회원 로그아웃
-	@RequestMapping("/users/logout")
-	public String logout(HttpSession session) {
-		//logout 하면서 b_id , g_id 모두 제거되도록
-		session.removeAttribute("b_id");
-		session.removeAttribute("g_id");
-		return "users/logout";
+	// 비즈니스 회원가입정보 수정하기
+	@RequestMapping("/users/b_mypage_updateform")
+	public ModelAndView authUpdateForm(ModelAndView mView, HttpSession session, HttpServletRequest request) {
+		Bservice.getMypage(session, mView);
+		mView.setViewName("users/b_mypage_updateform");
+		return mView;
 	}
+	// 비즈니스회원 프로필이미지 ajax처리
+	@RequestMapping(value="/users/ajax_profile_upload", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> authAjaxProfileUpload(HttpServletRequest request,
+			@RequestParam MultipartFile b_image){
+		// 서비스를 이용해서 이미지를 upload폴더에 저장하고 리턴되는 Map을 리턴해서 json문자열 응답하기
+		return Bservice.saveB_profile(request, b_image);
+	}
+	
 }

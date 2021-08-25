@@ -15,4 +15,14 @@
 	values(#{b_id}, #{b_pwd}, #{b_name}, #{b_address},  #{b_email}, #{b_phone}, sysdate, #{grade})
 	</insert>
 
+
+
+
+
+
+	<update id="b_update" parameterType="BuserDto">
+		UPDATE b_user
+		SET b_name=#{b_name},b_address=#{b_address},b_email=#{b_email},b_phone=#{b_phone},b_profile=#{b_profile}
+		WHERE b_id = #{b_id }
+	</update>
 </mapper>
