@@ -22,6 +22,8 @@ public class MenuController {
 	@RequestMapping("/users/b_mypage/menu_insertform")
 	public String insertForm(HttpServletRequest request) {		
 		
+		service.getList(request);
+		
 		return "users/b_mypage/menu_insertform";
 	}
 	
@@ -43,6 +45,13 @@ public class MenuController {
 		
 		//서비스를 이용해서 이미지를 upload 폴더에 저장하고 리턴되는 Map 을 리턴해서 json 문자열 응답하기
 		return service.saveMenuImage(request, image);
+	}
+	
+	//메뉴 삭제
+	@RequestMapping(value="/users/b_mypage/delete_menu")
+	public String delete(@RequestParam int menu_num, HttpServletRequest request) {
+		
+		return "users/b_mypage/delete_menu";
 	}
 
 }
