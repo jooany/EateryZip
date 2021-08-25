@@ -30,7 +30,7 @@ public class UserController {
 	
 	//일반회원 로그인 폼으로 이동
 	@RequestMapping("/users/g_login_form")
-	public String g_oginForm(){
+	public String GloginForm(){
 		return "users/g_login_form";
 	}
 	
@@ -42,7 +42,7 @@ public class UserController {
 	
 	//일반 회원 로그인
 	@RequestMapping("/users/g_login")
-	public ModelAndView login(ModelAndView mView, GUserDto dto,
+	public ModelAndView Glogin(ModelAndView mView, GUserDto dto,
 			@RequestParam String url , HttpSession session) {
 
 		Gservice.loginProcess(dto, session); //Service에 필요로 하는 객체가 있다면 넣어주어야한다.
@@ -83,18 +83,35 @@ public class UserController {
 		return "users/b_signup_form";
 	}		
 	
+	//일반 회원 가입 
+	@RequestMapping(value="/users/g_signup", method=RequestMethod.POST)
+	public ModelAndView B_signup(ModelAndView mView, GUserDto dto) {
+		
+		Gservice.addUser(dto);
+		mView.setViewName("users/g_signup");
+		return mView;
+	}
 	
 	//비즈니스 회원 가입 
 	@RequestMapping(value="/users/b_signup", method=RequestMethod.POST)
-	public ModelAndView B_signup(ModelAndView mView, BUserDto dto) {
+	public ModelAndView G_signup(ModelAndView mView, BUserDto dto) {
 		
 		Bservice.addUser(dto);
 		mView.setViewName("users/b_signup");
 		return mView;
 	}
 	
+	//일반 , 비즈니스 회원 로그아웃
+	@RequestMapping("/users/logout")
+	public String logout(HttpSession session) {
+		//logout 하면서 b_id , g_id 모두 제거되도록
+		session.removeAttribute("b_id");
+		session.removeAttribute("g_id");
+		return "users/logout";
+	}
 	
-	
+	 
+    
 	
 	
 	// 비즈니스 회원가입정보보기
@@ -106,6 +123,7 @@ public class UserController {
 		mView.setViewName("users/b_mypage/b_mypage");
 		return mView;
 	}
+	
 	// 비즈니스 회원가입정보 수정하기
 	@RequestMapping("/users/b_mypage/b_mypage_updateform")
 	public ModelAndView authUpdateForm(ModelAndView mView, HttpSession session, HttpServletRequest request) {
