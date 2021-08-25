@@ -35,9 +35,9 @@ public class BUserDaoImpl implements BUserDao {
 	
 	// 비즈니스회원정보 수정하기
 	@Override
-	public void update(BUserDto b_dto) {
+	public void update(BUserDto dto) {
 		
-		session.update("Busers.update", b_dto);
+		session.update("Buser.update", dto);
 	}
 		
 }

@@ -67,22 +67,22 @@ public class BUserServiceImpl implements BUserService {
 	@Override
 	public void getMypage(HttpSession session, ModelAndView mView) {
 		// 로그인된 아이디를 읽어온다.
-		String B_id = (String)session.getAttribute("B_id");
+		String b_id = (String)session.getAttribute("b_id");
 		// DB에서 회원정보를 얻어와서
-		BUserDto b_dto = Bdao.getData(B_id);
+		BUserDto dto = Bdao.getData(b_id);
 		
 		// ModelAndView 객체에 담아준다.
-		mView.addObject("b_dto", b_dto);
+		mView.addObject("dto", dto);
 	}
 	// 비즈니스회원가입 정보 수정하기
 	@Override
-	public void updateUsers(BUserDto b_dto, HttpSession session) {
+	public void updateUsers(BUserDto dto, HttpSession session) {
 		// 수정할 회원의 아이디
-		String B_id = (String)session.getAttribute("B_id");
+		String b_id = (String)session.getAttribute("b_id");
 		// b_UserDto에 아이디도 담아주고
-		b_dto.setB_id(B_id);
+		dto.setB_id(b_id);
 		// b_UserDao를 이용해서 수정반영한다.
-		Bdao.update(b_dto);
+		Bdao.update(dto);
 		
 	}
 	// 비즈니스회원 프로필이미지

@@ -22,7 +22,7 @@
 	
 	<a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
 	
-	<a href="${pageContext.request.contextPath}/users/b_mypage.do">비즈니스회원정보</a>
+	<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">비즈니스회원정보</a>
  
 </body>
 </html>

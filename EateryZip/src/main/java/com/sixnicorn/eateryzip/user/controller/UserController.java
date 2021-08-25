@@ -98,23 +98,23 @@ public class UserController {
 	
 	
 	// 비즈니스 회원가입정보보기
-	@RequestMapping("/users/b_mypage")
+	@RequestMapping("/users/b_mypage/b_mypage")
 	public ModelAndView authMypage(HttpSession session, ModelAndView mView) {
 		
 		Bservice.getMypage(session, mView);
 		
-		mView.setViewName("users/b_mypage");
+		mView.setViewName("users/b_mypage/b_mypage");
 		return mView;
 	}
 	// 비즈니스 회원가입정보 수정하기
-	@RequestMapping("/users/b_mypage_updateform")
+	@RequestMapping("/users/b_mypage/b_mypage_updateform")
 	public ModelAndView authUpdateForm(ModelAndView mView, HttpSession session, HttpServletRequest request) {
 		Bservice.getMypage(session, mView);
-		mView.setViewName("users/b_mypage_updateform");
+		mView.setViewName("users/b_mypage/b_mypage_updateform");
 		return mView;
 	}
 	// 비즈니스회원 프로필이미지 ajax처리
-	@RequestMapping(value="/users/ajax_profile_upload", method=RequestMethod.POST)
+	@RequestMapping(value="/users/b_mypage/ajax_profile_upload", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> authAjaxProfileUpload(HttpServletRequest request,
 			@RequestParam MultipartFile b_image){
