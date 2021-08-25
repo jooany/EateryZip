@@ -69,7 +69,7 @@ public class b_StoreController {
       //dto : b_name,..., imagePath 가지고 있다.
       //request : dto 에 b_id 추가
       service.insert(dto, request);
-      Map<String, Object> map=new HashMap<>();
+      Map<String, Object> map=new HashMap<String, Object>();
       map.put("isSuccess", true);
       return map;
    }   

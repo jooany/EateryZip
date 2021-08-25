@@ -167,31 +167,34 @@ button{
 		
 			<!-- 저장된 카테고리 개수만큼 섹션을 생성함. -->
 			<c:forEach var="i" begin="1" end="${sectionCount }">
-				<div class="wrap_section" data-section="1">
-					<div class="section_header">
-						<select name="section_name" class="select">
-							<option value="" disabled selected hidden>분류 1</option>
-							<option value="main">메인 메뉴</option>
-							<option value="set">세트</option>
-							<option value="side">사이드</option>
-							<option value="dessert">디저트</option>
-							<option value="beverage">음료</option>
-						</select>
-						<button id="deleteSectionBtn">
-							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-	  							<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-							</svg>
-						</button>
-					</div>
-					<div class="wrap_menu">
-					
+				<div class="wrap_section" data-section="${i }">
+					<c:forEach var="tmp" items="${list }">
+						<c:if test="${i eq tmp.section_num}">
+							<div class="section_header">
+								<select name="section_name_main" class="select" onchange="changeSectionName(${i},this.value)">
+									<option value="main" ${tmp.section_name eq 'main' ? 'selected' : ''}>메인 메뉴</option>
+									<option value="set" ${tmp.section_name eq 'set' ? 'selected' : ''}>세트</option>
+									<option value="side" ${tmp.section_name eq 'side' ? 'selected' : ''}>사이드</option>
+									<option value="dessert" ${tmp.section_name eq 'dessert' ? 'selected' : ''}>디저트</option>
+									<option value="beverage" ${tmp.section_name eq 'beverage' ? 'selected' : ''}>음료</option>
+								</select>
+								<button id="deleteSectionBtn">
+									<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+			  							<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+									</svg>
+								</button>
+							</div>
+							<div class="wrap_menu">
+						</c:if>
 						<!-- 모든 메뉴 list 중에서 i번째 섹션에 저장된 메뉴 정보를 가져옴. -->
-						<c:forEach var="tmp" items="${list }">
 							<c:if test="${tmp.section_num eq i }">
-								<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_insert.do" method="post">
+								<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_update.do" method="post">
 									
-									<input type="hidden" name="menu_image" value="${tmp.menu_image}" />
-									
+									<!--  <input type="hidden" name="section_num" value="${tmp.section_num }" />
+									<input type="hidden" name="section_name" value="${tmp.section_name }"> -->
+									<input type="hidden" name="menu_image" value="${tmp.menu_image}" id="inputImg${tmp.menu_num}"/>
+									<input type="hidden" name="menu_num" value="${tmp.menu_num}" />		
+
 									<div class="wrap_menu_name">
 										<input type="text" class="menu_name" name="menu_name" placeholder="메뉴 1" value="${tmp.menu_name }"/>
 									</div>
@@ -203,7 +206,7 @@ button{
 														<i class="far fa-image"></i>
 													</c:when>
 													<c:otherwise>
-														<img class="menu_img" src="${pageContext.request.contextPath}${tmp.menu_name}"/>
+														<img class="menu_img" src="${pageContext.request.contextPath}${tmp.menu_image}"/>
 													</c:otherwise>
 												</c:choose>
 											</div>
@@ -214,10 +217,11 @@ button{
 										</div>
 									</div>
 									<!--  <button id="insertMenuBtn">등록</button>-->
-									<a href="${pageContext.request.contextPath}/users/b_mypage/menu_updateform.do?menu_num=${tmp.menu_num })">수정</a>
+									<!-- <a href="${pageContext.request.contextPath}/users/b_mypage/menu_update.do?menu_num=${tmp.menu_num }">수정</a>-->
+									<button type="submit">수정</button>
 									<a href="javascript:deleteConfirm(${tmp.menu_num })" id="deleteMenuBtn">삭제</button>
 								</form>	
-								</c:if>
+							</c:if>
 						</c:forEach>  
 					</div>
 	
@@ -256,8 +260,17 @@ button{
 	let menuNum=1;
 	let menuCount=1;
 	
-	let thisSection;
+	// 이미지 선택 후, 이미지를 보이게 하기 위한 현재 클릭한 메뉴 번호를 저장하고 클래스 연결을 위한 변수
 	let thisMenu;
+	
+	// 동적으로 추가한 메뉴 폼에 임시 메뉴 번호를 부여하기 위한 변수
+	let sMenuNum;
+	
+	//카테고리명을 변경하면 b_id와 section_num을 파라미터로 하여  해당 section_num의 section_name 값을 update 한 후, redirect 하기 위해
+	//section_num과 section_name을 url 파라미터로 넘겨줌.
+	function changeSectionName(num,selectedName){
+		location.href="${pageContext.request.contextPath}/users/b_mypage/update_section_name.do?section_num="+num+"&section_name="+selectedName;
+	}
 	
 	function deleteConfirm(num){
 		const isDelete=confirm("해당 메뉴를 삭제하시겠습니까?");
@@ -269,15 +282,16 @@ button{
 	
 	//프로필 이미지 링크를 클릭하면 
 	$(".menu_img_btn").click(function(){
-		thisSection=$(this).attr("data-sectionNum");
 		thisMenu=$(this).attr("data-menuNum");
-		alert(thisSection+"_"+thisMenu);
+		alert(thisMenu);
 		// input type="file" 을 강제 클릭 시킨다. 
-		document.querySelector("#image").click();
-	});
-	//이미지를 선택했을때 실행할 함수 등록 
-	document.querySelector("#image").addEventListener("change", function(){
+		$("#image").trigger("click");
 		
+	});
+	
+
+	$("#image").change(function(){
+			
 		let form=document.querySelector("#imageForm");
 		
 		// gura_util.js 에 정의된 함수를 호출하면서 ajax 전송할 폼의 참조값을 전달하면 된다. 
@@ -289,14 +303,21 @@ button{
 			// data 는 {imagePath:"/upload/xxx.jpg"} 형식의 object 이다.
 			console.log(data);
 			let img=`<img class="menu_img" src="${pageContext.request.contextPath}\${data.imagePath}"/>`;
-			document.querySelector("#menuImgWrap_"+thisSection+"_"+thisMenu).innerHTML=img;
-			// input name="profile" 요소의 value 값으로 이미지 경로 넣어주기
-			 //let inputMenuImagePath=`<input type="hidden" name="menuimg_`+thisSection+`_`+thisMenu+`">`;
-			 $("#menuForm").append(inputMenuImagePath);
-			 document.querySelector("input[name=menu_image]").value=data.imagePath;
-			 console.log(inputMenuImagePath);
+			$("#imgNum"+thisMenu).html(img);
+			$("#inputImg"+thisMenu).val(data.imagePath);
 		});
-	});
+	}); //#image.change.end
+		
+	
+	//비동기 처리 나중에 하기 
+	//같은 이미지 선택 시, 경고 메시지 띄우기
+	//if(!isChange){
+	//	alert("같은 이미지는 넣을 수 없습니다.");
+	//}			
+
+
+
+	
 </script>
 </body>
 </html>

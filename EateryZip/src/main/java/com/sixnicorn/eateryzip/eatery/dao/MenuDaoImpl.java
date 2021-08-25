@@ -18,7 +18,10 @@ public class MenuDaoImpl implements MenuDao{
 	public void insert(MenuDto dto) {
 		session.insert("menu.insert",dto);		
 	}
-	
+	@Override
+	public void update(MenuDto dto) {
+		session.update("menu.update",dto);
+	}
 	@Override
 	public List<MenuDto> getList(String b_id){
 		return session.selectList("menu.getList",b_id);
@@ -26,6 +29,10 @@ public class MenuDaoImpl implements MenuDao{
 	@Override
 	public int getSectionCount(String b_id) {
 		return session.selectOne("menu.getSectionCount",b_id);
+	}
+	@Override
+	public void updateSectionName(MenuDto dto) {
+		session.update("menu.updateSectionName", dto);
 	}
 	@Override
 	public void deleteMenu(int menu_num) {
