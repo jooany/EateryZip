@@ -22,7 +22,7 @@ public interface BUserService {
 	// 비즈니스 회원 정보
 	public void getMypage(HttpSession session, ModelAndView mView);
 	// 비즈니스회원 정보수정
-	public void updateUsers(BUserDto b_dto, HttpSession session);
+	public void updateUsers(BUserDto dto, HttpSession session);
 	// 비즈니스회원 프로필이미지
 	public Map<String, Object> saveB_profile(HttpServletRequest request, MultipartFile b_image);
 }
