@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Buser">
+	
+	<!-- select의 결과가 없으면 0이 된다.-->
+	<select id="getData" parameterType="string" resultType="BuserDto">
+	select b_id, b_pwd, b_name, b_address, b_email, b_phone, b_profile, b_regdate, grade
+	from b_user
+	where b_id = #{b_id}	
+	</select>
+	
+	<insert id="insert" parameterType="BuserDto">
+	insert into b_user
+	(b_id, b_pwd, b_name, b_address, b_email, b_phone, b_regdate, grade)
+	values(#{b_id}, #{b_pwd}, #{b_name}, #{b_address},  #{b_email}, #{b_phone}, sysdate, #{grade})
+	</insert>
+
+
+
+
+
+
+	<update id="b_update" parameterType="BuserDto">
+		UPDATE b_user
+		SET b_name=#{b_name},b_address=#{b_address},b_email=#{b_email},b_phone=#{b_phone},b_profile=#{b_profile}
+		WHERE b_id = #{b_id }
+	</update>
+</mapper>
