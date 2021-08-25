@@ -188,7 +188,7 @@ button{
 						<!-- 모든 메뉴 list 중에서 i번째 섹션에 저장된 메뉴 정보를 가져옴. -->
 						<c:forEach var="tmp" items="${list }">
 							<c:if test="${tmp.section_num eq i }">
-								<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/private/menu_insert.do" method="post">
+								<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_insert.do" method="post">
 									
 									<input type="hidden" name="menu_image" value="${tmp.menu_image}" />
 									
@@ -214,8 +214,8 @@ button{
 										</div>
 									</div>
 									<!--  <button id="insertMenuBtn">등록</button>-->
-									<a href="${pageContext.request.contextPath}/users/b_mypage/menu_updateform.do?menu_num=${tmp.menu_num })">수정,삭제</a>
-									<a href="javascript:deleteConfirm()" id="deleteMenuBtn">삭제</button>
+									<a href="${pageContext.request.contextPath}/users/b_mypage/menu_updateform.do?menu_num=${tmp.menu_num })">수정</a>
+									<a href="javascript:deleteConfirm(${tmp.menu_num })" id="deleteMenuBtn">삭제</button>
 								</form>	
 								</c:if>
 						</c:forEach>  
@@ -259,10 +259,10 @@ button{
 	let thisSection;
 	let thisMenu;
 	
-	function deleteConfirm(){
+	function deleteConfirm(num){
 		const isDelete=confirm("해당 메뉴를 삭제하시겠습니까?");
 		if(isDelete){
-			location.href="${pageContext.request.contextPath}/users/b_mypage/delete.do";
+			location.href="${pageContext.request.contextPath}/users/b_mypage/delete_menu.do?menu_num="+num;
 		}
 	}
 	
