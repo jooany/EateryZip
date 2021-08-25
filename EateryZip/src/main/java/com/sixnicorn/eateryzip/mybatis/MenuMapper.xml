@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
+	<!-- 메뉴 등록하기 -->
 	<insert id="insert" parameterType="menuDto">
 		INSERT INTO menu
-		(menu_num,b_id,section_num,menu_num_in_section,section_name,menu_name,menu_image,menu_price)
-		VALUES(menu_seq.NEXTVAL,#{b_id},#{section_num},#{menu_num_in_section},#{section_name},#{menu_name},#{menu_image},#{menu_price})
+		(menu_num,b_id,section_num,section_name,menu_name,menu_image,menu_price)
+		VALUES(menu_seq.NEXTVAL,#{b_id},#{section_num},#{section_name},#{menu_name},#{menu_image,jdbcType=VARCHAR},#{menu_price})
 	</insert>
+	
+	<!-- 메뉴 수정하기 -->
+	<update id="update" parameterType="menuDto">
+		UPDATE menu
+		SET menu_name=#{menu_name}, menu_image=#{menu_image,jdbcType=VARCHAR}, menu_price=#{menu_price}
+		WHERE menu_num=#{menu_num}
+	
+	</update>
 	
 	<!-- 사업자 번호로 카테고리 개수 얻어오기 -->
 	<select id="getSectionCount" parameterType="String" resultType="int">
@@ -20,6 +29,13 @@
 		FROM menu
 		WHERE b_id=#{b_id}
 	</select>
+	
+	<!-- 카테고리명 변경하기 -->
+	<update id="updateSectionName" parameterType="menuDto" >
+		UPDATE menu
+		SET section_name=#{section_name}
+		WHERE b_id=#{b_id} AND section_num=#{section_num}
+	</update>
 	
 	<!-- 해당 메뉴 삭제하기 -->
 	<delete id="delete_menu" parameterType="int">

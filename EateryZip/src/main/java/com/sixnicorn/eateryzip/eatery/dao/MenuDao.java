@@ -8,5 +8,7 @@ public interface MenuDao {
 	public void insert(MenuDto dto);
 	public List<MenuDto> getList(String b_id);
 	public int getSectionCount(String b_id);
+	public void updateSectionName(MenuDto dto);
 	public void deleteMenu(int menu_num);
+	public void update(MenuDto dto);
 }
