@@ -13,6 +13,7 @@
 </head>
 <body>
 <div class="container">
+	<a href="${pageContext.request.contextPath}/home.do">(임시)메인페이지가기</a>
 	<h1>가입 정보 입니다.</h1>
 	<table>
 		<tr>
