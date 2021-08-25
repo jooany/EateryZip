@@ -29,7 +29,7 @@ public class MenuDaoImpl implements MenuDao{
 	}
 	@Override
 	public void deleteMenu(int menu_num) {
-		session.delete("menu.delete",menu_num);
+		session.delete("menu.delete_menu",menu_num);
 	}
 
 }

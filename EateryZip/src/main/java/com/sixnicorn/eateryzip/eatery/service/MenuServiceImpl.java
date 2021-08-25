@@ -101,10 +101,9 @@ public class MenuServiceImpl implements MenuService{
 	}
 	//메뉴 삭제
 	@Override
-	public void deleteMenu(HttpServletRequest request) {
-		int menu_num=Integer.parseInt(request.getParameter("menu_num"));
+	public void deleteMenu(int num) {
 		
-		menuDao.deleteMenu(menu_num);
+		menuDao.deleteMenu(num);
 		
 	}
 	

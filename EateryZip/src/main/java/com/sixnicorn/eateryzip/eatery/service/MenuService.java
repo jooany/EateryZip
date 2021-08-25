@@ -15,6 +15,6 @@ public interface MenuService {
 	public Map<String, Object> saveMenuImage(HttpServletRequest request, 
 			MultipartFile mFile);
 	public List<MenuDto> saveMenu(HttpServletRequest request);
-	public void deleteMenu(HttpServletRequest request);
+	public void deleteMenu(int num);
 
 }

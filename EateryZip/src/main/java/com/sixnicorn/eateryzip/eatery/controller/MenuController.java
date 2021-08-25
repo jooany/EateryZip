@@ -27,7 +27,7 @@ public class MenuController {
 		return "users/b_mypage/menu_insertform";
 	}
 	
-	@RequestMapping("/users/b_mypage/private/menu_insert")
+	@RequestMapping("/users/b_mypage/menu_insert")
 	public String insert(HttpServletRequest request) {		
 		//사업자 번호 가져오기 
 		//String b_id=(String)session.getAttribute("b_id");
@@ -49,9 +49,11 @@ public class MenuController {
 	
 	//메뉴 삭제
 	@RequestMapping(value="/users/b_mypage/delete_menu")
-	public String delete(@RequestParam int menu_num, HttpServletRequest request) {
+	public String delete(@RequestParam int menu_num) {
 		
-		return "users/b_mypage/delete_menu";
+		service.deleteMenu(menu_num);
+		
+		return "redirect:/users/b_mypage/menu_insertform.do";
 	}
 
 }
