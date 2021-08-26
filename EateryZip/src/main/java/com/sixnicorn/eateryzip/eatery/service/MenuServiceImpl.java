@@ -21,6 +21,20 @@ public class MenuServiceImpl implements MenuService{
 	@Autowired
 	private MenuDao menuDao;
 
+	//리스트 가져오기 + 섹션 최대 개수 가져오기
+	@Override
+	public void getList(HttpServletRequest request) {
+		//세션에 로그인 된 비즈니스 아이디를 읽어와서
+		String b_id=(String)request.getSession().getAttribute("b_id");
+		//저장된 카테고리 개수를 얻어낸다.
+		int sectionCount=menuDao.getSectionCount(b_id);
+		//전체 메뉴 list를 얻어낸다.
+		List<MenuDto> list=menuDao.getList(b_id);
+		
+		//view page 에서 필요한 값 request 에 담기
+		request.setAttribute("sectionCount", sectionCount);
+		request.setAttribute("list",list);
+	}
 	
 	@Override
 	public Map<String, Object> saveMenuImage(HttpServletRequest request, MultipartFile mFile) {
@@ -57,33 +71,33 @@ public class MenuServiceImpl implements MenuService{
 	
 	//메뉴 추가 
 	@Override
-	public List<MenuDto> saveMenu(HttpServletRequest request) {
+	public void saveMenu(MenuDto dto) {
+		menuDao.insert(dto);
+	}
+	//메뉴 수정
+	@Override
+	public void updateMenu(MenuDto dto) {
+		menuDao.update(dto);
+	}
+	//카테고리명 변경
+	@Override
+	public void updateSectionName(HttpServletRequest request,int section_num,String section_name) {
+		String b_id=(String)request.getSession().getAttribute("b_id");
 		
-		// 정규식으로 각 섹션 번호_메뉴 번호에 해당하는 input name을 통해 요청파라미터에서 카테고리번호,메뉴번호,카테고리명,메뉴명,이미지경로,가격 정보를 가져옴.
-		// 전체 메뉴 개수 만큼 DTO를 생성해서 각각 값들을 넣어주고,
-		// menuDao.insert(dto) 시켜줌.
+		MenuDto dto=new MenuDto();
+		dto.setB_id(b_id);
+		dto.setSection_num(section_num);
+		dto.setSection_name(section_name);
 		
-		// [ updateform에 전달하는 방법 ]
-		// DTO 리스트에 해당 DTO들 전부 넣어줌.
-		// DTO 리스트를 return함.
+		menuDao.updateSectionName(dto);
 		
-		// updateform에 해당 DTO 리스트를 받아와서
-		// 각 value 값에 데이터를 넣어줌 
+	}
+	//메뉴 삭제
+	@Override
+	public void deleteMenu(int num) {
 		
-		// 섹션 끝 번호와 총 메뉴 수를 가져옴.
-		int section_num=Integer.parseInt(request.getParameter("section_num"));
-		int menu_count=Integer.parseInt(request.getParameter("menu_count"));
+		menuDao.deleteMenu(num);
 		
-		// 각 섹션에 해당하는 메뉴 개수를 가져옴.
-		for(int i=1;i<section_num;i++) {
-			Integer.parseInt(request.getParameter("section_"+i));
-		}
-		
-		List<MenuDto> menuList = new ArrayList<MenuDto>();
-		
-		//menuDao.insert(dto);
-		
-		return menuList;
 	}
 	
 

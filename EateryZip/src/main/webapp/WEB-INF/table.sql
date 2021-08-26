@@ -3,7 +3,6 @@ CREATE TABLE menu(
 	menu_num NUMBER PRIMARY KEY,
 	b_id VARCHAR2(100) NOT NULL, --사업자번호(음식점 고유번호)
 	section_num NUMBER NOT NULL, --카테고리번호
-	menu_num_in_section NUMBER NOT NULL, --메뉴번호
 	section_name VARCHAR2(100) NOT NULL, --카테고리명
 	menu_name VARCHAR2(100) NOT NULL, --메뉴명
 	menu_image VARCHAR2(100), -- 메뉴 이미지경로

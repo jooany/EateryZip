@@ -22,7 +22,7 @@
                <c:choose>
                   <c:when test="${not empty g_id}">
                      <span class="navbar-text me-2">
-                     <a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.jsp">${g_id }</a> 로그인중...
+                     <a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">${g_id }</a> 로그인중...
                   </span>
                   <a class="btn btn-outline-danger btn-sm me-2" href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
                   </c:when>
@@ -46,8 +46,4 @@
          </form>
       </div>
    </nav>
-   
-   
-   
-   
    

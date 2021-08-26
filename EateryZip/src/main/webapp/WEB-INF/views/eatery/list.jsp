@@ -122,28 +122,28 @@
             <fieldset>
 				<legend>업종</legend>
 				<div id="b-kind">
-                    <button id="food" class="btn btn-outline-dark btn-sm" type="submit">
+                    <button id="food" class="btn btn-outline-dark btn-sm" aria-disabled="false" aria-pressed="false" type="button">>
                         <img src="images/bibimbap.png"> 한식
                     </button>
-                    <button id="food" class="btn btn-outline-dark btn-sm" type="submit">
+                    <button id="food" class="btn btn-outline-dark btn-sm" aria-disabled="false" aria-pressed="false" type="button">>
                         <img src="images/sushi.png"> 일식
                     </button>
                     <br />
-                    <button id="food" class="btn btn-outline-dark btn-sm" type="submit">
+                    <button id="food" class="btn btn-outline-dark btn-sm" aria-disabled="false" aria-pressed="false" type="button">>
                         <img src="images/xiao-long-bao.png"> 중식
                     </button>
-                    <button id="food" class="btn btn-outline-dark btn-sm" type="submit">
+                    <button id="food" class="btn btn-outline-dark btn-sm" aria-disabled="false" aria-pressed="false" type="button">>
                         <img src="images/steak.png"> 양식
                     </button>
                     <br />
-                    <button id="food" class="btn btn-outline-dark btn-sm" type="submit">
+                    <button id="food" class="btn btn-outline-dark btn-sm" aria-disabled="false" aria-pressed="false" type="button">>
                         <img src="images/pancake.png"> 브런치
                     </button>
-                    <button id="food" class="btn btn-outline-dark btn-sm" type="submit">
+                    <button id="food" class="btn btn-outline-dark btn-sm" aria-disabled="false" aria-pressed="false" type="button">>
                         <img src="images/cocktail.png"> Bar
                     </button>
                     <br />
-                    <button id="food" class="btn btn-outline-dark btn-sm" type="submit">
+                    <button id="food" class="btn btn-outline-dark btn-sm" aria-disabled="false" aria-pressed="false" type="button">>
                         <img src="images/coffee-cup.png"> 카페
                     </button>
                 </div>
@@ -175,15 +175,15 @@
 			<!-- 음식점 리스트 * 6 -->
 			<div id="tab-1" class="tab-content current">
                 <div class="card2-75">
-                	<img src="" class="rounded float-start" width="150" height="150">
+                	<img src="${pageContext.request.contextPath}${dto.b_img_f }" class="rounded float-start" width="150" height="150">
                 	<div>
-	                    <h5 class="card-title">상호명</h5>
+	                    <h5 class="card-title">${list.b_name }</h5>
 	                    <div>	                    
-	                    	<p><span>업종</span></p>
+	                    	<p><span>${list.b_kind }</span></p>
 	                    </div>
                     </div>
                 	<ol class="list-group">
-                		<li class="list-group" list-group-numbered>
+                		<li class="list-group list-group-numbered">
                 			<div class="ms-2 me-auto">
                 				<div class="fw-bold">리뷰 키워드</div>
                 			</div>
@@ -196,7 +196,7 @@
                 		</li>
                 	</ol>
                 	<div class="intro_box">
-                		<p class="card-text">소개글</p>
+                		<p class="card-text">${dto.intro }</p>
                 	</div>
                 	<div>
                 		<div class="ex_tag">
@@ -205,7 +205,7 @@
                 					<i class="fas fa-check"></i>
                 				</span>
                 			</div>
-                			<span>ex_keyword</span>
+                			<span>${dto.ex_keyword }</span>
                 		</div>
                 		<div class="ex_tag">
                 			<div>
@@ -213,7 +213,7 @@
                 					<i class="fas fa-check"></i>
                 				</span>
                 			</div>
-                			<span>ex_keyword</span>
+                			<span>${dto.ex_keyword }</span>
                 		</div>
                 		<div class="ex_tag">
                 			<div>
@@ -221,7 +221,7 @@
                 					<i class="fas fa-check"></i>
                 				</span>
                 			</div>
-                			<span>ex_keyword</span>
+                			<span>${dto.ex_keyword }</span>
                 		</div>
                 	</div>
                 </div>
@@ -229,15 +229,15 @@
             
             <div id="tab-2" class="tab-content">
                 <div class="card2-75">
-                    <img src="" class="rounded float-start" width="150" height="150">
-                    <div>
-	                    <h5 class="card-title">상호명</h5>
+                	<img src="${pageContext.request.contextPath}${dto.b_img_f }" class="rounded float-start" width="150" height="150">
+                	<div>
+	                    <h5 class="card-title">${list.b_name }</h5>
 	                    <div>	                    
-	                    	<p><span>업종</span></p>
+	                    	<p><span>${list.b_kind }</span></p>
 	                    </div>
                     </div>
-                    <ol class="list-group">
-                		<li class="list-group" list-group-numbered>
+                	<ol class="list-group">
+                		<li class="list-group list-group-numbered">
                 			<div class="ms-2 me-auto">
                 				<div class="fw-bold">리뷰 키워드</div>
                 			</div>
@@ -249,17 +249,17 @@
                 			</div>
                 		</li>
                 	</ol>
-                    <div class="intro_box">
-                		<p class="card-text">소개글</p>
+                	<div class="intro_box">
+                		<p class="card-text">${dto.intro }</p>
                 	</div>
-                    <div>
+                	<div>
                 		<div class="ex_tag">
                 			<div>
                 				<span>
                 					<i class="fas fa-check"></i>
                 				</span>
                 			</div>
-                			<span>ex_keyword</span>
+                			<span>${dto.ex_keyword }</span>
                 		</div>
                 		<div class="ex_tag">
                 			<div>
@@ -267,7 +267,7 @@
                 					<i class="fas fa-check"></i>
                 				</span>
                 			</div>
-                			<span>ex_keyword</span>
+                			<span>${dto.ex_keyword }</span>
                 		</div>
                 		<div class="ex_tag">
                 			<div>
@@ -275,7 +275,7 @@
                 					<i class="fas fa-check"></i>
                 				</span>
                 			</div>
-                			<span>ex_keyword</span>
+                			<span>${dto.ex_keyword }</span>
                 		</div>
                 	</div>
                 </div>
@@ -283,15 +283,15 @@
             
             <div id="tab-3" class="tab-content">
                 <div class="card2-75">
-                    <img src="" class="rounded float-start" width="150" height="150">
-                    <div>
-	                    <h5 class="card-title">상호명</h5>
+                	<img src="${pageContext.request.contextPath}${dto.b_img_f }" class="rounded float-start" width="150" height="150">
+                	<div>
+	                    <h5 class="card-title">${list.b_name }</h5>
 	                    <div>	                    
-	                    	<p><span>업종</span></p>
+	                    	<p><span>${list.b_kind }</span></p>
 	                    </div>
                     </div>
-                    <ol class="list-group">
-                		<li class="list-group" list-group-numbered>
+                	<ol class="list-group">
+                		<li class="list-group list-group-numbered">
                 			<div class="ms-2 me-auto">
                 				<div class="fw-bold">리뷰 키워드</div>
                 			</div>
@@ -303,17 +303,17 @@
                 			</div>
                 		</li>
                 	</ol>
-                    <div class="intro_box">
-                		<p class="card-text">소개글</p>
+                	<div class="intro_box">
+                		<p class="card-text">${dto.intro }</p>
                 	</div>
-                    <div>
+                	<div>
                 		<div class="ex_tag">
                 			<div>
                 				<span>
                 					<i class="fas fa-check"></i>
                 				</span>
                 			</div>
-                			<span>ex_keyword</span>
+                			<span>${dto.ex_keyword }</span>
                 		</div>
                 		<div class="ex_tag">
                 			<div>
@@ -321,7 +321,7 @@
                 					<i class="fas fa-check"></i>
                 				</span>
                 			</div>
-                			<span>ex_keyword</span>
+                			<span>${dto.ex_keyword }</span>
                 		</div>
                 		<div class="ex_tag">
                 			<div>
@@ -329,7 +329,7 @@
                 					<i class="fas fa-check"></i>
                 				</span>
                 			</div>
-                			<span>ex_keyword</span>
+                			<span>${dto.ex_keyword }</span>
                 		</div>
                 	</div>
                 </div>
