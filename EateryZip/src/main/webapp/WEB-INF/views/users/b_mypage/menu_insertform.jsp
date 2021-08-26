@@ -255,6 +255,10 @@ button{
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script>
+
+	
+
+	
 	//카테고리 영역 번호 & 메뉴 번호 & 총 메뉴 개수
 	let sectionNum=1;
 	let menuNum=1;
@@ -271,7 +275,21 @@ button{
 	function changeSectionName(num,selectedName){
 		location.href="${pageContext.request.contextPath}/users/b_mypage/update_section_name.do?section_num="+num+"&section_name="+selectedName;
 	}
+	//메뉴 수정
+	document.querySelector("#menuForm").addEventListener("submit",function(e){
+		//폼 이벤트 제출을 막는다.
+		e.preventDefault();
+		
+		ajaxFormPromise(form)
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(data){
+			
+		});
+	})
 	
+	//메뉴 삭제
 	function deleteConfirm(num){
 		const isDelete=confirm("해당 메뉴를 삭제하시겠습니까?");
 		if(isDelete){
@@ -280,7 +298,7 @@ button{
 	}
 	
 	
-	//프로필 이미지 링크를 클릭하면 
+	//메뉴 이미지 링크를 클릭하면 
 	$(".menu_img_btn").click(function(){
 		thisMenu=$(this).attr("data-menuNum");
 		alert(thisMenu);
@@ -289,7 +307,7 @@ button{
 		
 	});
 	
-
+	//메뉴 이미지 선택 시, 기존의 선택 파일에서 변화가 생길 때
 	$("#image").change(function(){
 			
 		let form=document.querySelector("#imageForm");
@@ -302,6 +320,8 @@ button{
 		.then(function(data){
 			// data 는 {imagePath:"/upload/xxx.jpg"} 형식의 object 이다.
 			console.log(data);
+			//해당 이미지 경로를 가진 이미지 요소를 생성하여 innrHTML에 넣어주고
+			//이미지 경로를 전송하는 input의 value 값에 이미지 경로를 넣어준다.
 			let img=`<img class="menu_img" src="${pageContext.request.contextPath}\${data.imagePath}"/>`;
 			$("#imgNum"+thisMenu).html(img);
 			$("#inputImg"+thisMenu).val(data.imagePath);
@@ -314,7 +334,7 @@ button{
 	//if(!isChange){
 	//	alert("같은 이미지는 넣을 수 없습니다.");
 	//}			
-
+	
 
 
 	
