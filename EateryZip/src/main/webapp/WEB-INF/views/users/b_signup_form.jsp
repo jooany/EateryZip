@@ -12,7 +12,6 @@
 <div class="container">
    <h4>유효성 검사가 완전하지 않으니 우선 다 입력 부탁드려요</h4>
    <h1>회원 가입 폼 입니다.</h1>
-   <!-- 절대 경로로 쓰면 확인하기가 쉽다. -->
    <form action="b_signup.do" method="post" id="myForm">
    	  <input type="hidden" name="grade" value="business" />
       <div>

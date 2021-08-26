@@ -110,10 +110,6 @@ public class UserController {
 		return "users/logout";
 	}
 	
-	 
-    
-	
-	
 	// 비즈니스 회원가입정보보기
 	@RequestMapping("/users/b_mypage/b_mypage")
 	public ModelAndView authMypage(HttpSession session, ModelAndView mView) {
