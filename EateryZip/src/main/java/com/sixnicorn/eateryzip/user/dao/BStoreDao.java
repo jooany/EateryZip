@@ -1,5 +1,6 @@
 package com.sixnicorn.eateryzip.user.dao;
 
+
 import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 
 public interface BStoreDao {
