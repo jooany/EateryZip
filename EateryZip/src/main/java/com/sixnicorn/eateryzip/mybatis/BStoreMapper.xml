@@ -2,13 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BStore">
 	
-	<!-- 일단 아이디랑 이름 주소만 넣어보자 -->
+	<!-- 가게정보 입력하기 // 일단 상호명이랑 주소만 넣어보자 -->
 	<insert id="insert" parameterType="BStoreDto">
-	insert into b_Store
+	insert into B_Store
 	(b_id, b_name, b_Store_Address)
-	values(#{b_name} #{b_name}, #{b_address})
+	values(#{b_id}, #{b_name}, #{b_address})
 	</insert>
-
+	<!-- 가게정보 불러오기 // 일단 상호명이랑 주소만 불러보자
+	<select id="getData" parameterType="string" resultType="BStoreDto">
+		SELECT b_id, b_name, b_Store_Address
+		FROM B_Store
+		WHERE b_id =#{b_id}
+	</select>
+	 -->
+	<!-- 가게정보 수정하기 // 일단 상호명이랑 주소만 수정해보자
+	<update id="update" parameterType="BStoreDto">
+		UPDATE B_Store
+		SET b_name=#{b_name}, b_Store_Address=#{b_Store_Address}
+		WHERE b_id = #{b_id}
+	</update>
+ 	-->
 
 
 

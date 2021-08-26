@@ -24,11 +24,11 @@
 	<h1>가입 정보 수정 폼 입니다.</h1>
 	<a id="profileLink" href="javascript:">
 		<c:choose>
-			<c:when test="${empty b_dto.b_profile }">
+			<c:when test="${empty b_profile }">
 				<i id="b_profileImage" class="far fa-user fa-3x"></i>
 			</c:when>
 			<c:otherwise>
-				<img id="b_profileImage" src="${pageContext.request.contextPath}${b_dto.b_profile }" />
+				<img id="b_profileImage" src="${pageContext.request.contextPath}${b_profile }" />
 			</c:otherwise>
 		</c:choose>
 	</a>
@@ -36,10 +36,10 @@
 		<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .gif"/>
 	</form>
 	<form action="${pageContext.request.contextPath}/users/update.do" method="post">
-		<input type="hidden" name="b_profile" value="${ empty b_dto.b_profile ? '' : b_dto.b_profile }"/>
+		<input type="hidden" name="b_profile" value="${ empty b_profile ? '' : b_profile }"/>
 		<div>
 			<label for="b_id">사업자번호</label>
-			<input type="text" id="b_id" value="${b_dto.b_id }" disabled/>
+			<input type="text" id="b_id" value="${b_id }" disabled/>
 		</div>
 		<div>
 			<label for="b_name">대표자</label>

@@ -12,13 +12,13 @@ public class BStoreDaoImpl implements BStoreDao {
 	private SqlSession session;
 	
 	@Override
-	public void insert(String b_id) {
+	public void insert(BStoreDto dto) {
 		/*
 		 	namespace : BStore
 		 	sql id : insert
 		 	parameterType : BStoreDto , b_id
 		 */
-		session.insert("BStore.insert", b_id);
+		session.insert("BStore.insert", dto);
 	}
 
 	@Override

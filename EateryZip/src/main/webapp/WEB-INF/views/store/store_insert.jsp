@@ -8,7 +8,7 @@
 </head>
 <body>
 	<p>
-		<strong>${b_name }</strong> 가게등록되었습니다.
+		<strong>${dto.b_name }</strong> 가게등록되었습니다.
 		<a href="${pageContext.request.contextPath}/store/store_detail.do">가게정보</a>
 	</p>
 </body>
