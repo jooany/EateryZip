@@ -42,12 +42,12 @@ public class MenuController {
 		return "users/b_mypage/menu_insert";
 	}
 	//메뉴 수정
-	@RequestMapping(value="/users/b_mypage/menu_update", method = RequestMethod.POST)
-	public String update(MenuDto dto) {
-
-		service.updateMenu(dto);
+	@RequestMapping(value="/users/b_mypage/menu_update", 
+			method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> update(MenuDto dto) {
 		
-		return "redirect:/users/b_mypage/menu_insertform.do";
+		return service.updateMenu(dto);
 	}
 	
 	//ajax 프로필 사진 업로드 요청처리

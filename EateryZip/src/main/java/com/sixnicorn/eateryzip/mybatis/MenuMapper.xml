@@ -18,7 +18,7 @@
 	
 	<!-- 사업자 번호로 카테고리 개수 얻어오기 -->
 	<select id="getSectionCount" parameterType="String" resultType="int">
-		SELECT MAX(section_num)
+		SELECT NVL(MAX(section_num),0)
 		FROM menu
 		WHERE b_id=#{b_id}
 	</select>
@@ -28,6 +28,7 @@
 		SELECT *
 		FROM menu
 		WHERE b_id=#{b_id}
+		ORDER BY menu_num ASC
 	</select>
 	
 	<!-- 카테고리명 변경하기 -->
