@@ -51,9 +51,10 @@ button{
 }
 .section_header{
 	margin:0 10px;
-	border-bottom:1px solid rgba(0,0,0,.5);
+	border-bottom:1px solid rgba(0,0,0,.2);
 	display:flex;
 	justify-content:space-between;
+	align-items:center;
 	padding-bottom:6px;
 }
 .section_header .select{
@@ -65,8 +66,10 @@ button{
 .section_header .select>option{
 	font-size:18px;
 }
-.section_header button{
+.section_header a{
+	display:box;
 	padding:0!important;
+	height:22px!important;
 }
 
 .wrap_menu{
@@ -172,31 +175,31 @@ button{
 	        <c:choose>
 	            <c:when test="${sectionCount ne 0}">
 	                <!-- 저장된 카테고리 개수만큼 섹션을 생성함. -->
-	                <c:forEach var="i" begin="1" end="${sectionCount }">
-	                    <div class="wrap_section" data-section="${i }">
+	                <c:forEach var="tmp2" items="${sectionNumList }">
+	                    <div class="wrap_section" data-section="${tmp2 }">
 	                    	<!-- select 태그를 한번만 나타나게 하기 위해서 변수를 설정해줌. -->
 	                    	<c:set var="selectOnlyOne" value="0" />
 	                        <c:forEach var="tmp" items="${list }">
-	                            <c:if test="${i eq tmp.section_num and selectOnlyOne eq 0}">
+	                            <c:if test="${tmp2 eq tmp.section_num and selectOnlyOne eq 0}">
 	                            	<c:set var="selectOnlyOne" value="1" />
 	                                <div class="section_header">
-	                                    <select name="section_name_main" class="select" onchange="changeSectionName(${i},this.value)">
+	                                    <select name="section_name_main" class="select" onchange="changeSectionName(${tmp2},this.value)">
 	                                        <option value="main" ${tmp.section_name eq 'main' ? 'selected' : ''}>메인 메뉴</option>
 	                                        <option value="set" ${tmp.section_name eq 'set' ? 'selected' : ''}>세트</option>
 	                                        <option value="side" ${tmp.section_name eq 'side' ? 'selected' : ''}>사이드</option>
 	                                        <option value="dessert" ${tmp.section_name eq 'dessert' ? 'selected' : ''}>디저트</option>
 	                                        <option value="beverage" ${tmp.section_name eq 'beverage' ? 'selected' : ''}>음료</option>
 	                                    </select>
-	                                    <button id="deleteSectionBtn">
-	                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+	                                    <a id="deleteSectionBtn" href="javascript:deleteSectionConfirm(${tmp2 })">
+	                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
 	                                              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 	                                        </svg>
-	                                    </button>
+	                                    </a>
 	                                </div>
 	                                <div class="wrap_menu">
 	                            </c:if>
 	                            <!-- 모든 메뉴 list 중에서 i번째 섹션에 저장된 메뉴 정보를 가져옴. -->
-	                                <c:if test="${tmp.section_num eq i }">
+	                                <c:if test="${tmp.section_num eq tmp2 }">
 	                                    <form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_update.do" method="post" data-menuNum="${tmp.menu_num }">
 	                                        
 	                                        <!--  <input type="hidden" name="section_num" value="${tmp.section_num }" />
@@ -205,7 +208,7 @@ button{
 	                                        <input type="hidden" name="menu_num" value="${tmp.menu_num}" />		
 	    
 	                                        <div class="wrap_menu_name">
-	                                            <input type="text" id="inputMenuName${tmp.menu_num}" class="menu_name" name="menu_name" placeholder="메뉴 1" value="${tmp.menu_name }"/>
+	                                            <input type="text" id="inputMenuName${tmp.menu_num}" class="menu_name" name="menu_name" placeholder="메뉴명 입력..." value="${tmp.menu_name }"/>
 	                                        </div>
 	                                        <div class="wrap_img_n_price">
 	                                            <a class="menu_img_btn" data-menuNum="${tmp.menu_num}" href="#">
@@ -363,6 +366,13 @@ button{
 		});
 	}); //#image.change.end
 		
+	//섹션 삭제
+	function deleteSectionConfirm(num){
+		const isDelete=confirm("해당 카테고리를 삭제하시겠습니까?\n*모든 메뉴가 삭제됩니다.");
+		if(isDelete){
+			location.href="${pageContext.request.contextPath}/users/b_mypage/delete_section.do?section_num="+num;
+		}
+	}
 	
 	//비동기 처리 나중에 하기 
 	//같은 이미지 선택 시, 경고 메시지 띄우기
