@@ -28,12 +28,15 @@ public class MenuServiceImpl implements MenuService{
 		String b_id=(String)request.getSession().getAttribute("b_id");
 		//저장된 카테고리 개수를 얻어낸다.
 		int sectionCount=menuDao.getSectionCount(b_id);
-		//전체 메뉴 list를 얻어낸다.
-		List<MenuDto> list=menuDao.getList(b_id);
 		
-		//view page 에서 필요한 값 request 에 담기
-		request.setAttribute("sectionCount", sectionCount);
-		request.setAttribute("list",list);
+		if(sectionCount!=0) {
+			//전체 메뉴 list를 얻어낸다.
+			List<MenuDto> list=menuDao.getList(b_id);
+			
+			//view page 에서 필요한 값 request 에 담기
+			request.setAttribute("sectionCount", sectionCount);
+			request.setAttribute("list",list);
+		}
 	}
 	
 	@Override
@@ -76,8 +79,16 @@ public class MenuServiceImpl implements MenuService{
 	}
 	//메뉴 수정
 	@Override
-	public void updateMenu(MenuDto dto) {
+	public Map<String, Object> updateMenu(MenuDto dto) {
 		menuDao.update(dto);
+		
+		// json 문자열을 출력하기 위한 Map 객체 생성하고 정보 담기 
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("menuName",dto.getMenu_name());
+		map.put("menuImg",dto.getMenu_image());
+		map.put("menuPrice",dto.getMenu_price());
+		
+		return map;
 	}
 	//카테고리명 변경
 	@Override
