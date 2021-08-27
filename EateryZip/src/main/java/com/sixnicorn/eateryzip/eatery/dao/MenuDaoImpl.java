@@ -26,9 +26,18 @@ public class MenuDaoImpl implements MenuDao{
 	public List<MenuDto> getList(String b_id){
 		return session.selectList("menu.getList",b_id);
 	}
+	
+	@Override
+	public List<Integer> getSectionNumList(String b_id){
+		return session.selectList("menu.getSectionNumList",b_id);
+	}
 	@Override
 	public int getSectionCount(String b_id) {
 		return session.selectOne("menu.getSectionCount",b_id);
+	}
+	@Override
+	public int getSectionMaxNum(String b_id) {
+		return session.selectOne("menu.getSectionMaxNum",b_id);
 	}
 	@Override
 	public void updateSectionName(MenuDto dto) {
@@ -37,6 +46,10 @@ public class MenuDaoImpl implements MenuDao{
 	@Override
 	public void deleteMenu(int menu_num) {
 		session.delete("menu.delete_menu",menu_num);
+	}
+	@Override
+	public void deleteSection(int section_num) {
+		session.delete("menu.delete_section",section_num);
 	}
 
 }

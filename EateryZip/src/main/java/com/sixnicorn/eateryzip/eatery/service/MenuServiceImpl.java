@@ -26,15 +26,22 @@ public class MenuServiceImpl implements MenuService{
 	public void getList(HttpServletRequest request) {
 		//세션에 로그인 된 비즈니스 아이디를 읽어와서
 		String b_id=(String)request.getSession().getAttribute("b_id");
+		//저장된 카테고리 번호 최댓값을 얻어낸다.
+		int sectionMaxNum=menuDao.getSectionMaxNum(b_id);
 		//저장된 카테고리 개수를 얻어낸다.
 		int sectionCount=menuDao.getSectionCount(b_id);
+		//저장된 카테고리 번호 리스트를 얻어낸다.
+		List<Integer> sectionNumList=menuDao.getSectionNumList(b_id);
+		
 		
 		if(sectionCount!=0) {
 			//전체 메뉴 list를 얻어낸다.
 			List<MenuDto> list=menuDao.getList(b_id);
 			
 			//view page 에서 필요한 값 request 에 담기
+			request.setAttribute("sectionMaxNum", sectionMaxNum);
 			request.setAttribute("sectionCount", sectionCount);
+			request.setAttribute("sectionNumList", sectionNumList);
 			request.setAttribute("list",list);
 		}
 	}
@@ -106,10 +113,13 @@ public class MenuServiceImpl implements MenuService{
 	//메뉴 삭제
 	@Override
 	public void deleteMenu(int num) {
-		
-		menuDao.deleteMenu(num);
-		
+		menuDao.deleteMenu(num);	
 	}
-	
+	//섹션 삭제
+	@Override
+	public void deleteSection(int num) {
+		menuDao.deleteSection(num);	
+	}
+
 
 }

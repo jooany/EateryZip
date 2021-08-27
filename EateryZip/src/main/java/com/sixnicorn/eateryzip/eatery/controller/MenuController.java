@@ -77,5 +77,13 @@ public class MenuController {
 		
 		return "redirect:/users/b_mypage/menu_insertform.do";
 	}
+	//메뉴 삭제
+	@RequestMapping(value="/users/b_mypage/delete_section")
+	public String deleteSection(@RequestParam int section_num) {
+		
+		service.deleteSection(section_num);
+		
+		return "redirect:/users/b_mypage/menu_insertform.do";
+	}
 
 }
