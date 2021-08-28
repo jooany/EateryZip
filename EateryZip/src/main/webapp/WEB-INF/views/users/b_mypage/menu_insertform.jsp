@@ -301,7 +301,8 @@ button{
 				let thisSecNum=$(this).attr("data-sectionNum");
 				//클릭한 카테고리명 가져오기 
 				let thisSecName=$(".select"+thisSecNum+" option:selected").val();
-						
+				
+				
 				addMenuForm.append(`<form id="menuFormJS`+preMenuNum+`" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_insert.do" method="post" data-menuNum="js`+preMenuNum+`">
 						<input type="hidden" name="section_name" id="inputSectionName`+thisSecNum+`" value=`+thisSecName+`> 
                         <input type="hidden" name="section_num" id="inputSectionNumJS`+thisSecNum+`" value="`+thisSecNum+`" />
@@ -320,11 +321,12 @@ button{
                                 <span>원</span>
                             </div>
                         </div>
-                        <button type="submit" id="insertMenuBtn">등록</button>
+                        <button type="submit" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
                         <a href="javascript:;" onclick="deleteConfirmJS(this)" id="deleteMenuBtn">삭제</a>
                     </form>`);
 				
 				clickImgEventListener($(".menu_img_btn"+preMenuNum));
+				insertMenuListener("#menuFormJS"+preMenuNum);
 				
 				preMenuNum++;
 				
@@ -353,6 +355,27 @@ button{
 			}
 		});
 	}
+	//메뉴 db 등록하기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //메뉴 추가할 때 등록 버튼에 이벤트 리스너 추가하면 됨
+    //등록 버튼 클릭 insertMenuBtn[preMenuNum]에서 data-menuNum가져오기.-> #menuFormJS[preMenuNum] 삭제 후, 수정 폼으로 append 및 수정 이벤트 리스너 등록.
+    function insertMenuListener(sel){
+		let menuForm=document.querySelector(sel);
+		console.log(menuForm);
+    	//let menuNum=sel.attr("data-menuNum");
+    	//alert(menuNum);
+    	menuForm.addEventListener("submit",function(e){
+    		const form=this;
+    		e.preventDefault();
+        	
+        	ajaxFormPromise(form)
+    		.then(function(response){
+    			return response.json();
+    		})
+    		.then(function(data){
+    			form.remove();
+    		});
+    	});
+    };
 	
 	//메뉴 수정
 	function updateMenuListener(sel){
@@ -383,6 +406,7 @@ button{
 		}//for문끝
 	}
 	//메뉴 수정 이벤트 리스너 실행
+	//[추후]메뉴 db 등록 ajax 요청시, 수정 이벤트 리스너 삽입 필요!!
 	updateMenuListener("#menuForm");
 	
 	//메뉴 삭제
@@ -392,7 +416,7 @@ button{
 			location.href="${pageContext.request.contextPath}/users/b_mypage/delete_menu.do?menu_num="+num;
 		}
 	}
-	//정주연 데이터 없는 메뉴 삭제(동적 삭제)
+	//데이터 없는 메뉴 삭제(동적 삭제)
 	function deleteConfirmJS(sel){
 		sel.parentNode.remove();
 	}

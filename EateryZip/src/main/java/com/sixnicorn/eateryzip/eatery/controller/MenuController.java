@@ -30,16 +30,16 @@ public class MenuController {
 		return "users/b_mypage/menu_insertform";
 	}
 	//메뉴 등록
-	@RequestMapping("/users/b_mypage/menu_insert")
-	public String insert(MenuDto dto, HttpSession session, HttpServletRequest request) {		
+	@RequestMapping(value="/users/b_mypage/menu_insert",
+			method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insert(MenuDto dto, HttpSession session, HttpServletRequest request) {		
 		//사업자 번호 가져오기 
 		String b_id=(String)session.getAttribute("b_id");
 
 		dto.setB_id(b_id);
 		
-		service.saveMenu(dto);
-		
-		return "users/b_mypage/menu_insert";
+		return service.saveMenu(dto);
 	}
 	//메뉴 수정
 	@RequestMapping(value="/users/b_mypage/menu_update", 

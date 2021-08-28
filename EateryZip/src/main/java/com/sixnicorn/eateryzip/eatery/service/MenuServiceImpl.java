@@ -81,8 +81,16 @@ public class MenuServiceImpl implements MenuService{
 	
 	//메뉴 추가 
 	@Override
-	public void saveMenu(MenuDto dto) {
+	public Map<String, Object> saveMenu(MenuDto dto) {
 		menuDao.insert(dto);
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("menuName",dto.getMenu_name());
+		map.put("menuImg",dto.getMenu_image());
+		map.put("menuPrice",dto.getMenu_price());
+		map.put("menuNum",dto.getMenu_num());
+		
+		return map;
 	}
 	//메뉴 수정
 	@Override
