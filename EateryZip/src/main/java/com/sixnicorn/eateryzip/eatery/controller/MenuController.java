@@ -1,5 +1,6 @@
 package com.sixnicorn.eateryzip.eatery.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,13 +34,11 @@ public class MenuController {
 	@RequestMapping(value="/users/b_mypage/menu_insert",
 			method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> insert(MenuDto dto, HttpSession session, HttpServletRequest request) {		
-		//사업자 번호 가져오기 
-		String b_id=(String)session.getAttribute("b_id");
-
-		dto.setB_id(b_id);
-		
-		return service.saveMenu(dto);
+	public Map<String, Object> insert(MenuDto dto) {		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map=service.saveMenu(dto);
+		map.put("menuNum",dto.getMenu_num());
+		return map;
 	}
 	//메뉴 수정
 	@RequestMapping(value="/users/b_mypage/menu_update", 

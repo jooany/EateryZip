@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
+	
 	<!-- 메뉴 등록하기 -->
 	<insert id="insert" parameterType="menuDto">
 		INSERT INTO menu
 		(menu_num,b_id,section_num,section_name,menu_name,menu_image,menu_price)
-		VALUES(menu_seq.NEXTVAL,#{b_id},#{section_num},#{section_name},#{menu_name},#{menu_image,jdbcType=VARCHAR},#{menu_price})
+		VALUES(#{menu_num},#{b_id},#{section_num},#{section_name},#{menu_name},#{menu_image,jdbcType=VARCHAR},#{menu_price})
 	</insert>
 	
 	<!-- 메뉴 수정하기 -->

@@ -1,6 +1,6 @@
 -- 메뉴 테이블 
 CREATE TABLE menu(
-	menu_num NUMBER PRIMARY KEY,
+	menu_num NUMBER NOT NULL,
 	b_id VARCHAR2(100) NOT NULL, --사업자번호(음식점 고유번호)
 	section_num NUMBER NOT NULL, --카테고리번호
 	section_name VARCHAR2(100) NOT NULL, --카테고리명
@@ -8,7 +8,8 @@ CREATE TABLE menu(
 	menu_image VARCHAR2(100), -- 메뉴 이미지경로
 	menu_price NUMBER NOT NULL -- 가격
 );
--- 메뉴 번호 얻어낼 시퀀스
+-- 메뉴 번호 얻어낼 시퀀스 
+-- 필요 없음
 CREATE SEQUENCE menu_seq;
 
 -- 리뷰 테이블 

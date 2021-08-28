@@ -196,7 +196,7 @@ button{
 	                                        </svg>
 	                                    </a>
 	                                </div>
-	                                <div class="wrap_menu" id="wrapMenu${tmp.menu_num }">
+	                                <div class="wrap_menu" id="wrapMenu${tmp2}">
 	                            </c:if>
 	                            <!-- 모든 메뉴 list 중에서 i번째 섹션에 저장된 메뉴 정보를 가져옴. -->
 	                                <c:if test="${tmp.section_num eq tmp2 }">
@@ -233,9 +233,10 @@ button{
 	                                        <button type="submit" style="font-size:13px;">수정</button>
 	                                        <a href="javascript:deleteConfirm(${tmp.menu_num })" id="deleteMenuBtn">삭제</a>
 	                                    </form>	
-	                                </c:if>
-	                       		</c:forEach>  
-	                       	</div>
+	                               </c:if>
+	                  			  </c:forEach>  
+	                       		</div>
+	                       		<!-- wrap_menu.end -->
 	                    
 	        
 	                        <a id="addMenuFormBtn" data-sectionNum="${tmp2 }" href="javascript:;" >
@@ -284,9 +285,73 @@ button{
 	// 동적 기능 ///
 	
 	// 임시 메뉴 번호를 부여하기 위한 변수
-	let preMenuNum=1;
+	let preMenuNum=0;
 	// 카테고리 번호를 부여하기 위한 변수
 	let preSectionNum=${sectionMaxNum};
+	
+	//섹션 추가
+	$(".add_section_btn").click(function(){
+		
+		
+		preMenuNum++;
+		preSectionNum++;
+		alert("preMenuNum:"+preMenuNum);
+		
+		
+		
+		$(".sections").append(`<div class="wrap_section" data-section="`+preSectionNum+`">
+				<div class="section_header">
+				<select name="section_name_main" class="select" onchange="changeSectionName(`+preSectionNum+`,this.value)">
+					<option value="main" selected>메인 메뉴</option>
+					<option value="set">세트</option>
+					<option value="side">사이드</option>
+					<option value="dessert">디저트</option>
+					<option value="beverage">음료</option>
+				</select>
+				<a id="deleteSectionBtn" href="javascript:deleteSectionConfirm(`+preSectionNum+`)">
+					<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+							<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+					</svg>
+				</a>
+			</div>
+			<div class="wrap_menu">
+                <form id="menuFormJS`+preMenuNum+`" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_insert.do" method="post" data-menuNum="js`+preMenuNum+`">
+					<input type="hidden" name="section_name" id="inputSectionName`+preSectionNum+`" value="main" /> 
+                    <input type="hidden" name="section_num" id="inputSectionNumJS`+preSectionNum+`" value="`+preSectionNum+`" />
+                    <input type="hidden" name="menu_image" id="inputImgjs`+preMenuNum+`"/>
+                    <input type="hidden" name="b_id" value="${b_id}"/>
+                    <div class="wrap_menu_name">
+                        <input type="text" id="inputMenuName" class="menu_name" name="menu_name" placeholder="메뉴명 입력..."/>
+                    </div>
+                    <div class="wrap_img_n_price">
+                        <a class="menu_img_btn menu_img_btn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`" href="javascript:;">
+                            <div id="imgNumjs`+preMenuNum+`" class="menu_img_wrap">
+								<i class="far fa-image"></i>
+                            </div>
+                        </a>							
+                        <div class="wrap_price">
+                            <input id="price" name="menu_price" type="text" style="text-align:right;" />
+                            <span>원</span>
+                        </div>
+                    </div>
+                    <button type="submit" style="font-size:13px;" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
+                    <a href="javascript:;" onclick="deleteConfirmJS(this)" id="deleteMenuBtn">삭제</a>
+                </form> 
+			</div>   
+			<a id="addMenuFormBtn`+preSectionNum+`" href="javascript:;" data-sectionNum="`+preSectionNum+`">
+				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+					<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+				</svg>
+				<span>메뉴 추가</span>
+			</a>
+		</div>`);		
+		
+		//이벤트 리스너 추가 
+		clickImgEventListener($(".menu_img_btn"+preMenuNum));
+		insertMenuListener("#menuFormJS"+preMenuNum);
+		addMenuFormListener("#addMenuFormBtn"+preSectionNum);
+		
+	});
 	
 	//메뉴 폼 추가
 	//동적 메뉴 추가 폼 : 카테고리번호, 카테고리명, 이미지 경로(ajax), 메뉴명, 가격 저장 (섹션-카테고리명 변경)
@@ -295,6 +360,11 @@ button{
 		
 		for(let i=0;i<addMenuFormBtns.length;i++){
 			addMenuFormBtns[i].addEventListener("click",function(){
+				
+				preMenuNum++;
+				
+				alert("preMenuNum:"+preMenuNum);
+				
 				//클릭한 버튼에 해당하는 form 요소 선택 
 				let addMenuForm=$(this).prev();
 				//클릭한 버튼에서 카테고리번호 가져오기
@@ -304,9 +374,10 @@ button{
 				
 				
 				addMenuForm.append(`<form id="menuFormJS`+preMenuNum+`" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_insert.do" method="post" data-menuNum="js`+preMenuNum+`">
-						<input type="hidden" name="section_name" id="inputSectionName`+thisSecNum+`" value=`+thisSecName+`> 
+						<input type="hidden" name="section_name" id="inputSectionName`+thisSecNum+`" value="main"> 
                         <input type="hidden" name="section_num" id="inputSectionNumJS`+thisSecNum+`" value="`+thisSecNum+`" />
                         <input type="hidden" name="menu_image" id="inputImgjs`+preMenuNum+`"/>
+                        <input type="hidden" name="b_id" value="${b_id}"/>
                         <div class="wrap_menu_name">
                             <input type="text" id="inputMenuName" class="menu_name" name="menu_name" placeholder="메뉴명 입력..."/>
                         </div>
@@ -321,14 +392,14 @@ button{
                                 <span>원</span>
                             </div>
                         </div>
-                        <button type="submit" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
+                        <button type="submit" style="font-size:13px;" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
                         <a href="javascript:;" onclick="deleteConfirmJS(this)" id="deleteMenuBtn">삭제</a>
                     </form>`);
 				
 				clickImgEventListener($(".menu_img_btn"+preMenuNum));
 				insertMenuListener("#menuFormJS"+preMenuNum);
 				
-				preMenuNum++;
+				
 				
 				console.log(preMenuNum);
 			});
@@ -355,16 +426,19 @@ button{
 			}
 		});
 	}
+    // 왜 !! data-menuNum..에..sequence.NEXTVAL 안먹히는거야? 왜 다 0으로 넣어지는거야 왜 ?!? !? !?!?
 	//메뉴 db 등록하기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //메뉴 추가할 때 등록 버튼에 이벤트 리스너 추가하면 됨
     //등록 버튼 클릭 insertMenuBtn[preMenuNum]에서 data-menuNum가져오기.-> #menuFormJS[preMenuNum] 삭제 후, 수정 폼으로 append 및 수정 이벤트 리스너 등록.
     function insertMenuListener(sel){
 		let menuForm=document.querySelector(sel);
-		console.log(menuForm);
+		
     	//let menuNum=sel.attr("data-menuNum");
     	//alert(menuNum);
     	menuForm.addEventListener("submit",function(e){
-    		const form=this;
+    		let form=this;
+    		let form2=$(this);
+    		
     		e.preventDefault();
         	
         	ajaxFormPromise(form)
@@ -372,7 +446,37 @@ button{
     			return response.json();
     		})
     		.then(function(data){
-    			form.remove();
+    			alert("data-menuNum: "+data.menuNum);
+    			let cPath = '<c:out value="${pageContext.request.contextPath}"/>';
+    			let menuImg = data.menuImg;
+    			//데이터 추가된 수정 폼 추가 
+    			form2.parent().append(`<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_update.do" method="post" data-menuNum="`+data.menuNum+`">  
+                        <input type="hidden" name="menu_image" value="`+data.menuImg+`" id="inputImg`+data.menuImg+`"/>
+                        <input type="hidden" name="menu_num" value="`+data.menuNum+`" />		
+                        <div class="wrap_menu_name">
+                            <input type="text" id="inputMenuName`+data.menuNum+`" class="menu_name" name="menu_name" placeholder="메뉴명 입력..." value="`+data.menuName+`"/>
+                        </div>
+                        <div class="wrap_img_n_price">
+                            <a class="menu_img_btn" data-menuNum="`+data.menuNum+`" href="#">
+                                <div id="imgNum`+data.menuNum+`" class="menu_img_wrap">`+
+                                    ${data.menuImg ? '`<i class="far fa-image"></i>`' : '`<img class="menu_img" src="${cPath}/${menuImg}"/>`' }+`
+                                </div>
+                            </a>							
+                            <div class="wrap_price">
+                                <input id="price inputPrice`+data.menuNum+`" name="menu_price" type="text" value="`+data.menuPrice+`" style="text-align:right;" />
+                                <span>원</span>
+                            </div>
+                        </div>
+                        <button type="submit" style="font-size:13px;">수정</button>
+                        <a href="javascript:deleteConfirm(`+data.menuNum+`)" id="deleteMenuBtn">삭제</a>
+                    </form>`);
+    			
+    			//기존 등록 폼 제거
+    			form2.remove();
+
+    			//필요한 이벤트 리스너 추가
+    			updateMenuListener("#menuForm");
+    			clickImgEventListener($(".menu_img_btn"));
     		});
     	});
     };
