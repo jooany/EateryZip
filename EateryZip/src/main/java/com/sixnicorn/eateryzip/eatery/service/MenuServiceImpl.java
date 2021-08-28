@@ -99,7 +99,7 @@ public class MenuServiceImpl implements MenuService{
 	}
 	//카테고리명 변경
 	@Override
-	public void updateSectionName(HttpServletRequest request,int section_num,String section_name) {
+	public Map<String, Object> updateSectionName(HttpServletRequest request,int section_num,String section_name) {
 		String b_id=(String)request.getSession().getAttribute("b_id");
 		
 		MenuDto dto=new MenuDto();
@@ -107,7 +107,15 @@ public class MenuServiceImpl implements MenuService{
 		dto.setSection_num(section_num);
 		dto.setSection_name(section_name);
 		
+		if(menuDao.getSectionCount(b_id) !=0) {
+			
+		}
+		
 		menuDao.updateSectionName(dto);
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("isSuccess",true);
+		return map;
 		
 	}
 	//메뉴 삭제

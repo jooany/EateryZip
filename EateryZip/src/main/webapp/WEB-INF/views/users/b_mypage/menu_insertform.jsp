@@ -95,7 +95,7 @@ button{
 	margin-right:40px;
 }
 .wrap_menu_name > input::placeholder{
-	font-size:16px;
+	font-size:13px;
 	font-weight:600;
 	color:black;
 }
@@ -183,7 +183,7 @@ button{
 	                            <c:if test="${tmp2 eq tmp.section_num and selectOnlyOne eq 0}">
 	                            	<c:set var="selectOnlyOne" value="1" />
 	                                <div class="section_header">
-	                                    <select name="section_name_main" class="select" onchange="changeSectionName(${tmp2},this.value)">
+	                                    <select name="section_name_main" class="select select${tmp2}" onchange="changeSectionName(${tmp2},this.value)">
 	                                        <option value="main" ${tmp.section_name eq 'main' ? 'selected' : ''}>메인 메뉴</option>
 	                                        <option value="set" ${tmp.section_name eq 'set' ? 'selected' : ''}>세트</option>
 	                                        <option value="side" ${tmp.section_name eq 'side' ? 'selected' : ''}>사이드</option>
@@ -196,7 +196,7 @@ button{
 	                                        </svg>
 	                                    </a>
 	                                </div>
-	                                <div class="wrap_menu">
+	                                <div class="wrap_menu" id="wrapMenu${tmp.menu_num }">
 	                            </c:if>
 	                            <!-- 모든 메뉴 list 중에서 i번째 섹션에 저장된 메뉴 정보를 가져옴. -->
 	                                <c:if test="${tmp.section_num eq tmp2 }">
@@ -211,7 +211,7 @@ button{
 	                                            <input type="text" id="inputMenuName${tmp.menu_num}" class="menu_name" name="menu_name" placeholder="메뉴명 입력..." value="${tmp.menu_name }"/>
 	                                        </div>
 	                                        <div class="wrap_img_n_price">
-	                                            <a class="menu_img_btn" data-menuNum="${tmp.menu_num}" href="#">
+	                                            <a class="menu_img_btn" data-menuNum="${tmp.menu_num}" href="javascript:;">
 	                                                <div id="imgNum${tmp.menu_num}" class="menu_img_wrap">
 	                                                    <c:choose>
 	                                                        <c:when test="${empty tmp.menu_image }">
@@ -230,7 +230,7 @@ button{
 	                                        </div>
 	                                        <!--  <button id="insertMenuBtn">등록</button>-->
 	                                        <!-- <a href="${pageContext.request.contextPath}/users/b_mypage/menu_update.do?menu_num=${tmp.menu_num }">수정</a>-->
-	                                        <button type="submit">수정</button>
+	                                        <button type="submit" style="font-size:13px;">수정</button>
 	                                        <a href="javascript:deleteConfirm(${tmp.menu_num })" id="deleteMenuBtn">삭제</a>
 	                                    </form>	
 	                                </c:if>
@@ -238,7 +238,7 @@ button{
 	                       	</div>
 	                    
 	        
-	                        <a id="addMenuFormBtn" href="#">
+	                        <a id="addMenuFormBtn" data-sectionNum="${tmp2 }" href="javascript:;" >
 	                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
 	                              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 	                            </svg>
@@ -256,7 +256,7 @@ button{
     	</div>
 		<!-- sections.end -->
 		
-		<button id="addSectionBtn" class="add_section_btn">
+		<button id="addSectionBtn" class="add_section_btn"">
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
 			  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 			</svg>
@@ -277,23 +277,81 @@ button{
 <script>
 
 	
-
-	
-	//카테고리 영역 번호 & 메뉴 번호 & 총 메뉴 개수
-	let sectionNum=1;
-	let menuNum=1;
-	let menuCount=1;
-	
+	// 클릭한 메뉴 번호를 저장하는 변수
 	// 이미지 선택 후, 이미지를 보이게 하기 위한 현재 클릭한 메뉴 번호를 저장하고 클래스 연결을 위한 변수
 	let thisMenu;
 	
-	// 동적으로 추가한 메뉴 폼에 임시 메뉴 번호를 부여하기 위한 변수
-	let sMenuNum;
+	// 동적 기능 ///
+	
+	// 임시 메뉴 번호를 부여하기 위한 변수
+	let preMenuNum=1;
+	// 카테고리 번호를 부여하기 위한 변수
+	let preSectionNum=${sectionMaxNum};
+	
+	//메뉴 폼 추가
+	//동적 메뉴 추가 폼 : 카테고리번호, 카테고리명, 이미지 경로(ajax), 메뉴명, 가격 저장 (섹션-카테고리명 변경)
+	function addMenuFormListener(sel){
+		let addMenuFormBtns=document.querySelectorAll(sel);
+		
+		for(let i=0;i<addMenuFormBtns.length;i++){
+			addMenuFormBtns[i].addEventListener("click",function(){
+				//클릭한 버튼에 해당하는 form 요소 선택 
+				let addMenuForm=$(this).prev();
+				//클릭한 버튼에서 카테고리번호 가져오기
+				let thisSecNum=$(this).attr("data-sectionNum");
+				//클릭한 카테고리명 가져오기 
+				let thisSecName=$(".select"+thisSecNum+" option:selected").val();
+						
+				addMenuForm.append(`<form id="menuFormJS`+preMenuNum+`" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_insert.do" method="post" data-menuNum="js`+preMenuNum+`">
+						<input type="hidden" name="section_name" id="inputSectionName`+thisSecNum+`" value=`+thisSecName+`> 
+                        <input type="hidden" name="section_num" id="inputSectionNumJS`+thisSecNum+`" value="`+thisSecNum+`" />
+                        <input type="hidden" name="menu_image" id="inputImgjs`+preMenuNum+`"/>
+                        <div class="wrap_menu_name">
+                            <input type="text" id="inputMenuName" class="menu_name" name="menu_name" placeholder="메뉴명 입력..."/>
+                        </div>
+                        <div class="wrap_img_n_price">
+                            <a class="menu_img_btn menu_img_btn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`" href="javascript:;">
+                                <div id="imgNumjs`+preMenuNum+`" class="menu_img_wrap">
+									<i class="far fa-image"></i>
+                                </div>
+                            </a>							
+                            <div class="wrap_price">
+                                <input id="price" name="menu_price" type="text" style="text-align:right;" />
+                                <span>원</span>
+                            </div>
+                        </div>
+                        <button type="submit" id="insertMenuBtn">등록</button>
+                        <a href="javascript:;" onclick="deleteConfirmJS(this)" id="deleteMenuBtn">삭제</a>
+                    </form>`);
+				
+				clickImgEventListener($(".menu_img_btn"+preMenuNum));
+				
+				preMenuNum++;
+				
+				console.log(preMenuNum);
+			});
+		};
+	};
+	//[추후]아마 섹션 추가할 때 또 이벤트리스너 넣어줘야할듯?
+	addMenuFormListener("#addMenuFormBtn");
+	
+	//카테고리 변경시, 1. 해당 카테고리에 저장된 db에 모든 카테고리 이름을 변경하고
+    //            2. 클라이언트서버에선 <input section_name> 요소 있는지 확인 후, 있으면 요소들 전부의 value 값으로 select한 카테고리명을 저장
 	
 	//카테고리명을 변경하면 b_id와 section_num을 파라미터로 하여  해당 section_num의 section_name 값을 update 한 후, redirect 하기 위해
 	//section_num과 section_name을 url 파라미터로 넘겨줌.
-	function changeSectionName(num,selectedName){
-		location.href="${pageContext.request.contextPath}/users/b_mypage/update_section_name.do?section_num="+num+"&section_name="+selectedName;
+	function changeSectionName(sectionNum,selectedName){
+		//location.href="${pageContext.request.contextPath}/users/b_mypage/update_section_name.do?section_num="+num+"&section_name="+selectedName;
+		ajaxPromise("update_section_name.do", "get", "section_num="+sectionNum+"&section_name="+selectedName)
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(data){
+			if(data.isSuccess){
+				
+				$("#inputSectionName"+sectionNum).val(selectedName);
+			}
+		});
 	}
 	
 	//메뉴 수정
@@ -334,15 +392,27 @@ button{
 			location.href="${pageContext.request.contextPath}/users/b_mypage/delete_menu.do?menu_num="+num;
 		}
 	}
+	//정주연 데이터 없는 메뉴 삭제(동적 삭제)
+	function deleteConfirmJS(sel){
+		sel.parentNode.remove();
+	}
 	
+	//정주연 추가한 메뉴에서도 메뉴 이미지 경로 ajax 요청하기
+	function clickImgEventListener(sel){
+		sel.click(function(){
+			thisMenu=$(this).attr("data-menuNum");
+			alert(thisMenu);
+			// input type="file" 을 강제 클릭 시킨다. 
+			$("#image").trigger("click");	
+		});
+	};
 	
 	//메뉴 이미지 링크를 클릭하면 
 	$(".menu_img_btn").click(function(){
 		thisMenu=$(this).attr("data-menuNum");
 		alert(thisMenu);
 		// input type="file" 을 강제 클릭 시킨다. 
-		$("#image").trigger("click");
-		
+		$("#image").trigger("click");	
 	});
 	
 	//메뉴 이미지 선택 시, 기존의 선택 파일에서 변화가 생길 때

@@ -63,10 +63,11 @@ public class MenuController {
 	
 	//카테고리명 변경
 	@RequestMapping(value="/users/b_mypage/update_section_name")
-	public String updateSectionName(HttpServletRequest request,@RequestParam int section_num,@RequestParam String section_name) {
+	@ResponseBody
+	public Map<String, Object> updateSectionName(HttpServletRequest request,@RequestParam int section_num,@RequestParam String section_name) {
 		
-		service.updateSectionName(request,section_num,section_name);
-		return "redirect:/users/b_mypage/menu_insertform.do";
+		
+		return service.updateSectionName(request,section_num,section_name);
 	}
 	
 	//메뉴 삭제
