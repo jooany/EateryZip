@@ -35,10 +35,8 @@ public class MenuController {
 			method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> insert(MenuDto dto) {		
-		Map<String, Object> map=new HashMap<String, Object>();
-		map=service.saveMenu(dto);
-		map.put("menuNum",dto.getMenu_num());
-		return map;
+		
+		return service.saveMenu(dto);
 	}
 	//메뉴 수정
 	@RequestMapping(value="/users/b_mypage/menu_update", 
@@ -71,19 +69,18 @@ public class MenuController {
 	
 	//메뉴 삭제
 	@RequestMapping(value="/users/b_mypage/delete_menu")
-	public String delete(@RequestParam int menu_num) {
+	@ResponseBody
+	public Map<String, Object> deleteMenu(HttpServletRequest request,@RequestParam int menu_num,@RequestParam int section_num) {
 		
-		service.deleteMenu(menu_num);
-		
-		return "redirect:/users/b_mypage/menu_insertform.do";
+		return service.deleteMenu(request,menu_num,section_num);
 	}
 	//메뉴 삭제
 	@RequestMapping(value="/users/b_mypage/delete_section")
-	public String deleteSection(@RequestParam int section_num) {
+	@ResponseBody
+	public Map<String, Object> deleteSection(HttpServletRequest request,@RequestParam int section_num) {
+
 		
-		service.deleteSection(section_num);
-		
-		return "redirect:/users/b_mypage/menu_insertform.do";
+		return service.deleteSection(request,section_num);
 	}
 
 }

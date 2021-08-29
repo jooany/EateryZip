@@ -5,6 +5,7 @@ import java.util.List;
 import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
 
 public interface MenuDao {
+	public int getMenuMaxNum(String b_id);
 	public void insert(MenuDto dto);
 	public void update(MenuDto dto);
 	
@@ -13,6 +14,7 @@ public interface MenuDao {
 	public int getSectionCount(String b_id);
 	public int getSectionMaxNum(String b_id);
 	public void updateSectionName(MenuDto dto);
-	public void deleteMenu(int menu_num);
-	public void deleteSection(int section_num);
+	public void deleteMenu(MenuDto dto);
+	public int getIsDataInSection(MenuDto dto);
+	public void deleteSection(MenuDto dto);
 }

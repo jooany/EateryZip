@@ -146,7 +146,7 @@ button{
 #insertMenuBtn,#deleteMenuBtn,#updateMenuBtn{
 	font-size:13px;
 }
-#addMenuFormBtn{
+.addMenuFormBtn{
 	display:flex!important;
 	align-items:center;
 	width:550px;
@@ -176,7 +176,7 @@ button{
 	            <c:when test="${sectionCount ne 0}">
 	                <!-- 저장된 카테고리 개수만큼 섹션을 생성함. -->
 	                <c:forEach var="tmp2" items="${sectionNumList }">
-	                    <div class="wrap_section" data-section="${tmp2 }">
+	                    <div class="wrap_section" id="wrapSection${tmp2 }" data-section="${tmp2 }">
 	                    	<!-- select 태그를 한번만 나타나게 하기 위해서 변수를 설정해줌. -->
 	                    	<c:set var="selectOnlyOne" value="0" />
 	                        <c:forEach var="tmp" items="${list }">
@@ -200,12 +200,14 @@ button{
 	                            </c:if>
 	                            <!-- 모든 메뉴 list 중에서 i번째 섹션에 저장된 메뉴 정보를 가져옴. -->
 	                                <c:if test="${tmp.section_num eq tmp2 }">
+	                                	<div id="wrapForm${tmp.menu_num }">
 	                                    <form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_update.do" method="post" data-menuNum="${tmp.menu_num }">
 	                                        
 	                                        <!--  <input type="hidden" name="section_num" value="${tmp.section_num }" />
 	                                        <input type="hidden" name="section_name" value="${tmp.section_name }"> -->
 	                                        <input type="hidden" name="menu_image" value="${tmp.menu_image}" id="inputImg${tmp.menu_num}"/>
-	                                        <input type="hidden" name="menu_num" value="${tmp.menu_num}" />		
+	                                        <input type="hidden" name="menu_num" value="${tmp.menu_num}" id="inputNum${tmp.menu_num }"/>
+	                                        <input type="hidden" name="b_id" value="${b_id}" />		
 	    
 	                                        <div class="wrap_menu_name">
 	                                            <input type="text" id="inputMenuName${tmp.menu_num}" class="menu_name" name="menu_name" placeholder="메뉴명 입력..." value="${tmp.menu_name }"/>
@@ -231,15 +233,16 @@ button{
 	                                        <!--  <button id="insertMenuBtn">등록</button>-->
 	                                        <!-- <a href="${pageContext.request.contextPath}/users/b_mypage/menu_update.do?menu_num=${tmp.menu_num }">수정</a>-->
 	                                        <button type="submit" style="font-size:13px;">수정</button>
-	                                        <a href="javascript:deleteConfirm(${tmp.menu_num })" id="deleteMenuBtn">삭제</a>
-	                                    </form>	
+	                                        <a href="javascript:deleteConfirm(${tmp.menu_num },${tmp.section_num })" id="deleteMenuBtn">삭제</a>
+	                                    </form>
+	                                    </div>	
 	                               </c:if>
 	                  			  </c:forEach>  
 	                       		</div>
 	                       		<!-- wrap_menu.end -->
 	                    
 	        
-	                        <a id="addMenuFormBtn" data-sectionNum="${tmp2 }" href="javascript:;" >
+	                        <a id="addMenuFormBtn" data-sectionNum="${tmp2 }" class="addMenuFormBtn" href="javascript:;" >
 	                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
 	                              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 	                            </svg>
@@ -285,7 +288,7 @@ button{
 	// 동적 기능 ///
 	
 	// 임시 메뉴 번호를 부여하기 위한 변수
-	let preMenuNum=0;
+	let preMenuNum=${menuMaxNum};
 	// 카테고리 번호를 부여하기 위한 변수
 	let preSectionNum=${sectionMaxNum};
 	
@@ -299,7 +302,7 @@ button{
 		
 		
 		
-		$(".sections").append(`<div class="wrap_section" data-section="`+preSectionNum+`">
+		$(".sections").append(`<div class="wrap_section" id="wrapSection`+preSectionNum+`" data-section="`+preSectionNum+`">
 				<div class="section_header">
 				<select name="section_name_main" class="select" onchange="changeSectionName(`+preSectionNum+`,this.value)">
 					<option value="main" selected>메인 메뉴</option>
@@ -315,8 +318,10 @@ button{
 				</a>
 			</div>
 			<div class="wrap_menu">
+				<div id="wrapForm`+preMenuNum+`">
                 <form id="menuFormJS`+preMenuNum+`" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_insert.do" method="post" data-menuNum="js`+preMenuNum+`">
-					<input type="hidden" name="section_name" id="inputSectionName`+preSectionNum+`" value="main" /> 
+                	<input type="hidden" name="menu_num" value="`+preMenuNum+`" />
+                	<input type="hidden" name="section_name" id="inputSectionName`+preSectionNum+`" value="main" /> 
                     <input type="hidden" name="section_num" id="inputSectionNumJS`+preSectionNum+`" value="`+preSectionNum+`" />
                     <input type="hidden" name="menu_image" id="inputImgjs`+preMenuNum+`"/>
                     <input type="hidden" name="b_id" value="${b_id}"/>
@@ -335,10 +340,11 @@ button{
                         </div>
                     </div>
                     <button type="submit" style="font-size:13px;" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
-                    <a href="javascript:;" onclick="deleteConfirmJS(this)" id="deleteMenuBtn">삭제</a>
+                    <a href="javascript:;" onclick="deleteConfirm(`+preMenuNum+`,`+preSectionNum+`)" id="deleteMenuBtn">삭제</a>
                 </form> 
+                </div>
 			</div>   
-			<a id="addMenuFormBtn`+preSectionNum+`" href="javascript:;" data-sectionNum="`+preSectionNum+`">
+			<a id="addMenuFormBtn`+preSectionNum+`" href="javascript:;" data-sectionNum="`+preSectionNum+`" class="addMenuFormBtn">
 				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
 					<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 				</svg>
@@ -373,7 +379,8 @@ button{
 				let thisSecName=$(".select"+thisSecNum+" option:selected").val();
 				
 				
-				addMenuForm.append(`<form id="menuFormJS`+preMenuNum+`" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_insert.do" method="post" data-menuNum="js`+preMenuNum+`">
+				addMenuForm.append(`<div id="wrapForm`+preMenuNum+`"><form id="menuFormJS`+preMenuNum+`" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_insert.do" method="post" data-menuNum="js`+preMenuNum+`">
+						<input type="hidden" name="menu_num" value="`+preMenuNum+`" />
 						<input type="hidden" name="section_name" id="inputSectionName`+thisSecNum+`" value="main"> 
                         <input type="hidden" name="section_num" id="inputSectionNumJS`+thisSecNum+`" value="`+thisSecNum+`" />
                         <input type="hidden" name="menu_image" id="inputImgjs`+preMenuNum+`"/>
@@ -393,8 +400,8 @@ button{
                             </div>
                         </div>
                         <button type="submit" style="font-size:13px;" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
-                        <a href="javascript:;" onclick="deleteConfirmJS(this)" id="deleteMenuBtn">삭제</a>
-                    </form>`);
+                        <a href="javascript:;" onclick="deleteConfirm(`+preMenuNum+`,`+thisSecNum+`)" id="deleteMenuBtn">삭제</a>
+                    </form></div>`);
 				
 				clickImgEventListener($(".menu_img_btn"+preMenuNum));
 				insertMenuListener("#menuFormJS"+preMenuNum);
@@ -452,7 +459,8 @@ button{
     			//데이터 추가된 수정 폼 추가 
     			form2.parent().append(`<form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_update.do" method="post" data-menuNum="`+data.menuNum+`">  
                         <input type="hidden" name="menu_image" value="`+data.menuImg+`" id="inputImg`+data.menuImg+`"/>
-                        <input type="hidden" name="menu_num" value="`+data.menuNum+`" />		
+                        <input type="hidden" name="menu_num" value="`+data.menuNum+`" />
+                        <input type="hidden" name="b_id" value="${b_id}"/>
                         <div class="wrap_menu_name">
                             <input type="text" id="inputMenuName`+data.menuNum+`" class="menu_name" name="menu_name" placeholder="메뉴명 입력..." value="`+data.menuName+`"/>
                         </div>
@@ -468,7 +476,7 @@ button{
                             </div>
                         </div>
                         <button type="submit" style="font-size:13px;">수정</button>
-                        <a href="javascript:deleteConfirm(`+data.menuNum+`)" id="deleteMenuBtn">삭제</a>
+                        <a href="javascript:deleteConfirm(`+data.menuNum+`,`+data.sectionNum+`)" id="deleteMenuBtn">삭제</a>
                     </form>`);
     			
     			//기존 등록 폼 제거
@@ -504,6 +512,7 @@ button{
 					document.querySelector("#inputImg"+menuNum).value=data.menuImg;
 					document.querySelector("#inputMenuName"+menuNum).value=data.menuName;
 					document.querySelector("#inputPrice"+menuNum).value=data.menuPrice;
+					document.querySelector("#inputNum"+menuNum).value=data.menuNum;
 				});
 				
 			});//submit 이벤트 끝
@@ -514,15 +523,30 @@ button{
 	updateMenuListener("#menuForm");
 	
 	//메뉴 삭제
-	function deleteConfirm(num){
+	function deleteConfirm(menu_num,section_num){
+		
 		const isDelete=confirm("해당 메뉴를 삭제하시겠습니까?");
+		
 		if(isDelete){
-			location.href="${pageContext.request.contextPath}/users/b_mypage/delete_menu.do?menu_num="+num;
+			ajaxPromise("delete_menu.do", "get", "menu_num="+menu_num+"&section_num="+section_num)
+			.then(function(response){
+				return response.json();
+			})
+			.then(function(data){
+				console.log($("#wrapForm"+menu_num));
+				$("#wrapForm"+menu_num).remove();
+				
+				alert(data.isDataInSection);
+				if(!data.isDataInSection){
+					$("#wrapSection"+data.sectionNum).remove();
+				}
+				
+				
+				
+			});
+			
 		}
-	}
-	//데이터 없는 메뉴 삭제(동적 삭제)
-	function deleteConfirmJS(sel){
-		sel.parentNode.remove();
+		
 	}
 	
 	//정주연 추가한 메뉴에서도 메뉴 이미지 경로 ajax 요청하기
@@ -567,8 +591,18 @@ button{
 	//섹션 삭제
 	function deleteSectionConfirm(num){
 		const isDelete=confirm("해당 카테고리를 삭제하시겠습니까?\n*모든 메뉴가 삭제됩니다.");
+
 		if(isDelete){
-			location.href="${pageContext.request.contextPath}/users/b_mypage/delete_section.do?section_num="+num;
+			ajaxPromise("delete_section.do", "get", "section_num="+num)
+			.then(function(response){
+				return response.json();
+			})
+			.then(function(data){
+				if(data.isSuccess){
+					$("#wrapSection"+num).remove();
+					
+				}
+			});
 		}
 	}
 	
