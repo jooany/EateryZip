@@ -522,7 +522,7 @@ button{
 	                        <div class="wrap_img_n_price">
 	                            <a class="menu_img_btn" id="menuImgBtn`+data.menuNum+`" data-menuNum="`+data.menuNum+`" href="javascript:;">
 	                                <div id="imgNum`+data.menuNum+`" class="menu_img_wrap">
-	                                ${true ? '<i class="far fa-image"></i>' : '<img class="menu_img" src="${cPath}/${menuImg}"/>'}
+	                                ${false ? '<i class="far fa-image"></i>' : '<img class="menu_img" src="${cPath}/${menuImg}"/>'}
 	                                </div>
 	                            </a>							
 	                            <div class="wrap_price">
