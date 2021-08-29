@@ -15,6 +15,10 @@ public class MenuDaoImpl implements MenuDao{
 	private SqlSession session;
 	
 	@Override
+	public int getMenuMaxNum(String b_id) {
+		return session.selectOne("menu.getMenuMaxNum",b_id);
+	}
+	@Override
 	public void insert(MenuDto dto) {
 		session.insert("menu.insert",dto);		
 	}
@@ -44,12 +48,16 @@ public class MenuDaoImpl implements MenuDao{
 		session.update("menu.updateSectionName", dto);
 	}
 	@Override
-	public void deleteMenu(int menu_num) {
-		session.delete("menu.delete_menu",menu_num);
+	public void deleteMenu(MenuDto dto) {
+		session.delete("menu.delete_menu",dto);
 	}
 	@Override
-	public void deleteSection(int section_num) {
-		session.delete("menu.delete_section",section_num);
+	public int getIsDataInSection(MenuDto dto) {
+		return session.selectOne("menu.getIsDataInSection",dto);
+	}
+	@Override
+	public void deleteSection(MenuDto dto) {
+		session.delete("menu.delete_section",dto);
 	}
 
 }

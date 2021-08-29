@@ -26,6 +26,8 @@ public class MenuServiceImpl implements MenuService{
 	public void getList(HttpServletRequest request) {
 		//세션에 로그인 된 비즈니스 아이디를 읽어와서
 		String b_id=(String)request.getSession().getAttribute("b_id");
+		//저장된 메뉴 번호 최댓값을 얻어낸다.
+		int menuMaxNum=menuDao.getMenuMaxNum(b_id);
 		//저장된 카테고리 번호 최댓값을 얻어낸다.
 		int sectionMaxNum=menuDao.getSectionMaxNum(b_id);
 		//저장된 카테고리 개수를 얻어낸다.
@@ -33,17 +35,17 @@ public class MenuServiceImpl implements MenuService{
 		//저장된 카테고리 번호 리스트를 얻어낸다.
 		List<Integer> sectionNumList=menuDao.getSectionNumList(b_id);
 		
+		//전체 메뉴 list를 얻어낸다.
+		List<MenuDto> list=menuDao.getList(b_id);
 		
-		if(sectionCount!=0) {
-			//전체 메뉴 list를 얻어낸다.
-			List<MenuDto> list=menuDao.getList(b_id);
-			
-			//view page 에서 필요한 값 request 에 담기
-			request.setAttribute("sectionMaxNum", sectionMaxNum);
-			request.setAttribute("sectionCount", sectionCount);
-			request.setAttribute("sectionNumList", sectionNumList);
-			request.setAttribute("list",list);
-		}
+		//view page 에서 필요한 값 request 에 담기
+		request.setAttribute("menuMaxNum", menuMaxNum);
+		request.setAttribute("sectionMaxNum", sectionMaxNum);
+		request.setAttribute("sectionCount", sectionCount);
+		request.setAttribute("sectionNumList", sectionNumList);
+		request.setAttribute("list",list);
+		
+		
 	}
 	
 	@Override
@@ -81,8 +83,19 @@ public class MenuServiceImpl implements MenuService{
 	
 	//메뉴 추가 
 	@Override
-	public void saveMenu(MenuDto dto) {
+	public Map<String, Object> saveMenu(MenuDto dto) {
+
 		menuDao.insert(dto);
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("menuNum",dto.getMenu_num());
+		map.put("menuName",dto.getMenu_name());
+		map.put("menuImg",dto.getMenu_image());
+		map.put("menuPrice",dto.getMenu_price());
+		map.put("sectionNum",dto.getSection_num());
+		
+		return map;
+		
 	}
 	//메뉴 수정
 	@Override
@@ -91,6 +104,7 @@ public class MenuServiceImpl implements MenuService{
 		
 		// json 문자열을 출력하기 위한 Map 객체 생성하고 정보 담기 
 		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("menuNum",dto.getMenu_num());
 		map.put("menuName",dto.getMenu_name());
 		map.put("menuImg",dto.getMenu_image());
 		map.put("menuPrice",dto.getMenu_price());
@@ -120,13 +134,51 @@ public class MenuServiceImpl implements MenuService{
 	}
 	//메뉴 삭제
 	@Override
-	public void deleteMenu(int num) {
-		menuDao.deleteMenu(num);	
+	public Map<String, Object> deleteMenu(HttpServletRequest request, int menu_num, int section_num) {
+		
+		String b_id=(String)request.getSession().getAttribute("b_id");
+		
+		MenuDto dto=new MenuDto();
+		dto.setB_id(b_id);
+		dto.setMenu_num(menu_num);
+		
+		menuDao.deleteMenu(dto);
+		
+		MenuDto dto2=new MenuDto();
+		
+		dto2.setB_id(b_id);
+		dto2.setSection_num(section_num);
+		
+		int isDataInSectionCount = menuDao.getIsDataInSection(dto2);
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		//섹션 번호 저장
+		map.put("sectionNum",section_num);
+		//메뉴를 삭제한 후에 해당 섹션에 메뉴가 있으면 true 없으면 false를 저장함.
+		if(isDataInSectionCount !=0) {
+			map.put("isDataInSection",true);
+		}else {
+			map.put("isDataInSection",false);
+		}
+		
+		return map;
 	}
 	//섹션 삭제
 	@Override
-	public void deleteSection(int num) {
-		menuDao.deleteSection(num);	
+	public Map<String, Object> deleteSection(HttpServletRequest request,int section_num){
+		
+		String b_id=(String)request.getSession().getAttribute("b_id");
+		
+		MenuDto dto=new MenuDto();
+		dto.setB_id(b_id);
+		dto.setSection_num(section_num);
+		
+		menuDao.deleteSection(dto);	
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("isSuccess",true);
+		
+		return map;
 	}
 
 

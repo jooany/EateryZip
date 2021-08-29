@@ -1,5 +1,6 @@
 package com.sixnicorn.eateryzip.eatery.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,16 +31,12 @@ public class MenuController {
 		return "users/b_mypage/menu_insertform";
 	}
 	//메뉴 등록
-	@RequestMapping("/users/b_mypage/menu_insert")
-	public String insert(MenuDto dto, HttpSession session, HttpServletRequest request) {		
-		//사업자 번호 가져오기 
-		String b_id=(String)session.getAttribute("b_id");
-
-		dto.setB_id(b_id);
+	@RequestMapping(value="/users/b_mypage/menu_insert",
+			method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insert(MenuDto dto) {		
 		
-		service.saveMenu(dto);
-		
-		return "users/b_mypage/menu_insert";
+		return service.saveMenu(dto);
 	}
 	//메뉴 수정
 	@RequestMapping(value="/users/b_mypage/menu_update", 
@@ -72,19 +69,18 @@ public class MenuController {
 	
 	//메뉴 삭제
 	@RequestMapping(value="/users/b_mypage/delete_menu")
-	public String delete(@RequestParam int menu_num) {
+	@ResponseBody
+	public Map<String, Object> deleteMenu(HttpServletRequest request,@RequestParam int menu_num,@RequestParam int section_num) {
 		
-		service.deleteMenu(menu_num);
-		
-		return "redirect:/users/b_mypage/menu_insertform.do";
+		return service.deleteMenu(request,menu_num,section_num);
 	}
 	//메뉴 삭제
 	@RequestMapping(value="/users/b_mypage/delete_section")
-	public String deleteSection(@RequestParam int section_num) {
+	@ResponseBody
+	public Map<String, Object> deleteSection(HttpServletRequest request,@RequestParam int section_num) {
+
 		
-		service.deleteSection(section_num);
-		
-		return "redirect:/users/b_mypage/menu_insertform.do";
+		return service.deleteSection(request,section_num);
 	}
 
 }
