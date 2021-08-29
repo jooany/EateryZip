@@ -1,5 +1,8 @@
 package com.sixnicorn.eateryzip.user.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +51,16 @@ public class GUserServiceImpl implements GUserService {
 		
 		Gdao.insert(dto);
 		
+	}
+
+	@Override
+	public Map<String, Object> isExistId(String inputId) {
+		//Map 객체를 생성해서
+		Map<String, Object> map = new HashMap<String, Object>();
+		//isExist 라는 키값으로 아이다가 존재하는지를 여부름 담고
+		map.put("isExist",Gdao.isExist(inputId));
+		//Map 객체를 리턴해준다.
+		return map;
 	}
 
 }

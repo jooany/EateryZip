@@ -24,4 +24,15 @@ public class GUserDaoImpl implements GUserDao {
 		session.insert("Guser.insert", dto);
 	}
 
+	@Override
+	public boolean isExist(String inputId) {
+		//인자로 전달 받은 아이디가 존재하는지 select 해본다.
+		String id = session.selectOne("Guser.isExist", inputId);
+			if(id==null) {
+					return false;
+			}else {
+					return true;
+			}
+	}
+
 }

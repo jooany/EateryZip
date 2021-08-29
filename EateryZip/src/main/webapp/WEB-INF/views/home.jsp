@@ -23,6 +23,13 @@
 	<a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
 	
 	<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">비즈니스회원정보</a>
+	
+	<h2>민재 테스트 링크</h2>
+	<a href="${pageContext.request.contextPath}/users/map_seoul.do">서울 테스트</a>
+	<a href="${pageContext.request.contextPath}/users/map_busan.do">부산 테스트</a>
+	<a href="${pageContext.request.contextPath}/users/map_seoul_detail.do">서울 세부 테스트</a>
+	<a href="${pageContext.request.contextPath}/users/map_busan_detail.do">부산 세부 테스트</a>
+	
  
 </body>
 </html>
