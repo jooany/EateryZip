@@ -2,7 +2,7 @@ package com.sixnicorn.eateryzip.user.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class b_StoreDto {
+public class BStoreDto {
 
 	// 필드
 	private String b_id;
@@ -24,9 +24,9 @@ public class b_StoreDto {
 	private MultipartFile storeFile;
 	
 	// 디폴트 생성자
-	public b_StoreDto() {}
+	public BStoreDto() {}
 
-	public b_StoreDto(String b_id, String b_name, String b_Store_Address, String b_kind, String intro, String b_img_f,
+	public BStoreDto(String b_id, String b_name, String b_Store_Address, String b_kind, String intro, String b_img_f,
 			String b_Store_phone, String b_Store_date, String b_open, String b_close, String b_holiday, String notice,
 			String service, String ex_keyword, MultipartFile storeFile) {
 		super();

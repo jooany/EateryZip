@@ -26,14 +26,26 @@ public class MenuServiceImpl implements MenuService{
 	public void getList(HttpServletRequest request) {
 		//세션에 로그인 된 비즈니스 아이디를 읽어와서
 		String b_id=(String)request.getSession().getAttribute("b_id");
+		//저장된 메뉴 번호 최댓값을 얻어낸다.
+		int menuMaxNum=menuDao.getMenuMaxNum(b_id);
+		//저장된 카테고리 번호 최댓값을 얻어낸다.
+		int sectionMaxNum=menuDao.getSectionMaxNum(b_id);
 		//저장된 카테고리 개수를 얻어낸다.
 		int sectionCount=menuDao.getSectionCount(b_id);
+		//저장된 카테고리 번호 리스트를 얻어낸다.
+		List<Integer> sectionNumList=menuDao.getSectionNumList(b_id);
+		
 		//전체 메뉴 list를 얻어낸다.
 		List<MenuDto> list=menuDao.getList(b_id);
 		
 		//view page 에서 필요한 값 request 에 담기
+		request.setAttribute("menuMaxNum", menuMaxNum);
+		request.setAttribute("sectionMaxNum", sectionMaxNum);
 		request.setAttribute("sectionCount", sectionCount);
+		request.setAttribute("sectionNumList", sectionNumList);
 		request.setAttribute("list",list);
+		
+		
 	}
 	
 	@Override
@@ -71,41 +83,103 @@ public class MenuServiceImpl implements MenuService{
 	
 	//메뉴 추가 
 	@Override
-	public List<MenuDto> saveMenu(HttpServletRequest request) {
+	public Map<String, Object> saveMenu(MenuDto dto) {
+
+		menuDao.insert(dto);
 		
-		// 정규식으로 각 섹션 번호_메뉴 번호에 해당하는 input name을 통해 요청파라미터에서 카테고리번호,메뉴번호,카테고리명,메뉴명,이미지경로,가격 정보를 가져옴.
-		// 전체 메뉴 개수 만큼 DTO를 생성해서 각각 값들을 넣어주고,
-		// menuDao.insert(dto) 시켜줌.
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("menuNum",dto.getMenu_num());
+		map.put("menuName",dto.getMenu_name());
+		map.put("menuImg",dto.getMenu_image());
+		map.put("menuPrice",dto.getMenu_price());
+		map.put("sectionNum",dto.getSection_num());
 		
-		// [ updateform에 전달하는 방법 ]
-		// DTO 리스트에 해당 DTO들 전부 넣어줌.
-		// DTO 리스트를 return함.
+		return map;
 		
-		// updateform에 해당 DTO 리스트를 받아와서
-		// 각 value 값에 데이터를 넣어줌 
+	}
+	//메뉴 수정
+	@Override
+	public Map<String, Object> updateMenu(MenuDto dto) {
+		menuDao.update(dto);
 		
-		// 섹션 끝 번호와 총 메뉴 수를 가져옴.
-		int section_num=Integer.parseInt(request.getParameter("section_num"));
-		int menu_count=Integer.parseInt(request.getParameter("menu_count"));
+		// json 문자열을 출력하기 위한 Map 객체 생성하고 정보 담기 
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("menuNum",dto.getMenu_num());
+		map.put("menuName",dto.getMenu_name());
+		map.put("menuImg",dto.getMenu_image());
+		map.put("menuPrice",dto.getMenu_price());
 		
-		// 각 섹션에 해당하는 메뉴 개수를 가져옴.
-		for(int i=1;i<section_num;i++) {
-			Integer.parseInt(request.getParameter("section_"+i));
+		return map;
+	}
+	//카테고리명 변경
+	@Override
+	public Map<String, Object> updateSectionName(HttpServletRequest request,int section_num,String section_name) {
+		String b_id=(String)request.getSession().getAttribute("b_id");
+		
+		MenuDto dto=new MenuDto();
+		dto.setB_id(b_id);
+		dto.setSection_num(section_num);
+		dto.setSection_name(section_name);
+		
+		if(menuDao.getSectionCount(b_id) !=0) {
+			
 		}
 		
-		List<MenuDto> menuList = new ArrayList<MenuDto>();
+		menuDao.updateSectionName(dto);
 		
-		//menuDao.insert(dto);
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("isSuccess",true);
+		return map;
 		
-		return menuList;
 	}
 	//메뉴 삭제
 	@Override
-	public void deleteMenu(int num) {
+	public Map<String, Object> deleteMenu(HttpServletRequest request, int menu_num, int section_num) {
 		
-		menuDao.deleteMenu(num);
+		String b_id=(String)request.getSession().getAttribute("b_id");
 		
+		MenuDto dto=new MenuDto();
+		dto.setB_id(b_id);
+		dto.setMenu_num(menu_num);
+		
+		menuDao.deleteMenu(dto);
+		
+		MenuDto dto2=new MenuDto();
+		
+		dto2.setB_id(b_id);
+		dto2.setSection_num(section_num);
+		
+		int isDataInSectionCount = menuDao.getIsDataInSection(dto2);
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		//섹션 번호 저장
+		map.put("sectionNum",section_num);
+		//메뉴를 삭제한 후에 해당 섹션에 메뉴가 있으면 true 없으면 false를 저장함.
+		if(isDataInSectionCount !=0) {
+			map.put("isDataInSection",true);
+		}else {
+			map.put("isDataInSection",false);
+		}
+		
+		return map;
 	}
-	
+	//섹션 삭제
+	@Override
+	public Map<String, Object> deleteSection(HttpServletRequest request,int section_num){
+		
+		String b_id=(String)request.getSession().getAttribute("b_id");
+		
+		MenuDto dto=new MenuDto();
+		dto.setB_id(b_id);
+		dto.setSection_num(section_num);
+		
+		menuDao.deleteSection(dto);	
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("isSuccess",true);
+		
+		return map;
+	}
+
 
 }

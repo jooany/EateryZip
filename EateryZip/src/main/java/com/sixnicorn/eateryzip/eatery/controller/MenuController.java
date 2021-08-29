@@ -1,8 +1,10 @@
 package com.sixnicorn.eateryzip.eatery.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
 import com.sixnicorn.eateryzip.eatery.service.MenuService;
 
 @Controller
@@ -19,6 +22,7 @@ public class MenuController {
 	@Autowired
 	private MenuService service;
 	
+	//메뉴 등록 페이지 로딩. 저장된 리스트 가져오기
 	@RequestMapping("/users/b_mypage/menu_insertform")
 	public String insertForm(HttpServletRequest request) {		
 		
@@ -26,14 +30,21 @@ public class MenuController {
 		
 		return "users/b_mypage/menu_insertform";
 	}
-	
-	@RequestMapping("/users/b_mypage/menu_insert")
-	public String insert(HttpServletRequest request) {		
-		//사업자 번호 가져오기 
-		//String b_id=(String)session.getAttribute("b_id");
-		//String b_id=(String)session.setAttribute("0101234",b_id);
+	//메뉴 등록
+	@RequestMapping(value="/users/b_mypage/menu_insert",
+			method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insert(MenuDto dto) {		
 		
-		return "users/b_mypage/menu_insert";
+		return service.saveMenu(dto);
+	}
+	//메뉴 수정
+	@RequestMapping(value="/users/b_mypage/menu_update", 
+			method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> update(MenuDto dto) {
+		
+		return service.updateMenu(dto);
 	}
 	
 	//ajax 프로필 사진 업로드 요청처리
@@ -47,13 +58,29 @@ public class MenuController {
 		return service.saveMenuImage(request, image);
 	}
 	
+	//카테고리명 변경
+	@RequestMapping(value="/users/b_mypage/update_section_name")
+	@ResponseBody
+	public Map<String, Object> updateSectionName(HttpServletRequest request,@RequestParam int section_num,@RequestParam String section_name) {
+		
+		
+		return service.updateSectionName(request,section_num,section_name);
+	}
+	
 	//메뉴 삭제
 	@RequestMapping(value="/users/b_mypage/delete_menu")
-	public String delete(@RequestParam int menu_num) {
+	@ResponseBody
+	public Map<String, Object> deleteMenu(HttpServletRequest request,@RequestParam int menu_num,@RequestParam int section_num) {
 		
-		service.deleteMenu(menu_num);
+		return service.deleteMenu(request,menu_num,section_num);
+	}
+	//메뉴 삭제
+	@RequestMapping(value="/users/b_mypage/delete_section")
+	@ResponseBody
+	public Map<String, Object> deleteSection(HttpServletRequest request,@RequestParam int section_num) {
+
 		
-		return "redirect:/users/b_mypage/menu_insertform.do";
+		return service.deleteSection(request,section_num);
 	}
 
 }

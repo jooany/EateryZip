@@ -10,8 +10,7 @@
 </head>
 <body>
 <div class="container">
-	<a href="store_insertform">가게정보등록</a>
-	<h1>가게정보</h1>
+	<h1>가게정보페이지 입니다.</h1>
 	<table>
 		<tr>
 			<th>사업자번호</th>
@@ -67,8 +66,9 @@
 		</tr>
 	</table>
 	<ul>
-		<c:if test="${dto.writer eq id }">
+		<c:if test="${dto.b_id eq b_id }">
 			<li><a href="store/store_updateform.do?b_id=${dto.b_id }">수정</a></li>
+			<li><a href="store/store_insertform.do?b_id=${dto.b_id }">가게등록</a></li>
 		</c:if>
 	</ul>
 </div>
