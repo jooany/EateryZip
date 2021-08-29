@@ -15,7 +15,11 @@
 	values(#{b_id}, #{b_pwd}, #{b_name}, #{b_address},  #{b_email}, #{b_phone}, sysdate, #{grade})
 	</insert>
 
-
+	<select id="isExist" parameterType="java.lang.String" resultType="string">
+	Select b_id
+	from b_user
+	where b_id=#{b_id} 
+	</select>
 
 
 

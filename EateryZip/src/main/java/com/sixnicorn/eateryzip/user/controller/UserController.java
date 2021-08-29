@@ -28,6 +28,35 @@ public class UserController {
 	@Autowired
 	private GUserService Gservice;
 	
+	//maps 테스트 .jsp로 이동
+	@RequestMapping("users/map_seoul")
+	public String S_map() {
+		
+		return "users/map_seoul";
+	}
+	
+	//maps 테스트 .jsp로 이동
+	@RequestMapping("users/map_busan")
+	public String B_map() {
+		
+		return "users/map_busan";
+	}
+	
+	//maps 테스트 .jsp로 이동
+	@RequestMapping("users/map_seoul_detail")
+	public String BD_map() {
+		
+		return "users/map_seoul_detail";
+	}
+	
+	//maps 테스트 .jsp로 이동
+	@RequestMapping("users/map_busan_detail")
+	public String map() {
+		
+		return "users/map_busan_detail";
+	}
+	
+	
 	//일반회원 로그인 폼으로 이동
 	@RequestMapping("/users/g_login_form")
 	public String GloginForm(){
@@ -99,6 +128,22 @@ public class UserController {
 		Bservice.addUser(dto);
 		mView.setViewName("users/b_signup");
 		return mView;
+	}
+	
+	//비즈니스 회원 가입 아이디 중복 확인을 해서 json 문자열을 리턴해주는 메소드
+	@RequestMapping("/users/g_checkid")
+	@ResponseBody
+	public Map<String, Object> G_checkid(@RequestParam String inputId){
+		return Gservice.isExistId(inputId);
+		//결국 {isExist":true}or{isExist":false} 형태
+	}
+	
+	//비즈니스 회원 가입 아이디 중복 확인을 해서 json 문자열을 리턴해주는 메소드
+	@RequestMapping("/users/b_checkid")
+	@ResponseBody
+	public Map<String, Object> B_checkid(@RequestParam String inputId){
+		return Bservice.isExistId(inputId);
+		//결국 {isExist":true}or{isExist":false} 형태
 	}
 	
 	//일반 , 비즈니스 회원 로그아웃

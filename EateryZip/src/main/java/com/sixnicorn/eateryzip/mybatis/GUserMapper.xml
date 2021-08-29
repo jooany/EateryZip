@@ -14,5 +14,11 @@
 	(g_id, g_pwd, g_name, g_address, g_email, g_phone, g_regdate, grade)
 	values(#{g_id}, #{g_pwd}, #{g_name}, #{g_address},  #{g_email}, #{g_phone}, sysdate, #{grade})
 	</insert>
+	
+	<select id="isExist" parameterType="java.lang.String" resultType="string">
+	Select g_id
+	from g_user
+	where g_id=#{g_id} 
+	</select>
 
 </mapper>
