@@ -1,11 +1,15 @@
 package com.sixnicorn.eateryzip.user.dao;
 
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 
+@Repository
 public class BStoreDaoImpl implements BStoreDao {
 
 	@Autowired
@@ -52,7 +56,23 @@ public class BStoreDaoImpl implements BStoreDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	//나현
+	@Override
+	public List<BStoreDto> getList(BStoreDto dto) {
+		return session.selectList("BStore.getList", dto);
+	}
+
+	@Override
+	public int getCount(BStoreDto dto) {
+		/*
+		 * Mapper's namespace : BStore
+		 * sql's id : getCount
+		 * resultType : int
+		 */
+		return session.selectOne("BStore.getCount");
+	}
 }
 
-}
+
 
