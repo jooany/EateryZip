@@ -87,7 +87,7 @@ public class UserController {
 	//비즈니스 회원 로그인
 	@RequestMapping(value="/users/b_login", method = RequestMethod.POST)
 	public ModelAndView Blogin(ModelAndView mView, BUserDto Bdto, 
-			HttpSession session) {
+			HttpSession session, @RequestParam String isSave) {
 			
 		Bservice.loginProcess(Bdto, session); //Service에 필요로 하는 객체가 있다면 넣어주어야한다.
 		mView.setViewName("users/b_login");

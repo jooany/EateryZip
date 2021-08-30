@@ -40,6 +40,7 @@ public class BUserServiceImpl implements BUserService {
 		if(isValid) { //만일 위의 정보가 모두 충족될 시,
 			//session 영역에 아이디를 저장한다.
 			session.setAttribute("b_id", dto.getB_id());
+			session.setMaxInactiveInterval(60*60*6);
 		}
 		
 	}
