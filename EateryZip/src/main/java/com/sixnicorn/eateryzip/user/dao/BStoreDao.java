@@ -1,6 +1,8 @@
 package com.sixnicorn.eateryzip.user.dao;
 
 
+import java.util.List;
+
 import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 
 public interface BStoreDao {
@@ -15,4 +17,9 @@ public interface BStoreDao {
 	public BStoreDto getData(int num);
 	//키워드를 활용한 글정보 얻어오기
 	public BStoreDto getData(BStoreDto dto);
+	
+	//나현
+	// 가게 리스트 불러오기
+	public List<BStoreDto> getList(BStoreDto dto);
+	public int getCount(BStoreDto dto);
 }

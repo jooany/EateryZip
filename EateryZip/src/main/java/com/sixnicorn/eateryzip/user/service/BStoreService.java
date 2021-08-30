@@ -1,5 +1,7 @@
 package com.sixnicorn.eateryzip.user.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface BStoreService {
 
 	
@@ -16,4 +18,7 @@ public interface BStoreService {
 	
 	// 가게정보 수정하기 위해 정보 불러오는 기능
 	// public void getData(HttpServletRequest request); 
+	
+	//나현
+	public void getList(HttpServletRequest request);
 }

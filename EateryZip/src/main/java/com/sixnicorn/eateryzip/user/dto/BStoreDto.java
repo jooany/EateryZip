@@ -23,12 +23,18 @@ public class BStoreDto {
 	// 파일 업로드 처리를 하기위한 필드
 	private MultipartFile storeFile;
 	
+	private int startRowNum;
+	private int endRowNum;
+	private int prevNum;
+	private int nextNum;
+	
 	// 디폴트 생성자
 	public BStoreDto() {}
 
 	public BStoreDto(String b_id, String b_name, String b_Store_Address, String b_kind, String intro, String b_img_f,
 			String b_Store_phone, String b_Store_date, String b_open, String b_close, String b_holiday, String notice,
-			String service, String ex_keyword, MultipartFile storeFile) {
+			String service, String ex_keyword, MultipartFile storeFile, int startRowNum, int endRowNum, int prevNum,
+			int nextNum) {
 		super();
 		this.b_id = b_id;
 		this.b_name = b_name;
@@ -45,6 +51,10 @@ public class BStoreDto {
 		this.service = service;
 		this.ex_keyword = ex_keyword;
 		this.storeFile = storeFile;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
+		this.prevNum = prevNum;
+		this.nextNum = nextNum;
 	}
 
 	public String getB_id() {
@@ -166,5 +176,37 @@ public class BStoreDto {
 	public void setStoreFile(MultipartFile storeFile) {
 		this.storeFile = storeFile;
 	}
-	
+
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+
+	public int getPrevNum() {
+		return prevNum;
+	}
+
+	public void setPrevNum(int prevNum) {
+		this.prevNum = prevNum;
+	}
+
+	public int getNextNum() {
+		return nextNum;
+	}
+
+	public void setNextNum(int nextNum) {
+		this.nextNum = nextNum;
+	}
+
 }

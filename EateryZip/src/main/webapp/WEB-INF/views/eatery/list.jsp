@@ -27,6 +27,18 @@
 	    flex-wrap: wrap;
 	    margin-right: 30px;
 	}
+	a{
+	   color:black!important;
+	   text-decoration:none!important;
+	}
+	img,svg{
+	   vertical-align:baseline!important;
+	}
+	
+	button{
+	   border:none;
+	   background-color:rgba(0,0,0,0);
+	}
 	.food{
 	   	margin-bottom: 10px;
 	}
@@ -173,14 +185,15 @@
     		<div class="title">
     			<h2>추천 맛집</h2>
                 <div>
-    				<form action="list.jsp" method="get"> 
+                	<!-- 인기순, 리뷰순 -->
+    				<!-- <form action="list.jsp" method="get"> 
 						<label for="condition"></label>
 						<select name="condition" id="condition">
 							<option value="popular" ${condition eq 'popular' ? 'selected' : '' }>인기순</option>
 							<option value="recommend" ${condition eq 'recommend' ? 'selected' : '' }>추천순</option>
 							<option value="recent" ${condition eq 'recent' ? 'selected' : '' }>최신순</option>
 						</select>
-					</form>	
+					</form> -->	
     			</div>
     		</div>
 
@@ -194,35 +207,37 @@
 			<div id="tab-1" class="tab-content current">
 				<c:forEach var="tmp" items="list">
 	          	 	<div class="card2-75">
-	                	<img src="${pageContext.request.contextPath}${dto.b_img_f }" class="rounded float-start" width="150" height="150">
+	                	<img src="${pageContext.request.contextPath}${tmp.b_img_f }" class="rounded float-start" width="150" height="150">
 	                	<div>
-		                    <h5 class="card-title">${list.b_name }</h5>
+		                    <h5 class="card-title">${tmp.b_name }</h5>
 		                    <div>	                    
-		                    	<p><span>${list.b_kind }</span></p>
+		                    	<p><span>${tmp.b_kind }</span></p>
 		                    </div>
 	                    </div>
 	                	<ol class="list-group">
 	                		<li class="list-group list-group-numbered">
+	                			
 	                			<!-- 리뷰 키워드 * 3 -->
-	                			<c:forEach var="comment" items="review_keyword" begin="0" end="2">
+	                			
 	                				<div class="ms-2 me-auto">
 		                				<div class="fw-bold">리뷰 키워드</div>
 		                			</div>
-	                			</c:forEach>
+		                			
 	                		</li>
 	                	</ol>
 	                	<div class="intro_box">
-	                		<p class="card-text">${dto.intro }</p>
+	                		<p class="card-text">${tmp.intro }</p>
 	                	</div>
 	                	<div>
 	                		<div class="ex_tag">
+	                		
 	                			<!-- 편의사항 * 3 -->
-	                			<c:forEach var="row" items="ex_keyword" begin="0" end="2">
+	                			
 	                				<div>
 	                					<span><i class="fas fa-check"></i></span>
 	                				</div>
-	                				<span>${dto.ex_keyword }</span>
-	                			</c:forEach>
+	                				<span>${tmp.ex_keyword }</span>
+
 	                		</div>
 	                	</div>
 	                </div>
@@ -232,21 +247,22 @@
             <div id="tab-2" class="tab-content">
                 <c:forEach var="tmp" items="list">
 	          	 	<div class="card2-75">
-	                	<img src="${pageContext.request.contextPath}${dto.b_img_f }" class="rounded float-start" width="150" height="150">
+	                	<img src="${pageContext.request.contextPath}${tmp.b_img_f }" class="rounded float-start" width="150" height="150">
 	                	<div>
-		                    <h5 class="card-title">${list.b_name }</h5>
+		                    <h5 class="card-title">${tmp.b_name }</h5>
 		                    <div>	                    
-		                    	<p><span>${list.b_kind }</span></p>
+		                    	<p><span>${tmp.b_kind }</span></p>
 		                    </div>
 	                    </div>
 	                	<ol class="list-group">
 	                		<li class="list-group list-group-numbered">
+	                			
 	                			<!-- 리뷰 키워드 * 3 -->
-	                			<c:forEach var="comment" items="review_keyword" begin="0" end="2">
+	                			
 	                				<div class="ms-2 me-auto">
 		                				<div class="fw-bold">리뷰 키워드</div>
 		                			</div>
-	                			</c:forEach>
+		                			
 	                		</li>
 	                	</ol>
 	                	<div class="intro_box">
@@ -254,13 +270,14 @@
 	                	</div>
 	                	<div>
 	                		<div class="ex_tag">
+	                		
 	                			<!-- 편의사항 * 3 -->
-	                			<c:forEach var="row" items="ex_keyword" begin="0" end="2">
+	                			
 	                				<div>
 	                					<span><i class="fas fa-check"></i></span>
 	                				</div>
 	                				<span>${dto.ex_keyword }</span>
-	                			</c:forEach>
+
 	                		</div>
 	                	</div>
 	                </div>
@@ -270,21 +287,22 @@
             <div id="tab-3" class="tab-content">
                 <c:forEach var="tmp" items="list">
 	          	 	<div class="card2-75">
-	                	<img src="${pageContext.request.contextPath}${dto.b_img_f }" class="rounded float-start" width="150" height="150">
+	                	<img src="${pageContext.request.contextPath}${tmp.b_img_f }" class="rounded float-start" width="150" height="150">
 	                	<div>
-		                    <h5 class="card-title">${list.b_name }</h5>
+		                    <h5 class="card-title">${tmp.b_name }</h5>
 		                    <div>	                    
-		                    	<p><span>${list.b_kind }</span></p>
+		                    	<p><span>${tmp.b_kind }</span></p>
 		                    </div>
 	                    </div>
 	                	<ol class="list-group">
 	                		<li class="list-group list-group-numbered">
+	                			
 	                			<!-- 리뷰 키워드 * 3 -->
-	                			<c:forEach var="comment" items="review_keyword" begin="0" end="2">
+	                			
 	                				<div class="ms-2 me-auto">
 		                				<div class="fw-bold">리뷰 키워드</div>
 		                			</div>
-	                			</c:forEach>
+		                			
 	                		</li>
 	                	</ol>
 	                	<div class="intro_box">
@@ -292,13 +310,14 @@
 	                	</div>
 	                	<div>
 	                		<div class="ex_tag">
+	                		
 	                			<!-- 편의사항 * 3 -->
-	                			<c:forEach var="row" items="ex_keyword" begin="0" end="2">
+	                			
 	                				<div>
 	                					<span><i class="fas fa-check"></i></span>
 	                				</div>
 	                				<span>${dto.ex_keyword }</span>
-	                			</c:forEach>
+
 	                		</div>
 	                	</div>
 	                </div>
@@ -326,10 +345,10 @@
 		this.button=docuement.querySelector('.img_btn');
 		this.form=docuement.querySelector('.search');
 		
-		this.Engine();
+		this.engine();
 	}
-	searching.Engine=function(){
-		this.form.addEventListener('submit', (e) => {
+	searching.engine=function(){
+		this.form.addEventListener('submit', e => {
 			e.preventDefault();
 			
 			let engine=this.engine.value;

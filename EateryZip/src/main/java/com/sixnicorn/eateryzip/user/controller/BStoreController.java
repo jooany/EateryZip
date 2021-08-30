@@ -2,12 +2,18 @@ package com.sixnicorn.eateryzip.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.sixnicorn.eateryzip.user.service.BStoreService;
 
 @Controller
 public class BStoreController {
 
+	@Autowired
+	private BStoreService service;
+	
 	// 가게정보 등록하기 b_id로 사업자번호 인식
 	@RequestMapping("/store/store_insertform")
 	public String insertform(HttpServletRequest request) {
@@ -29,5 +35,11 @@ public class BStoreController {
 //		return "store/store_insert";
 //	}
 	
+	@RequestMapping("/eatery/list")
+	public String getList(HttpServletRequest request) {
+		service.getList(request);
+		
+		return "eatery/list";
+	}
 		
 }
