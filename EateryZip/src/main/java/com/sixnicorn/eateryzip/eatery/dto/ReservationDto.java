@@ -10,13 +10,15 @@ public class ReservationDto {
 	private String reservation_people;
 	private String reservation_phone;
 	private String reservation_memo;
+	private String b_store_name;
+	private String b_store_addr;
 	
 	//디폴트 생성자 
 	public ReservationDto() {}
 
 	public ReservationDto(int reservation_num, String g_id, String b_id, String reservation_name,
 			String reservation_date, String reservation_time, String reservation_people, String reservation_phone,
-			String reservation_memo) {
+			String reservation_memo, String b_store_name, String b_store_addr) {
 		super();
 		this.reservation_num = reservation_num;
 		this.g_id = g_id;
@@ -27,6 +29,8 @@ public class ReservationDto {
 		this.reservation_people = reservation_people;
 		this.reservation_phone = reservation_phone;
 		this.reservation_memo = reservation_memo;
+		this.b_store_name = b_store_name;
+		this.b_store_addr = b_store_addr;
 	}
 
 	public int getReservation_num() {
@@ -100,6 +104,22 @@ public class ReservationDto {
 	public void setReservation_memo(String reservation_memo) {
 		this.reservation_memo = reservation_memo;
 	}
-	
+
+	public String getB_store_name() {
+		return b_store_name;
+	}
+
+	public void setB_store_name(String b_store_name) {
+		this.b_store_name = b_store_name;
+	}
+
+	public String getB_store_addr() {
+		return b_store_addr;
+	}
+
+	public void setB_store_addr(String b_store_addr) {
+		this.b_store_addr = b_store_addr;
+	}
+
 	
 }

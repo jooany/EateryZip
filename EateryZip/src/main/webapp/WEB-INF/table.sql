@@ -100,11 +100,13 @@ CREATE TABLE reservation(
 	g_id VARCHAR2(100), -- 로그인 id
 	b_id VARCHAR2(100), -- 사업자 번호
 	reservation_name VARCHAR2(100) NOT NULL, --예약자 이름
-	reservation_date DATE NOT NULL, -- 방문 날짜
+	reservation_date VARCHAR2(100), -- 방문 날짜
 	reservation_time VARCHAR2(100) NOT NULL, -- 방문 시간
 	reservation_people VARCHAR2(100) NOT NULL, -- 방문 인원
 	reservation_phone VARCHAR2(100) NOT NULL, -- 연락처
 	reservation_memo VARCHAR2(200) -- 요청 사항
+	b_store_name VARCHAR2(100) --가게 이름
+	b_store_addr VARCHAR2(100) --가게 주소
 );
 CREATE SEQUENCE reservation_seq;
 
