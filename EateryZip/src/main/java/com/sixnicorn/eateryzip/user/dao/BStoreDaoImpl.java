@@ -41,4 +41,18 @@ public class BStoreDaoImpl implements BStoreDao {
 		*/
 	}
 
+	@Override
+	public BStoreDto getData(int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BStoreDto getData(BStoreDto dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
+
+}
+

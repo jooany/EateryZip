@@ -6,30 +6,46 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sixnicorn.eateryzip.eatery.dto.ListDto;
-import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
+import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 
 @Repository
 public class ListDaoImpl implements ListDao{
 	@Autowired
 	private SqlSession session;
-	
-	//메뉴 리스트 얻어오기
+
+	//BStore의 모든 리스트 가져오기
 	@Override
-	public List<MenuDto> getList(String b_id){
-		return session.selectList("menu.getList",b_id);
+	public List<BStoreDto> getList(BStoreDto dto) {
+		/*
+		 * Mapper's namespace : BStore
+		 * sql's id : getList
+		 * parameterType : BStoreDto
+		 * resultType : BStoreDto
+		 */
+		return session.selectList("BStore.getList", dto);
 	}
 	
-	//카테고리 개수 얻어오기
+	//row 의 총 개수 구하기
 	@Override
-	public int getSectionCount(String b_id) {
-		return session.selectOne("menu.getSectionCount",b_id);
+	public int getCount(BStoreDto dto) {
+		/*
+		 * Mapper's namespace : BStore
+		 * sql's id : getCount
+		 * resultType : int
+		 */
+		return session.selectOne("BStore.getCount");
 	}
+
+	@Override
+	public BStoreDto getData(int num) {
+		/*
+		 * Mapper's namespace : BStore
+		 * sql's id : getData
+		 * parameterType : int
+		 * resultType : BStoreDto
+		 */
+		return session.selectOne("BStore.getData", num);
+	}
+
 	
-	//가게 정보 얻어오기
-//	@Override
-//	public BStoreDto StoreView(String b_id) {
-//		
-//		return null;
-//	}
 }

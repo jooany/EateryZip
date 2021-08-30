@@ -11,4 +11,8 @@ public interface BStoreDao {
 	public BStoreDto StoreView(String b_id);
 	// 가게정보 수정하기
 	public void update(BStoreDto dto);
+	//글정보 얻어오기
+	public BStoreDto getData(int num);
+	//키워드를 활용한 글정보 얻어오기
+	public BStoreDto getData(BStoreDto dto);
 }

@@ -11,4 +11,5 @@ public class ListController {
 		
 		return "eatery/list";
 	}
+
 }

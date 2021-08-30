@@ -8,6 +8,7 @@
 	(b_id, b_name, b_Store_Address)
 	values(#{b_id}, #{b_name}, #{b_address})
 	</insert>
+  
 	<!-- 가게정보 불러오기 // 일단 상호명이랑 주소만 불러보자
 	<select id="getData" parameterType="string" resultType="BStoreDto">
 		SELECT b_id, b_name, b_Store_Address
@@ -21,9 +22,22 @@
 		SET b_name=#{b_name}, b_Store_Address=#{b_Store_Address}
 		WHERE b_id = #{b_id}
 	</update>
- 	-->
-
-
+  -->
+<!-- 나현님 부분 -->
+	<select id="getList" parameterType="String" resultType="BStoreDto">
+		SELECT *
+		FROM b_Store
+		ORDER BY b_id ASC
+	</select>
+	<select id="getCount" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM b_Store
+	</select>
+	<select id="getData" parameterType="string" resultType="BStoreDto">
+		SELECT b_id, b_name, b_kind, b_intro, b_img_f, service, ex_keyword
+		FROM b_Store
+		where b_id=#{b_id}
+	</select>
 
 <!-- b_kind, intro, b_img_f, b_Store_phone, b_Store_date,
 		b_open, b_close, b_holiday, notice, service, ex_keyword, storeFile -->
