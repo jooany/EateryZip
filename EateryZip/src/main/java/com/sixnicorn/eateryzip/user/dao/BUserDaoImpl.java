@@ -26,5 +26,26 @@ public class BUserDaoImpl implements BUserDao {
 	public void insert(BUserDto dto) {
 		session.insert("Buser.insert", dto);
 	}
+
+	@Override
+	public boolean isExist(String inputId) {
+		//인자로 전달 받은 아이디가 존재하는지 select 해본다.
+		String id = session.selectOne("Buser.isExist", inputId);
+		if(id==null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	
+	// 비즈니스회원정보 수정하기
+	@Override
+	public void update(BUserDto dto) {
+		
+		session.update("Buser.update", dto);
+	}
+
+
 		
 }

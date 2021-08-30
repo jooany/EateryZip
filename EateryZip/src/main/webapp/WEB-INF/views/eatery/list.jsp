@@ -10,194 +10,387 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
 <style>
-	* {
-       	margin: 0;
-       	padding: 0; 
-        border: 0; 
-        /* font-size: 100%;
-        vertical-align: baseline; */
+	*{
+		margin: 0;
+		padding: 0;
 	}
-	html, body {
-       	height: 100%;
+	html{
+	    margin: 0;
+	} 
+	body{
+	    line-height: 1.6
 	}
-	header {
-       	width: 100%; 
-       	height: 100px;
+	section{
+		margin: 30px;
+	    display: flex;
+	    float: left;
+	    flex-wrap: wrap;
+	    margin-right: 30px;
 	}
-	.header_container {
-      	display: flex;
-       	padding: 10px;
-       	font-size: 22px;
-       	text-align: center;
+	.food{
+	   	margin-bottom: 10px;
 	}
-	.search_box{
-       	margin-left: 30px;
-      	border: 1px solid black;
-       	border-radius: 30px;
+    /* 전체, 예약, 방문포장 */
+ 	.tab_container{
+     	width: 500px;
+      	margin: 0 auto;
 	}
-	.header_container>.search_box {
-       	flex: 1;
-      	min-width: 0;
-      	min-height: 0;
-      	display: block;
+ 	ul.tabs{
+ 		margin: 0px;
+   		padding: 0px;
+   		list-style: none;
 	}
-	.my_wrap{
-      	margin-left: 30px;
+    ul.tabs li{
+       	background: none;
+       	color: #222;
+       	display: inline-block;
+      	padding: 10px 15px;
+      	cursor: pointer;
 	}
-	.main_left{
-       	padding: 10px;
-       	float: left;
-       	position: relative;
+    ul.tabs li.current{
+        background: #ededed;
+        color: #222;
 	}
-	.features{
-        margin-top: 20px;
+	.tab-content{
+     	display: none;
+      	background: #ededed;
+        padding: 15px;
 	}
-	.category_area{
-        margin-top: 20px;
+	.tab-content.current{
+        display: inherit;
+        width: 700px;
+        height: 250px;
 	}
-	.main_middle{
-        padding: 10px;
-        position: relative;
+	.ex_tag{
+		display: inline-flex;
+		align-items: baseline;
 	}
-	.main_right{
-    	padding: 10px;
-		float: right;
-       	position: relative;
- 	}
-	footer{
-      	width: 100%; 
-       	height: auto; 
-       	margin: auto;
-      	position: relative;
-		text-align: center; 
-		margin-bottom: 50px;
-       	color: white;
-        background-color: black;
-	}
+	/* 지도api */
+ 	.main_right{
+    	width: 320px;
+     	height: 550px;
+      	background-color: #cecece;
+      	
+   	}
 	/* 모바일(~576px) */
 	@media screen and (max-width: 576px) {
-		header {
-        	height: 20vw;
-		}
-        .search_box {
-        	width: 80vw; 
-         	height: 15vw; 
-           	margin-bottom: 5vw;
-		}
-		footer {
-          	width: 100%; 
-        	height: auto; 
-        	text-align: center; 
-         	margin-bottom: 50px;
-		}
+
 	}
 </style>
 </head>
 <body>
-<div class="main_container">
-	<div class="main_left">
-		<div class="price_area">
-			<h5>가격필터</h5>
-			<div class="price_btn btn-group" role="group" aria-label="Basic outlined example">
-            	<button type="button" class="btn btn-outline-primary">\</button>
-                <button type="button" class="btn btn-outline-primary">\\</button>
-                <button type="button" class="btn btn-outline-primary">\\\</button>
-                <button type="button" class="btn btn-outline-primary">\\\\</button>
-            </div>
-		</div>
-		<div class="ex_area">
-			<h5>편의사항</h5>
-			<input class="check-input" type="checkbox" id="roofTop"/>
-			<label class="check-label" for="roofTop">루프탑</label>
-			<br />
-			<input class="check-input" type="checkbox" id="privateRoom"/>
-			<label class="check-label" for="privateRoom">프라이빗 룸</label>
-			<br />
-			<input class="check-input" type="checkbox" id="groups"/>
-			<label class="check-label" for="groups">단체석</label>
-			<br />
-			<input class="check-input" type="checkbox" id="dogsAllowed"/>
-			<label class="check-label" for="dogsAllowed">반려견 동반 가능</label>
-			<br />
-			<input class="check-input" type="checkbox" id="wifi"/>
-			<label class="check-label" for="wifi">와이파이</label>
-			<br />
-			<input class="check-input" type="checkbox" id="parkingSpot"/>
-			<label class="check-label" for="parkingSpot">주차공간</label>
-			<br />
-			<input class="check-input" type="checkbox" id="smokingRoom"/>
-			<label class="check-label" for="smokingRoom">흡연실</label>
-			<br />
-			<input class="check-input" type="checkbox" id="kidsZone"/>
-			<label class="check-label" for="kidsZone">키즈존</label>
-			<br />
-			<input class="check-input" type="checkbox" id="noKidsZone"/>
-			<label class="check-label" for="noKidsZone">노키즈존</label>
-			<br />
-			<input class="check-input" type="checkbox" id="restrooms"/>
-			<label class="check-label" for="restrooms">남/녀 화장실 구분</label>
-		</div>
-		<div class="category_area">
-			<h5>카테고리</h5>
-			<img src="" alt="음식점 대표 이미지" />
-			<button><img src="images/bibimbap.png"> 한식</button>
-            <button><img src="images/sushi.png"> 일식</button>
-            <br>
-            <button><img src="images/xiao-long-bao.png"> 중식</button>
-            <button><img src="images/steak.png"> 양식</button>
-            <br>
-            <button><img src="images/pancake.png"> 브런치</button>
-            <button><img src="images/cocktail.png"> Bar</button>
-            <br>
-            <button><img src="images/coffee-cup.png"> 카페</button>
-		</div>
-	</div>
-	<div class="main_middle">
-		<div class="eatery_list">
-			<div class="title">
-            	<span><h2>추천 맛집</h2></span>
-            </div>
-            <div class="btn_area">
-            	<button id="whole_btn" class="btn btn-outline-dark btn-sm" type="button">전체</button>
-                <button id="reservation_btn" class="btn btn-outline-dark btn-sm" type="button">예약</button>
-                <button id="takeout_btn" class="btn btn-outline-dark btn-sm" type="button">방문포장</button>
-            </div>
-            <div class="card w-50">
-                <div class="card-body">
-                    <img src="${pageContext.request.contextPath}/" class="rounded float-start" width="150" height="150">
-                    <h5 class="card-title">${tmp.title }</h5>
-                    	<ol class="list-group list-group-numbered">
-                        	<li class="list-group-item d-flex justify-content-between align-items-start">
-                            	<div class="ms-2 me-auto">
-                                	<div class="fw-bold">특별한 메뉴가 있어요</div>
-                                </div>
-                                <span class="badge bg-primary rounded-pill">149</span>
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">뷰가 좋아요</div>
-                                </div>
-                                <span class="badge bg-primary rounded-pill">112</span>
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">친절해요</div>
-                                </div>
-                                <span class="badge bg-primary rounded-pill">95</span>
-                            </li>
-                       </ol>
-                    <p class="card-text">${tmp.content }</p>
+	<form class="search">
+		<select class="select_search" name="b-kind">
+			<option id="kFood" value="kFood">한식</option>
+			<option id="jFood" value="kFood">일식</option>
+			<option id="cFood" value="kFood">중식</option>
+			<option id="wFood" value="kFood">양식</option>
+			<option id="brunch" value="brunch">브런치</option>
+			<option id="bar" value="bar">Bar</option>
+			<option id="cafe" value="cafe">카페</option>
+		</select>
+		<input class="keyword" type="text" name="b-kind" maxlength="100" value="">
+		<input class="keyword" type="text" name="search" maxlength="100" value="">
+		<button class="search_btn" type="submit" name="click">
+			<i class="fas fa-search"></i>
+		</button>
+	</form>
+	
+    <section>
+    	<div class="main_left">
+
+            <!-- 편의사항 선택 -->
+            <fieldset>
+				<legend>편의사항</legend>
+				<div class="form-group mb-3" id="ex_keyword">
+					<input type="checkbox" class="check-input" id="check-outlined" value="루프탑" name="ex_keyword" onclick="check();">
+					<label class="check-label" for="check-outlined" >루프탑</label>
+					<br />
+					<input type="checkbox" class="check-input" id="check-2-outlined" value="주차" name="ex_keyword" onclick="check();">
+					<label class="check-label" for="check-2-outlined">주차</label>
+                    <br />
+					<input type="checkbox" class="check-input" id="check-3-outlined" value="무선인터넷" name="ex_keyword" onclick="check();">
+					<label class="check-label" for="check-3-outlined">무선인터넷</label>
+                    <br />
+					<input type="checkbox" class="check-input" id="check-4-outlined" value="단체석" name="ex_keyword" onclick="check();">
+					<label class="check-label" for="check-4-outlined" >단체석</label>
+                    <br />
+					<input type="checkbox" class="check-input" id="check-5-outlined" value="남/녀 화장실 구분" name="ex_keyword" onclick="check();">
+					<label class="check-label" for="check-5-outlined">남/녀 화장실 구분</label>
+					<br />
+					<input type="checkbox" class="check-input" id="check-6-outlined" value="키즈존" name="ex_keyword" onclick="check();">
+					<label class="check-label" for="check-6-outlined" >키즈존</label>
+					<br />
+					<input type="checkbox" class="check-input" id="check-7-outlined" value="노키즈존" name="ex_keyword" onclick="check();">
+					<label class="check-label" for="check-7-outlined">노키즈존</label>
+                    <br />
+					<input type="checkbox" class="check-input" id="check-8-outlined" value="반려동물동반가능" name="ex_keyword" onclick="check();">
+					<label class="check-label" for="check-8-outlined" >반려동물동반가능</label>
+                    <br />
+					<input type="checkbox" class="check-input" id="check-9-outlined" value="프라이빗" name="ex_keyword" onclick="check();">
+					<label class="check-label" for="check-9-outlined" >프라이빗</label>
+                    <br />
+					<input type="checkbox" class="check-input" id="check-10-outlined" value="흡연실" name="ex_keyword" onclick="check();">
+					<label class="check-label" for="check-10-outlined">흡연실</label>
+				</div>
+			</fieldset>
+
+            <!-- 업종 선택 -->
+            <fieldset>
+				<legend>업종</legend>
+				<div id="b-kind">
+                    <button id="kFood" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
+                        <img src=""> 한식
+                    </button>
+                    <button id="jFood" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
+                        <img src=""> 일식
+                    </button>
+                    <br />
+                    <button id="cFood" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
+                        <img src=""> 중식
+                    </button>
+                    <button id="wFood" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
+                        <img src=""> 양식
+                    </button>
+                    <br />
+                    <button id="brunch" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
+                        <img src=""> 브런치
+                    </button>
+                    <button id="bar" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
+                        <img src=""> Bar
+                    </button>
+                    <br />
+                    <button id="cafe" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
+                        <img src=""> 카페
+                    </button>
                 </div>
-        	</div>
-		</div>
-		<form action="list.jsp" method="get"> 
-			<label for="condition">검색조건</label>
-			<select name="condition" id="condition">
-				<option value="title_content" ${condition eq 'popularity' ? 'selected' : '' }>인기순</option>
-				<option value="title" ${condition eq 'reviews' ? 'selected' : '' }>리뷰순</option>
-			</select>
-		</form>	
-	</div>
-	<div class="main_right">
-		<p>map</p>
-	</div>
-	<footer></footer>
-</div>
+            </fieldset>
+    	</div>
+    </section>
+
+    <section>
+    	<div class="main_middle">
+    		<div class="title">
+    			<h2>추천 맛집</h2>
+                <div>
+    				<form action="list.jsp" method="get"> 
+						<label for="condition"></label>
+						<select name="condition" id="condition">
+							<option value="popular" ${condition eq 'popular' ? 'selected' : '' }>인기순</option>
+							<option value="recommend" ${condition eq 'recommend' ? 'selected' : '' }>추천순</option>
+							<option value="recent" ${condition eq 'recent' ? 'selected' : '' }>최신순</option>
+						</select>
+					</form>	
+    			</div>
+    		</div>
+
+    		<ul class="tabs">
+                <li class="tab-link current" data-tab="tab-1">전체</li>
+                <li class="tab-link" data-tab="tab-2">예약</li>
+                <li class="tab-link" data-tab="tab-3">방문포장</li>
+            </ul>
+			
+			<!-- 음식점 리스트 * 6 -->
+			<div id="tab-1" class="tab-content current">
+				<c:forEach var="tmp" items="list">
+	          	 	<div class="card2-75">
+	                	<img src="${pageContext.request.contextPath}${dto.b_img_f }" class="rounded float-start" width="150" height="150">
+	                	<div>
+		                    <h5 class="card-title">${list.b_name }</h5>
+		                    <div>	                    
+		                    	<p><span>${list.b_kind }</span></p>
+		                    </div>
+	                    </div>
+	                	<ol class="list-group">
+	                		<li class="list-group list-group-numbered">
+	                			<!-- 리뷰 키워드 * 3 -->
+	                			<c:forEach var="comment" items="review_keyword" begin="0" end="2">
+	                				<div class="ms-2 me-auto">
+		                				<div class="fw-bold">리뷰 키워드</div>
+		                			</div>
+	                			</c:forEach>
+	                		</li>
+	                	</ol>
+	                	<div class="intro_box">
+	                		<p class="card-text">${dto.intro }</p>
+	                	</div>
+	                	<div>
+	                		<div class="ex_tag">
+	                			<!-- 편의사항 * 3 -->
+	                			<c:forEach var="row" items="ex_keyword" begin="0" end="2">
+	                				<div>
+	                					<span><i class="fas fa-check"></i></span>
+	                				</div>
+	                				<span>${dto.ex_keyword }</span>
+	                			</c:forEach>
+	                		</div>
+	                	</div>
+	                </div>
+	            </c:forEach>
+            </div>
+            
+            <div id="tab-2" class="tab-content">
+                <c:forEach var="tmp" items="list">
+	          	 	<div class="card2-75">
+	                	<img src="${pageContext.request.contextPath}${dto.b_img_f }" class="rounded float-start" width="150" height="150">
+	                	<div>
+		                    <h5 class="card-title">${list.b_name }</h5>
+		                    <div>	                    
+		                    	<p><span>${list.b_kind }</span></p>
+		                    </div>
+	                    </div>
+	                	<ol class="list-group">
+	                		<li class="list-group list-group-numbered">
+	                			<!-- 리뷰 키워드 * 3 -->
+	                			<c:forEach var="comment" items="review_keyword" begin="0" end="2">
+	                				<div class="ms-2 me-auto">
+		                				<div class="fw-bold">리뷰 키워드</div>
+		                			</div>
+	                			</c:forEach>
+	                		</li>
+	                	</ol>
+	                	<div class="intro_box">
+	                		<p class="card-text">${dto.intro }</p>
+	                	</div>
+	                	<div>
+	                		<div class="ex_tag">
+	                			<!-- 편의사항 * 3 -->
+	                			<c:forEach var="row" items="ex_keyword" begin="0" end="2">
+	                				<div>
+	                					<span><i class="fas fa-check"></i></span>
+	                				</div>
+	                				<span>${dto.ex_keyword }</span>
+	                			</c:forEach>
+	                		</div>
+	                	</div>
+	                </div>
+	            </c:forEach>
+            </div>
+            
+            <div id="tab-3" class="tab-content">
+                <c:forEach var="tmp" items="list">
+	          	 	<div class="card2-75">
+	                	<img src="${pageContext.request.contextPath}${dto.b_img_f }" class="rounded float-start" width="150" height="150">
+	                	<div>
+		                    <h5 class="card-title">${list.b_name }</h5>
+		                    <div>	                    
+		                    	<p><span>${list.b_kind }</span></p>
+		                    </div>
+	                    </div>
+	                	<ol class="list-group">
+	                		<li class="list-group list-group-numbered">
+	                			<!-- 리뷰 키워드 * 3 -->
+	                			<c:forEach var="comment" items="review_keyword" begin="0" end="2">
+	                				<div class="ms-2 me-auto">
+		                				<div class="fw-bold">리뷰 키워드</div>
+		                			</div>
+	                			</c:forEach>
+	                		</li>
+	                	</ol>
+	                	<div class="intro_box">
+	                		<p class="card-text">${dto.intro }</p>
+	                	</div>
+	                	<div>
+	                		<div class="ex_tag">
+	                			<!-- 편의사항 * 3 -->
+	                			<c:forEach var="row" items="ex_keyword" begin="0" end="2">
+	                				<div>
+	                					<span><i class="fas fa-check"></i></span>
+	                				</div>
+	                				<span>${dto.ex_keyword }</span>
+	                			</c:forEach>
+	                		</div>
+	                	</div>
+	                </div>
+	            </c:forEach>
+            </div>
+            <!-- 로딩 -->
+            <div id="ajax-loading"><img src=""></div>
+    	</div>
+    </section>
+
+    <section>
+    	<div class="main_right">
+    		api
+    	</div>
+    </section>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+	//검색창
+	const searching=search.prototype;
+	function search(){
+		this.category=docuement.querySelector('input[name="b-kind"]');
+		this.keyword=docuement.querySelector('input[name="search"]');
+		this.engine=document.querySelector('.select_search');
+		this.button=docuement.querySelector('.img_btn');
+		this.form=docuement.querySelector('.search');
+		
+		this.Engine();
+	}
+	searching.Engine=function(){
+		this.form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			
+			let engine=this.engine.value;
+			let keyword=this.keyword.value;
+		});
+	}
+	
+	//조건 검색
+	$(document).ready(function(){
+		$(".so").on("change", function(){
+			$("#so").value($(this).val());
+			$("#searchForm").submit();
+		})
+	});
+		
+	//편의사항	
+	function allcheck(){
+        var ex_keyword = document.getElementsByName("ex_keyword");
+        var checkItem="";
+        for(var i = 0; i < ex_keyword.length; i++){
+           if(ex_keyword[0].checked == true){
+        	   ex_keyword[i].checked = true;
+           } else {
+        	   ex_keyword[i].checked = false;
+           }
+        }
+     }
+	
+	function check(){
+        var ex_keyword = document.getElementsByName("ex_keyword");
+        var checkItem="";
+        for(var i = 0 ; i < ex_keyword.length; i++){
+           if(ex_keyword[i].checked == false){
+              checkItem = false;
+           }
+        }
+        ex_keyword[0].checked = checkItem;
+     }
+
+	
+    //전체, 예약, 방문포장
+	$(document).ready(function(){
+    
+        $('ul.tabs li').click(function(){
+            var tab_id = $(this).attr('data-tab');
+    
+            $('ul.tabs li').removeClass('current');
+            $('.tab-content').removeClass('current');
+    
+            $(this).addClass('current');
+            $("#"+tab_id).addClass('current');
+        })
+    });
+    
+	//스크롤시 로딩
+    $("#ajax-loading").ajaxStart(function() {
+		$(this).show();
+	})
+	.ajaxStop(function() {
+		$(this).delay(10).hide(1); 
+	});    
+</script>
 </body>
 </html>

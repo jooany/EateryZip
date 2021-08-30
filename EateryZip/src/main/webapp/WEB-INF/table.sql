@@ -1,15 +1,15 @@
 -- 메뉴 테이블 
 CREATE TABLE menu(
-	menu_num NUMBER PRIMARY KEY,
+	menu_seq_num NUMBER PRIMARY KEY,
+	menu_num NUMBER NOT NULL,
 	b_id VARCHAR2(100) NOT NULL, --사업자번호(음식점 고유번호)
 	section_num NUMBER NOT NULL, --카테고리번호
-	menu_num_in_section NUMBER NOT NULL, --메뉴번호
 	section_name VARCHAR2(100) NOT NULL, --카테고리명
 	menu_name VARCHAR2(100) NOT NULL, --메뉴명
 	menu_image VARCHAR2(100), -- 메뉴 이미지경로
 	menu_price NUMBER NOT NULL -- 가격
 );
--- 메뉴 번호 얻어낼 시퀀스
+-- 메뉴 번호 얻어낼 시퀀스 
 CREATE SEQUENCE menu_seq;
 
 -- 리뷰 테이블 
@@ -72,8 +72,8 @@ INSERT INTO B_USER (B_ID,B_PWD,B_NAME,B_ADDRESS,B_EMAIL,B_PHONE,B_REGDATE,GRADE)
 VALUES('11111111', '11111111','이름','경기도 부천시', 'aaa@aaa','01012345678',sysdate,'business');
 
 -- 가게등록 테이블
-CREATE TABLE b_Store(
-	b_id VARCHAR2(100) PRIMARY KEY, -- 사업자주소
+CREATE TABLE B_Store(
+	b_id VARCHAR2(100) PRIMARY KEY, -- 사업자번호
 	b_name VARCHAR2(100) NOT NULL, -- 상호명
 	b_Store_Address VARCHAR2(100) NOT NULL, -- 가게주소
 	b_kind VARCHAR2(100) NOT NULL, -- 업종
@@ -89,7 +89,7 @@ CREATE TABLE b_Store(
 	ex_keyword VARCHAR2(100) NOT NULL -- 편의사항/ 기타
 );
 -- 가게 등록 예시
-INSERT INTO b_Store(b_id,b_name,b_Store_Address,b_kind,intro,b_img_f,
+INSERT INTO B_Store(b_id,b_name,b_Store_Address,b_kind,intro,b_img_f,
 						b_Store_phone,b_Store_date,b_open,b_close,b_holiday,notice,service,ex_keyword )
 VALUES ('1111111111', 'acorn', '서울특별시 강남구 테헤란로 124 삼원타워 5층', '브런치','안녕하세요','https://dummyimage.com/600x400/000/fff&text=dummy',
 			'025398879','매일','09:30','18:00','일요일','만반잘부','예약/방문포장','주차/노키즈존/프라이빗');

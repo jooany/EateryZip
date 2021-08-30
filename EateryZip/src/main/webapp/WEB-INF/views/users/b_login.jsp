@@ -14,7 +14,9 @@
    		<c:when test="${not empty sessionScope.b_id }">
 		   	  <p>
 		         <strong>${sessionScope.b_id }</strong>사업자님 로그인 되었습니다.
-		         <a href="${pageContext.request.contextPath}/home.do">우선은 메인화면으로</a> 
+		         <a href="${pageContext.request.contextPath}/users/b_mypage.do">비즈니스 마이페이지</a> 
+		         <a href="${pageContext.request.contextPath}/users/b_mypage/menu_insertform.do">메뉴insertform</a> 
+
 		         <!-- 우선은 메인화면으로 이동, 추후 마이페이지로 이동-->
 		      </p>
    		</c:when>

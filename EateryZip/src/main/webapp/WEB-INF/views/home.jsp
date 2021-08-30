@@ -11,18 +11,25 @@
 </head>
 <body>
 
-<h1>메인페이지 입니다.</h1>
-  <a href="${pageContext.request.contextPath}/store/store_insertform.do">가게등록</a>
-	<a href="${pageContext.request.contextPath}/store/store_insert.do">가게정보</a>
+<h1>메인페이지 입니다.</h1> 
+	<h2>형우 테스트 링크</h2>
+	<a href="${pageContext.request.contextPath}/eatery/reservation_form.do">예약 폼</a>
+	<h2>주연 테스트 링크</h2>
+	<a href="${pageContext.request.contextPath}/users/b_mypage/menu_insertform.do">menu_insertform</a>
+	
+	<a href="${pageContext.request.contextPath}/store/store_insertform.do">가게등록</a>
+	<a href="${pageContext.request.contextPath}/store/store_detail.do">가게정보</a>
+	
 	<a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
-  
-  <h2>형우 테스트 링크</h2>
-   <a href="${pageContext.request.contextPath}/eatery/reservation_form.do">예약 폼</a>
-  <h2>-----------------</h2>
-  <h2>주연 테스트 링크</h2>
-  <a href="${pageContext.request.contextPath}/users/b_mypage/menu_insertform.do">menu_insertform</a>
-  <h2>-----------------</h2>
-
-
+	
+	<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">비즈니스회원정보</a>
+	
+	<h2>민재 테스트 링크</h2>
+	<a href="${pageContext.request.contextPath}/users/map_seoul.do">서울 테스트</a>
+	<a href="${pageContext.request.contextPath}/users/map_busan.do">부산 테스트</a>
+	<a href="${pageContext.request.contextPath}/users/map_seoul_detail.do">서울 세부 테스트</a>
+	<a href="${pageContext.request.contextPath}/users/map_busan_detail.do">부산 세부 테스트</a>
+	
+ 
 </body>
 </html>
