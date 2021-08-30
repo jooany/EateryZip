@@ -1,5 +1,8 @@
 package com.sixnicorn.eateryzip.user.service;
 
-public class BStoreServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class BStoreServiceImpl implements BStoreService{
 
 }

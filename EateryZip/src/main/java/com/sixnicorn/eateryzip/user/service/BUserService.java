@@ -15,7 +15,8 @@ public interface BUserService {
 	public void loginProcess(BUserDto dto, HttpSession session);
 	//비즈니스 회원 추가
 	public void addUser(BUserDto dto);
-	
+	//회원가입 ID check
+	public Map<String, Object> isExistId(String inputId);
 	
 	
 	

@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
+	<!-- 메뉴 번호 최댓값 가져오기 -->
+	<select id="getMenuMaxNum" parameterType="String" resultType="int">
+		SELECT NVL(MAX(menu_num),0)
+		FROM menu
+		WHERE b_id=#{b_id}
+	</select>
+	
 	<!-- 메뉴 등록하기 -->
 	<insert id="insert" parameterType="menuDto">
 		INSERT INTO menu
-		(menu_num,b_id,section_num,section_name,menu_name,menu_image,menu_price)
-		VALUES(menu_seq.NEXTVAL,#{b_id},#{section_num},#{section_name},#{menu_name},#{menu_image,jdbcType=VARCHAR},#{menu_price})
+		(menu_seq_num,menu_num,b_id,section_num,section_name,menu_name,menu_image,menu_price)
+		VALUES(menu_seq.NEXTVAL,#{menu_num},#{b_id},#{section_num},#{section_name},#{menu_name},#{menu_image,jdbcType=VARCHAR},#{menu_price})
 	</insert>
 	
 	<!-- 메뉴 수정하기 -->
 	<update id="update" parameterType="menuDto">
 		UPDATE menu
 		SET menu_name=#{menu_name}, menu_image=#{menu_image,jdbcType=VARCHAR}, menu_price=#{menu_price}
-		WHERE menu_num=#{menu_num}
+		WHERE menu_num=#{menu_num} AND b_id=#{b_id}
 	
 	</update>
 	
-	<!-- 사업자 번호로 카테고리 개수 얻어오기 -->
+	<!-- 카테고리 번호 리스트 가져오기(중복X) -->
+	<select id="getSectionNumList" parameterType="String" resultType="int">
+		SELECT DISTINCT section_num
+		FROM menu
+		WHERE b_id=#{b_id}
+		ORDER BY section_num ASC
+	</select>
+	
+	<!-- 개수는 필요 없을듯~~~~ -->
+	<!-- 사업자 번호와 카테고리 번호로 카테고리의 개수 얻어오기 -->
 	<select id="getSectionCount" parameterType="String" resultType="int">
-		SELECT MAX(section_num)
+		SELECT NVL(COUNT(DISTINCT section_num),0)
+		FROM menu
+		WHERE b_id=#{b_id}
+	</select>
+	
+	<!-- 사업자 번호로 카테고리 최대 번호 얻어오기 -->
+	<select id="getSectionMaxNum" parameterType="String" resultType="int">
+		SELECT NVL(MAX(section_num),0)
 		FROM menu
 		WHERE b_id=#{b_id}
 	</select>
@@ -28,6 +51,7 @@
 		SELECT *
 		FROM menu
 		WHERE b_id=#{b_id}
+		ORDER BY menu_num ASC
 	</select>
 	
 	<!-- 카테고리명 변경하기 -->
@@ -38,9 +62,22 @@
 	</update>
 	
 	<!-- 해당 메뉴 삭제하기 -->
-	<delete id="delete_menu" parameterType="int">
+	<delete id="delete_menu" parameterType="menuDto">
 		DELETE FROM menu
-		WHERE menu_num=#{menu_num}
+		WHERE menu_num=#{menu_num} AND b_id=#{b_id}
+	</delete>
+	
+	<!-- 해당 섹션 데이터 있는지 확인하기 -->
+	<select id="getIsDataInSection" parameterType="menuDto" resultType="int">
+		SELECT NVL(COUNT(*),0)
+		FROM menu
+		WHERE section_num=#{section_num} AND b_id=#{b_id}
+	</select>
+	
+	<!-- 해당 섹션 삭제하기 -->
+	<delete id="delete_section" parameterType="menuDto">
+		DELETE FROM menu
+		WHERE section_num=#{section_num} AND b_id=#{b_id}
 	</delete>
 	
 </mapper>

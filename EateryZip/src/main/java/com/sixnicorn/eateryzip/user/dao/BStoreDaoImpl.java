@@ -1,5 +1,6 @@
 package com.sixnicorn.eateryzip.user.dao;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,7 +16,7 @@ public class BStoreDaoImpl implements BStoreDao {
 		/*
 		 	namespace : BStore
 		 	sql id : insert
-		 	parameterType : BStoreDto
+		 	parameterType : BStoreDto , b_id
 		 */
 		session.insert("BStore.insert", dto);
 	}
@@ -52,3 +53,6 @@ public class BStoreDaoImpl implements BStoreDao {
 		return null;
 	}
 }
+
+}
+

@@ -7,7 +7,8 @@ public interface BUserDao {
 	public BUserDto getData(String b_id);
 	//인자로 전달된 가입하는 회원의 정보를 DB에 저장하는 메소드
 	public void insert(BUserDto dto);
-	
+	//인자로 전달된 아이딕 존재 하는지 여부를 리턴하는 메소드
+	public boolean isExist(String inputId); //boolean type으로 return
 	
 	
 	
