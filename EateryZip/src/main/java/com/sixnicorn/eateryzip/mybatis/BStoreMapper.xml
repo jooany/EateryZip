@@ -2,27 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BStore">
 
-	<!-- 가게정보 입력하기 // 일단 상호명이랑 주소만 넣어보자 -->
+	<!-- 혜림 -->
+	<!-- 가게 등록하기 -->
 	<insert id="insert" parameterType="BStoreDto">
-	insert into B_Store
-	(b_id, b_name, b_Store_Address)
-	values(#{b_id}, #{b_name}, #{b_address})
+		INSERT INTO B_Store
+		(b_id, b_name, b_Store_Address, b_kind, intro, b_img_f, b_Store_phone,
+			b_Store_date, b_open, b_close, b_holiday, notice, service, ex_keyword)
+		VALUES(#{b_id},#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_img_f},#{b_Store_phone},
+			#{b_Store_date},#{b_open},#{b_close},#{b_holiday},#{notice,jdbcType=VARCHAR},#{service},#{ex_keyword})
 	</insert>
-  
-	<!-- 가게정보 불러오기 // 일단 상호명이랑 주소만 불러보자
-	<select id="getData" parameterType="string" resultType="BStoreDto">
-		SELECT b_id, b_name, b_Store_Address
-		FROM B_Store
-		WHERE b_id =#{b_id}
-	</select>
-	 -->
-	<!-- 가게정보 수정하기 // 일단 상호명이랑 주소만 수정해보자
+	
+	<!-- 가게정보 수정하기 -->
 	<update id="update" parameterType="BStoreDto">
 		UPDATE B_Store
-		SET b_name=#{b_name}, b_Store_Address=#{b_Store_Address}
-		WHERE b_id = #{b_id}
+		SET b_name=#{b_name}, b_Store_Address=#{b_Store_Address}, b_kind=#{b_kind},intro=#{intro},b_img_f=#{b_img_f},b_Store_phone=#{b_Store_phone},b_Store_date=#{b_Store_date},
+			b_open=#{b_open},b_close=#{b_close},b_holiday=#{b_holiday},notice=#{notice,jdbcType=VARCHAR},service=#{service},ex_keyword=#{ex_keyword}
+		WHERE b_id=#{b_id}
 	</update>
-  -->
+	
+	<!-- b_id로 가게정보 얻어오기 -->
+	<select id="getStore" parameterType="String" resultType="BStoreDto">
+		SELECT *
+		FROM B_Store
+		WHERE b_id=#{b_id}
+	</select>
+  
+  
   
 	<!-- 나현님 부분 -->
 	<select id="getList" parameterType="BstoreDto" resultType="BStoreDto">

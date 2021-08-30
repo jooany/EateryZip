@@ -15,25 +15,16 @@ public class BStoreDaoImpl implements BStoreDao {
 	@Autowired
 	private SqlSession session;
 	
+	// 혜림
+	
 	@Override
 	public void insert(BStoreDto dto) {
 		/*
 		 	namespace : BStore
 		 	sql id : insert
-		 	parameterType : BStoreDto , b_id
+		 	parameterType : BStoreDto
 		 */
 		session.insert("BStore.insert", dto);
-	}
-
-	@Override
-	public BStoreDto StoreView(String b_id) {
-		/*
-		 	namespace : BStore
-		 	sql id : StoreView
-		 	parameterType : String
-		 	resultType : BStoreDto
-		*/
-		return null;
 	}
 
 	@Override
@@ -43,21 +34,23 @@ public class BStoreDaoImpl implements BStoreDao {
 		 	sql id : update
 		 	parameterType : BStoreDto
 		*/
+		session.update("BStore.update", dto);
 	}
 
 	@Override
-	public BStoreDto getData(int num) {
-		// TODO Auto-generated method stub
-		return null;
+	public BStoreDto getStore(String b_id) {
+		/*
+		 	namespace : BStore
+		 	sql id : getStore
+		 	parameterType : String
+		 	resultType : BStoreDto
+		*/
+		return session.selectOne("BStore.getStore", b_id);
 	}
 
-	@Override
-	public BStoreDto getData(BStoreDto dto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	//나현
+
+	// 나현
 	@Override
 	public List<BStoreDto> getList(BStoreDto dto) {
 		return session.selectList("BStore.getList", dto);
