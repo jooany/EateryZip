@@ -13,12 +13,16 @@ public class ListDto {
 	private String ex_keyword; //편의사항, 기타
 	private int menu_price; //메뉴 가격
 	private String keyword_review; //키워드 리뷰
+	private String popular; //인기순
+	private String recommend; //추천순
+	private String recent; //최신순
 
 	//생성자
 	public ListDto() {}
 
 	public ListDto(String b_id, String b_name, String b_kind, String intro, String b_img_f, String b_open,
-			String b_close, String service, String ex_keyword, int menu_price, String keyword_review) {
+			String b_close, String service, String ex_keyword, int menu_price, String keyword_review, String popular,
+			String recommend, String recent) {
 		super();
 		this.b_id = b_id;
 		this.b_name = b_name;
@@ -31,6 +35,9 @@ public class ListDto {
 		this.ex_keyword = ex_keyword;
 		this.menu_price = menu_price;
 		this.keyword_review = keyword_review;
+		this.popular = popular;
+		this.recommend = recommend;
+		this.recent = recent;
 	}
 
 	public String getB_id() {
@@ -119,6 +126,30 @@ public class ListDto {
 
 	public void setKeyword_review(String keyword_review) {
 		this.keyword_review = keyword_review;
+	}
+
+	public String getPopular() {
+		return popular;
+	}
+
+	public void setPopular(String popular) {
+		this.popular = popular;
+	}
+
+	public String getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(String recommend) {
+		this.recommend = recommend;
+	}
+
+	public String getRecent() {
+		return recent;
+	}
+
+	public void setRecent(String recent) {
+		this.recent = recent;
 	}
 
 }

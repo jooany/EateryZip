@@ -9,8 +9,21 @@
 	values(b_id, #{b_name}, #{b_address})
 	</insert>
 
-
-
+	<select id="getList" parameterType="String" resultType="BStoreDto">
+		SELECT *
+		FROM b_Store
+		WHERE b_id=#{b_id}
+		ORDER BY b_id ASC
+	</select>
+	<select id="getCount" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM b_Store
+	</select>
+	<select id="getData" parameterType="string" resultType="BStoreDto">
+		SELECT b_id, b_name, b_kind, b_intro, b_img_f, service, ex_keyword
+		FROM b_Store
+		where b_id=#{b_id}
+	</select>
 
 <!-- b_kind, intro, b_img_f, b_Store_phone, b_Store_date,
 		b_open, b_close, b_holiday, notice, service, ex_keyword, storeFile -->

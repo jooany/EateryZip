@@ -3,13 +3,13 @@ package com.sixnicorn.eateryzip.eatery.dao;
 import java.util.List;
 
 import com.sixnicorn.eateryzip.eatery.dto.ListDto;
-import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
+import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 
 public interface ListDao {
-	//메뉴 리스트 얻어오기
-	public List<MenuDto> getList(String b_id);
-	//카테고리 개수 얻어오기
-	public int getSectionCount(String b_id);
-	//가게 정보 얻어오기
-	//public BStoreDto StoreView(String b_id);
+	//글목록
+	public List<BStoreDto> getList(BStoreDto dto);
+	//글개수
+	public int getCount(BStoreDto dto);
+	//글정보 얻어오기
+	public BStoreDto getData(int num);
 }
