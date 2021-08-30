@@ -12,7 +12,6 @@
 	<select id="getList" parameterType="String" resultType="BStoreDto">
 		SELECT *
 		FROM b_Store
-		WHERE b_id=#{b_id}
 		ORDER BY b_id ASC
 	</select>
 	<select id="getCount" resultType="int">
