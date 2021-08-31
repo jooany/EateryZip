@@ -270,7 +270,7 @@ button{
 			</svg>
 		</button>
 			
-		<form action="${pageContext.request.contextPath}/users/b_mypage/ajax_menu_img_upload.do" method="post" id="imageForm" class="visually-hidden" enctype="multipart/form-data">
+		<form action="${pageContext.request.contextPath}/users/b_mypage/ajax_menu_img_upload.do" method="post" id="imageForm" enctype="multipart/form-data">
 					<input type="file" name="image" id="image" 
 						accept=".jpg, .jpeg, .png, .JPG, .JPEG, .gif"/>
 		</form>
@@ -522,7 +522,7 @@ button{
 	                        <div class="wrap_img_n_price">
 	                            <a class="menu_img_btn" id="menuImgBtn`+data.menuNum+`" data-menuNum="`+data.menuNum+`" href="javascript:;">
 	                                <div id="imgNum`+data.menuNum+`" class="menu_img_wrap">
-	                                ${false ? '<i class="far fa-image"></i>' : '<img class="menu_img" src="${cPath}/${menuImg}"/>'}
+	                                \${menuImg == '' ? '<i class="far fa-image"></i>' : '<img class="menu_img" src="'+cPath+menuImg+'"/>'}
 	                                </div>
 	                            </a>							
 	                            <div class="wrap_price">
@@ -640,7 +640,10 @@ button{
 			//해당 이미지 경로를 가진 이미지 요소를 생성하여 innrHTML에 넣어주고
 			//이미지 경로를 전송하는 input의 value 값에 이미지 경로를 넣어준다.
 			let img=`<img class="menu_img" src="${pageContext.request.contextPath}\${data.imagePath}"/>`;
-			$("#imgNum"+thisMenu).html(img);
+
+			if(data.imagePath !=''){
+				$("#imgNum"+thisMenu).html(img);
+			}
 			$("#inputImg"+thisMenu).val(data.imagePath);
 		});
 	}); //#image.change.end

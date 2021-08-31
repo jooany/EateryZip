@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.dto;
+package com.sixnicorn.eateryzip.user.dto;
 
 public class ReviewDto {
 	private int review_num;
@@ -9,9 +9,15 @@ public class ReviewDto {
 	private String regdate;
 	private String keyword_review;
 	private String review_kind;
+	private int buy_num;
+	private int takeout_num;
+	private int reservation_num;
 	
+	public ReviewDto() {}
+
 	public ReviewDto(int review_num, String b_id, String writer, String review_image, String review_content,
-			String regdate, String keyword_review, String review_kind) {
+			String regdate, String keyword_review, String review_kind, int buy_num, int takeout_num,
+			int reservation_num) {
 		super();
 		this.review_num = review_num;
 		this.b_id = b_id;
@@ -21,6 +27,9 @@ public class ReviewDto {
 		this.regdate = regdate;
 		this.keyword_review = keyword_review;
 		this.review_kind = review_kind;
+		this.buy_num = buy_num;
+		this.takeout_num = takeout_num;
+		this.reservation_num = reservation_num;
 	}
 
 	public int getReview_num() {
@@ -86,6 +95,32 @@ public class ReviewDto {
 	public void setReview_kind(String review_kind) {
 		this.review_kind = review_kind;
 	}
+
+	public int getBuy_num() {
+		return buy_num;
+	}
+
+	public void setBuy_num(int buy_num) {
+		this.buy_num = buy_num;
+	}
+
+	public int getTakeout_num() {
+		return takeout_num;
+	}
+
+	public void setTakeout_num(int takeout_num) {
+		this.takeout_num = takeout_num;
+	}
+
+	public int getReservation_num() {
+		return reservation_num;
+	}
+
+	public void setReservation_num(int reservation_num) {
+		this.reservation_num = reservation_num;
+	};
+	
+	
 	
 	
 	
