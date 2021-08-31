@@ -20,7 +20,7 @@ public interface BStoreService {
 	public void getStore(HttpSession session, ModelAndView mView);
 	
 	// 가게대표이미지 등록하기 (3개까지 나오게 구현해보자)
-	public Map<String, Object> saveStoreImage(HttpServletRequest request, MultipartFile Storeimage);
+	public Map<String, Object> saveStoreImage(HttpServletRequest request, MultipartFile image);
 	
 	// 가게정보 등록
 	public void saveStore(BStoreDto dto);
