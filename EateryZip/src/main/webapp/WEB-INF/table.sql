@@ -21,7 +21,8 @@ CREATE TABLE review(
 	review_content CLOB NOT NULL, -- 리뷰 내용
 	regdate DATE, -- 작성 날짜
 	keyword_review VARCHAR2(100), -- 키워드 리뷰
-	review_kind VARCHAR2(10) -- 포장 OR 예약
+	review_kind VARCHAR2(10), -- 포장 OR 예약
+	buy_num NUMBER -- 예약 or 포장 번호
 );
 -- 리뷰 번호 얻어낼 시퀀스
 CREATE SEQUENCE review_seq; 

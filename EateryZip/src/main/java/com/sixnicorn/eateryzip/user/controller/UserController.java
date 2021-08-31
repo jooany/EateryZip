@@ -28,6 +28,15 @@ public class UserController {
 	@Autowired
 	private GUserService Gservice;
 	
+	///------ (임시 추후 혜림 이용)주연 ------------------------------------------
+	@RequestMapping("/users/g_mypage/takeout_list")
+	public String takeoutList(HttpServletRequest request) {
+		
+		
+		return "users/g_mypage/takeout_list" ;
+	}
+	//---------------------------------주연끝----------------------------------
+	
 	//maps 테스트 .jsp로 이동
 	@RequestMapping("users/map_seoul")
 	public String S_map() {

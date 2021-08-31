@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sixnicorn.eateryzip.mybatis.ReviewMapper">
+<mapper namespace="review">
+
+	<!-- [포장] 음식점 이름,방문 날짜,방문 시간,가격 가져오기 -->
+	<select id="getTakeoutData" parameterType="takeoutDto" resultType="takeoutDto">
+		SELECT b.b_name,takeout_date,takeout_time,takeout_price
+		FROM b_store b,takeout t
+		WHERE b.b_id=t.b_id AND b.b_id=#{b_id} AND takeout_num=#{takeout_num}	
+	</select>
+
+	<!-- [포장] 저장된 포장 리뷰 정보 가져오기 -->
+	<select id="getReviewDataT" parameterType="int" resultType="reviewDto">
+		SELECT *
+		FROM review
+		WHERE takeout_num=#{takeout_num}
+	</select>
+	
+	<!-- [예약] -->
+	<select id="getReviewDataR">
+		SELECT *
+		FROM review
+		WHERE buy_num=#{reservation_num}
+	</select>
+	
+	
+
 </mapper>
