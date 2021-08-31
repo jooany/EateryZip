@@ -6,17 +6,17 @@
 	<!-- 가게 등록하기 -->
 	<insert id="insert" parameterType="BStoreDto">
 		INSERT INTO B_Store
-		(b_id, b_name, b_Store_Address, b_kind, intro, b_img_f, b_Store_phone,
+		(b_name, b_Store_Address, b_kind, intro, b_img_f, b_Store_phone,
 			b_Store_date, b_open, b_close, b_holiday, notice, service, ex_keyword)
-		VALUES(#{b_id},#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_img_f},#{b_Store_phone},
-			#{b_Store_date},#{b_open},#{b_close},#{b_holiday},#{notice,jdbcType=VARCHAR},#{service},#{ex_keyword})
+		VALUES(#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_img_f},#{b_Store_phone},
+			#{b_Store_date},#{b_open},#{b_close},#{b_holiday,jdbcType=VARCHAR},#{notice,jdbcType=VARCHAR},#{service},#{ex_keyword})
 	</insert>
 	
 	<!-- 가게정보 수정하기 -->
 	<update id="update" parameterType="BStoreDto">
 		UPDATE B_Store
 		SET b_name=#{b_name}, b_Store_Address=#{b_Store_Address}, b_kind=#{b_kind},intro=#{intro},b_img_f=#{b_img_f},b_Store_phone=#{b_Store_phone},b_Store_date=#{b_Store_date},
-			b_open=#{b_open},b_close=#{b_close},b_holiday=#{b_holiday},notice=#{notice,jdbcType=VARCHAR},service=#{service},ex_keyword=#{ex_keyword}
+			b_open=#{b_open},b_close=#{b_close},b_holiday=#{b_holiday,jdbcType=VARCHAR},notice=#{notice,jdbcType=VARCHAR},service=#{service},ex_keyword=#{ex_keyword}
 		WHERE b_id=#{b_id}
 	</update>
 	
