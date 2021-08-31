@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +27,51 @@ public class BUserServiceImpl implements BUserService {
 
 	//비즈니스회원 로그인 처리 과정
 	@Override
-	public void loginProcess(BUserDto dto, HttpSession session) {
+	public void loginProcess(BUserDto dto, HttpSession session , String isSave , HttpServletResponse response) {
 		//입력한 정보가 맞는지 확인 - 기본 값 false
 		boolean isValid= false;
 		
-		BUserDto result=Bdao.getData(dto.getB_id());
+		String b_id = dto.getB_id();
+		String changedB_id=b_id.trim();
+		
+		String b_pwd = dto.getB_pwd();
+		String changedB_pwd=b_pwd.trim();
+		
+		BUserDto result=Bdao.getData(changedB_id);
+		
 		if(result != null) {
 			//만일 존재하는 아이디라면, 비밀번호가 일치하는지 확인한다.
 			String encodedPwd=result.getB_pwd();
-			String inputPwd=dto.getB_pwd();	
+			String inputPwd=changedB_pwd;	
 			isValid=BCrypt.checkpw(inputPwd, encodedPwd);
-		}
+			
+		}	
 		
 		if(isValid) { //만일 위의 정보가 모두 충족될 시,
+			
 			//session 영역에 아이디를 저장한다.
 			session.setAttribute("b_id", dto.getB_id());
-		}
+			session.setMaxInactiveInterval(60*60*6);
 		
+			   if(isSave != null){//만일 넘어오는 값이 있다면
+			      //쿠키에 id 와 pwd 를 특정 키값으로 담아서 쿠키도 응답 되도록 한다.
+			      Cookie idCook=new Cookie("savedb_Id", changedB_id);
+			      idCook.setMaxAge(60*60*6); //쿠키 유지시간 (초단위)
+			      response.addCookie(idCook); //기본객체 response의 addCookie 메소드를 사용
+			      
+			      Cookie pwdCook=new Cookie("savedb_Pwd", changedB_pwd);
+			      pwdCook.setMaxAge(60*60*6);
+			      response.addCookie(pwdCook);
+			   }else {
+				      Cookie idCook=new Cookie("savedb_Id", changedB_id);
+				      idCook.setMaxAge(0); //쿠키 유지시간 (초단위)
+				      response.addCookie(idCook);
+				      
+				      Cookie pwdCook=new Cookie("savedb_Pwd", changedB_pwd);
+				      pwdCook.setMaxAge(0);
+				      response.addCookie(pwdCook);
+			   }
+		}
 	}
 
 	//비즈니스 회원가입 로직
@@ -67,8 +97,14 @@ public class BUserServiceImpl implements BUserService {
 		//Map 객체를 리턴해준다.
 		return map;
 	}
-	
-	
+	//비즈니스회원 아이디 찾기
+	@Override
+	public BUserDto findId(BUserDto dto) {
+		
+		BUserDto dto2 = dto;
+		
+		return dto2 ;
+	}
 	
 	
 	
@@ -123,6 +159,8 @@ public class BUserServiceImpl implements BUserService {
 		map.put("b_imagePath", "/upload/"+b_saveFileName);
 		return map;
 	}
+
+
 
 
 }

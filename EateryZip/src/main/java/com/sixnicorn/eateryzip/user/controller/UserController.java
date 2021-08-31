@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,9 +73,10 @@ public class UserController {
 	//일반 회원 로그인
 	@RequestMapping("/users/g_login")
 	public ModelAndView Glogin(ModelAndView mView, GUserDto dto,
-			@RequestParam String url , HttpSession session) {
+			@RequestParam String url , HttpSession session , @RequestParam (value="isSave", required=false) String isSave
+			, HttpServletResponse response) {
 
-		Gservice.loginProcess(dto, session); //Service에 필요로 하는 객체가 있다면 넣어주어야한다.
+		Gservice.loginProcess(dto, session , isSave , response); //Service에 필요로 하는 객체가 있다면 넣어주어야한다.
 		
 		String encodedUrl=URLEncoder.encode(url);
 		mView.addObject("url", url);
@@ -87,9 +89,9 @@ public class UserController {
 	//비즈니스 회원 로그인
 	@RequestMapping(value="/users/b_login", method = RequestMethod.POST)
 	public ModelAndView Blogin(ModelAndView mView, BUserDto Bdto, 
-			HttpSession session) {
+			HttpSession session, @RequestParam (value="isSave", required=false) String isSave, HttpServletResponse response) {
 			
-		Bservice.loginProcess(Bdto, session); //Service에 필요로 하는 객체가 있다면 넣어주어야한다.
+		Bservice.loginProcess(Bdto, session, isSave , response); 
 		mView.setViewName("users/b_login");
 		return mView;
 	}
@@ -144,6 +146,40 @@ public class UserController {
 	public Map<String, Object> B_checkid(@RequestParam String inputId){
 		return Bservice.isExistId(inputId);
 		//결국 {isExist":true}or{isExist":false} 형태
+	}
+	
+	//사업자번호 찾기 폼으로 이동
+	@RequestMapping("/users/b_find_id_form")
+	public String b_find_id_form(){
+		return "users/b_find_id_form";
+	}
+	
+	
+	//사업자번호 찾기 폼으로 이동
+	@RequestMapping("/users/b_find_id")
+	public ModelAndView b_find_id(ModelAndView mView, BUserDto dto){
+	
+		Bservice.findId(dto);
+		mView.setViewName("users/b_find");
+		return mView;
+	}
+	
+	//일반 ID 찾기 폼으로 이동
+	@RequestMapping("/users/g_find_id_form")
+	public String g_find_id_form(){
+		return "users/g_find_id_form";
+	}
+	
+	//사업자 패스워드 찾기 폼으로 이동
+	@RequestMapping("/users/b_find_pwd_form")
+	public String b_find_pwd_form(){
+		return "users/b_find_pwd_form";
+	}
+		
+	//일반 패스워드 찾기 폼으로 이동
+	@RequestMapping("/users/g_find_pwd_form")
+	public String g_find_pwd_form(){
+		return "users/g_find_pwd_form";
 	}
 	
 	//일반 , 비즈니스 회원 로그아웃
