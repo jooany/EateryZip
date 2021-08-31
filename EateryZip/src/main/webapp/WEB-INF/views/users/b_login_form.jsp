@@ -66,43 +66,87 @@
 </head>
 <body>
 <div class="container">
+	   <c:choose>
+	   		<c:when test="${not empty cookie.savedb_Id}">
+	   			<form action="${pageContext.request.contextPath}/users/b_login.do" method="post" >
+	   				
+				  <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
+				  class="mx-auto d-block mb-4" alt="" />
+					   
+			      <div class="mb-3">
+			         <input class="form-control" type="text" name="b_id" id="b_id" value="${cookie.savedb_Id.value}" placeholder="사업자번호 입력"/>
+			      </div>
+			      <div class="mt-3">
+			         <input class="form-control" type="password" name="b_pwd" id="b_pwd" value="${cookie.savedb_Pwd.value}" placeholder="비밀번호 입력"/>
+			      </div>
+			      <div class="checkbox mb-3 mt-3" style="text-align:center;">
+		              <label>
+		                 <input type="checkbox" name="isSave" value="yes" checked> 로그인 정보 저장
 
-	   <form action="${pageContext.request.contextPath}/users/b_login.do" method="post" >
+		              </label>
+		          </div>
+			      <div class="mt-3 mb-3" style="text-align:center;">
+			      	<button type="submit" class="btn" style="width:450px;">로그인</button>
+			      </div>
+			      <div class="search_wrap">
+				    <div class="search_wrap_child" >
+				      <a href="${pageContext.request.contextPath}/users/b_find_id_form.do" class="link">사업자번호 찾기</a>
+				    </div>
+				    <span>|</span>
+				    <div class="search_wrap_child">
+				      <a href="${pageContext.request.contextPath}/users/b_find_pwd_form.do" class="link">비밀번호 찾기</a>
+				    </div>
+				     <span>|</span>
+				    <div class="search_wrap_child">
+				      <a href="${pageContext.request.contextPath}/users/select_signup_form.do" class="link">회원 가입</a>
+				    </div>
+		  		  </div>
+			      <div class="mt-3" style="text-align:center;">
+			      	<a href="${pageContext.request.contextPath}/users/g_login_form.do">일반회원 로그인시 여기를 눌러주세요.</a>
+			      </div>	
+			   </form>
+	   		
+	   		</c:when>
+	   		<c:otherwise>
+	   			<form action="${pageContext.request.contextPath}/users/b_login.do" method="post" >
+	   			  
 	   
-		  <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
-		  class="mx-auto d-block mb-4" alt="" />
-			   
-	      <div class="mb-3">
-	         <input class="form-control" type="text" name="b_id" id="b_id" placeholder="사업자번호 입력"/>
-	      </div>
-	      <div class="mt-3">
-	         <input class="form-control" type="password" name="b_pwd" id="b_pwd" placeholder="비밀번호 입력"/>
-	      </div>
-	      <div class="checkbox mb-3 mt-3" style="text-align:center;">
-              <label>
-                 <input type="checkbox" name="isSave" value="yes" checked> 로그인 정보 저장
-              </label>
-          </div>
-	      <div class="mt-3 mb-3" style="text-align:center;">
-	      	<button type="submit" class="btn" style="width:450px;">로그인</button>
-	      </div>
-	      <div class="search_wrap">
-		    <div class="search_wrap_child" >
-		      <a href="" class="link">사업자번호 찾기</a>
-		    </div>
-		    <span>|</span>
-		    <div class="search_wrap_child">
-		      <a href="" class="link">비밀번호 찾기</a>
-		    </div>
-		     <span>|</span>
-		    <div class="search_wrap_child">
-		      <a href="${pageContext.request.contextPath}/users/select_signup_form.do" class="link">회원 가입</a>
-		    </div>
-  		  </div>
-	      <div class="mt-3" style="text-align:center;">
-	      	<a href="${pageContext.request.contextPath}/users/g_login_form.do">일반회원 로그인시 여기를 눌러주세요.</a>
-	      </div>	
-	   </form>
-</div>
+				  <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
+				  class="mx-auto d-block mb-4" alt="" />
+					   
+			      <div class="mb-3">
+			         <input class="form-control" type="text" name="b_id" id="b_id" placeholder="사업자번호 입력"/>
+			      </div>
+			      <div class="mt-3">
+			         <input class="form-control" type="password" name="b_pwd" id="b_pwd" placeholder="비밀번호 입력"/>
+			      </div>
+			      <div id="checkbox" class="checkbox mb-3 mt-3" style="text-align:center;">
+		              <label>
+		                 <input type="checkbox" name="isSave" value="yes"> 로그인 정보 저장
+		              </label>
+		          </div>
+			      <div class="mt-3 mb-3" style="text-align:center;">
+			      	<button type="submit" class="btn" style="width:450px;">로그인</button>
+			      </div>
+			      <div class="search_wrap">
+				    <div class="search_wrap_child" >
+				      <a href="${pageContext.request.contextPath}/users/b_find_id_form.do" class="link">사업자번호 찾기</a>
+				    </div>
+				    <span>|</span>
+				    <div class="search_wrap_child">
+				      <a href="${pageContext.request.contextPath}/users/b_find_pwd_form.do" class="link">비밀번호 찾기</a>
+				    </div>
+				     <span>|</span>
+				    <div class="search_wrap_child">
+				      <a href="${pageContext.request.contextPath}/users/select_signup_form.do" class="link">회원 가입</a>
+				    </div>
+		  		  </div>
+			      <div class="mt-3" style="text-align:center;">
+			      	<a href="${pageContext.request.contextPath}/users/g_login_form.do">일반회원 로그인시 여기를 눌러주세요.</a>
+			      </div>	
+			   </form>
+	   		</c:otherwise>
+	   </c:choose>
+</div> 
 </body>
 </html>

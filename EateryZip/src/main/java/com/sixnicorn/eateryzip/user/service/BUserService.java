@@ -3,6 +3,7 @@ package com.sixnicorn.eateryzip.user.service;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -12,12 +13,13 @@ import com.sixnicorn.eateryzip.user.dto.BUserDto;
 
 public interface BUserService {
 	//비즈니스 회원 로그인 
-	public void loginProcess(BUserDto dto, HttpSession session);
+	public void loginProcess(BUserDto dto, HttpSession session , String isSave , HttpServletResponse response);
 	//비즈니스 회원 추가
 	public void addUser(BUserDto dto);
 	//회원가입 ID check
 	public Map<String, Object> isExistId(String inputId);
-	
+	//비즈니스 아이디 찾기
+	public BUserDto findId(BUserDto dto);
 	
 	
 	// 비즈니스 회원 정보
