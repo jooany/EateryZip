@@ -11,7 +11,8 @@
 	.btn-primary {
 	    background-color: #FD5300;
 	    border-color: #FD5300;
-	    color: #FFF; }
+	    color: #FFF; 
+	 }
 </style>
 </head>
 <body>
@@ -24,7 +25,7 @@
    	  
 	  <div class="mb-2">
 		   <label for="b_id" class="col-form-label mb-1">사업자번호</label>
-		   <input class="form-control" type="text" name="b_id" id="b_id" placeholder="사업자 번호(숫자8자리)를 입력해주세요."/>
+		   <input class="form-control" type="text" name="b_id" id="b_id" placeholder="사업자 번호(숫자10자리)를 입력해주세요."/>
 		   <div class="invalid-feedback">등록되지 않은 사업자 번호입니다.</div>
 	  </div> 
 	    
@@ -90,7 +91,7 @@
       //1. 입력한 아이디 value 값 읽어오기  
       let inputId=this.value;
       //입력한 아이디를 검증할 정규 표현식
-      const reg_id=/^[0-9].{7}$/;
+      const reg_id=/^[0-9].{4}$/;
 	      //만일 입력한 아이디가 정규표현식과 매칭되지 않는다면
 	      if(!reg_id.test(inputId)){
 	         isIdValid=false; //아이디가 매칭되지 않는다고 표시하고 
