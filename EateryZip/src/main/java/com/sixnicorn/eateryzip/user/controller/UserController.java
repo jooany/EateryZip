@@ -3,6 +3,7 @@ package com.sixnicorn.eateryzip.user.controller;
 import java.net.URLEncoder;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,8 +33,7 @@ public class UserController {
 	///------ (임시 추후 혜림 이용)주연 ------------------------------------------
 	@RequestMapping("/users/g_mypage/takeout_list")
 	public String takeoutList(HttpServletRequest request) {
-		
-		
+
 		return "users/g_mypage/takeout_list" ;
 	}
 	//---------------------------------주연끝----------------------------------

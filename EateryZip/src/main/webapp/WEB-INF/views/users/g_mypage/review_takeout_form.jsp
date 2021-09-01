@@ -53,10 +53,8 @@
 	}
 	#container{
 		background-color:white;
-		margin-top:50px!important;
 		width:520px;
 		margin:0 auto;
-		border-radius:4px;
 	}
 
 	/* 리뷰폼 */
@@ -191,7 +189,6 @@
 </style>
 </head>
 <body>
-	<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
 	<div id="container" class="inner">
 		<div id="reviewFormWrap">
 			<div id="reviewHeader" class="wrap_inner">
