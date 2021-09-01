@@ -11,7 +11,7 @@ public interface BUserDao {
 	public boolean isExist(String inputId); //boolean type으로 return
 	
 	
-	
+	/* 혜림 */
 	// 비즈니스회원정보를 수정하는 메소드
 	public void update(BUserDto dto);	
 }

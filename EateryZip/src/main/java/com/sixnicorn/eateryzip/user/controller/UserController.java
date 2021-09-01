@@ -155,30 +155,39 @@ public class UserController {
 		return "users/logout";
 	}
 	
+	/* 혜림 */
 	// 비즈니스 회원가입정보보기
 	@RequestMapping("/users/b_mypage/b_mypage")
-	public ModelAndView authMypage(HttpSession session, ModelAndView mView) {
+	public ModelAndView Bmypage(HttpSession session, ModelAndView mView, HttpServletRequest request) {
 		
-		Bservice.getMypage(session, mView);
+		Bservice.getBmypage(session, mView);
 		
 		mView.setViewName("users/b_mypage/b_mypage");
 		return mView;
 	}
+
+	// 비즈니스 개인정보 수정반영 요청처리
+	@RequestMapping(value="users/b_mypage/update", method=RequestMethod.POST)
+	public String update(BUserDto dto, HttpSession session) {
+		// dto에는 프로필, 주소,이름,연락처,이메일 들어감
+		Bservice.updateUser(dto, session);
+		return "redirect:/users/b_mypage/b_mypage.do";
+	}
 	
 	// 비즈니스 회원가입정보 수정하기
 	@RequestMapping("/users/b_mypage/b_mypage_updateform")
-	public ModelAndView authUpdateForm(ModelAndView mView, HttpSession session, HttpServletRequest request) {
-		Bservice.getMypage(session, mView);
+	public ModelAndView updateForm(ModelAndView mView, HttpSession session, HttpServletRequest request) {
+		Bservice.getBmypage(session, mView);
 		mView.setViewName("users/b_mypage/b_mypage_updateform");
 		return mView;
 	}
+	
 	// 비즈니스회원 프로필이미지 ajax처리
-	@RequestMapping(value="/users/b_mypage/ajax_profile_upload", method=RequestMethod.POST)
+	@RequestMapping(value="users/b_mypage/ajax_b_profile_upload", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> authAjaxProfileUpload(HttpServletRequest request,
-			@RequestParam MultipartFile b_image){
+	public Map<String, Object> ajaxProfileUpload(HttpServletRequest request, @RequestParam MultipartFile image){
 		// 서비스를 이용해서 이미지를 upload폴더에 저장하고 리턴되는 Map을 리턴해서 json문자열 응답하기
-		return Bservice.saveB_profile(request, b_image);
+		return Bservice.saveB_profileImage(request, image);
 	}
 	
 }
