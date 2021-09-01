@@ -2,6 +2,7 @@ package com.sixnicorn.eateryzip.user.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,4 +15,5 @@ public interface GUserService {
 	public void addUser(GUserDto dto);
 	//회원가입 ID check
 	public Map<String, Object> isExistId(String inputId);
+
 }

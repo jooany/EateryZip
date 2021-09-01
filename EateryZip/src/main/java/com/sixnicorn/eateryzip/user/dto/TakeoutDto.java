@@ -9,16 +9,13 @@ public class TakeoutDto {
 	private String takeout_time;
 	private String takeout_phone;
 	private String takeout_memo;
-	private String takeout_menu;
-	private int takeout_count;
 	private int takeout_price;
 	private String b_name;
 	
 	public TakeoutDto() {}
 
 	public TakeoutDto(int takeout_num, String g_id, String b_id, String takeout_name, String takeout_date,
-			String takeout_time, String takeout_phone, String takeout_memo, String takeout_menu, int takeout_count,
-			int takeout_price, String b_name) {
+			String takeout_time, String takeout_phone, String takeout_memo, int takeout_price, String b_name) {
 		super();
 		this.takeout_num = takeout_num;
 		this.g_id = g_id;
@@ -28,8 +25,6 @@ public class TakeoutDto {
 		this.takeout_time = takeout_time;
 		this.takeout_phone = takeout_phone;
 		this.takeout_memo = takeout_memo;
-		this.takeout_menu = takeout_menu;
-		this.takeout_count = takeout_count;
 		this.takeout_price = takeout_price;
 		this.b_name = b_name;
 	}
@@ -98,22 +93,6 @@ public class TakeoutDto {
 		this.takeout_memo = takeout_memo;
 	}
 
-	public String getTakeout_menu() {
-		return takeout_menu;
-	}
-
-	public void setTakeout_menu(String takeout_menu) {
-		this.takeout_menu = takeout_menu;
-	}
-
-	public int getTakeout_count() {
-		return takeout_count;
-	}
-
-	public void setTakeout_count(int takeout_count) {
-		this.takeout_count = takeout_count;
-	}
-
 	public int getTakeout_price() {
 		return takeout_price;
 	}
@@ -130,6 +109,7 @@ public class TakeoutDto {
 		this.b_name = b_name;
 	}
 
+	
 
 	
 	
