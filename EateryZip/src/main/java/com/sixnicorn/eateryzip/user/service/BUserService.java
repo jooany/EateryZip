@@ -21,11 +21,12 @@ public interface BUserService {
 	//비즈니스 아이디 찾기
 	public BUserDto findId(BUserDto dto);
 	
-	
+	/* 혜림  */
 	// 비즈니스 회원 정보
-	public void getMypage(HttpSession session, ModelAndView mView);
+	public void getBmypage(HttpSession session, ModelAndView mView);
 	// 비즈니스회원 정보수정
-	public void updateUsers(BUserDto dto, HttpSession session);
+	public void updateUser(BUserDto dto, HttpSession session);
 	// 비즈니스회원 프로필이미지
-	public Map<String, Object> saveB_profile(HttpServletRequest request, MultipartFile b_image);
+	public Map<String, Object> saveB_profileImage(HttpServletRequest request, MultipartFile image);
+
 }

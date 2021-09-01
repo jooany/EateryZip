@@ -18,6 +18,9 @@
 		width: 300px;
 		height: 200px;
 	}
+	#storeimageForm{
+		display: none;
+	}
 </style>
 </head>
 <body>
