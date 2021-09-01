@@ -9,16 +9,16 @@ public class TakeoutDto {
 	private String takeout_time;
 	private String takeout_phone;
 	private String takeout_memo;
-	private String menu;
-	private int count;
-	private int price;
+	private String takeout_menu;
+	private int takeout_count;
+	private int takeout_price;
 	private String b_name;
 	
 	public TakeoutDto() {}
 
 	public TakeoutDto(int takeout_num, String g_id, String b_id, String takeout_name, String takeout_date,
-			String takeout_time, String takeout_phone, String takeout_memo, String menu, int count, int price,
-			String b_name) {
+			String takeout_time, String takeout_phone, String takeout_memo, String takeout_menu, int takeout_count,
+			int takeout_price, String b_name) {
 		super();
 		this.takeout_num = takeout_num;
 		this.g_id = g_id;
@@ -28,9 +28,9 @@ public class TakeoutDto {
 		this.takeout_time = takeout_time;
 		this.takeout_phone = takeout_phone;
 		this.takeout_memo = takeout_memo;
-		this.menu = menu;
-		this.count = count;
-		this.price = price;
+		this.takeout_menu = takeout_menu;
+		this.takeout_count = takeout_count;
+		this.takeout_price = takeout_price;
 		this.b_name = b_name;
 	}
 
@@ -98,28 +98,28 @@ public class TakeoutDto {
 		this.takeout_memo = takeout_memo;
 	}
 
-	public String getMenu() {
-		return menu;
+	public String getTakeout_menu() {
+		return takeout_menu;
 	}
 
-	public void setMenu(String menu) {
-		this.menu = menu;
+	public void setTakeout_menu(String takeout_menu) {
+		this.takeout_menu = takeout_menu;
 	}
 
-	public int getCount() {
-		return count;
+	public int getTakeout_count() {
+		return takeout_count;
 	}
 
-	public void setCount(int count) {
-		this.count = count;
+	public void setTakeout_count(int takeout_count) {
+		this.takeout_count = takeout_count;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getTakeout_price() {
+		return takeout_price;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setTakeout_price(int takeout_price) {
+		this.takeout_price = takeout_price;
 	}
 
 	public String getB_name() {
@@ -130,7 +130,6 @@ public class TakeoutDto {
 		this.b_name = b_name;
 	}
 
-	
 
 	
 	

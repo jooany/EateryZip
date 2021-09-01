@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sixnicorn.eateryzip.eatery.dto.ReservationDto;
 import com.sixnicorn.eateryzip.eatery.service.ReservationService;
+import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 
 @Controller
 public class ReservationController {

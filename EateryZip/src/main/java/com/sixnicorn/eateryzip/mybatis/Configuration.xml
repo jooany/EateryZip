@@ -5,7 +5,7 @@
  <configuration>
 
 	<typeAliases>
- 		<typeAlias type="com.sixnicorn.eateryzip.eatery.dto.ReservationDto" alias="ReservationDto"/>
+ 		<typeAlias type="com.sixnicorn.eateryzip.user.dto.ReservationDto" alias="ReservationDto"/>
 		<typeAlias type="com.sixnicorn.eateryzip.user.dto.BStoreDto" alias="BStoreDto"/>
 		<typeAlias type="com.sixnicorn.eateryzip.eatery.dto.MenuDto" alias="menuDto" />
 		<typeAlias type="com.sixnicorn.eateryzip.user.dto.BUserDto" alias="BuserDto"/>

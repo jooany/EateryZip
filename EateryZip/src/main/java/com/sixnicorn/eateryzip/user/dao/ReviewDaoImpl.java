@@ -22,8 +22,19 @@ public class ReviewDaoImpl implements ReviewDao{
 	
 	// 저장된 포장 리뷰 정보 가져오기
 	@Override
-	public ReviewDto getReviewDataT(int takeout_num) {
-		
+	public ReviewDto getReviewDataT(int takeout_num) {		
 		return session.selectOne("review.getReviewDataT",takeout_num);
+	}
+
+	// 포장 리뷰 등록하기
+	@Override
+	public void insertReviewT(ReviewDto dto) {
+		session.insert("review.insertReviewT",dto);
+	}
+	
+	// 포장 리뷰 수정하기
+	@Override
+	public void updateReviewT(ReviewDto dto) {
+		session.update("review.updateReviewT",dto);
 	}
 }

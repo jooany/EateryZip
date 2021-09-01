@@ -9,5 +9,6 @@ public interface ReviewDao {
 
 	public TakeoutDto getTakeoutData(TakeoutDto dto);
 	public ReviewDto getReviewDataT(int takeout_num);
-
+	public void insertReviewT(ReviewDto dto);
+	public void updateReviewT(ReviewDto dto);
 }
