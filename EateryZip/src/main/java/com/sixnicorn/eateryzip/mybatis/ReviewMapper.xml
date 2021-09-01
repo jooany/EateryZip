@@ -4,7 +4,7 @@
 
 	<!-- [포장] 음식점 이름,방문 날짜,방문 시간,가격 가져오기 -->
 	<select id="getTakeoutData" parameterType="takeoutDto" resultType="takeoutDto">
-		SELECT b.b_name,takeout_date,takeout_time,takeout_price
+		SELECT b.b_name,TO_CHAR(takeout_date,'YYYY.MM.DD') takeout_date,takeout_time,takeout_price,takeout_num,t.b_id,t.g_id
 		FROM b_store b,takeout t
 		WHERE b.b_id=t.b_id AND b.b_id=#{b_id} AND takeout_num=#{takeout_num}	
 	</select>
@@ -16,12 +16,28 @@
 		WHERE takeout_num=#{takeout_num}
 	</select>
 	
+	<!-- [포장 리뷰 ] 리뷰 등록하기  -->
+	<insert id="insertReviewT" parameterType="reviewDto">
+		INSERT INTO review
+ 		(review_num,b_id,writer,review_image,review_content,regdate,keyword_review,review_kind,takeout_num)
+ 		VALUES(review_seq.NEXTVAL,#{b_id},#{writer},#{review_image,jdbcType=VARCHAR},#{review_content},SYSDATE,#{keyword_review,jdbcType=VARCHAR},#{review_kind,jdbcType=VARCHAR},#{takeout_num,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- [포장 리뷰 ] 리뷰 수정하기  -->
+	<update id="updateReviewT" parameterType="reviewDto">
+		UPDATE review
+ 		SET keyword_review=#{keyword_review},review_content=#{review_content},review_image=#{review_image}
+ 		WHERE b_id=#{b_id} AND takeout_num=#{takeout_num}
+	</update>
+	
 	<!-- [예약] -->
 	<select id="getReviewDataR">
 		SELECT *
 		FROM review
 		WHERE buy_num=#{reservation_num}
 	</select>
+	
+	
 	
 	
 

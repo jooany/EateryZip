@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.dto;
+package com.sixnicorn.eateryzip.user.dto;
 
 public class ReservationDto {
 	private int reservation_num;

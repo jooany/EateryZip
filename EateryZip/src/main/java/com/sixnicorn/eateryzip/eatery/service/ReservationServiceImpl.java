@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sixnicorn.eateryzip.eatery.dao.ReservationDao;
-import com.sixnicorn.eateryzip.eatery.dto.ReservationDto;
+import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 
 @Service
 public class ReservationServiceImpl implements ReservationService{

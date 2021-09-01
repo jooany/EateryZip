@@ -17,12 +17,13 @@ CREATE TABLE review(
 	review_num NUMBER PRIMARY KEY, --글번호
 	b_id VARCHAR2(100) NOT NULL, --사업자번호(음식점 고유번호)
 	writer VARCHAR2(100) NOT NULL, --작성자
-	review_image VARCHAR2(100) NOT NULL, --리뷰 이미지경로
+	review_image VARCHAR2(100), --리뷰 이미지경로
 	review_content CLOB NOT NULL, -- 리뷰 내용
 	regdate DATE, -- 작성 날짜
 	keyword_review VARCHAR2(100), -- 키워드 리뷰
-	review_kind VARCHAR2(10), -- 포장 OR 예약
-	buy_num NUMBER -- 예약 or 포장 번호
+	review_kind VARCHAR2(10) NOT NULL, -- 포장 OR 예약
+	takeout_num NUMBER, -- 예약 or 포장 번호
+	reservation_num NUMBER
 );
 -- 리뷰 번호 얻어낼 시퀀스
 CREATE SEQUENCE review_seq; 
