@@ -39,9 +39,10 @@
 	where b_id=#{b_id}
 	</update>
 
-	<update id="b_update" parameterType="BuserDto">
+	<!-- 혜림 -->
+	<update id="update" parameterType="BuserDto">
 		UPDATE b_user
-		SET b_name=#{b_name},b_address=#{b_address},b_email=#{b_email},b_phone=#{b_phone},b_profile=#{b_profile}
+		SET b_name=#{b_name},b_address=#{b_address,jdbcType=VARCHAR},b_email=#{b_email,jdbcType=VARCHAR},b_phone=#{b_phone},b_profile=#{b_profile,jdbcType=VARCHAR}
 		WHERE b_id = #{b_id }
 	</update>
 </mapper>

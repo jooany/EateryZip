@@ -133,7 +133,7 @@ public class BUserServiceImpl implements BUserService {
 	
 	// 비즈니스회원가입 정보보기
 	@Override
-	public void getMypage(HttpSession session, ModelAndView mView) {
+	public void getBmypage(HttpSession session, ModelAndView mView) {
 		// 로그인된 아이디를 읽어온다.
 		String b_id = (String)session.getAttribute("b_id");
 		// DB에서 회원정보를 얻어와서
@@ -142,26 +142,29 @@ public class BUserServiceImpl implements BUserService {
 		// ModelAndView 객체에 담아준다.
 		mView.addObject("dto", dto);
 	}
-	// 비즈니스회원가입 정보 수정하기
+	
 	@Override
-	public void updateUsers(BUserDto dto, HttpSession session) {
+	public void updateUser(BUserDto dto, HttpSession session) {
 		// 수정할 회원의 아이디
 		String b_id = (String)session.getAttribute("b_id");
 		// b_UserDto에 아이디도 담아주고
 		dto.setB_id(b_id);
+
 		// b_UserDao를 이용해서 수정반영한다.
 		Bdao.update(dto);
 		
 	}
+	
+	
 	// 비즈니스회원 프로필이미지
 	@Override
-	public Map<String, Object> saveB_profile(HttpServletRequest request, MultipartFile b_image) {
+	public Map<String, Object> saveB_profileImage(HttpServletRequest request, MultipartFile image) {
 		//업로드된 파일에 대한 정보를 MultipartFile 객체를 이용해서 얻어낼수 있다.
 		//원본 파일명
-		String orgFileName=b_image.getOriginalFilename();
+		String orgFileName=image.getOriginalFilename();
 		//upload 폴더에 저장할 파일명을 직접구성한다.
 		// 1234123424343xxx.jpg
-		String b_saveFileName=System.currentTimeMillis()+orgFileName;
+		String saveFileName=System.currentTimeMillis()+orgFileName;
 		// webapp/upload 폴더까지의 실제 경로 얻어내기 
 		String realPath=request.getServletContext().getRealPath("/upload");
 		// upload 폴더가 존재하지 않을경우 만들기 위한 File 객체 생성
@@ -171,23 +174,16 @@ public class BUserServiceImpl implements BUserService {
 		}
 		try {
 			//파일을 저장할 전체 경로를 구성한다.  
-			String savePath=realPath+File.separator+b_saveFileName;
+			String savePath=realPath+File.separator+saveFileName;
 			//임시폴더에 업로드된 파일을 원하는 파일을 저장할 경로에 전송한다.
-			b_image.transferTo(new File(savePath));
+			image.transferTo(new File(savePath));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		// json 문자열을 출력하기 위한 Map객체 생성하고 정보담기
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("b_imagePath", "/upload/"+b_saveFileName);
+		map.put("imagePath", "/upload/"+saveFileName);
 		return map;
 	}
-
-
-
-
-
-
-
 
 }

@@ -2,7 +2,7 @@ package com.sixnicorn.eateryzip.eatery.service;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.sixnicorn.eateryzip.eatery.dto.ReservationDto;
+import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 
 public interface ReservationService {
 	// 예약 정보 저장

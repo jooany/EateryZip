@@ -81,11 +81,11 @@ public class BStoreController {
 		String b_id=(String)session.getAttribute("b_id");
 		dto.setB_id(b_id);
 		service.saveStore(dto);
-		return "redirect:/store/store_insert";
+		return "redirect:/store/store_insertform";
 	}
 	
 	// 가게내용 수정
-	@RequestMapping(value="store/store_update")
+	@RequestMapping(value="store/store_update", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> update(BStoreDto dto) {
 		System.out.println("-----------3-----------");
@@ -97,10 +97,10 @@ public class BStoreController {
 	//ajax 가게대표이미지 업로드 요청처리
 	@RequestMapping(value = "/store/ajax_store_img_upload",	method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> authAjaxProfileUpload(HttpServletRequest request, @RequestParam MultipartFile Storeimage){
+	public Map<String, Object> ajaxProfileUpload(HttpServletRequest request, @RequestParam MultipartFile image){
 		
 		//서비스를 이용해서 이미지를 upload 폴더에 저장하고 리턴되는 Map 을 리턴해서 json 문자열 응답하기
-		return service.saveStoreImage(request, Storeimage);
+		return service.saveStoreImage(request, image);
 	}
 	
 	

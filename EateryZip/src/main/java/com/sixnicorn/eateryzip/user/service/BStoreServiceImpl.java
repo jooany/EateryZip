@@ -26,10 +26,10 @@ public class BStoreServiceImpl implements BStoreService{
 	
 	// 가게 대표이미지 구현하기 (3개까지는 아직 구현하지 못함)
 	@Override
-	public Map<String, Object> saveStoreImage(HttpServletRequest request, MultipartFile Storeimage) {
+	public Map<String, Object> saveStoreImage(HttpServletRequest request, MultipartFile image) {
 		//업로드된 파일에 대한 정보를 MultipartFile 객체를 이용해서 얻어낼수 있다.	
 		// 원본 파일명
-		String orgFileName=Storeimage.getOriginalFilename();
+		String orgFileName=image.getOriginalFilename();
 		//upload 폴더에 저장할 파일명을 직접구성한다.
 		String saveFileName=System.currentTimeMillis()+orgFileName;
 		// webapp/upload 폴더까지의 실제 경로 얻어내기 
@@ -43,7 +43,7 @@ public class BStoreServiceImpl implements BStoreService{
 			//파일을 저장할 전체 경로를 구성한다.  
 			String savePath=realPath+File.separator+saveFileName;
 			//임시폴더에 업로드된 파일을 원하는 파일을 저장할 경로에 전송한다.
-			Storeimage.transferTo(new File(savePath));
+			image.transferTo(new File(savePath));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -93,6 +93,7 @@ public class BStoreServiceImpl implements BStoreService{
 	public void getStore(HttpSession session, ModelAndView mView) {
 		String b_id = (String)session.getAttribute("b_id");
 		BStoreDto dto = BStoreDao.getStore(b_id);
+		
 		mView.addObject("dto",dto);
 	}
 	

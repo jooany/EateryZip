@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +23,7 @@ public class GUserServiceImpl implements GUserService {
 	
 	@Autowired
 	private GUserDao Gdao;
+	
 
 	//일반회원가입 로그인 처리 과정
 	@Override
