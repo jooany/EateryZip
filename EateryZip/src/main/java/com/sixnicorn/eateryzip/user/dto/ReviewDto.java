@@ -13,11 +13,14 @@ public class ReviewDto {
 	private int takeout_num;
 	private int reservation_num;
 	
+	private int startRowNum;
+	private int endRowNum;
+	
 	public ReviewDto() {}
 
 	public ReviewDto(int review_num, String b_id, String writer, String review_image, String review_content,
 			String regdate, String keyword_review, String review_kind, int buy_num, int takeout_num,
-			int reservation_num) {
+			int reservation_num, int startRowNum, int endRowNum) {
 		super();
 		this.review_num = review_num;
 		this.b_id = b_id;
@@ -30,6 +33,8 @@ public class ReviewDto {
 		this.buy_num = buy_num;
 		this.takeout_num = takeout_num;
 		this.reservation_num = reservation_num;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
 	}
 
 	public int getReview_num() {
@@ -118,9 +123,24 @@ public class ReviewDto {
 
 	public void setReservation_num(int reservation_num) {
 		this.reservation_num = reservation_num;
-	};
-	
-	
+	}
+
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+
 	
 	
 	

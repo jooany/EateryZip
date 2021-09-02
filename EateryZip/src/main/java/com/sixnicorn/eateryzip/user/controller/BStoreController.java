@@ -23,6 +23,14 @@ public class BStoreController {
 	@Autowired
 	private BStoreService service;
 	
+	// 주연 음식점 상세 정보 페이지
+	@RequestMapping("/eatery/detail")
+	public String  detailData(HttpServletRequest request,@RequestParam String b_id) {
+		service.getDetailData(request, b_id);
+		return "eatery/detail";
+	}
+	
+	
 	// 혜림
 	
 	@RequestMapping("/store/store_insertform")
@@ -102,9 +110,6 @@ public class BStoreController {
 		//서비스를 이용해서 이미지를 upload 폴더에 저장하고 리턴되는 Map 을 리턴해서 json 문자열 응답하기
 		return service.saveStoreImage(request, image);
 	}
-	
-	
-	
 	
 	// 나현
 	

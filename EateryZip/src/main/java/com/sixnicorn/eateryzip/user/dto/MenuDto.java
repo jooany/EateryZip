@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.dto;
+package com.sixnicorn.eateryzip.user.dto;
 
 public class MenuDto {
 	private int menu_seq_num;

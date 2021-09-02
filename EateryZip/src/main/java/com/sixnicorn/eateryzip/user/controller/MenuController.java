@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.controller;
+package com.sixnicorn.eateryzip.user.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
-import com.sixnicorn.eateryzip.eatery.service.MenuService;
+import com.sixnicorn.eateryzip.user.dto.MenuDto;
+import com.sixnicorn.eateryzip.user.service.MenuService;
 
 @Controller
 public class MenuController {
