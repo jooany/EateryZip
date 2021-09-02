@@ -38,6 +38,29 @@ public class BUserDaoImpl implements BUserDao {
 		}
 	}
 	
+	@Override
+	public String getId(BUserDto dto) {
+		
+		return session.selectOne("Buser.getId",dto);
+	}
+	
+	@Override
+	public boolean getPwd(BUserDto dto) {
+		
+		String pwd = session.selectOne("Buser.getPwd", dto);
+		if(pwd==null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	@Override
+	public void changePwd(BUserDto dto) {
+		session.update("Buser.pwdChange",dto);
+		
+	}
+
 	
 	// 비즈니스회원정보 수정하기
 	@Override
@@ -45,6 +68,11 @@ public class BUserDaoImpl implements BUserDao {
 		
 		session.update("Buser.update", dto);
 	}
+
+	
+
+
+
 
 
 		

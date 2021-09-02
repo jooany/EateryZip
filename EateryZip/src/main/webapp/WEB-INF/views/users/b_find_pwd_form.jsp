@@ -67,7 +67,7 @@
 <body>
 <div class="container">
 
-	   <form action="${pageContext.request.contextPath}/users/" method="post" >
+	   <form action="${pageContext.request.contextPath}/users/b_find_pwd.do" method="post" >
 	   
 		  <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
 		  class="mx-auto d-block mb-2" alt="" />
