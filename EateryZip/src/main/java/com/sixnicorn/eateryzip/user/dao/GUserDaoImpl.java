@@ -35,4 +35,12 @@ public class GUserDaoImpl implements GUserDao {
 			}
 	}
 
+	// 혜림 ----------------------------------------------------------
+	// 일반회원 정보 수정하기
+	@Override
+	public void update(GUserDto dto) {
+		// TODO Auto-generated method stub
+		session.update("Guser.update", dto);
+	}
+
 }

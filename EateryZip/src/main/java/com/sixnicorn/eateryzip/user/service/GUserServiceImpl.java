@@ -1,5 +1,6 @@
 package com.sixnicorn.eateryzip.user.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sixnicorn.eateryzip.user.dao.GUserDao;
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
@@ -92,5 +95,63 @@ public class GUserServiceImpl implements GUserService {
 		//Map 객체를 리턴해준다.
 		return map;
 	}
+	
+	
+	
+	// 혜림 ---------------------------------------------------------------------
+
+	@Override
+	public void getGmypage(HttpSession session, ModelAndView mView) {
+		// 로그인된 아이디를 읽어온다.
+		String g_id = (String)session.getAttribute("g_id");
+		// DB에서 회원정보를 얻어와서
+		GUserDto dto = Gdao.getData(g_id);
+		// ModelAndView 객체에 담아준다.
+		mView.addObject("dto", dto);
+	}
+
+	@Override
+	public void updateGUser(GUserDto dto, HttpSession session) {
+		// 수정할 회원의 아이디
+		String g_id = (String)session.getAttribute("g_id");
+		// g_UserDto에 아이디도 담아주고
+		dto.setG_id(g_id);
+		// g_UserDao를 이용해서 수정반영한다.
+		Gdao.update(dto);
+	}
+
+	@Override
+	public Map<String, Object> saveG_profileImage(HttpServletRequest request, MultipartFile image) {
+		//업로드된 파일에 대한 정보를 MultipartFile 객체를 이용해서 얻어낼수 있다.
+		//원본 파일명
+		String orgFileName=image.getOriginalFilename();
+		//upload 폴더에 저장할 파일명을 직접구성한다.
+		// 1234123424343xxx.jpg
+		String saveFileName=System.currentTimeMillis()+orgFileName;
+		// webapp/upload 폴더까지의 실제 경로 얻어내기 
+		String realPath=request.getServletContext().getRealPath("/upload");
+		// upload 폴더가 존재하지 않을경우 만들기 위한 File 객체 생성
+		File upload=new File(realPath);
+		if(!upload.exists()) {//만일 존재 하지 않으면
+				upload.mkdir(); //만들어준다.
+		}
+		try {
+			//파일을 저장할 전체 경로를 구성한다.  
+			String savePath=realPath+File.separator+saveFileName;
+			//임시폴더에 업로드된 파일을 원하는 파일을 저장할 경로에 전송한다.
+			image.transferTo(new File(savePath));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		// json 문자열을 출력하기 위한 Map객체 생성하고 정보담기
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("imagePath", "/upload/"+saveFileName);
+		return map;
+	}
 
 }
+
+
+
+
+

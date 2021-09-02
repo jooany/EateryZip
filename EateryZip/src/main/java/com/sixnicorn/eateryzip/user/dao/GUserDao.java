@@ -9,4 +9,8 @@ public interface GUserDao {
 	public void insert(GUserDto dto);
 	//인자로 전달된 아이딕 존재 하는지 여부를 리턴하는 메소드
 	public boolean isExist(String inputId); //boolean type으로 return
+	
+	/* 혜림 */
+	// 일반 회원정보를 수정하는 메소드
+	public void update(GUserDto dto);
 }

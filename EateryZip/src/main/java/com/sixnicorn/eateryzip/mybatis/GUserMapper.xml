@@ -21,4 +21,14 @@
 	where g_id=#{g_id} 
 	</select>
 
+	
+	
+	<!-- 혜림 -->
+	<update id="Gupdate" parameterType="GuserDto">
+		UPDATE g_user
+		SET g_name=#{g_name},g_address=#{g_address,jdbcType=VARCHAR},g_email=#{g_email,jdbcType=VARCHAR},g_phone=#{g_phone},g_profile=#{g_profile,jdbcType=VARCHAR}
+		WHERE g_id = #{g_id }
+	</update>
+
+
 </mapper>
