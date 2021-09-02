@@ -19,7 +19,12 @@ public interface BUserService {
 	//회원가입 ID check
 	public Map<String, Object> isExistId(String inputId);
 	//비즈니스 아이디 찾기
-	public BUserDto findId(BUserDto dto);
+	public void findId(BUserDto dto, ModelAndView mView);
+	//비즈니스 패스워드 찾기
+	public boolean findPwd(BUserDto dto, ModelAndView mView);
+	//비즈니스 패스워드 변경
+	public void updatePwd(BUserDto dto, ModelAndView mView , HttpSession session);
+	
 	
 	/* 혜림  */
 	// 비즈니스 회원 정보

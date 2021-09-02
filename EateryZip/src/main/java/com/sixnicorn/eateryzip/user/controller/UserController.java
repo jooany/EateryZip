@@ -164,12 +164,12 @@ public class UserController {
 	}
 	
 	
-	//사업자번호 찾기 폼으로 이동
+	//사업자번호 찾기 기능 
 	@RequestMapping("/users/b_find_id")
 	public ModelAndView b_find_id(ModelAndView mView, BUserDto dto){
 	
-		Bservice.findId(dto);
-		mView.setViewName("users/b_find");
+		Bservice.findId(dto , mView);
+		mView.setViewName("users/b_find_id");
 		return mView;
 	}
 	
@@ -179,17 +179,75 @@ public class UserController {
 		return "users/g_find_id_form";
 	}
 	
+	//사업자번호 찾기 기능 
+	@RequestMapping("/users/g_find_id")
+	public ModelAndView g_find_id(ModelAndView mView, GUserDto dto){
+	
+		Gservice.findId(dto , mView);
+		mView.setViewName("users/g_find_id");
+		return mView;
+	}
+	
 	//사업자 패스워드 찾기 폼으로 이동
 	@RequestMapping("/users/b_find_pwd_form")
 	public String b_find_pwd_form(){
 		return "users/b_find_pwd_form";
 	}
+	
+	//사업자 패스워드 찾기
+	@RequestMapping("/users/b_find_pwd")
+	public ModelAndView b_find_pwd(ModelAndView mView, BUserDto dto){
+		boolean result=Bservice.findPwd(dto, mView);
+
+		if(result==true) {
+			String b_id = dto.getB_id();
+			mView.addObject("b_id", b_id);
+			mView.setViewName("users/b_change_pwd_form");
+			return mView;
+		}else{
+			mView.setViewName("home");
+			return mView;
+		}
+	}
+	
+	//사업자 패스워드 바꾸기
+	@RequestMapping("/users/b_change_pwd")
+	public ModelAndView b_change_pwd(ModelAndView mView, BUserDto dto, HttpSession session) {
+		Bservice.updatePwd(dto,mView,session);
+		mView.setViewName("users/b_update_pwd");
+		return mView;
+	}
+	
 		
 	//일반 패스워드 찾기 폼으로 이동
 	@RequestMapping("/users/g_find_pwd_form")
 	public String g_find_pwd_form(){
 		return "users/g_find_pwd_form";
 	}
+	
+	//사업자 패스워드 찾기
+		@RequestMapping("/users/g_find_pwd")
+		public ModelAndView g_find_pwd(ModelAndView mView, GUserDto dto){
+			boolean result=Gservice.findPwd(dto, mView);
+
+			if(result==true) {
+				String g_id = dto.getG_id();
+				mView.addObject("g_id", g_id);
+				mView.setViewName("users/g_change_pwd_form");
+				return mView;
+			}else{
+				mView.setViewName("home");
+				return mView;
+			}
+		}
+		
+		//사업자 패스워드 바꾸기
+		@RequestMapping("/users/g_change_pwd")
+		public ModelAndView g_change_pwd(ModelAndView mView, GUserDto dto, HttpSession session) {
+			Gservice.updatePwd(dto,mView,session);
+			mView.setViewName("users/g_update_pwd");
+			return mView;
+		}
 	
 	//일반 , 비즈니스 회원 로그아웃
 	@RequestMapping("/users/logout")

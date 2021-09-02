@@ -67,40 +67,37 @@
 <body>
 <div class="container">
 
-	   <form action="${pageContext.request.contextPath}/users/b_find_id.do" method="post" >
+	   <form action="${pageContext.request.contextPath}/users/g_change_pwd.do" method="post" id="pwdChangeForm" >
 	   
 		  <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
 		  class="mx-auto d-block mb-2" alt="" />
 		  
 		  <div class="mb-3 text-center" >
-		  	<h3>사업자 번호 찾기</h3>
+		  	<h3>사업자 비밀번호 바꾸기</h3>
 		  </div>
+		  <input type="hidden" name="g_id" value="${g_id}" />
 	      <div class="mb-3">
-	         <input class="form-control" type="text" name="b_name" id="b_name" placeholder="회원가입 시 이름을 입력해주세요."/>
+	         <input class="form-control" type="text" name="g_newPwd" id="g_newPwd" placeholder="새로운 비밀번호를 입력해주세요."/>
 	      </div>
 	      <div class="mt-3">
-	         <input class="form-control" type="text" name="b_phone" id="b_phone" placeholder="회원가입 시 핸드폰번호를 입력해주세요"/>
+	         <input class="form-control" type="password" name="g_newPwd2" id="g_newPwd2" placeholder="새로운 비밀번호를 한번 더 입력해주세요."/>
 	      </div>
 	      <div class="mt-3 mb-3" style="text-align:center;">
 	      	<button type="submit" class="btn" style="width:450px;">확인</button>
 	      </div>
-	      <div class="search_wrap">
-		    <div class="search_wrap_child" >
-		      <a href="${pageContext.request.contextPath}/users/b_login_form.do" class="link">로그인</a>
-		    </div>
-		    <span>|</span>
-		    <div class="search_wrap_child">
-		      <a href="${pageContext.request.contextPath}/users/b_find_pwd_form.do" class="link">비밀번호 찾기</a>
-		    </div>
-		     <span>|</span>
-		    <div class="search_wrap_child">
-		      <a href="${pageContext.request.contextPath}/users/select_signup_form.do" class="link">회원 가입</a>
-		    </div>
-  		  </div>
-	      <div class="mt-3" style="text-align:center;">
-	      	<a href="${pageContext.request.contextPath}/users/g_find_id_form.do">일반ID 찾기시 여기를 눌러주세요.</a>
-	      </div>	
 	   </form>
 </div>
+<script>
+   //폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
+   document.querySelector("#pwdChange").addEventListener("submit", function(e){
+      let pwd1=document.querySelector("#g_newPwd").value;
+      let pwd2=document.querySelector("#g_newPwd2").value;
+      //새 비밀번호와 비밀번호 확인이 일치하지 않으면 폼 전송을 막는다.
+      if(pwd1 != pwd2){
+         alert("비밀번호를 확인 하세요!");
+         e.preventDefault();//폼 전송 막기 
+      }
+   });
+</script>
 </body>
 </html>
