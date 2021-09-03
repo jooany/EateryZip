@@ -130,6 +130,7 @@ public class BUserServiceImpl implements BUserService {
 	}
 	
 	
+	// 혜림 ------------------------------------------------------
 	
 	// 비즈니스회원가입 정보보기
 	@Override

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 </head>
 <style>
 	.reservation{
@@ -15,7 +16,7 @@
 </style>
 <body>
 <div class="reservation">
-	<h2> > 예약 정보 확인 페이지</h2>
+	<h2> <i class="fas fa-angle-right"></i> 예약 정보 확인 페이지</h2>
 	<p>
 		<span>${dto.b_store_name}</span>
 		<br />
