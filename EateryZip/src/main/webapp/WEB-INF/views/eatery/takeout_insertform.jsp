@@ -88,16 +88,9 @@ button{
 								<br />
 								<span>${tmp.menu_price }원</span>
 								<br />
-								<select id="menu_count_">
-									<option value="1">1개</option>
-	                         		<option value="2">2개</option>
-	                         		<option value="3">3개</option>
-	                         		<option value="4">4개</option>
-	                         		<option value="5">5개</option>
-	                         		<option value="6">6개</option>
-	                         		<option value="7">7개</option>
-	                         		<option value="8">8개</option>
-								</select>
+               					<input type="button" onclick="minus()" value="-"></input>
+               					<span id="amount_">1</span>
+               					<input type="button" onclick="plus()" value="+"></input>  
 								<button type="button" id="row_" class="menuBtn" value="${tmp.menu_seq_num }">주문</button>	
 							</p>	
 						</div>	
@@ -107,13 +100,36 @@ button{
 		</c:forEach>
 	</div>
 </div>	
-<div id="add_menu">
+<div>
 	<form id="add_menu" name="add_menu" action="takeout_info_insertform.do">
 
 	</form>
 </div>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script>
+<script>  
+	// 인원 체크
+	let count=1;
+	function plus(){
+	     count = count +1        
+	     if(count > 10){
+	         return count =10;
+	     };
+	     //let id=document.getElementById('#id');
+	     document.querySelector("#amount").innerText = count 
+	 };
+	 function minus(){
+	     count= count -1;
+	     if(count < 1){
+	         return count = 1;
+	     }
+	     document.querySelector("#amount").innerText = count ;
+	 };
+	
+	//동적 생성 버튼에 id 값 부여
+	$("[id~=amount_]").each(function(index) { // row_로 시작하는 id값을 가진 모든 것들을
+	    var idx = index + 1; // 1을 더해준다.
+	    $(this).attr('id', 'amount_'+idx);
+	});
 
 	//동적 생성 버튼에 id 값 부여
 	$("[id~=row_]").each(function(index) { // row_로 시작하는 id값을 가진 모든 것들을
@@ -126,18 +142,14 @@ button{
 	    $(this).attr('id', 'menu_count_'+idx);
 	});
 
-
+	
 	$(document).ready(function(){
 		$(".menuBtn").click(function(){
 			var id_check = $(this).attr("id");
 			var menu_num = $(this).val();
-			$("#add_menu").append(`<form>
-				<input type="hidden" value="`+menu_num+`/">
-				<p>
-					<span id="menu_name"></span>
-					<span id="menu_count"></span>
-				</p>
-			</form>`
+			
+			$("#add_menu").append(`
+				<input type="hidden" value="`+menu_num+`/`+amount+`">`
 			);	
 		});
 	});
