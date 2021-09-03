@@ -67,7 +67,7 @@
 <body>
 <div class="container">
 
-	   <form action="${pageContext.request.contextPath}/users/" method="post" >
+	   <form action="${pageContext.request.contextPath}/users/g_find_pwd.do" method="post" >
 	   
 		  <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
 		  class="mx-auto d-block mb-2" alt="" />
@@ -76,10 +76,10 @@
 		  	<h3>일반 비밀번호 찾기</h3>
 		  </div>
 	      <div class="mb-3">
-	         <input class="form-control" type="text" name="b_id" id="b_id" placeholder="회원가입 시 아이디를 입력해주세요."/>
+	         <input class="form-control" type="text" name="g_id" id="g_id" placeholder="회원가입 시 아이디를 입력해주세요."/>
 	      </div>
 	      <div class="mt-3">
-	         <input class="form-control" type="password" name="b_phone" id="b_phone" placeholder="회원가입 시 핸드폰번호를 입력해주세요"/>
+	         <input class="form-control" type="password" name="g_phone" id="g_phone" placeholder="회원가입 시 핸드폰번호를 입력해주세요"/>
 	      </div>
 	      <div class="mt-3 mb-3" style="text-align:center;">
 	      	<button type="submit" class="btn" style="width:450px;">확인</button>

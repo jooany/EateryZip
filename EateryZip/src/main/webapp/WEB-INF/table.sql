@@ -28,14 +28,14 @@ CREATE TABLE review(
 -- 리뷰 번호 얻어낼 시퀀스
 CREATE SEQUENCE review_seq; 
 -- 리뷰 추천 테이블 
-CREATE TABLE review_recommendation(
-	review_num NUMBER, --사업자번호(글번호)
-	g_id VARCHAR2(100)  --리뷰를 추천한 사용자
+CREATE TABLE review_good(
+	review_num NUMBER NOT NULL,
+	id VARCHAR2(100) NOT NULL
 );
--- 리뷰 추천 테이블 
+-- 음식점 추천 테이블 
 CREATE TABLE eatery_scrap(
-	b_id VARCHAR2(100), --사업자번호(음식점 고유번호)
-	g_id VARCHAR2(100) --리뷰를 추천한 사용자
+	b_id VARCHAR2(100) NOT NULL, --사업자번호(음식점 고유번호)
+	g_id VARCHAR2(100) NOT NULL --리뷰를 추천한 사용자
 );
 
 --일반회원정보 테이블

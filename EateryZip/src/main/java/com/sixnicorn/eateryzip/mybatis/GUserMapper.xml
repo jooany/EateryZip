@@ -20,15 +20,33 @@
 	from g_user
 	where g_id=#{g_id} 
 	</select>
+		
+	<select id="getId" parameterType="GuserDto" resultType="String">
+	Select g_id
+	from g_user
+	where g_name=#{g_name} and g_phone=#{g_phone} 
+	</select>
+	
+	<select id="getPwd" parameterType="GuserDto" resultType="String">
+	Select *
+	from g_user
+	where g_id=#{g_id} and g_phone=#{g_phone} 
+	</select>
+	
+	<update id="pwdChange" parameterType="GuserDto">
+	Update g_user
+	Set g_pwd = #{g_newPwd}
+	where g_id=#{g_id}
+	</update>
+	
 
-	
-	
 	<!-- 혜림 -->
 	<update id="Gupdate" parameterType="GuserDto">
 		UPDATE g_user
 		SET g_name=#{g_name},g_address=#{g_address,jdbcType=VARCHAR},g_email=#{g_email,jdbcType=VARCHAR},g_phone=#{g_phone},g_profile=#{g_profile,jdbcType=VARCHAR}
 		WHERE g_id = #{g_id }
 	</update>
+
 
 
 </mapper>
