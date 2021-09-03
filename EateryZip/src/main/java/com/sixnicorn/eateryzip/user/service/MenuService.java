@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.service;
+package com.sixnicorn.eateryzip.user.service;
 
 import java.util.List;
 import java.util.Map;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
+import com.sixnicorn.eateryzip.user.dto.MenuDto;
 
 public interface MenuService {
 	
