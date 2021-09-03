@@ -10,7 +10,6 @@ import com.sixnicorn.eateryzip.user.service.ReviewService;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sixnicorn.eateryzip.user.dto.ReviewDto;
-import com.sixnicorn.eateryzip.user.service.ReviewService;
+
+
 
 @Controller
 public class ReviewController {
@@ -26,6 +26,7 @@ public class ReviewController {
 	@Autowired
 	private ReviewService service;
 	
+
 	// 포장 리뷰 작성 폼 컨트롤러
 	@RequestMapping("/users/g_mypage/review_takeout_form")
 	public String takeoutReviewForm(HttpServletRequest request,@RequestParam int takeout_num,@RequestParam String b_id) {
