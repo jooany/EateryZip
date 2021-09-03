@@ -46,11 +46,11 @@ public class MenuController {
 		
 		return service.updateMenu(dto);
 	}
+
   
 	//ajax 프로필 사진 업로드 요청처리
 
 	//ajax 사진 업로드 요청처리
-
 
 	@RequestMapping(value = "/users/b_mypage/ajax_menu_img_upload",
 			method=RequestMethod.POST)
@@ -79,8 +79,8 @@ public class MenuController {
 		return service.deleteMenu(request,menu_num,section_num);
 	}
 
-
 	//섹션 삭제
+
 
 	@RequestMapping(value="/users/b_mypage/delete_section")
 	@ResponseBody
