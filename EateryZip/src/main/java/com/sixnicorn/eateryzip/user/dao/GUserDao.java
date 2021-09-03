@@ -15,11 +15,11 @@ public interface GUserDao {
 	/* 혜림 */
 	// 일반 회원정보를 수정하는 메소드
 	public void update(GUserDto dto);
+
 	//회원 아이디 찾는 형식
 	public String getId(GUserDto dto);
 	
 	public boolean getPwd(GUserDto dto);
 	
 	public void changePwd(GUserDto dto);
-
 }

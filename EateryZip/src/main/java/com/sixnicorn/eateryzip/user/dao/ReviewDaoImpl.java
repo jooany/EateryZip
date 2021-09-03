@@ -1,9 +1,9 @@
 package com.sixnicorn.eateryzip.user.dao;
 
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 
 import com.sixnicorn.eateryzip.user.dto.ReviewDto;
 import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
@@ -39,4 +39,5 @@ public class ReviewDaoImpl implements ReviewDao{
 		session.update("review.updateReviewT",dto);
 	}
 }
+
 

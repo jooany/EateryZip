@@ -35,6 +35,7 @@
 					<div class="tab-pane fade" id="v-pills-settings" role="tabpanel">...</div>
 				</div>
 			</div>
+
 			<ul class="left_menu">
 				<li>마이페이지</li>
 				<li>가게정보등록</li>
