@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.dao;
+package com.sixnicorn.eateryzip.user.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

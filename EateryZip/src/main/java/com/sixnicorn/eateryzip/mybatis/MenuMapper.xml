@@ -23,7 +23,7 @@
 	
 	</update>
 	
-	<!-- 카테고리 번호 리스트 가져오기(중복X) -->
+	<!-- (형우)카테고리 번호 리스트 가져오기(중복X) -->
 	<select id="getSectionNumList" parameterType="String" resultType="int">
 		SELECT DISTINCT section_num
 		FROM menu
@@ -46,7 +46,7 @@
 		WHERE b_id=#{b_id}
 	</select>
 	
-	<!-- 사업자 번호로 메뉴 리스트 얻어오기 -->
+	<!-- (형우)사업자 번호로 메뉴 리스트 얻어오기 -->
 	<select id="getList" parameterType="String" resultType="menuDto">
 		SELECT *
 		FROM menu

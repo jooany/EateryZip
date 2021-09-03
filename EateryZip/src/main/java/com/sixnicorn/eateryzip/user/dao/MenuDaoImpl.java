@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.dao;
+package com.sixnicorn.eateryzip.user.dao;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
+import com.sixnicorn.eateryzip.user.dto.MenuDto;
 
 @Repository
 public class MenuDaoImpl implements MenuDao{

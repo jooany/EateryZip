@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.dto;
+package com.sixnicorn.eateryzip.user.dto;
 
 public class ReviewDto {
 	private int review_num;
