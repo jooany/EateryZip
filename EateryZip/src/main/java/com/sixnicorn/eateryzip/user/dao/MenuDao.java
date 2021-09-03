@@ -1,8 +1,8 @@
-package com.sixnicorn.eateryzip.eatery.dao;
+package com.sixnicorn.eateryzip.user.dao;
 
 import java.util.List;
 
-import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
+import com.sixnicorn.eateryzip.user.dto.MenuDto;
 
 public interface MenuDao {
 	public int getMenuMaxNum(String b_id);

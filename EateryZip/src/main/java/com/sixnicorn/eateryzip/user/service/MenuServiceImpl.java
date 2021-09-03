@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.service;
+package com.sixnicorn.eateryzip.user.service;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sixnicorn.eateryzip.eatery.dao.MenuDao;
-import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
+import com.sixnicorn.eateryzip.user.dao.MenuDao;
+import com.sixnicorn.eateryzip.user.dto.MenuDto;
 
 
 @Service

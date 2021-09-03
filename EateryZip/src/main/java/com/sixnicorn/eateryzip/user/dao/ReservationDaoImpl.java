@@ -1,10 +1,10 @@
-package com.sixnicorn.eateryzip.eatery.dao;
+package com.sixnicorn.eateryzip.user.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sixnicorn.eateryzip.eatery.dto.ReservationDto;
+import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 
 @Repository
 public class ReservationDaoImpl implements ReservationDao{
