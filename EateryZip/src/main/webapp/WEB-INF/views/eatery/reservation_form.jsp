@@ -10,9 +10,11 @@
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
 </head>
 <style>
-    .container{
-	width: 280px;
+    #container{
+	width: 250px;
 	margin: 0 auto;
+	border: 0.5px solid darkgray;
+	height: auto!important;
 }
 ul.tabs{
 	margin: 0px;
@@ -21,23 +23,29 @@ ul.tabs{
 }
 ul.tabs li{
 	background: none;
+	border-bottom: 2px solid;
 	color: #222;
 	display: inline-block;
 	padding: 10px 15px;
 	cursor: pointer;
+	margin-left: 15px;
+	font-weight: bold;
+	font-size: 14px
 }
 
 ul.tabs li.current{
-	background: #ededed;
+	background: #white;
 	color: #222;
+	margin-left: 15px;
+	border-bottom: 2px solid #fd5300;
 }
 
 .tab-content{
 	display: none;
-	background: #ededed;
+	background: #white;
 	padding: 15px;
-    width: 270px;
-    height: 250px;
+    width: 250px;
+    
 }
 
 .tab-content.current{
@@ -52,14 +60,14 @@ ul.tabs li.current{
 </style>
 <body>
 <div>
-    <div class="container">
+    <div id="container">
         <ul class="tabs">
             <li class="tab-link current" data-tab="tab-1">예약</li>
             <li class="tab-link" data-tab="tab-2">포장</li>
         </ul>
     
         <div id="tab-1" class="tab-content current">
-            <form action="reservation_insertform.do" method="post" id="reservation_form" onsubmit="return confirm('예약 하시겠습니까?');">
+            <form action="${pageContext.request.contextPath}/eatery/reservation_insertform.do" method="post" id="reservation_form" onsubmit="return confirm('예약 하시겠습니까?');">
             	<input type="hidden" id="b_id" name="b_id" value="1111111"/>
             	<input type="hidden" id="reservation_time" name="reservation_time"/>
             	<input type="hidden" id="b_store_name" name="b_store_name" value="팬케이크 스토리"/>
@@ -77,7 +85,7 @@ ul.tabs li.current{
 	                    <br />
 	                    <script>
 			                  let a="10:00";
-			                      let b=a.split(":");
+			                  let b=a.split(":");
 			                  let hour=parseInt(b[0]);
 			                  console.log(hour);
 			                  let min=parseInt(b[1]);
@@ -138,8 +146,6 @@ ul.tabs li.current{
 							      + '</button>');
 							}
 	                  	</script>
-	                  	<br />
-	                  	<button>닫기</button>
                 	</div>
                 	
                 </div>
@@ -169,8 +175,10 @@ ul.tabs li.current{
             </form>  
         </div>
         <div id="tab-2" class="tab-content">
-            <form action="">
-               <input type="hidden" id="b_id" name="b_id" value=""/>
+            <form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post">
+               <input type="hidden" id="b_id" name="b_id" value="12345678"/>
+               <input type="hidden" id="b_store_name" name="b_store_name" value="팬케이크 스토리"/>
+            	<input type="hidden" id="b_store_addr" name="b_store_addr" value="서울특별시 강남구 언주로 33"/>
                <button type="submit">포장</button>
             </form>
         </div>

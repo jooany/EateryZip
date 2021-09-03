@@ -15,7 +15,7 @@
 /* 공통 */
 *{
     font-family: 'Gothic A1', sans-serif;
-    }
+}
 a{
 	color:black!important;
 	text-decoration:none!important;
@@ -550,7 +550,7 @@ body{
 	                                <span>원</span>
 	                            </div>
 	                        </div>
-	                        <button type="submit" style="font-size:13px;">수정</button>
+	                        <button type="submit" class="btn_color" style="font-size:13px;">수정</button>
 	                        <a href="javascript:deleteConfirm(`+data.menuNum+`,`+data.sectionNum+`)" id="deleteMenuBtn">삭제</a>
 	                    </form>`);
 	    			

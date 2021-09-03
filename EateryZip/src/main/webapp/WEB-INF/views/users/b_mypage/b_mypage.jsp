@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>/users/info.jsp</title>
 <script src="https://kit.fontawesome.com/eda0c6c5f7.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
 	
 </style>
@@ -17,6 +18,24 @@
 	<h1>가입 정보 입니다.</h1>
 	<div id="container">
 		<div class="left_content">
+			<div class="d-flex align-items-start">
+				<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+					<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab">마이페이지</button>
+					<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab">가게정보등록</button>
+					<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab">
+						<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보수정</a>
+					</button>
+					<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab">포장주문내역</button>
+					<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab">예약내역</button>
+				</div>
+				<div class="tab-content" id="v-pills-tabContent">
+					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel">...</div>
+					<div class="tab-pane fade" id="v-pills-profile" role="tabpanel">...</div>
+					<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">...</div>
+					<div class="tab-pane fade" id="v-pills-settings" role="tabpanel">...</div>
+				</div>
+			</div>
+
 			<ul class="left_menu">
 				<li>마이페이지</li>
 				<li>가게정보등록</li>

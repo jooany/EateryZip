@@ -1,7 +1,5 @@
 package com.sixnicorn.eateryzip.user.dao;
 
-
-
 import com.sixnicorn.eateryzip.user.dto.ReviewDto;
 import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
@@ -12,3 +10,5 @@ public interface ReviewDao {
 	public void insertReviewT(ReviewDto dto);
 	public void updateReviewT(ReviewDto dto);
 }
+
+
