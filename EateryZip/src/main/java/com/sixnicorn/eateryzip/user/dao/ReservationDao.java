@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.dao;
+package com.sixnicorn.eateryzip.user.dao;
 
 import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 
