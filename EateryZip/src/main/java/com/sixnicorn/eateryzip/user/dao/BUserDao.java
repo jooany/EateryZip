@@ -9,9 +9,14 @@ public interface BUserDao {
 	public void insert(BUserDto dto);
 	//인자로 전달된 아이딕 존재 하는지 여부를 리턴하는 메소드
 	public boolean isExist(String inputId); //boolean type으로 return
+	//회원 아이디 찾는 형식
+	public String getId(BUserDto dto);
 	
+	public boolean getPwd(BUserDto dto);
+
+	public void changePwd(BUserDto dto);
 	
-	
+	/* 혜림 */
 	// 비즈니스회원정보를 수정하는 메소드
 	public void update(BUserDto dto);	
 }
