@@ -3,7 +3,9 @@ package com.sixnicorn.eateryzip.user.controller;
 import java.net.URLEncoder;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,14 @@ public class UserController {
 	private BUserService Bservice;
 	@Autowired
 	private GUserService Gservice;
+	
+	///------ (임시 추후 혜림 이용)주연 ------------------------------------------
+	@RequestMapping("/users/g_mypage/takeout_list")
+	public String takeoutList(HttpServletRequest request) {
+
+		return "users/g_mypage/takeout_list" ;
+	}
+	//---------------------------------주연끝----------------------------------
 	
 	//maps 테스트 .jsp로 이동
 	@RequestMapping("users/map_seoul")
@@ -72,9 +82,10 @@ public class UserController {
 	//일반 회원 로그인
 	@RequestMapping("/users/g_login")
 	public ModelAndView Glogin(ModelAndView mView, GUserDto dto,
-			@RequestParam String url , HttpSession session) {
+			@RequestParam String url , HttpSession session , @RequestParam (value="isSave", required=false) String isSave
+			, HttpServletResponse response) {
 
-		Gservice.loginProcess(dto, session); //Service에 필요로 하는 객체가 있다면 넣어주어야한다.
+		Gservice.loginProcess(dto, session , isSave , response); //Service에 필요로 하는 객체가 있다면 넣어주어야한다.
 		
 		String encodedUrl=URLEncoder.encode(url);
 		mView.addObject("url", url);
@@ -87,9 +98,9 @@ public class UserController {
 	//비즈니스 회원 로그인
 	@RequestMapping(value="/users/b_login", method = RequestMethod.POST)
 	public ModelAndView Blogin(ModelAndView mView, BUserDto Bdto, 
-			HttpSession session) {
+			HttpSession session, @RequestParam (value="isSave", required=false) String isSave, HttpServletResponse response) {
 			
-		Bservice.loginProcess(Bdto, session); //Service에 필요로 하는 객체가 있다면 넣어주어야한다.
+		Bservice.loginProcess(Bdto, session, isSave , response); 
 		mView.setViewName("users/b_login");
 		return mView;
 	}
@@ -146,6 +157,98 @@ public class UserController {
 		//결국 {isExist":true}or{isExist":false} 형태
 	}
 	
+	//사업자번호 찾기 폼으로 이동
+	@RequestMapping("/users/b_find_id_form")
+	public String b_find_id_form(){
+		return "users/b_find_id_form";
+	}
+	
+	
+	//사업자번호 찾기 기능 
+	@RequestMapping("/users/b_find_id")
+	public ModelAndView b_find_id(ModelAndView mView, BUserDto dto){
+	
+		Bservice.findId(dto , mView);
+		mView.setViewName("users/b_find_id");
+		return mView;
+	}
+	
+	//일반 ID 찾기 폼으로 이동
+	@RequestMapping("/users/g_find_id_form")
+	public String g_find_id_form(){
+		return "users/g_find_id_form";
+	}
+	
+	//사업자번호 찾기 기능 
+	@RequestMapping("/users/g_find_id")
+	public ModelAndView g_find_id(ModelAndView mView, GUserDto dto){
+	
+		Gservice.findId(dto , mView);
+		mView.setViewName("users/g_find_id");
+		return mView;
+	}
+	
+	//사업자 패스워드 찾기 폼으로 이동
+	@RequestMapping("/users/b_find_pwd_form")
+	public String b_find_pwd_form(){
+		return "users/b_find_pwd_form";
+	}
+	
+	//사업자 패스워드 찾기
+	@RequestMapping("/users/b_find_pwd")
+	public ModelAndView b_find_pwd(ModelAndView mView, BUserDto dto){
+		boolean result=Bservice.findPwd(dto, mView);
+
+		if(result==true) {
+			String b_id = dto.getB_id();
+			mView.addObject("b_id", b_id);
+			mView.setViewName("users/b_change_pwd_form");
+			return mView;
+		}else{
+			mView.setViewName("home");
+			return mView;
+		}
+	}
+	
+	//사업자 패스워드 바꾸기
+	@RequestMapping("/users/b_change_pwd")
+	public ModelAndView b_change_pwd(ModelAndView mView, BUserDto dto, HttpSession session) {
+		Bservice.updatePwd(dto,mView,session);
+		mView.setViewName("users/b_update_pwd");
+		return mView;
+	}
+	
+		
+	//일반 패스워드 찾기 폼으로 이동
+	@RequestMapping("/users/g_find_pwd_form")
+	public String g_find_pwd_form(){
+		return "users/g_find_pwd_form";
+	}
+	
+	//사업자 패스워드 찾기
+		@RequestMapping("/users/g_find_pwd")
+		public ModelAndView g_find_pwd(ModelAndView mView, GUserDto dto){
+			boolean result=Gservice.findPwd(dto, mView);
+
+			if(result==true) {
+				String g_id = dto.getG_id();
+				mView.addObject("g_id", g_id);
+				mView.setViewName("users/g_change_pwd_form");
+				return mView;
+			}else{
+				mView.setViewName("home");
+				return mView;
+			}
+		}
+		
+		//사업자 패스워드 바꾸기
+		@RequestMapping("/users/g_change_pwd")
+		public ModelAndView g_change_pwd(ModelAndView mView, GUserDto dto, HttpSession session) {
+			Gservice.updatePwd(dto,mView,session);
+			mView.setViewName("users/g_update_pwd");
+			return mView;
+		}
+	
 	//일반 , 비즈니스 회원 로그아웃
 	@RequestMapping("/users/logout")
 	public String logout(HttpSession session) {
@@ -155,30 +258,39 @@ public class UserController {
 		return "users/logout";
 	}
 	
+	/* 혜림 */
 	// 비즈니스 회원가입정보보기
 	@RequestMapping("/users/b_mypage/b_mypage")
-	public ModelAndView authMypage(HttpSession session, ModelAndView mView) {
+	public ModelAndView Bmypage(HttpSession session, ModelAndView mView, HttpServletRequest request) {
 		
-		Bservice.getMypage(session, mView);
+		Bservice.getBmypage(session, mView);
 		
 		mView.setViewName("users/b_mypage/b_mypage");
 		return mView;
 	}
+
+	// 비즈니스 개인정보 수정반영 요청처리
+	@RequestMapping(value="users/b_mypage/update", method=RequestMethod.POST)
+	public String update(BUserDto dto, HttpSession session) {
+		// dto에는 프로필, 주소,이름,연락처,이메일 들어감
+		Bservice.updateUser(dto, session);
+		return "redirect:/users/b_mypage/b_mypage.do";
+	}
 	
 	// 비즈니스 회원가입정보 수정하기
 	@RequestMapping("/users/b_mypage/b_mypage_updateform")
-	public ModelAndView authUpdateForm(ModelAndView mView, HttpSession session, HttpServletRequest request) {
-		Bservice.getMypage(session, mView);
+	public ModelAndView updateForm(ModelAndView mView, HttpSession session, HttpServletRequest request) {
+		Bservice.getBmypage(session, mView);
 		mView.setViewName("users/b_mypage/b_mypage_updateform");
 		return mView;
 	}
+	
 	// 비즈니스회원 프로필이미지 ajax처리
-	@RequestMapping(value="/users/b_mypage/ajax_profile_upload", method=RequestMethod.POST)
+	@RequestMapping(value="users/b_mypage/ajax_b_profile_upload", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> authAjaxProfileUpload(HttpServletRequest request,
-			@RequestParam MultipartFile b_image){
+	public Map<String, Object> ajaxProfileUpload(HttpServletRequest request, @RequestParam MultipartFile image){
 		// 서비스를 이용해서 이미지를 upload폴더에 저장하고 리턴되는 Map을 리턴해서 json문자열 응답하기
-		return Bservice.saveB_profile(request, b_image);
+		return Bservice.saveB_profileImage(request, image);
 	}
 	
 }

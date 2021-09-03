@@ -1,5 +1,6 @@
 package com.sixnicorn.eateryzip.user.dao;
 
+import com.sixnicorn.eateryzip.user.dto.BUserDto;
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
 
 public interface GUserDao {
@@ -9,4 +10,10 @@ public interface GUserDao {
 	public void insert(GUserDto dto);
 	//인자로 전달된 아이딕 존재 하는지 여부를 리턴하는 메소드
 	public boolean isExist(String inputId); //boolean type으로 return
+	//회원 아이디 찾는 형식
+	public String getId(GUserDto dto);
+	
+	public boolean getPwd(GUserDto dto);
+	
+	public void changePwd(GUserDto dto);
 }

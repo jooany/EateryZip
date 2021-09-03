@@ -10,7 +10,12 @@
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+
 /* 공통 */
+*{
+    font-family: 'Gothic A1', sans-serif;
+}
 a{
 	color:black!important;
 	text-decoration:none!important;
@@ -18,7 +23,6 @@ a{
 img,svg{
 	vertical-align:baseline!important;
 }
-
 button{
 	border:none;
 	background-color:rgba(0,0,0,0);
@@ -35,7 +39,12 @@ button{
 	margin-top:50px!important;
 	width:576px;
 	margin:0 auto;
+	margin-bottom:50px!important;
 }
+body{
+	background-color:rgba(0,0,0,.04)!important;
+}
+
 .select{
 }
 /* 카테고리명 */
@@ -48,7 +57,8 @@ button{
 	margin:0 auto;
 	padding:10px 0;
 	margin-bottom:30px!important;
-	background-color:rgba(0,0,0,.05);
+	background-color:white;
+	border:1px solid rgba(0,0,0,.1);
 	
 }
 .section_header{
@@ -57,11 +67,12 @@ button{
 	display:flex;
 	justify-content:space-between;
 	align-items:center;
-	padding-bottom:6px;
+	padding-bottom:15px;
+	padding-top:5px;
 }
 .section_header .select{
 	border:none;
-	font-size:24px;
+	font-size:22px;
 	font-weight:600;
 	background-color:rgba(0,0,0,0);
 }
@@ -153,19 +164,26 @@ button{
 	align-items:center;
 	width:550px;
 	height:40px;
-	background-color:rgb(224, 224, 224);
+	background-color:rgb(243, 156, 18);
 	padding-left:10px;
 	margin-left:10px;
+	color:white!important;
+	font-size:14px;
 }
 
 .add_section_btn{
-	margin-top:50px;
+	margin-top:60px;
 	width:576px;
-	height:55px;
-	background-color:rgba(0,0,0,.05);
+	height:70px;
+	background-color:white;
 	display:flex;
 	justify-content:center;
 	align-items:center;
+	color:black;
+	border:1px solid rgba(0,0,0,.15);
+}
+.btn_color{
+	color:rgb(253, 83, 0);
 }
 
 
@@ -173,6 +191,7 @@ button{
 </head>
 <body>
 	<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
+
 	<div id="container" class="inner">	
 		<div class="sections">
 	        <c:choose>
@@ -235,7 +254,7 @@ button{
 	                                        </div>
 	                                        <!--  <button id="insertMenuBtn">등록</button>-->
 	                                        <!-- <a href="${pageContext.request.contextPath}/users/b_mypage/menu_update.do?menu_num=${tmp.menu_num }">수정</a>-->
-	                                        <button type="submit" style="font-size:13px;">수정</button>
+	                                        <button type="submit" class="btn_color" style="font-size:13px;">수정</button>
 	                                        <a href="javascript:deleteConfirm(${tmp.menu_num },${tmp.section_num })" id="deleteMenuBtn">삭제</a>
 	                                    </form>
 	                                    </div>	
@@ -270,13 +289,14 @@ button{
 			</svg>
 		</button>
 			
-		<form action="${pageContext.request.contextPath}/users/b_mypage/ajax_menu_img_upload.do" method="post" id="imageForm" class="visually-hidden" enctype="multipart/form-data">
+		<form action="${pageContext.request.contextPath}/users/b_mypage/ajax_menu_img_upload.do" method="post" id="imageForm" enctype="multipart/form-data" class="visually-hidden">
 					<input type="file" name="image" id="image" 
 						accept=".jpg, .jpeg, .png, .JPG, .JPEG, .gif"/>
 		</form>
 
 	</div>
 	<!-- container.end -->
+	
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -333,7 +353,7 @@ button{
                             <span>원</span>
                         </div>
                     </div>
-                    <button type="submit" style="font-size:13px;" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
+                    <button type="submit" class="btn_color" style="font-size:13px;" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
                     <a href="javascript:;" onclick="deleteConfirm(`+preMenuNum+`,`+preSectionNum+`)" id="deleteMenuBtn">삭제</a>
                 </form> 
                 </div>
@@ -397,7 +417,7 @@ button{
                             <span>원</span>
                         </div>
                     </div>
-                    <button type="submit" style="font-size:13px;" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
+                    <button type="submit" class="btn_color" style="font-size:13px;" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
                     <a href="javascript:;" onclick="deleteConfirm(`+preMenuNum+`,`+preSectionNum+`)" id="deleteMenuBtn">삭제</a>
                 </form> 
                 </div>
@@ -455,7 +475,7 @@ button{
                                 <span>원</span>
                             </div>
                         </div>
-                        <button type="submit" style="font-size:13px;" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
+                        <button type="submit" class="btn_color" style="font-size:13px;" id="insertMenuBtn insertMenuBtn`+preMenuNum+`" data-menuNum="js`+preMenuNum+`">등록</button>
                         <a href="javascript:;" onclick="deleteConfirm(`+preMenuNum+`,`+thisSecNum+`)" id="deleteMenuBtn">삭제</a>
                     </form></div>`);
 				
@@ -522,7 +542,7 @@ button{
 	                        <div class="wrap_img_n_price">
 	                            <a class="menu_img_btn" id="menuImgBtn`+data.menuNum+`" data-menuNum="`+data.menuNum+`" href="javascript:;">
 	                                <div id="imgNum`+data.menuNum+`" class="menu_img_wrap">
-	                                ${false ? '<i class="far fa-image"></i>' : '<img class="menu_img" src="${cPath}/${menuImg}"/>'}
+	                                \${menuImg == '' ? '<i class="far fa-image"></i>' : '<img class="menu_img" src="'+cPath+menuImg+'"/>'}
 	                                </div>
 	                            </a>							
 	                            <div class="wrap_price">
@@ -530,7 +550,7 @@ button{
 	                                <span>원</span>
 	                            </div>
 	                        </div>
-	                        <button type="submit" style="font-size:13px;">수정</button>
+	                        <button type="submit" class="btn_color" style="font-size:13px;">수정</button>
 	                        <a href="javascript:deleteConfirm(`+data.menuNum+`,`+data.sectionNum+`)" id="deleteMenuBtn">삭제</a>
 	                    </form>`);
 	    			
@@ -640,7 +660,10 @@ button{
 			//해당 이미지 경로를 가진 이미지 요소를 생성하여 innrHTML에 넣어주고
 			//이미지 경로를 전송하는 input의 value 값에 이미지 경로를 넣어준다.
 			let img=`<img class="menu_img" src="${pageContext.request.contextPath}\${data.imagePath}"/>`;
-			$("#imgNum"+thisMenu).html(img);
+
+			if(data.imagePath !=''){
+				$("#imgNum"+thisMenu).html(img);
+			}
 			$("#inputImg"+thisMenu).val(data.imagePath);
 		});
 	}); //#image.change.end

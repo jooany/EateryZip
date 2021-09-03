@@ -1,4 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sixnicorn.eateryzip.mybatis.ReviewMapper">
+<mapper namespace="review">
+
+	<!-- [포장] 음식점 이름,방문 날짜,방문 시간,가격 가져오기 -->
+	<select id="getTakeoutData" parameterType="takeoutDto" resultType="takeoutDto">
+		SELECT b.b_name,TO_CHAR(takeout_date,'YYYY.MM.DD') takeout_date,takeout_time,takeout_price,takeout_num,t.b_id,t.g_id
+		FROM b_store b,takeout t
+		WHERE b.b_id=t.b_id AND b.b_id=#{b_id} AND takeout_num=#{takeout_num}	
+	</select>
+
+	<!-- [포장] 저장된 포장 리뷰 정보 가져오기 -->
+	<select id="getReviewDataT" parameterType="int" resultType="reviewDto">
+		SELECT *
+		FROM review
+		WHERE takeout_num=#{takeout_num}
+	</select>
+	
+	<!-- [포장 리뷰 ] 리뷰 등록하기  -->
+	<insert id="insertReviewT" parameterType="reviewDto">
+		INSERT INTO review
+ 		(review_num,b_id,writer,review_image,review_content,regdate,keyword_review,review_kind,takeout_num)
+ 		VALUES(review_seq.NEXTVAL,#{b_id},#{writer},#{review_image,jdbcType=VARCHAR},#{review_content},SYSDATE,#{keyword_review,jdbcType=VARCHAR},#{review_kind,jdbcType=VARCHAR},#{takeout_num,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- [포장 리뷰 ] 리뷰 수정하기  -->
+	<update id="updateReviewT" parameterType="reviewDto">
+		UPDATE review
+ 		SET keyword_review=#{keyword_review},review_content=#{review_content},review_image=#{review_image}
+ 		WHERE b_id=#{b_id} AND takeout_num=#{takeout_num}
+	</update>
+	
+	<!-- [예약] -->
+	<select id="getReviewDataR">
+		SELECT *
+		FROM review
+		WHERE buy_num=#{reservation_num}
+	</select>
+	
+	
+	
+	<!-- 키워드 리뷰 수 세기 -->
+	
+	<!-- 키워드 전체 개수 -->
+	<select id="getReviewTotalCount" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE b_id=#{b_id};
+	</select>
+	<!-- 키워드별 개수 -->
+	<select id="getCountR1" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'가성비가 좋아요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR2" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'포장이 꼼꼼해요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR3" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'디저트가 맛있어요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR4" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'친절해요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR5" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'특별한 메뉴가 있어요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR6" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'커피가 맛있어요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR7" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'음료가 맛있어요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR8" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'대화하기 좋아요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR9" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'인테리어가 멋져요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR10" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'사진이 잘 나와요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR11" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'뷰가 좋아요'||'%' AND b_id=#{b_id};
+	</select>
+	
+
 </mapper>

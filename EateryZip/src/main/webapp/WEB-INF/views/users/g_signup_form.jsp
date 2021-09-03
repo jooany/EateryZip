@@ -88,10 +88,10 @@
       //1. 입력한 아이디 value 값 읽어오기  
       let inputId=this.value;
       //입력한 아이디를 검증할 정규 표현식
-      const reg_id=/^.{5-8}$/;
+       const reg_id=/^[A-za-z0-9]{5,8}/g;
       //만일 입력한 아이디가 정규표현식과 매칭되지 않는다면
 	      if(!reg_id.test(inputId)){
-	         isIdValid=false; //아이디가 매칭되지 않는다고 표시하고 
+	    	  isIdValid=false;
 	         // is-invalid 클래스를 추가한다. 
 	         document.querySelector("#g_id").classList.add("is-invalid");
 	         return; //함수를 여기서 끝낸다 (ajax 전송 되지 않도록)
