@@ -91,6 +91,12 @@
 </style>
 </head>
 <body>
+	<h1>내 list 는 ${list } 이다</h1>
+	<c:forEach var="tmp" items="${list }">
+		<h1>${tmp.b_name },${tmp.b_kind },${tmp.ex_keyword },${tmp.b_img_f }</h1>
+		
+	</c:forEach>
+	
 	<form class="search">
 		<select class="select_search" name="b-kind">
 			<option id="kFood" value="kFood">한식</option>
@@ -147,39 +153,11 @@
 				</div>
 			</fieldset>
 
-            <!-- 업종 선택 -->
-            <fieldset>
-				<legend>업종</legend>
-				<div id="b-kind">
-                    <button id="kFood" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
-                        <img src=""> 한식
-                    </button>
-                    <button id="jFood" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
-                        <img src=""> 일식
-                    </button>
-                    <br />
-                    <button id="cFood" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
-                        <img src=""> 중식
-                    </button>
-                    <button id="wFood" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
-                        <img src=""> 양식
-                    </button>
-                    <br />
-                    <button id="brunch" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
-                        <img src=""> 브런치
-                    </button>
-                    <button id="bar" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
-                        <img src=""> Bar
-                    </button>
-                    <br />
-                    <button id="cafe" class="btn btn-outline-dark btn-sm" name="food" aria-disabled="false" aria-pressed="false" type="button">>
-                        <img src=""> 카페
-                    </button>
-                </div>
-            </fieldset>
+         
     	</div>
+    	<h1>왜 너 안나와???</h1>
     </section>
-
+	<h1>왜 안나와???</h1>
     <section>
     	<div class="main_middle">
     		<div class="title">
@@ -205,123 +183,24 @@
 			
 			<!-- 음식점 리스트 * 6 -->
 			<div id="tab-1" class="tab-content current">
-				<c:forEach var="tmp" items="list">
-	          	 	<div class="card2-75">
-	                	<img src="${pageContext.request.contextPath}${tmp.b_img_f }" class="rounded float-start" width="150" height="150">
-	                	<div>
-		                    <h5 class="card-title">${tmp.b_name }</h5>
-		                    <div>	                    
-		                    	<p><span>${tmp.b_kind }</span></p>
-		                    </div>
-	                    </div>
-	                	<ol class="list-group">
-	                		<li class="list-group list-group-numbered">
-	                			
-	                			<!-- 리뷰 키워드 * 3 -->
-	                			
-	                				<div class="ms-2 me-auto">
-		                				<div class="fw-bold">리뷰 키워드</div>
-		                			</div>
-		                			
-	                		</li>
-	                	</ol>
-	                	<div class="intro_box">
-	                		<p class="card-text">${tmp.intro }</p>
-	                	</div>
-	                	<div>
-	                		<div class="ex_tag">
-	                		
-	                			<!-- 편의사항 * 3 -->
-	                			
-	                				<div>
-	                					<span><i class="fas fa-check"></i></span>
-	                				</div>
-	                				<span>${tmp.ex_keyword }</span>
-
-	                		</div>
-	                	</div>
-	                </div>
-	            </c:forEach>
+				<c:forEach var="tmp" items="${list }">
+					<h1>${tmp.b_name },${tmp.b_kind },${tmp.ex_keyword },${tmp.b_img_f }</h1>
+		
+	</c:forEach>
             </div>
             
             <div id="tab-2" class="tab-content">
-                <c:forEach var="tmp" items="list">
-	          	 	<div class="card2-75">
-	                	<img src="${pageContext.request.contextPath}${tmp.b_img_f }" class="rounded float-start" width="150" height="150">
-	                	<div>
-		                    <h5 class="card-title">${tmp.b_name }</h5>
-		                    <div>	                    
-		                    	<p><span>${tmp.b_kind }</span></p>
-		                    </div>
-	                    </div>
-	                	<ol class="list-group">
-	                		<li class="list-group list-group-numbered">
-	                			
-	                			<!-- 리뷰 키워드 * 3 -->
-	                			
-	                				<div class="ms-2 me-auto">
-		                				<div class="fw-bold">리뷰 키워드</div>
-		                			</div>
-		                			
-	                		</li>
-	                	</ol>
-	                	<div class="intro_box">
-	                		<p class="card-text">${dto.intro }</p>
-	                	</div>
-	                	<div>
-	                		<div class="ex_tag">
-	                		
-	                			<!-- 편의사항 * 3 -->
-	                			
-	                				<div>
-	                					<span><i class="fas fa-check"></i></span>
-	                				</div>
-	                				<span>${dto.ex_keyword }</span>
-
-	                		</div>
-	                	</div>
-	                </div>
-	            </c:forEach>
+               <c:forEach var="tmp" items="${list }">
+				<h1>${tmp.b_name },${tmp.b_kind },${tmp.ex_keyword },${tmp.b_img_f }</h1>
+		
+	</c:forEach>
             </div>
             
             <div id="tab-3" class="tab-content">
-                <c:forEach var="tmp" items="list">
-	          	 	<div class="card2-75">
-	                	<img src="${pageContext.request.contextPath}${tmp.b_img_f }" class="rounded float-start" width="150" height="150">
-	                	<div>
-		                    <h5 class="card-title">${tmp.b_name }</h5>
-		                    <div>	                    
-		                    	<p><span>${tmp.b_kind }</span></p>
-		                    </div>
-	                    </div>
-	                	<ol class="list-group">
-	                		<li class="list-group list-group-numbered">
-	                			
-	                			<!-- 리뷰 키워드 * 3 -->
-	                			
-	                				<div class="ms-2 me-auto">
-		                				<div class="fw-bold">리뷰 키워드</div>
-		                			</div>
-		                			
-	                		</li>
-	                	</ol>
-	                	<div class="intro_box">
-	                		<p class="card-text">${dto.intro }</p>
-	                	</div>
-	                	<div>
-	                		<div class="ex_tag">
-	                		
-	                			<!-- 편의사항 * 3 -->
-	                			
-	                				<div>
-	                					<span><i class="fas fa-check"></i></span>
-	                				</div>
-	                				<span>${dto.ex_keyword }</span>
-
-	                		</div>
-	                	</div>
-	                </div>
-	            </c:forEach>
+                <c:forEach var="tmp" items="${list }">
+				<h1>${tmp.b_name },${tmp.b_kind },${tmp.ex_keyword },${tmp.b_img_f }</h1>
+		
+	</c:forEach>
             </div>
             <!-- 로딩 -->
             <div id="ajax-loading"><img src=""></div>
@@ -342,7 +221,7 @@
 		this.category=docuement.querySelector('input[name="b-kind"]');
 		this.keyword=docuement.querySelector('input[name="search"]');
 		this.engine=document.querySelector('.select_search');
-		this.button=docuement.querySelector('.img_btn');
+		this.button=document.querySelector('.img_btn');
 		this.form=docuement.querySelector('.search');
 		
 		this.engine();

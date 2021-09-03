@@ -30,7 +30,7 @@
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM 
-				(SELECT * FROM B_Store) result1)
+				(SELECT * FROM B_STORE) result1)
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>

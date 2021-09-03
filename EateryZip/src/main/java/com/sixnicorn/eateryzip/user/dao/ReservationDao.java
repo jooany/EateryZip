@@ -1,6 +1,6 @@
-package com.sixnicorn.eateryzip.eatery.dao;
+package com.sixnicorn.eateryzip.user.dao;
 
-import com.sixnicorn.eateryzip.eatery.dto.ReservationDto;
+import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 
 public interface ReservationDao {
 	// 예약 저장 하기
