@@ -123,6 +123,31 @@
 </style>
 </head>
 <body>
+<<<<<<< HEAD
+	<h1>내 list 는 ${list } 이다</h1>
+	<c:forEach var="tmp" items="${list }">
+		<h1>${tmp.b_name },${tmp.b_kind },${tmp.ex_keyword },${tmp.b_img_f }</h1>
+		
+	</c:forEach>
+	
+	<form class="search">
+		<select class="select_search" name="b-kind">
+			<option id="kFood" value="kFood">한식</option>
+			<option id="jFood" value="kFood">일식</option>
+			<option id="cFood" value="kFood">중식</option>
+			<option id="wFood" value="kFood">양식</option>
+			<option id="brunch" value="brunch">브런치</option>
+			<option id="bar" value="bar">Bar</option>
+			<option id="cafe" value="cafe">카페</option>
+		</select>
+		<input class="keyword" type="text" name="b-kind" maxlength="100" value="">
+		<input class="keyword" type="text" name="search" maxlength="100" value="">
+		<button class="search_btn" type="submit" name="click">
+			<i class="fas fa-search"></i>
+		</button>
+	</form>
+	
+=======
    <form class="search">
       <select class="select_search" name="b-kind">
          <option id="kFood" value="kFood">한식</option>
@@ -140,6 +165,7 @@
       </button>
    </form>
    
+>>>>>>> branch 'master' of https://github.com/jooany/EateryZip.git
     <section>
        <div class="main_left">
 			<!-- 가격 필터 -->
@@ -180,6 +206,9 @@
             </div>
          </fieldset>
 
+<<<<<<< HEAD
+         
+=======
 		<!-- 업종 -->
 		<h4>업종</h4>
 		<div>
@@ -207,9 +236,11 @@
 			<button type="submit" id="cafe" class="food btn btn-outline-dark">
 				<img src="${pageContext.request.contextPath}/resources/images/coffee-cup.png"> 카페
 			</button>
+>>>>>>> branch 'master' of https://github.com/jooany/EateryZip.git
     	</div>
+    	<h1>왜 너 안나와???</h1>
     </section>
-
+	<h1>왜 안나와???</h1>
     <section>
 		<div class="main_middle">
          	<div class="title">
@@ -227,6 +258,21 @@
              	</div>
           	</div>
 
+<<<<<<< HEAD
+    		<ul class="tabs">
+                <li class="tab-link current" data-tab="tab-1">전체</li>
+                <li class="tab-link" data-tab="tab-2">예약</li>
+                <li class="tab-link" data-tab="tab-3">방문포장</li>
+            </ul>
+			
+			<!-- 음식점 리스트 * 6 -->
+			<div id="tab-1" class="tab-content current">
+				<c:forEach var="tmp" items="${list }">
+					<h1>${tmp.b_name },${tmp.b_kind },${tmp.ex_keyword },${tmp.b_img_f }</h1>
+		
+	</c:forEach>
+            </div>
+=======
           	<ul class="tabs">
           		<li class="tab-link current" data-tab="tab-1">전체</li>
                 <li class="tab-link" data-tab="tab-2">
@@ -265,8 +311,15 @@
 					</div>
 				</c:forEach>
          	</div>
+>>>>>>> branch 'master' of https://github.com/jooany/EateryZip.git
             
             <div id="tab-2" class="tab-content">
+<<<<<<< HEAD
+               <c:forEach var="tmp" items="${list }">
+				<h1>${tmp.b_name },${tmp.b_kind },${tmp.ex_keyword },${tmp.b_img_f }</h1>
+		
+	</c:forEach>
+=======
             	<c:forEach var="tmp" items="${list }">
 				<div>
 					<img src="${tmp.b_img_f }" width="150" height="150">
@@ -283,9 +336,16 @@
 					</c:forEach>
 				</div>
 			</c:forEach>
+>>>>>>> branch 'master' of https://github.com/jooany/EateryZip.git
             </div>
             
             <div id="tab-3" class="tab-content">
+<<<<<<< HEAD
+                <c:forEach var="tmp" items="${list }">
+				<h1>${tmp.b_name },${tmp.b_kind },${tmp.ex_keyword },${tmp.b_img_f }</h1>
+		
+	</c:forEach>
+=======
                	<c:forEach var="tmp" items="${list }">
 				<div>
 					<img src="${tmp.b_img_f }" width="150" height="150">
@@ -302,6 +362,7 @@
 					</c:forEach>
 				</div>
 			</c:forEach>
+>>>>>>> branch 'master' of https://github.com/jooany/EateryZip.git
             </div>
             
             <!-- 로딩 -->
@@ -317,6 +378,38 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
+<<<<<<< HEAD
+	//검색창
+	const searching=search.prototype;
+	function search(){
+		this.category=docuement.querySelector('input[name="b-kind"]');
+		this.keyword=docuement.querySelector('input[name="search"]');
+		this.engine=document.querySelector('.select_search');
+		this.button=document.querySelector('.img_btn');
+		this.form=docuement.querySelector('.search');
+		
+		this.engine();
+	}
+	searching.engine=function(){
+		this.form.addEventListener('submit', e => {
+			e.preventDefault();
+			
+			let engine=this.engine.value;
+			let keyword=this.keyword.value;
+		});
+	}
+	
+	//조건 검색
+	$(document).ready(function(){
+		$(".so").on("change", function(){
+			$("#so").value($(this).val());
+			$("#searchForm").submit();
+		})
+	});
+		
+	//편의사항	
+	function allcheck(){
+=======
    //검색창
    const searching=search.prototype;
    function search(){
@@ -347,6 +440,7 @@
       
    //편의사항   
    function allcheck(){
+>>>>>>> branch 'master' of https://github.com/jooany/EateryZip.git
         var ex_keyword = document.getElementsByName("ex_keyword");
         var checkItem="";
         for(var i = 0; i < ex_keyword.length; i++){
