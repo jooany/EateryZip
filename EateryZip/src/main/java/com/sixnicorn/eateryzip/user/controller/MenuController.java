@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.controller;
+package com.sixnicorn.eateryzip.user.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sixnicorn.eateryzip.eatery.dto.MenuDto;
-import com.sixnicorn.eateryzip.eatery.service.MenuService;
+import com.sixnicorn.eateryzip.user.dto.MenuDto;
+import com.sixnicorn.eateryzip.user.service.MenuService;
 
 @Controller
 public class MenuController {
@@ -47,7 +47,10 @@ public class MenuController {
 		return service.updateMenu(dto);
 	}
 	
+	//ajax 프로필 사진 업로드 요청처리
+
 	//ajax 사진 업로드 요청처리
+
 	@RequestMapping(value = "/users/b_mypage/ajax_menu_img_upload",
 			method=RequestMethod.POST)
 	@ResponseBody
@@ -74,7 +77,8 @@ public class MenuController {
 		
 		return service.deleteMenu(request,menu_num,section_num);
 	}
-	//메뉴 삭제
+
+	//섹션 삭제
 	@RequestMapping(value="/users/b_mypage/delete_section")
 	@ResponseBody
 	public Map<String, Object> deleteSection(HttpServletRequest request,@RequestParam int section_num) {

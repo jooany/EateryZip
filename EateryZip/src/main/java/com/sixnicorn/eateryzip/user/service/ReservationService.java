@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.service;
+package com.sixnicorn.eateryzip.user.service;
 
 import javax.servlet.http.HttpServletRequest;
 

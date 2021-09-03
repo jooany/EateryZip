@@ -39,6 +39,70 @@
 	
 	
 	
+	<!-- 키워드 리뷰 수 세기 -->
+	
+	<!-- 키워드 전체 개수 -->
+	<select id="getReviewTotalCount" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE b_id=#{b_id};
+	</select>
+	<!-- 키워드별 개수 -->
+	<select id="getCountR1" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'가성비가 좋아요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR2" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'포장이 꼼꼼해요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR3" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'디저트가 맛있어요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR4" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'친절해요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR5" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'특별한 메뉴가 있어요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR6" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'커피가 맛있어요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR7" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'음료가 맛있어요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR8" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'대화하기 좋아요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR9" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'인테리어가 멋져요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR10" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'사진이 잘 나와요'||'%' AND b_id=#{b_id};
+	</select>
+	<select id="getCountR11" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'뷰가 좋아요'||'%' AND b_id=#{b_id};
+	</select>
 	
 
 </mapper>

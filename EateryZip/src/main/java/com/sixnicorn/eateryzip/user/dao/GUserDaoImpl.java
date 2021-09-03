@@ -35,12 +35,33 @@ public class GUserDaoImpl implements GUserDao {
 			}
 	}
 
+
 	// 혜림 ----------------------------------------------------------
 	// 일반회원 정보 수정하기
 	@Override
 	public void update(GUserDto dto) {
 		// TODO Auto-generated method stub
 		session.update("Guser.update", dto);
+	@Override
+	public String getId(GUserDto dto) {
+		
+		return session.selectOne("Guser.getId",dto);
+	}
+
+	@Override
+	public boolean getPwd(GUserDto dto) {
+		String pwd = session.selectOne("Guser.getPwd", dto);
+		if(pwd==null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+
+	@Override
+	public void changePwd(GUserDto dto) {
+		session.update("Guser.pwdChange",dto);
+
 	}
 
 }

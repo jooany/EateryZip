@@ -1,4 +1,4 @@
-package com.sixnicorn.eateryzip.eatery.controller;
+package com.sixnicorn.eateryzip.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sixnicorn.eateryzip.eatery.service.ReservationService;
 import com.sixnicorn.eateryzip.user.dto.ReservationDto;
+import com.sixnicorn.eateryzip.user.service.ReservationService;
 
 @Controller
 public class ReservationController {

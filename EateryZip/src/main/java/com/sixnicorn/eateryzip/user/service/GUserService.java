@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
@@ -18,8 +20,8 @@ public interface GUserService {
 	public void addUser(GUserDto dto);
 	//회원가입 ID check
 	public Map<String, Object> isExistId(String inputId);
-	
-	
+
+
 	
 	// 혜림 -----------------------------------------------------------------------
 	// 일반 회원정보
@@ -28,6 +30,13 @@ public interface GUserService {
 	public void updateGUser(GUserDto dto, HttpSession session);
 	// 일반회원 프로필이미지
 	public Map<String, Object> saveG_profileImage(HttpServletRequest request, MultipartFile image);
+
+	//일반 아이디 찾기
+	public void findId(GUserDto dto, ModelAndView mView);
+	//일반 패스워드 찾기
+	public boolean findPwd(GUserDto dto, ModelAndView mView);
+	//일반 패스워드 변경
+	public void updatePwd(GUserDto dto, ModelAndView mView , HttpSession session);
 
 
 }

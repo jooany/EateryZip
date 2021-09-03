@@ -99,11 +99,34 @@ public class BUserServiceImpl implements BUserService {
 	}
 	//비즈니스회원 아이디 찾기
 	@Override
-	public BUserDto findId(BUserDto dto) {
+	public void findId(BUserDto dto , ModelAndView mView) {
 		
-		BUserDto dto2 = dto;
+		String find_id = Bdao.getId(dto);
+		String b_name =dto.getB_name();
+		mView.addObject("find_id",find_id);
+		mView.addObject("b_name",b_name);
 		
-		return dto2 ;
+	}
+	
+	// 비즈니스 패스워드 유무 확인
+	@Override
+	public boolean findPwd(BUserDto dto, ModelAndView mView) {
+		return Bdao.getPwd(dto);
+	}
+	// 비즈니스 패스워드 변경
+	@Override
+	public void updatePwd(BUserDto dto, ModelAndView mView, HttpSession session) {
+		String b_id = dto.getB_id();
+		BUserDto resultDto = Bdao.getData(b_id);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedNewPwd = encoder.encode(dto.getB_newPwd());
+		dto.setB_newPwd(encodedNewPwd);
+		dto.setB_id(b_id);
+		Bdao.changePwd(dto);
+		session.removeAttribute("b_id");
+		
+		mView.addObject("b_id",b_id);
+		
 	}
 	
 	
