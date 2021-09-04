@@ -34,7 +34,7 @@ public class GUserDaoImpl implements GUserDao {
 					return true;
 			}
 	}
-	
+
 	@Override
 	public String getId(GUserDto dto) {
 		

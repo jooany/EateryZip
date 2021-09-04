@@ -33,5 +33,6 @@ public interface BStoreDao {
 	public List<ReviewDto> getReviewList(ReviewDto dto);
 	
 	public int getReviewCount(String b_id);
+	public int getKeyCount(ReviewDto dto);
 
 }

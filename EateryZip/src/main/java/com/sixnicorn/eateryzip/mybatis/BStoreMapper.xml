@@ -26,16 +26,27 @@
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
-		ORDER BY review_num ASC;
 	</select>
-	<!-- 리뷰 리스트 인기순 가져오기 -->
 	
+	<!-- 리뷰 리스트 인기순 가져오기 -->
+	<select id="getPopularReviewList">
+		SELECT a.*, b.id, (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=b.review_num) as GOOD_COUNT
+	      FROM review a, review_good b
+	      WHERE a.b_id=#{b_id} AND  a.review_num=b.review_num
+	</select>
 	
 	<!-- 리뷰 개수 세기 -->
 	<select id="getReviewCount" parameterType="String" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM review
 		WHERE b_id=#{b_id}
+	</select>
+	
+	<!-- 키워드별 개수 -->
+	<select id="getKeyCount" parameterType="ReviewDto" resultType="int">
+		SELECT #{key_word}, NVL(MAX(ROWNUM),0)
+		FROM review
+		WHERE keyword_review LIKE '%'||'#{key_word}'||'%' AND b_id=#{b_id};
 	</select>
 	
 	<!-- 주연&혜림 -->

@@ -57,7 +57,7 @@ button{
 .wrap_section{
 	clear: left;
 } 
-#menu_choice{
+#menu_select{
 	float: left;
 }
 </style>
@@ -72,33 +72,26 @@ button{
 		<span id="store_addr">${param.b_store_addr }</span>
 	</div>
 	<div>
-		<c:forEach var="tmp2" items="${sectionNumList }">
+		<c:forEach var="tmp2" items="${sectionNumList }" varStatus="statusOuter">
 			<div class="wrap_section" id="wrapSection${tmp2 }" data-section="${tmp2 }">
 				<c:set var="selectOnlyOne" value="0" />
-				<c:forEach var="tmp" items="${list }">
+				<c:forEach var="tmp" items="${list }" varStatus="status">
 					<c:if test="${tmp2 eq tmp.section_num and selectOnlyOne eq 0 }">
 						<c:set var="selectOnlyOne" value="1" />
 						<h2>${tmp.section_name }</h2>
 					</c:if>
 					<c:if test="${tmp2 eq tmp.section_num }">
-						<div id="menu_choice">
+						<div id="menu_select">
 							<img class="wrap_image" src="${pageContext.request.contextPath }${tmp.menu_image }"/>
 							<p id="menu-info">
-								<span>${tmp.menu_name }</span>
+								<span id="menu_name${statusOuter.index}${status.index }">${tmp.menu_name }</span>
 								<br />
-								<span>${tmp.menu_price }원</span>
+								<span id="menu_price${statusOuter.index}${status.index}">${tmp.menu_price}원</span>
 								<br />
-								<select id="menu_count_">
-									<option value="1">1개</option>
-	                         		<option value="2">2개</option>
-	                         		<option value="3">3개</option>
-	                         		<option value="4">4개</option>
-	                         		<option value="5">5개</option>
-	                         		<option value="6">6개</option>
-	                         		<option value="7">7개</option>
-	                         		<option value="8">8개</option>
-								</select>
-								<button type="button" id="row_" class="menuBtn" value="${tmp.menu_seq_num }">주문</button>	
+               					<button type="button" onclick="minus('${statusOuter.index}${status.index }')">-</button>
+               					<span class="count" data-num="${tmp.menu_seq_num }" id="amount${statusOuter.index}${status.index }">1</span>
+               					<button type="button" onclick="plus('${statusOuter.index}${status.index }')">+</button>  
+								<button type="button" class="menuBtn" onclick="addToCart('${statusOuter.index}${status.index}')">추가</button>	
 							</p>	
 						</div>	
 					</c:if>
@@ -107,40 +100,83 @@ button{
 		</c:forEach>
 	</div>
 </div>	
-<div id="add_menu">
+<div>
 	<form id="add_menu" name="add_menu" action="takeout_info_insertform.do">
-
+		<input type="hidden" name="b_store_name" id="b_store_name" value="${param.b_store_name }"/>
+		<input type="hidden" name="b_store_addr" id="b_store_addr" value="${param.b_store_addr }"/>
+		<input type="hidden" name="b_id" id="b_id" value="${param.b_id }"/>
 	</form>
 </div>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script>
+<script>  
 
-	//동적 생성 버튼에 id 값 부여
+	let preTakeOutNum=${takeOutMaxNum};
+
+	// 인원 체크
+	
+	 function plus(index){
+	 	var currentCount=parseInt($("#amount"+index).text());
+	 	currentCount++;
+	 	$("#amount"+index).text(currentCount);
+	 	
+	 };
+	 function minus(index){
+		 var currentCount=parseInt($("#amount"+index).text());
+		 currentCount--;
+		 $("#amount"+index).text(currentCount);
+	 };
+	
+	function addToCart(index){
+		var num=$("#amount"+index).attr("data-num");
+		var amount=$("#amount"+index).text();
+		var name=$("#menu_name"+index).text();
+		var price=$("#menu_price"+index).text();
+		var priceSplit=price.split('원');
+		for (var i in priceSplit){
+			
+			alert(num+" 번 상품 "+amount+" 개가 담겼습니다."+priceSplit[0]+" 가격입니다.");
+			
+			$("<input/>")
+			.attr("type","hidden")
+			.attr("name","menu_choice")
+			.val(num+"/"+amount)
+			.appendTo("#add_menu");
+			
+			$("<input/>")
+			.attr("type","hidden")
+			.attr("name","menu_price")
+			.val(amount*priceSplit[0])
+			.appendTo("#add_menu");
+			
+			
+			$("<p/>")
+			.attr("name", "basket")
+			.text(name+amount+amount*priceSplit[0])
+			.appendTo("#add_menu");
+			return;
+		}
+		
+		
+
+	}
+
+	/* //동적 생성 버튼에 id 값 부여
 	$("[id~=row_]").each(function(index) { // row_로 시작하는 id값을 가진 모든 것들을
 	    var idx = index + 1; // 1을 더해준다.
 	    $(this).attr('id', 'row_'+idx);
 	});
-	//동적 생성 버튼에 id 값 부여
-	$("[id~=menu_count_]").each(function(index) { // row_로 시작하는 id값을 가진 모든 것들을
-	    var idx = index + 1; // 1을 더해준다.
-	    $(this).attr('id', 'menu_count_'+idx);
-	});
-
-
-	$(document).ready(function(){
+	 */
+	
+	/* $(document).ready(function(){
 		$(".menuBtn").click(function(){
 			var id_check = $(this).attr("id");
 			var menu_num = $(this).val();
-			$("#add_menu").append(`<form>
-				<input type="hidden" value="`+menu_num+`/">
-				<p>
-					<span id="menu_name"></span>
-					<span id="menu_count"></span>
-				</p>
-			</form>`
+			
+			$("#add_menu").append(`
+				<input type="hidden" value="`+menu_num+`/`+amount+`">`
 			);	
 		});
-	});
+	}); */
 </script>
 </body>
 </html>
