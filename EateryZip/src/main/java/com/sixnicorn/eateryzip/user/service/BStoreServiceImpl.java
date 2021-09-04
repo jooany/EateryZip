@@ -132,6 +132,7 @@ public class BStoreServiceImpl implements BStoreService{
 		BStoreDao.insert(dto);
 	}
 
+	/*
 	@Override
 	public Map<String, Object> updateStore(BStoreDto dto) {
 		BStoreDao.update(dto);
@@ -152,7 +153,14 @@ public class BStoreServiceImpl implements BStoreService{
 		map.put("ex_keyword", dto.getEx_keyword());
 		return map;
 	}
-
+	*/
+	@Override
+	public void updateStore(BStoreDto dto) {
+		BStoreDao.update(dto);
+	}
+	
+	
+	
 	@Override
 	public void getStore(HttpServletRequest request) {
 		String b_id = (String)request.getSession().getAttribute("b_id");

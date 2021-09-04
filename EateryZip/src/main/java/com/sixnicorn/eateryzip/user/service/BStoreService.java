@@ -26,7 +26,7 @@ public interface BStoreService {
 	public void saveStore(BStoreDto dto);
 	
 	// 가게정보 수정하기
-	public Map<String, Object> updateStore(BStoreDto dto);
+	public void updateStore(BStoreDto dto);
 	
 	
 	

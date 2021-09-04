@@ -135,12 +135,12 @@
 					<fieldset>
 						<legend>서비스</legend>
 						<div class="checkbox-group required mb-3" id="service">
-							<div class="form-check">
-								<input class="required" type="checkbox" name="service" id="reserve" value="reserve" ${dto.service eq 'reserve' ? 'checked' : '' } >
-								<label class="form-check-label" for="reserve">예약</label>
-								<input class="required" type="checkbox"  name="service" id="takeout" value="takeout" ${dto.service eq 'takeout' ? 'checked' : '' }>
-								<label class="form-check-label" for="takeout">포장</label>
-							</div>
+							
+							<input class="required" type="checkbox" name="service" id="reserve" value="reserve" ${dto.service eq 'reserve' ? 'checked' : '' } >
+							<label class="form-check-label" for="reserve">예약</label>
+							<input class="required" type="checkbox"  name="service" id="takeout" value="takeout" ${dto.service eq 'takeout' ? 'checked' : '' }>
+							<label class="form-check-label" for="takeout">포장</label>
+						
 						</div>
 					</fieldset>
 				</div>
@@ -295,12 +295,10 @@
 					<fieldset>
 						<legend>서비스</legend>
 						<div class="checkbox-group required mb-3" id="service">
-							<div class="form-check">
-								<input class="required" type="checkbox" name="service" id="reserve" value="reserve">
-								<label class="form-check-label" for="reserve">예약</label>
-								<input class="required" type="checkbox"  name="service" id="takeout" value="takeout">
-								<label class="form-check-label" for="takeout">포장</label>
-							</div>
+							<input class="required" type="checkbox" name="service" id="reserve" value="reserve">
+							<label class="form-check-label" for="reserve">예약</label>
+							<input class="required" type="checkbox"  name="service" id="takeout" value="takeout">
+							<label class="form-check-label" for="takeout">포장</label>
 						</div>
 					</fieldset>
 				</div>
@@ -308,7 +306,7 @@
 				<div class="wrap_keyword">
 					<fieldset>
 						<legend>편의사항 / 기타</legend>
-						<div class="form-group mb-3" id="ex_keyword">
+						<div class="form-group mb-3" id="ex_keyword" style="width:547px;">
 							<input type="checkbox" class="btn-check" id="btn-check-outlined" name="ex_keyword" value="루프탑">
 							<label class="btn btn-outline-primary mb-3" for="btn-check-outlined" >루프탑</label>
 							
@@ -323,7 +321,7 @@
 		
 							<input type="checkbox" class="btn-check" id="btn-check-5-outlined" name="ex_keyword"  value="남/녀 화장실 구분">
 							<label class="btn btn-outline-primary mb-3" for="btn-check-5-outlined">남/녀 화장실 구분</label>
-							<br />
+							
 							<input type="checkbox" class="btn-check" id="btn-check-6-outlined" name="ex_keyword" value="키즈존">
 							<label class="btn btn-outline-primary" for="btn-check-6-outlined" >키즈존</label>
 							
@@ -352,7 +350,7 @@
 		</form>
 	</div>
 	<script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
-	
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		//프로필 이미지 링크를 클릭하면 
 		document.querySelector("#store_imglink").addEventListener("click", function(){
@@ -378,18 +376,54 @@
 				document.querySelector("input[name=b_img_f]").value=data.imagePath;
 			});
 		});
-		// 저장하기 및 수정하기 버튼을 누르면
-		$(document).ready(function(){ 
-			$("#submit").click(function(){
-				if($("#b_name").val().length==0){ $("#b_name").focus(); return false; }
-				if($("#b_Store_Address").val().length==0){ $("#b_Store_Address").focus(); return false; }
-				if($("#intro").val().length==0){ $("#intro").focus(); return false; }
-				if($("#b_img_f").val().length==0){ $("#b_img_f").focus(); return false; }
-				if($("#b_Store_phone").val().length==0){ $("#b_Store_phone").focus(); return false; }
-				if($("#b_open").val().length==0){ $("#b_open").focus(); return false; }
-				if($("#b_close").val().length==0){ $("#b_close").focus(); return false; }
-			});
-		});
+		
+		// 서비스 체크박스
+		let keyarr1=[];
+		let nowKey1='<c:out value="${dto.service}"/>'
+		console.log(nowKey1);
+		
+		if(nowKey1){
+			keyarr1=nowKey1.split(",");
+		}
+		console.log(keyarr1);
+		for(let i=0;i<4;i++){
+			let keyBtn1=$("#service").children().eq(i);
+
+			for(let item of keyarr1){
+				let prevWord;
+				if(keyBtn1.text()=="예약"){
+					prevWord="reserve";
+				}else{
+					prevWord="takeout"
+				}
+				if(prevWord==item){
+
+					$("#service").children().eq(i).prop("checked",true);
+				}
+			}
+		}
+		
+		// 키워드 체크박스
+		let keyarr=[];
+		let nowKey='<c:out value="${dto.ex_keyword}"/>'
+		console.log(nowKey);
+		
+		if(nowKey){
+			keyarr=nowKey.split(",");
+		}
+		console.log(keyarr);
+		for(let i=0;i<20;i++){
+			let keyBtn=$("#ex_keyword").children().eq(i);
+			for(let item of keyarr){
+				if(keyBtn.text()==item){
+					console.log(keyBtn.text());
+					$("#ex_keyword").children().eq(i).prop("checked",true);
+					keyBtn.css({"background-color":"blue",
+						"color":"white"});
+				}
+			}
+		}
+		
 	</script>
 </body>
 </html>
