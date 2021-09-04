@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sixnicorn.eateryzip.user.dao.MenuDao;
+import com.sixnicorn.eateryzip.user.dao.TakeOutDao;
 import com.sixnicorn.eateryzip.user.dto.MenuDto;
 
 @Service
@@ -16,10 +17,16 @@ public class TakeOutServiceImpl implements TakeOutService{
 	@Autowired
 	private MenuDao menuDao;
 	
+	@Autowired
+	private TakeOutDao takeOutDao;
+	
 	@Override
 	public void getList(HttpServletRequest request) {
 		//세션에 로그인 된 비즈니스 아이디를 읽어와서
 		String b_id=request.getParameter("b_id");
+		
+		//take_out_num의 최대값을 가져온다.
+		int takeOutMaxNum=takeOutDao.getTakeOutMaxNum();
 		
 		//저장된 카테고리 번호 리스트를 얻어낸다.
 		List<Integer> sectionNumList=menuDao.getSectionNumList(b_id);
@@ -30,6 +37,7 @@ public class TakeOutServiceImpl implements TakeOutService{
 		//view page 에서 필요한 값 request 에 담기
 		request.setAttribute("sectionNumList", sectionNumList);
 		request.setAttribute("list",list);
+		request.setAttribute("takeOutMaxNum", takeOutMaxNum);
 		
 		
 	}

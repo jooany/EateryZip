@@ -2,9 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="takeout">
 	<!-- 메뉴 번호로 카테고리 최대 번호 얻어오기 -->
-	<select id="getTakeOutMaxNum" parameterType="String" resultType="int">
+	<select id="getTakeOutMaxNum" resultType="int">
 		SELECT NVL(MAX(take_menu_num),0)
 		FROM takeout_menu
-		WHERE g_id=#{g_id}
 	</select>
 </mapper>

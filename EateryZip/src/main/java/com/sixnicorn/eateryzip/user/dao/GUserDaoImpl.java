@@ -41,7 +41,7 @@ public class GUserDaoImpl implements GUserDao {
 	public void update(GUserDto dto) {
 		// TODO Auto-generated method stub
 		session.update("Guser.update", dto);
-
+	}
 	@Override
 	public String getId(GUserDto dto) {
 		
