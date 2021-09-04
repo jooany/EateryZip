@@ -1,6 +1,7 @@
 package com.sixnicorn.eateryzip.user.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,18 @@ public class BStoreServiceImpl implements BStoreService{
 				request.setAttribute("endPageNum", endPageNum);
 				request.setAttribute("totalPageCount", totalPageCount);
 				request.setAttribute("totalRow", totalRow);
+				
+				// 키워드 총 개수
+				int reviewCount= BStoreDao.getReviewCount("b_id");
+				//키워드 개수 순서대로 리스트 가져오기
+				String[] stringList = {"가성비가 좋아요","포장이 꼼꼼해요","디저트가 맛있어요","친절해요","특별한 메뉴가 있어요","커피가 맛있어요","음료가 맛있어요","대화하기 좋아요","인테리어가 멋져요","사진이 잘 나와요","뷰가 좋아요"};
+				
+				List<ReviewDto> keyList = new ArrayList<ReviewDto>();
+				for(int i=0;i<stringList.length;i++) {
+					ReviewDto rDto=new ReviewDto();
+					rDto.setB_id(b_id);
+					rDto.setKey_word(stringList[i]);
+				}
 	}
 	
 	// 혜림

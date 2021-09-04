@@ -84,11 +84,17 @@ public class BStoreDaoImpl implements BStoreDao {
 	public List<ReviewDto> getReviewList(ReviewDto dto){
 		return session.selectList("BStore.getReviewList",dto);
 	}
-	//음식점 리뷰 개수 세기
+	//리뷰 개수 세기
 	@Override
 	public int getReviewCount(String b_id){
 
 		return session.selectOne("BStore.getReviewCount",b_id);
+	}
+	//리뷰 키워드별 개수 세기 
+	@Override
+	public int getKeyCount(ReviewDto dto) {
+		
+		return session.selectOne("BStore.getKeyCount",dto);
 	}
 }
 
