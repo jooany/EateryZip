@@ -74,6 +74,7 @@
 		SET b_name=#{b_name}, b_Store_Address=#{b_Store_Address}, b_kind=#{b_kind},intro=#{intro},b_img_f=#{b_img_f},b_Store_phone=#{b_Store_phone},b_Store_date=#{b_Store_date},
 			b_open=#{b_open},b_close=#{b_close},b_holiday=#{b_holiday,jdbcType=VARCHAR},notice=#{notice,jdbcType=VARCHAR},service=#{service},ex_keyword=#{ex_keyword}
 		WHERE b_id=#{b_id}
+		
 	</update>
   
 	<!-- 나현님 부분 -->

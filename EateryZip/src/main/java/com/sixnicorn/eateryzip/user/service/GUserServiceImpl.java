@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sixnicorn.eateryzip.user.dao.GUserDao;
-import com.sixnicorn.eateryzip.user.dto.BUserDto;
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
 
 @Service
@@ -99,6 +98,36 @@ public class GUserServiceImpl implements GUserService {
 		return map;
 	}
 	
+	@Override
+	public void findId(GUserDto dto, ModelAndView mView) {
+		
+		String find_id = Gdao.getId(dto);
+		String g_name =dto.getG_name();
+		mView.addObject("find_id",find_id);
+		mView.addObject("g_name",g_name);
+		
+	}
+
+	@Override
+	public boolean findPwd(GUserDto dto, ModelAndView mView) {
+		return Gdao.getPwd(dto);
+	}
+
+	@Override
+	public void updatePwd(GUserDto dto, ModelAndView mView, HttpSession session) {
+		String g_id = dto.getG_id();
+		GUserDto resultDto = Gdao.getData(g_id);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedNewPwd = encoder.encode(dto.getG_newPwd());
+		dto.setG_newPwd(encodedNewPwd);
+		dto.setG_id(g_id);
+		Gdao.changePwd(dto);
+		session.removeAttribute("g_id");
+		
+		mView.addObject("g_id",g_id);
+		
+	}
+	
 	
 	
 	// 혜림 ---------------------------------------------------------------------
@@ -152,35 +181,7 @@ public class GUserServiceImpl implements GUserService {
 		return map;
 	}
 
-	@Override
-	public void findId(GUserDto dto, ModelAndView mView) {
-		
-		String find_id = Gdao.getId(dto);
-		String g_name =dto.getG_name();
-		mView.addObject("find_id",find_id);
-		mView.addObject("g_name",g_name);
-		
-	}
-
-	@Override
-	public boolean findPwd(GUserDto dto, ModelAndView mView) {
-		return Gdao.getPwd(dto);
-	}
-
-	@Override
-	public void updatePwd(GUserDto dto, ModelAndView mView, HttpSession session) {
-		String g_id = dto.getG_id();
-		GUserDto resultDto = Gdao.getData(g_id);
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String encodedNewPwd = encoder.encode(dto.getG_newPwd());
-		dto.setG_newPwd(encodedNewPwd);
-		dto.setG_id(g_id);
-		Gdao.changePwd(dto);
-		session.removeAttribute("g_id");
-		
-		mView.addObject("g_id",g_id);
-		
-	}
+	
 
 }
 
