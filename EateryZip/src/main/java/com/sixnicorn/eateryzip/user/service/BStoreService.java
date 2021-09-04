@@ -36,4 +36,6 @@ public interface BStoreService {
 	
 	//주연
 	public void getDetailData(HttpServletRequest request, String b_id);
+	public Map<String, Object> doScrap(HttpServletRequest request, String b_id);
+	public Map<String, Object> notScrap(HttpServletRequest request, String b_id);
 }
