@@ -37,7 +37,7 @@
 			<c:when test="${not empty dto }">
 			<form action="${pageContext.request.contextPath}/store/store_update.do" method="post" id="StoreForm">
 				<input type="hidden" name="b_img_f" value="${ empty dto.b_img_f ? '' : dto.b_img_f }"/>
-				<%-- 상호명 입력란 --%>
+				<%-- 상호명 입력란 --%> 	 		
 				<div class="wrap_name">
 					<label for="b_name" class="form-label">상호명</label>
 					<div class="box mb-3">
@@ -74,20 +74,9 @@
 							<input class="form-control" type="text" name="intro" id="intro" value="${dto.intro}">
 						</div>
 				</div>
-				<%-- 가게 대표이미지 --%>
-				<div class="wrap_img">
-					<label class="form-label" for="b_img_f">대표이미지</label>
-					<a id="store_imglink" href="javascript: ;">
-						<c:choose>
-							<c:when test="${empty dto.b_img_f }">
-								<i id="b_img_f" class="far fa-image"></i>
-							</c:when>
-							<c:otherwise>
-								<img id="b_img_f" class="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f}"/>
-							</c:otherwise>
-						</c:choose>
-					</a>
-				</div>
+				<c:forEach var="imgTmp" items="${imgList }">
+					
+				</c:forEach>
 				<%--가게 연락처 숫자만 추출하려면 정규표현식 사용 /\d/ /[0-9]/--%>
 				<div class="wrap_phone">
 					<label for="b_Store_phone" class="form-label">연락처</label>
@@ -95,12 +84,34 @@
 				</div>
 				<%-- 가게 영업시간 (영업일 / 오픈시간 / 클로즈시간 / 휴일 )--%>
 				<div class="wrap_opneClose">
-					<label for="b_Store_date" class="form-label">영업일</label>
-					<select class="form-select" name="b_Store_date" id="b_Store_date">
-						<option value="매일" ${dto.b_Store_date eq '매일' ? 'selected' : '' }>매일</option>
-						<option value="주말" ${dto.b_Store_date eq '주말' ? 'selected' : '' }>주말</option>
-						<option value="평일" ${dto.b_Store_date eq '평일' ? 'selected' : '' }>평일</option>
-					</select>
+					<%-- 영업일 선택하기 --%>
+					<div class="b_Store_date">
+						<fieldset>
+							<legend>영업일</legend>
+							<div class="form-group mb-3" id="b_Store_date" style="width:547px;">
+								<input type="checkbox" class="btn-check" id="btn-check-outlined_d" name="b_Store_date" value="월" ${dto.b_Store_date eq '월' ? 'checked' : '' }>
+								<label class="btn btn-outline-primary" for="btn-check-outlined_d" >월</label>
+								
+								<input type="checkbox" class="btn-check" id="btn-check-2-outlined_d" name="b_Store_date" value="화" ${dto.b_Store_date eq '화' ? 'checked' : '' }>
+								<label class="btn btn-outline-primary" for="btn-check-2-outlined_d">화</label>
+			
+								<input type="checkbox" class="btn-check" id="btn-check-3-outlined_d" name="b_Store_date" value="수" ${dto.b_Store_date eq '수' ? 'checked' : '' }>
+								<label class="btn btn-outline-primary" for="btn-check-3-outlined_d">수</label>
+			
+								<input type="checkbox" class="btn-check" id="btn-check-4-outlined_d" name="b_Store_date" value="목" ${dto.b_Store_date eq '목' ? 'checked' : '' }>
+								<label class="btn btn-outline-primary" for="btn-check-4-outlined_d" >목</label>
+			
+								<input type="checkbox" class="btn-check" id="btn-check-5-outlined_d" name="b_Store_date"  value="금" ${dto.b_Store_date eq '금' ? 'checked' : '' }>
+								<label class="btn btn-outline-primary" for="btn-check-5-outlined_d">금</label>
+								
+								<input type="checkbox" class="btn-check" id="btn-check-6-outlined_d" name="b_Store_date" value="토" ${dto.b_Store_date eq '토' ? 'checked' : '' }>
+								<label class="btn btn-outline-primary" for="btn-check-6-outlined_d" >토</label>
+								
+								<input type="checkbox" class="btn-check" id="btn-check-7-outlined_d" name="b_Store_date" value="일" ${dto.b_Store_date eq '일' ? 'checked' : '' }>
+								<label class="btn btn-outline-primary" for="btn-check-7-outlined_d">일</label>
+							</div>
+						</fieldset>
+					</div>
 					<%-- 스크립트 내부에서의 value값을 가져오기 --%>
 					<%-- 오픈시간 --%>
 					<div>
@@ -112,17 +123,6 @@
 						<label for="b_close" class="form-label">Close</label>
 						<input type="time" id="b_close" name="b_close" min="07:00" max="23:00" step="1800" value="${dto.b_close }">
 					</div>
-					<label for="b_holiday" class="form-label">휴무일</label>
-					<select class="form-select" name="b_holiday" id="b_holiday" >
-						<option value="">휴일</option>
-						<option value="월요일" ${dto.b_holiday eq '월요일' ? 'selected' : '' }>월요일</option>
-						<option value="화요일" ${dto.b_holiday eq '화요일' ? 'selected' : '' }>화요일</option>
-						<option value="수요일" ${dto.b_holiday eq '수요일' ? 'selected' : '' }>수요일</option>
-						<option value="목요일" ${dto.b_holiday eq '목요일' ? 'selected' : '' }>목요일</option>
-						<option value="금요일" ${dto.b_holiday eq '금요일' ? 'selected' : '' }>금요일</option>
-						<option value="토요일" ${dto.b_holiday eq '토요일' ? 'selected' : '' }>토요일</option>
-						<option value="일요일" ${dto.b_holiday eq '일요일' ? 'selected' : '' }>일요일</option>
-					</select>
 				</div>
 				<%-- 공지사항 필수아님 --%>
 				<div class="wrap_notice">
@@ -145,7 +145,7 @@
 					</fieldset>
 				</div>
 				<%-- 편의사항 키워드 1개이상 10개이하 data에 넣기 선택안되어있다면 required --%>
-				<div class="">
+				<div class="wrap_keyword">
 					<fieldset>
 						<legend>편의사항 / 기타</legend>
 						<div class="form-group mb-3" id="ex_keyword">
@@ -182,6 +182,10 @@
 					</fieldset>
 					
 				</div>
+				<%-- checkKeyword입력 --%>
+				<div class="checkKeyword">
+					<input type="text" class="form-control" id="checkKeyword" name="checkKeyword" value="${dto.checkKeyword }" />
+				</div>
 				<button id="resetBtn" class="btn btn-light" type="reset">취소</button>
 				<button id="saveBtn" class="btn btn-primary" type="submit" onclick="submit()">수정하기</button>
 			</form>
@@ -189,8 +193,7 @@
 			</c:when>
 <%-- dto에 전송된 saveStore가 없으면 아래 내역이 보이게 --%>
 			<c:otherwise>
-				<form action="${pageContext.request.contextPath}/store/store_insertform.do" method="post" id="StoreForm">
-				<input type="hidden" name="b_img_f" value="${ empty dto.b_img_f ? '' : dto.b_img_f }"/>
+				<form action="${pageContext.request.contextPath}/store/store_insert.do" method="post" id="StoreForm">
 				<%-- 상호명 입력란 --%>
 				<div class="wrap_name">
 					<label for="b_name" class="form-label">상호명</label>
@@ -232,17 +235,19 @@
 				<%-- 가게 대표이미지 --%>
 				<div class="wrap_img">
 					<label class="form-label" for="b_img_f">대표이미지</label>
-					<a id="store_imglink" href="javascript: ;">
-						<c:choose>
-							<c:when test="${empty dto.b_img_f }">
-								<i id="b_img_f" class="far fa-image"></i>
-								<div class="invalid-feedback">이미지를 넣어주세요.</div>
-							</c:when>
-							<c:otherwise>
-								<img id="b_img_f" class="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f}"/>
-							</c:otherwise>
-						</c:choose>
-					</a>
+					<button id="addItemBtn" type="button">+</button>
+						<table id="example" border="1px">
+						        <tr>
+						            <th>옵션명</th>
+						            <th>항목명</th>
+						            
+						        </tr>
+						        <tr class="item1">
+						            <td><input type="file" name="store_img" /></td>
+						            <td><button class="delBtn" type="button">삭제</button></td>
+						        </tr>
+						        
+						</table>
 				</div>
 				<%--가게 연락처 숫자만 추출하려면 정규표현식 사용 /\d/ /[0-9]/--%>
 				<div class="wrap_phone">
@@ -252,12 +257,34 @@
 				</div>
 				<%-- 가게 영업시간 (영업일 / 오픈시간 / 클로즈시간 / 휴일 )--%>
 				<div class="wrap_opneClose">
-					<label for="b_Store_date" class="form-label">영업일</label>
-					<select class="form-select" name="b_Store_date" id="b_Store_date">
-						<option value="매일">매일</option>
-						<option value="주말">주말</option>
-						<option value="평일">평일</option>
-					</select>
+					<%-- 영업일 선택하기 --%>
+					<div class="b_Store_date">
+						<fieldset>
+							<legend>영업일</legend>
+							<div class="form-group mb-3" id="b_Store_date" style="width:547px;">
+								<input type="checkbox" class="btn-check" id="btn-check-outlined_d" name="b_Store_date" value="월">
+								<label class="btn btn-outline-primary" for="btn-check-outlined_d" >월</label>
+								
+								<input type="checkbox" class="btn-check" id="btn-check-2-outlined_d" name="b_Store_date" value="화">
+								<label class="btn btn-outline-primary" for="btn-check-2-outlined_d">화</label>
+			
+								<input type="checkbox" class="btn-check" id="btn-check-3-outlined_d" name="b_Store_date" value="수">
+								<label class="btn btn-outline-primary" for="btn-check-3-outlined_d">수</label>
+			
+								<input type="checkbox" class="btn-check" id="btn-check-4-outlined_d" name="b_Store_date" value="목">
+								<label class="btn btn-outline-primary" for="btn-check-4-outlined_d" >목</label>
+			
+								<input type="checkbox" class="btn-check" id="btn-check-5-outlined_d" name="b_Store_date"  value="금">
+								<label class="btn btn-outline-primary" for="btn-check-5-outlined_d">금</label>
+								
+								<input type="checkbox" class="btn-check" id="btn-check-6-outlined_d" name="b_Store_date" value="토">
+								<label class="btn btn-outline-primary" for="btn-check-6-outlined_d" >토</label>
+								
+								<input type="checkbox" class="btn-check" id="btn-check-7-outlined_d" name="b_Store_date" value="일">
+								<label class="btn btn-outline-primary" for="btn-check-7-outlined_d">일</label>
+							</div>
+						</fieldset>
+					</div>
 					<%-- 스크립트 내부에서의 value값을 가져오기 --%>
 					<%-- 오픈시간 --%>
 					<div>
@@ -271,17 +298,6 @@
 						<input type="time" id="b_close" name="b_close" min="07:00" max="23:00" step="1800">
 						<div class="invalid-feedback">00분과 30분 중에 선택해주세요</div>
 					</div>
-					<label for="b_holiday" class="form-label">휴무일</label>
-					<select class="form-select" name="b_holiday" id="b_holiday" >
-						<option value="">휴일</option>
-						<option value="월요일">월요일</option>
-						<option value="화요일">화요일</option>
-						<option value="수요일">수요일</option>
-						<option value="목요일">목요일</option>
-						<option value="금요일">금요일</option>
-						<option value="토요일">토요일</option>
-						<option value="일요일">일요일</option>
-					</select>
 				</div>
 				<%-- 공지사항 필수아님 --%>
 				<div class="wrap_notice">
@@ -339,9 +355,15 @@
 						</div>
 					</fieldset>
 				</div>
+				<%-- checkKeyword입력 --%>
+				<div class="checkKeyword">
+					<input type="text" class="form-control" id="checkKeyword" name="checkKeyword" />
+				</div>
 				<button id="resetBtn" class="btn btn-light" type="reset">취소</button>
 				<button id="saveBtn" class="btn btn-primary" type="submit" onclick="submit()">저장하기</button>
 			</form>
+			
+			
 			
 			</c:otherwise>
 		</c:choose>
@@ -353,29 +375,50 @@
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		//프로필 이미지 링크를 클릭하면 
-		document.querySelector("#store_imglink").addEventListener("click", function(){
+		//document.querySelector("#store_imglink").addEventListener("click", function(){
 			// input type="file" 을 강제 클릭 시킨다. 
-			document.querySelector("#image").click();
-		});
+		//	document.querySelector("#image").click();
+	//	});
 		//이미지를 선택했을때 실행할 함수 등록 
-		document.querySelector("#image").addEventListener("change", function(){
+		//document.querySelector("#image").addEventListener("change", function(){
 			
-			let form=document.querySelector("#storeimageForm");
+		//	let form=document.querySelector("#storeimageForm");
 			
 			// gura_util.js 에 정의된 함수를 호출하면서 ajax 전송할 폼의 참조값을 전달하면 된다. 
-			ajaxFormPromise(form)
-			.then(function(response){
-				return response.json();
-			})
-			.then(function(data){
+	//		ajaxFormPromise(form)
+	//		.then(function(response){
+	//			return response.json();
+	//		})
+	//		.then(function(data){
 				// data 는 {imagePath:"/upload/xxx.jpg"} 형식의 object 이다.
-				console.log(data);
-				let img=`<img id="b_img_f" src="${pageContext.request.contextPath}\${data.imagePath}"/>`;
-				document.querySelector("#store_imglink").innerHTML=img;
+	//			console.log(data);
+	//			let img=`<img id="b_img_f" src="${pageContext.request.contextPath}\${data.imagePath}"/>`;
+	//			document.querySelector("#store_imglink").innerHTML=img;
 				// input name="profile" 요소의 value 값으로 이미지 경로 넣어주기
-				document.querySelector("input[name=b_img_f]").value=data.imagePath;
-			});
-		});
+	//			document.querySelector("input[name=b_img_f]").value=data.imagePath;
+	//		});
+	//	});
+		
+		// 영업일 체크박스
+		let keyarr2=[];
+		let nowKey2='<c:out value="${dto.b_Store_date}"/>'
+		console.log(nowKey2);
+		
+		if(nowKey2){
+			keyarr2=nowKey2.split(",");
+		}
+		console.log(keyarr2);
+		for(let i=0;i<13;i++){
+			let keyBtn2=$("#b_Store_date").children().eq(i);
+			for(let item of keyarr2){
+				if(keyBtn2.text()==item){
+					console.log(keyBtn2.text());
+					$("#b_Store_date").children().eq(i).prop("checked",true);
+					keyBtn2.css({"background-color":"blue",
+						"color":"white"});
+				}
+			}
+		}
 		
 		// 서비스 체크박스
 		let keyarr1=[];
@@ -423,6 +466,47 @@
 				}
 			}
 		}
+		
+		
+		// 이미지 추가 및 삭제
+		$(document).ready(function(){
+            // 옵션추가 버튼 클릭시
+            $("#addItemBtn").click(function(){
+                // item 의 최대번호 구하기
+                var lastItemNo = $("#example tr:last").attr("class").replace("item", "");
+ 
+                var newitem = $("#example tr:eq(1)").clone();
+                newitem.removeClass();
+                newitem.find("td:eq(0)").attr("rowspan", "1");
+                newitem.addClass("item"+(parseInt(lastItemNo)+1));
+ 
+                $("#example").append(newitem);
+            });
+
+            // 삭제버튼 클릭시
+            $(".delBtn").live("click", function(){
+                var clickedRow = $(this).parent().parent();
+                var cls = clickedRow.attr("class");
+                 
+                // 각 항목의 첫번째 row를 삭제한 경우 다음 row에 td 하나를 추가해 준다.
+                if( clickedRow.find("td:eq(0)").attr("rowspan") ){
+                    if( clickedRow.next().hasClass(cls) ){
+                        clickedRow.next().prepend(clickedRow.find("td:eq(0)"));
+                    }
+                }
+ 
+                clickedRow.remove();
+ 
+                // rowspan 조정
+                resizeRowspan(cls);
+            });
+ 
+            // cls : rowspan 을 조정할 class ex) item1, item2, ...
+            function resizeRowspan(cls){
+                var rowspan = $("."+cls).length;
+                $("."+cls+":first td:eq(0)").attr("rowspan", rowspan);
+            }
+        });
 		
 	</script>
 </body>

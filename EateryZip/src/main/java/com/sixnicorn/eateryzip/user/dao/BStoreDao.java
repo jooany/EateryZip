@@ -34,5 +34,6 @@ public interface BStoreDao {
 	
 	public int getReviewCount(String b_id);
 	public int getKeyCount(ReviewDto dto);
+	public void insertStoreImg(StoreImgDto dto);
 
 }
