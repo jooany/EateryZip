@@ -119,8 +119,78 @@ button{
 #storeInfo #activeTime span:nth-child(2){
 	font-weight:600;
 }
+#detailWrap{
+	line-height:60px;
+	height:60px;
+	width:750px;
+	border-bottom:1px solid rgb(224, 224, 224);
+	font-size:14px;
+}
+
+#content{
+	display:flex;
+	justify-content:space-between;
+	font-size:14px;
+}
+#leftContent{
+	width:750px;
+}
+/* 메뉴 */
+#menuHeader{
+	margin-top:25px;
+	height:30px;
+	display:flex;
+	align-items:flex-end;
+}
+#menuHeader>span{
+	font-size:22px;
+	font-weight:600;
+}
+#menuHeader>a{
+}
+#slideBtnsWrap2{
+	width:750px;
+	position:absolute;
+	display:flex;
+	justify-content:space-between;
+	margin-top:65px;
+}
+#slideBtnsWrap2 button{
+	font-size:20px;
+	color:rgb(240,240,240);
+}
+#menuList{
+	display:flex;
+	justify-content:space-between;
+	margin-top:15px;
+	overflow:hidden;
+}
+#menuItem{
+	margin-right:10px;
+}
+#menuItem img{
+	width:180px;
+	height:150px;
+}
+#menuItem>p:nth-child(2){
+	margin-left:2px;
+	margin-top:10px;
+	font-size:14px;
+}
+#menuItem>p:nth-child(3){
+	margin-left:2px;
+	margin-top:6px;
+	font-size:13px;
+	color:rgb(253, 83, 0);
+	font-weight:600;
+}
 
 
+#rightContent{
+	width: 300px;
+	height:300px;
+	background-color:gray;
+}
 
 </style>
 </head>
@@ -175,12 +245,70 @@ button{
 			</div>
 		</div>		
 	</div>
+</div>
+<!-- 배너 끝 -->
+
+<div class="inner">
+	<div id="detailWrap">
+		<span>상세보기 |</span> <a href="#">리뷰(${reviewCount})</a>
+	</div>
+</div>
+
+<div id="content" class="inner">
+	<div id="leftContent">
+		<div id="menuWrap">
+			<div id="menuHeader" style="display:flex; justify-content:space-between;">
+				<span>메뉴</span>
+				<a href="#">전체 메뉴 보기</a>
+			</div>
+			<div id="menuListWrap">
+				<div id="slideBtnsWrap2">
+					<button id="leftBtn2">
+						<i class="fas fa-chevron-circle-left"></i>
+					</button>
+					<button id="rightBtn2">
+						<i class="fas fa-chevron-circle-right"></i>
+					</button>
+				</div>
+				<ul id="menuList">
+					<c:forEach var="menuItem" items="${menuList }">
+					<li id="menuItem">
+						<img src="${menuItem.menu_image }" alt="" />
+						<p>${menuItem.menu_name }</p>
+						<p>${menuItem.menu_price }원</p>
+					</li>
+					</c:forEach>
+				</ul>
+			</div>
+			<div id="timePlaceWrap">
+				<p id="timePlaceHeader">위치 및 시간</p>
+				<div id="timePlaceContent">
+					<div id="map">
+					 지도 들어갈 부분 
+					</div>
+					<div id="time">
+						<i class="far fa-clock"></i>
+					</div>
+				</div>
+			</div>
+		</div>
 	
+	</div>
+	<div id="rightContent">
+		<div id="bulletin">
+			<span>알림</span>
+			<span>${dto.notice }</span>
+		</div>
+		
+		<div></div>
+	</div>
 </div>
 
 
-
-
+<!-- 키워드 데이터 뽑아오기 위한 코드 -->
+<c:forEach var="test" items="${keyList }">
+<div id="test" style="display:none;">${test.good_count }/${test.key_word}</div>
+</c:forEach>
 <!-- 테스트장소 -->
 <h1>메뉴 리스트</h1>
 <c:forEach var="tmp2" items="${menuList }">
@@ -223,12 +351,6 @@ button{
 	</ul>
 </div>
 <div style="clear:both;"></div>
-
-
-<c:forEach var="test" items="${keyList }">
-<div id="test" style="display:none;">${test.good_count }/${test.key_word}</div>
-</c:forEach>
-
 
 
 
