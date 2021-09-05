@@ -280,8 +280,6 @@ public class BStoreServiceImpl implements BStoreService{
 	
 	
 	// 나현
-	
-	
 	@Override
 	public void getList(HttpServletRequest request) {
 		//한 페이지에 몇개씩 표시할 것인지
