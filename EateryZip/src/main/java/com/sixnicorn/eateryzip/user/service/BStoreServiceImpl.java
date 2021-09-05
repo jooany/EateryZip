@@ -1,6 +1,7 @@
 package com.sixnicorn.eateryzip.user.service;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -201,55 +202,78 @@ public class BStoreServiceImpl implements BStoreService{
 	}
 
 	@Override
-	public void saveStore(BStoreDto dto) {
-
+	public void saveStore(BStoreDto dto,HttpServletRequest request) {
+		System.out.println("-----------1----------");
+		System.out.println("dto:" +dto);
+		System.out.println("----------------------");
+		
 		BStoreDao.insert(dto);
+		
+		String b_id=(String)request.getSession().getAttribute("b_id");
+
+		String[] imgs = request.getParameterValues("store_img");
+
+		for(String tmp: imgs){
+		    StoreImgDto imgDto = new StoreImgDto();
+		    imgDto.setB_id(b_id);
+		    imgDto.setStore_img(tmp);
+		    BStoreDao.insertStoreImg(imgDto);
+		   
+
+		}
 	}
 
-	/*
+
 	@Override
-	public Map<String, Object> updateStore(BStoreDto dto) {
+	public void updateStore(BStoreDto dto) {
+		System.out.println("-----------2-----------");
+		System.out.println("dto:" +dto);
+		System.out.println("----------------------");
 		BStoreDao.update(dto);
 		
-		// json 문자열을 출력하기 위한 Map 객체 생성하고 정보 담기 
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("b_name", dto.getB_name());
-		map.put("b_Store_Address", dto.getB_Store_Address());
-		map.put("b_kind", dto.getB_kind());
-		map.put("intro", dto.getIntro());
-		map.put("b_Store_phone", dto.getB_Store_phone());
-		map.put("b_Store_date", dto.getB_Store_date());
-		map.put("b_open", dto.getB_open());
-		map.put("b_close", dto.getB_close());
-		map.put("b_holiday", dto.getB_holiday());
-		map.put("notice", dto.getNotice());
-		map.put("service", dto.getService());
-		map.put("ex_keyword", dto.getEx_keyword());
-		return map;
+		
+		
+	}
+	
+	/*
+	@Override
+	public void getStore(HttpServletRequest request) {
+		
+		String b_id = (String)request.getSession().getAttribute("b_id");
+		BStoreDto dto=BStoreDao.getStore(b_id);
+		System.out.println("-----------2-----------");
+		System.out.println("request:" +request);
+		System.out.println("dto:" +dto);
+		System.out.println("----------------------");
+		request.setAttribute("dto", dto);
 	}
 	*/
 	@Override
-	public void updateStore(BStoreDto dto) {
-		BStoreDao.update(dto);
-	}
-	
-	
-	
-	@Override
-	public void getStore(HttpServletRequest request) {
-		String b_id = (String)request.getSession().getAttribute("b_id");
-		
-		BStoreDto dto=BStoreDao.getStore(b_id);
-		
-		request.setAttribute("dto", dto);
-	}
-
-	@Override
-	public void getStore(HttpSession session, ModelAndView mView) {
+	public void getStore(HttpSession session, ModelAndView mView, HttpServletRequest request) {
 		String b_id = (String)session.getAttribute("b_id");
 		BStoreDto dto = BStoreDao.getStore(b_id);
+		System.out.println("-----------3-----------");
+		System.out.println("session:" +session);
+		System.out.println("dto:" +dto);
+		System.out.println("mView:" +mView);
+		System.out.println("----------------------");
 		
 		mView.addObject("dto",dto);
+		
+		List<StoreImgDto> imgList=BStoreDao.getStoreImgList(b_id);
+		request.setAttribute("imgList", imgList);
+	}
+	
+	
+	@Override
+	public void getStore(String b_id, ModelAndView mView) {
+		//음식점 정보 얻어오기
+		BStoreDto dto=BStoreDao.getStore(b_id);
+		mView.addObject("dto", dto);
+		System.out.println("-----------3-2-----------");
+		System.out.println("dto:" +dto);
+		System.out.println("mView:" +mView);
+		System.out.println("----------------------");
 	}
 	
 	
@@ -279,12 +303,37 @@ public class BStoreServiceImpl implements BStoreService{
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
 		//보여줄 페이지의 끝 ROWNUM
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
-
+		// 혜림 시작 -------------------------------------------------------------
+		/*
+		[ 검색 키워드에 관련된 처리 ]
+		-검색 키워드가 파라미터로 넘어올수도 있고 안넘어 올수도 있다.		
+		*/
+		String keyword=request.getParameter("keyword");
+		
+		//만일 키워드가 넘어오지 않는다면 
+		if(keyword==null){
+			//키워드와 검색 조건에 빈 문자열을 넣어준다. 
+			//클라이언트 웹브라우저에 출력할때 "null" 을 출력되지 않게 하기 위해서  
+			keyword=""; 
+		}
+	
+		//특수기호를 인코딩한 키워드를 미리 준비한다. 
+		//String encodedK=URLEncoder.encode(keyword);
+		// 혜림 끝 -------------------------------------------------------------
 		//BStoreDto 객체에 startRowNum 과 endRowNum 을 담는다.
 		BStoreDto dto=new BStoreDto();
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
-
+		// 혜림 시작 -------------------------------------------------------------
+		//만일 검색 키워드가 넘어온다면 
+		if(!keyword.equals("")){
+			dto.setEncodedK(keyword);
+			System.out.println(dto.getStartRowNum());
+			System.out.println(dto.getEncodedK());
+		}
+			// 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다.
+		// 혜림 끝 -------------------------------------------------------------
+		
 		//글 목록 얻어오기 
 		List<BStoreDto> list=BStoreDao.getList(dto);
 		//전체글의 갯수
@@ -309,6 +358,14 @@ public class BStoreServiceImpl implements BStoreService{
 		request.setAttribute("totalPageCount", totalPageCount);
 		request.setAttribute("list", list);
 		request.setAttribute("totalRow", totalRow);
+		// 혜림
+		request.setAttribute("keyword", keyword);
+		
+	
 	}
+
+	
+
+	
 
 }

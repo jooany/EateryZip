@@ -41,6 +41,11 @@ public class BStoreDaoImpl implements BStoreDao {
 		session.update("BStore.update", dto);
 	}
 	
+	@Override
+	public void insertStoreImg(StoreImgDto dto) {
+		session.insert("BStore.insertStoreImg",dto);
+	}
+	
 	//혜림&주연
 	@Override
 	public BStoreDto getStore(String b_id) {

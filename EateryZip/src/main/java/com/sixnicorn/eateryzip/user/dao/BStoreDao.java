@@ -34,6 +34,8 @@ public interface BStoreDao {
 	public List<ReviewDto> getReviewList(ReviewDto dto);
 	
 	public int getReviewCount(String b_id);
+	public int getKeyCount(ReviewDto dto);
+	public void insertStoreImg(StoreImgDto dto);
 	public ReviewDto getKeyCount(ReviewDto dto);
 	public void doScrap(EateryScrapDto dto);
 	public void notScrap(EateryScrapDto dto);
