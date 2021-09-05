@@ -17,11 +17,14 @@ public class ReviewDto {
 	private int endRowNum;
 	private String key_word;
 	
+	private String id;
+	private int good_count;
+	
 	public ReviewDto() {}
 
 	public ReviewDto(int review_num, String b_id, String writer, String review_image, String review_content,
 			String regdate, String keyword_review, String review_kind, int buy_num, int takeout_num,
-			int reservation_num, int startRowNum, int endRowNum,String key_word) {
+			int reservation_num, int startRowNum, int endRowNum, String key_word, String id, int good_count) {
 		super();
 		this.review_num = review_num;
 		this.b_id = b_id;
@@ -36,7 +39,9 @@ public class ReviewDto {
 		this.reservation_num = reservation_num;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
-		this.key_word=key_word;
+		this.key_word = key_word;
+		this.id = id;
+		this.good_count = good_count;
 	}
 
 	public int getReview_num() {
@@ -142,6 +147,7 @@ public class ReviewDto {
 	public void setEndRowNum(int endRowNum) {
 		this.endRowNum = endRowNum;
 	}
+
 	public String getKey_word() {
 		return key_word;
 	}
@@ -149,6 +155,23 @@ public class ReviewDto {
 	public void setKey_word(String key_word) {
 		this.key_word = key_word;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public int getGood_count() {
+		return good_count;
+	}
+
+	public void setGood_count(int good_count) {
+		this.good_count = good_count;
+	}
+
 	
 	
 	

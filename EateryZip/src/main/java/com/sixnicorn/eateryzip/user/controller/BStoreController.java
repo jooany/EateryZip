@@ -29,7 +29,19 @@ public class BStoreController {
 		service.getDetailData(request, b_id);
 		return "eatery/detail";
 	}
-	
+	// 음식점 스크랩 하기 
+	@RequestMapping(value="/eatery/private/ajax_good_insert")
+	@ResponseBody
+	public Map<String,Object> doScrap(HttpServletRequest request,@RequestParam String b_id){
+		return service.doScrap(request,b_id);
+	}
+	// 음식점 스크랩 취소하기 
+	@RequestMapping(value="/eatery/private/ajax_good_delete")
+	@ResponseBody
+	public Map<String,Object> notScrap(HttpServletRequest request,@RequestParam String b_id){
+		return service.notScrap(request,b_id);
+	}
+
 	
 	// 혜림
 

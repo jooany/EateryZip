@@ -31,19 +31,30 @@
 	<select id="getReviewList" parameterType="ReviewDto" resultType="ReviewDto">
 		SELECT *
 		FROM
-			(SELECT result1.*, ROWNUM AS rnum
-			FROM 
-				(SELECT * FROM review WHERE b_id=#{b_id}) result1)
+		(SELECT result1.*, ROWNUM AS rnum
+		   FROM (SELECT DISTINCT a.review_num,a.b_id,a.writer,a.review_image,TO_CHAR(a.review_content) AS review_content,a.regdate,a.keyword_review,a.review_kind,a.takeout_num,a.reservation_num,(SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=b.review_num) as GOOD_COUNT
+		         FROM review a
+		         INNER JOIN review_good b on a.review_num=b.review_num
+		         WHERE a.b_id=#{b_id}
+		         ORDER BY regdate DESC) result1)
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
 	</select>
 	
 	<!-- 리뷰 리스트 인기순 가져오기 -->
-	<select id="getPopularReviewList">
-		SELECT a.*, b.id, (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=b.review_num) as GOOD_COUNT
-	      FROM review a, review_good b
-	      WHERE a.b_id=#{b_id} AND  a.review_num=b.review_num
+	<!-- 일단 미루기 -->
+	<select id="getPopularReviewList" parameterType="ReviewDto" resultType="ReviewDto" >
+		SELECT *
+		FROM
+		(SELECT result1.*, ROWNUM AS rnum
+		   FROM (SELECT DISTINCT a.review_num,a.b_id,a.writer,a.review_image,TO_CHAR(a.review_content) AS review_content,a.regdate,a.keyword_review,a.review_kind,a.takeout_num,a.reservation_num,(SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=a.review_num) as GOOD_COUNT
+		         FROM review a, review_good b
+		         WHERE a.b_id=#{b_id}
+		         ORDER BY good_count DESC) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
 	</select>
 	
 	<!-- 리뷰 개수 세기 -->
@@ -54,10 +65,28 @@
 	</select>
 	
 	<!-- 키워드별 개수 -->
-	<select id="getKeyCount" parameterType="ReviewDto" resultType="int">
-		SELECT #{key_word}, NVL(MAX(ROWNUM),0)
+	<select id="getKeyCount" parameterType="ReviewDto" resultType="ReviewDto">
+		SELECT #{key_word} AS key_word, NVL(MAX(ROWNUM),0) AS good_count
 		FROM review
-		WHERE keyword_review LIKE '%'||'#{key_word}'||'%' AND b_id=#{b_id};
+		WHERE keyword_review LIKE '%'||#{key_word}||'%' AND b_id=#{b_id}
+	</select>
+	
+	<!-- 음식점 스크랩하기 -->
+	<insert id="doScrap" parameterType="EateryScrapDto">
+		INSERT INTO eatery_scrap
+		(b_id,g_id)
+		VALUES(#{b_id},#{g_id})
+	</insert>
+	<!-- 음식점 스크랩 취소하기 -->
+	<delete id="notScrap" parameterType="EateryScrapDto">
+		DELETE FROM eatery_scrap
+		WHERE b_id=#{b_id} AND g_id=#{g_id}
+	</delete>
+	<!-- 음식점 스크랩 유무 확인하기 -->
+	<select id="isScrap" parameterType="EateryScrapDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM eatery_scrap
+		WHERE b_id=#{b_id} AND g_id=#{g_id}
 	</select>
 	
 	<!-- 주연&혜림 -->
