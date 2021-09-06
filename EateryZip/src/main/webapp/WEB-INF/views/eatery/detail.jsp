@@ -41,7 +41,7 @@ button{
 
 #imgList{
 	display:flex;
-	
+	transition:.5s;	
 }
 #imgList img{	
 }
@@ -153,20 +153,26 @@ button{
 	position:absolute;
 	display:flex;
 	justify-content:space-between;
-	margin-top:65px;
+	margin-top:80px;
 }
 #slideBtnsWrap2 button{
 	font-size:20px;
 	color:rgb(240,240,240);
 }
+#menuListWrap{
+	overflow:hidden;
+}
 #menuList{
 	display:flex;
-	justify-content:space-between;
 	margin-top:15px;
 	overflow:hidden;
+	transition:.5s;	
 }
 #menuItem{
 	margin-right:10px;
+}
+#menuItem:nth-child(4n){
+	margin-right:0px;
 }
 #menuItem img{
 	width:180px;
@@ -185,12 +191,222 @@ button{
 	font-weight:600;
 }
 
+/*위치 및 시간*/
+#timePlaceWrap{
+	border-top:1px solid rgb(224, 224, 224);
+	border-bottom:1px solid rgb(224, 224, 224);
+	margin-top:25px;
+}
+#timePlaceHeader{
+	margin-top:25px;
+	margin-bottom:15px;
+	font-size: 22px;
+    font-weight: 600;
+}
+#timePlaceContent{
+	display:flex;
+	padding:0 5px;
+	margin-bottom:25px;
+}
+#placeWrap #placeInfo{
+	margin-top:10px;
+}
+#placeWrap #placeInfo p:nth-child(1){
+	font-weight:600;
+	font-size:14px;
+	margin-bottom:7px;
+}
+#placeWrap #placeInfo p:nth-child(2){
+	font-size:12px;
+}
+#timeWrap{
+	width:400px;
+	height:230px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+#timeWrap #timeDate{
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+}
+#timeWrap #timeDate>i{
+	font-size:35px;
+	margin-bottom:25px;
+}
+#timeDate #timeInfo>span:nth-child(1){
+	font-weight:600;
+	margin-right:3px;
+}
+/* 사진 리뷰 */
+#photoWrap{
+	margin-top:25px;
+	padding-bottom:25px;
+	border-bottom:1px solid rgb(224, 224, 224);
+}
+#photoWrap #photoHeader{
+	font-size: 22px;
+    font-weight: 600;
+    margin-bottom:15px;
+}
+#photoListWrap{
+	width:748px;
+	overflow:hidden;
+}
+#slideBtnsWrap3{
+	width:750px;
+	height:100px;
+	display:flex;
+	justify-content:space-between;
+	position:absolute;
+	align-items:center;
+}
+#slideBtnsWrap3>button{
+	font-size:20px;
+	color:rgba(255,255,255,.8);
+}
+#photoList{
+	display:flex;
+}
+.photo_item{
+	margin-right:8px;
+}
+.photo_item:nth-child(7n){
+	margin-right:0;
+}
+/* 리뷰  */
+#reviewWrap{
+	margin-top:25px;
+}
+#reviewHeader{
+	margin-bottom:15px;
+	font-size: 22px;
+    font-weight: 600;
+}
+#reviewBanner{
+	border-radius:4px;
+	border:1px solid rgb(224, 224, 224);
+	width:760px;
+	height:210px;
+	background-color:rgba(224, 224, 224, 0.18);
+	display:flex;
+	justify-content:space-around;
+}
+#totalReviewCount{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
+}
+#totalReviewCount p{
+	margin:10px 0px;
+}
+#totalReviewCount p:nth-child(1){
+	font-size:15px;
+}
+#totalReviewCount p:nth-child(2){
+	font-size:40px;
+}
+#totalReviewCount p:nth-child(3){
+	font-size:25px;
+	font-weight:600
+}
+#peopleKeyword{
+	margin:auto 0;
+	padding:10px 0;
+}
+#peopleKeywordHeader{
+	text-align:center;
+}
+#peopleKeywordHeader>span{
+	font-size:15px;
+}
+#peopleKeywordHeader>button{
+	font-size:18px;
+	color:rgb(127, 127, 127);
+}
+#keywordGraphWrap{
+}
+#keywordGraph{
+	width:300px;
+	border:1px solid rgb(190, 190, 190);
+	border-radius:4px;
+	background-color:white;
+	margin-top:8px;
+}
+#graphText{
+	padding:10px 12px;
+	position:absolute;
+}
+#graphText>span:nth-child(1){
+	font-weight:600;
+}
+#graphText>span:nth-child(2){
+	font-weight:700;
+	color:rgb(253, 83, 0);
+}
+.bar{
+	width:160px;
+	height:36px;
+	background-color:rgba(255, 133, 59, 0.8);
+}
 
+/* 오른쪽 영역 */
 #rightContent{
 	width: 300px;
 	height:300px;
-	background-color:gray;
 }
+#bulletin{
+	padding:7px 15px;
+	background-color:rgb(243, 240, 240);
+	border:1px solid rgb(224, 224, 224);
+	border-radius:4px;
+	margin-bottom:20px;
+	display:flex;
+	align-items:center;
+}
+#bulletin>span:nth-child(1){
+	color:rgb(253, 83, 0);
+	font-weight:600;
+	font-size:14px;
+}
+#bulletin>span:nth-child(2){
+	margin-left:10px;
+	font-size:13px;
+}
+#etcInfo{
+	margin-top:20px;
+	border:1px solid rgb(224, 224, 224);
+	border-radius:4px;
+}
+#etcInfo>li{
+	padding:10px 0;
+}
+#etcInfo #callNum{
+	border-bottom:1px solid rgb(224, 224, 224);
+	display:flex;
+	align-items:center;
+}
+#etcInfo #convenience{
+	display:flex;
+	align-items:center;
+}
+#etcInfo span:nth-child(1){
+	margin-left:20px;
+	font-size:16px;
+}
+#etcInfo #callNum span:nth-child(2){
+	margin-left:15px;
+	font-size:14px;
+}
+#etcInfo #convenience span:nth-child(2){
+	margin-left:10px;
+	font-size:13px;
+}
+
+
 
 </style>
 </head>
@@ -203,7 +419,7 @@ button{
 	<ul id="imgList">
 		<c:forEach var="tmp1" items="${storeImgList }">
 		<li>
-			<img src="${pageContext.request.contextPath}${tmp1.store_img }" alt="음식점 대표 이미지" height="400px"/>
+			<img class="img_item" src="${pageContext.request.contextPath}${tmp1.store_img }" alt="음식점 대표 이미지" height="400px"/>
 		</li>
 		</c:forEach>
 	</ul>
@@ -240,7 +456,7 @@ button{
 			</div>
 			<p id="intro">${dto.intro}</p>
 			<div id="activeTime">
-				<span>월,화,수,목,금</span>
+				<span>${dto.b_Store_date }</span>
 				<span>${dto.b_open }~${dto.b_close }</span>
 			</div>
 		</div>		
@@ -250,13 +466,13 @@ button{
 
 <div class="inner">
 	<div id="detailWrap">
-		<span>상세보기 |</span> <a href="#">리뷰(${reviewCount})</a>
+		<span>상세보기 |</span> <a href="#">리뷰(${totalRow})</a>
 	</div>
 </div>
 
 <div id="content" class="inner">
 	<div id="leftContent">
-		<div id="menuWrap">
+		 <div id="menuWrap">
 			<div id="menuHeader" style="display:flex; justify-content:space-between;">
 				<span>메뉴</span>
 				<a href="#">전체 메뉴 보기</a>
@@ -273,34 +489,123 @@ button{
 				<ul id="menuList">
 					<c:forEach var="menuItem" items="${menuList }">
 					<li id="menuItem">
-						<img src="${menuItem.menu_image }" alt="" />
+						<img src="${pageContext.request.contextPath}${menuItem.menu_image }" alt="" />
 						<p>${menuItem.menu_name }</p>
 						<p>${menuItem.menu_price }원</p>
 					</li>
 					</c:forEach>
 				</ul>
 			</div>
-			<div id="timePlaceWrap">
-				<p id="timePlaceHeader">위치 및 시간</p>
-				<div id="timePlaceContent">
-					<div id="map">
+		</div>
+		<!-- 위치 및 시간 -->
+		<div id="timePlaceWrap">
+			<p id="timePlaceHeader">위치 및 시간</p>
+
+			<div id="timePlaceContent">
+				<div id="placeWrap">
+					<div id="map" style="width:350px; height:230px; background-color:gray;">
 					 지도 들어갈 부분 
 					</div>
-					<div id="time">
+					<div id="placeInfo">
+						<p>${dto.b_name }</p>
+						<p>${dto.b_Store_Address }</p>
+					</div>
+				</div>
+				<div id="timeWrap">
+					<div id="timeDate">
 						<i class="far fa-clock"></i>
+						<div id="timeInfo">
+							<span>${dto.b_Store_date }</span>
+							<span>${dto.b_open }-${dto.b_close }</span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	
+		<!-- timePlaceWrap.end -->
+		<div id="photoWrap">
+			<p id="photoHeader">사진 리뷰</p>
+			<div id="photoListWrap">
+				<div id="slideBtnsWrap3">
+					<button id="leftBtn3">
+						<i class="fas fa-chevron-circle-left"></i>
+					</button>
+					<button id="rightBtn3">
+						<i class="fas fa-chevron-circle-right"></i>
+					</button>
+				</div>
+				<ul id="photoList">
+					<c:forEach var="tmp3" items="${reviewList }">
+					<li>
+						<a href="#">
+							<img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
+						</a>
+					</li>
+					</c:forEach>
+					
+				</ul>
+			</div>
+		</div>
+		<!-- photoWrap.end -->
+		<div id="reviewWrap">
+			<p id="reviewHeader">리뷰</p>
+			<div id="reviewBanner">
+				<div id="totalReviewCount">
+					<p>전체 리뷰 수</p>
+					<p><i class="fas fa-user-friends"></i></p>
+					<p>${totalRow }</p>
+				</div>
+				<div id="peopleKeyword">
+					<div id="peopleKeywordHeader">
+						<span>이용 고객이 선택한 키워드</span>
+						<button type="button" id="showKeywordBtn">
+							<i class="fas fa-chevron-circle-down"></i>		
+						</button>
+					</div>
+					<div id="keywordGraphWrap">
+						<!-- 그래프 하나씩 -->
+					</div>
+				</div>
+				<!-- peopleKeyword.end -->
+			</div>
+			<!-- reviewBanner.end -->
+		</div>
+		
 	</div>
+	<!-- leftContent.end -->
 	<div id="rightContent">
 		<div id="bulletin">
 			<span>알림</span>
 			<span>${dto.notice }</span>
 		</div>
 		
-		<div></div>
+		<div style="width:300px;height:250px;background-color:gray;">형우님 부분</div>
+		
+		<ul id="etcInfo">
+			<li id="callNum">
+				<span><i class="fas fa-phone-alt"></i></span>
+				<span>${dto.b_Store_phone }</span>
+			</li>
+			<li id="convenience">
+				<span><i class="fas fa-store-alt"></i></span>
+				<span>${dto.ex_keyword }</span>
+			</li>
+		</ul>
 	</div>
 </div>
 
@@ -361,6 +666,9 @@ button{
 	let keyarr=[];
 	tests=document.querySelectorAll("#test");
 	
+	//리뷰 수
+	let totalR = '<c:out value="${totalRow}"/>';
+	
 	for(let i=0;i<tests.length;i++){
 		keyarr.push(tests[i].innerText);
 	}
@@ -380,8 +688,68 @@ button{
 						</div>`;
 			$("#presentKeys").append(keyHtml);
 		}
+		//리뷰키워드
+		if(i>7){
+			let graphKeyHtml=`<div id="keywordGraph">
+									<div id="graphText">
+									<span>`+arr1[1]+`</span>
+									<span>`+arr1[0]+`</span>
+								</div>
+								<div class="bar" id="bar`+i+`">
+								</div>
+							 </div>`
+			
+							 let barWidth=(arr1[0]/totalR)*300;
+			let colorOpacity=arr1[0]/totalR;
+			$("#keywordGraphWrap").append(graphKeyHtml);
+			$("#bar"+i).css({"color":"rgba(255, 133, 59, "+colorOpacity+")",
+							 "width":barWidth});
+							 
+		}
 	}
+	
+	//키워드 그래프 
+	let isOpen=false;
 
+	$("#showKeywordBtn").click(function(){
+		if(isOpen){
+			$(".addGraph").remove();
+			$("#reviewBanner").css("height","210px");
+			//버튼 바꾸기
+			$("#showKeywordBtn").html(`<i class="fas fa-chevron-circle-down"></i>`);
+			isOpen=false;
+		}else{
+			for(let i=keyarr.length-4;i>=0;i--){
+				let arr1=[];
+
+				arr1=keyarr[i].split("/");
+
+				//리뷰키워드
+				if(arr1[0]!=0){
+					let graphKeyHtml=`<div id="keywordGraph" class="addGraph">
+											<div id="graphText">
+											<span>`+arr1[1]+`</span>
+											<span>`+arr1[0]+`</span>
+										</div>
+										<div class="bar" id="bar`+i+`">
+										</div>
+									 </div>`
+					
+				 
+					let barWidth=(arr1[0]/totalR)*300;
+					let colorOpacity=arr1[0]/totalR;
+					$("#keywordGraphWrap").append(graphKeyHtml);
+					$("#bar"+i).css({"color":"rgba(255, 133, 59, "+colorOpacity+")",
+									 "width":barWidth});
+				}
+			}
+			$("#reviewBanner").css("height","fit-content");
+			
+			//버튼 바꾸기
+			$("#showKeywordBtn").html(`<i class="fas fa-chevron-circle-up"></i>`);
+			isOpen=true;
+		};
+	});
 
 
 	//스크랩 버튼 
@@ -419,6 +787,62 @@ button{
 				});	
 			}
 		});
+	
+	//배너 슬라이드
+	let bannerMargin=0;
+	
+	let bannerWidth=$("#banner").width();
+	let imgListWidth=$("#imgList").width();
+	
+	
+	let imgCount=$(".img_item").length;
+	let oneMove=bannerWidth/imgCount;
+	
+	let maxMargin=imgListWidth-bannerWidth-oneMove;
+	
+	$("#rightBtn").click(function(){
+		if(bannerMargin>-maxMargin){
+			bannerMargin-=oneMove;
+			$("#imgList").css({
+		        marginLeft:bannerMargin
+		    });
+		}
+	});
+	$("#leftBtn").click(function(){
+		if(bannerMargin<0){
+			bannerMargin+=oneMove;
+			$("#imgList").css({
+		        marginLeft:bannerMargin
+		    });
+		}
+	});
+		
+	//메뉴 슬라이드
+	let menuMargin=0;
+	let menuListWidth=$("#menuList").width();
+	
+	
+	$("#rightBtn2").click(function(){
+		if(menuMargin>=-menuListWidth){
+			menuMargin-=750;
+			$("#menuList").css({
+		        marginLeft:menuMargin
+		    });
+		}
+		
+	});
+	$("#leftBtn2").click(function(){
+		if(menuMargin<0){
+			menuMargin+=750;
+			$("#menuList").css({
+		        marginLeft:menuMargin
+		    });
+		}
+	});
+	
+	
+	
+	
 </script>
 
 
