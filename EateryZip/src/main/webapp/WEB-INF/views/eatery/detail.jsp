@@ -406,6 +406,15 @@ button{
 	font-size:13px;
 }
 
+.review_img{
+	overflow: hidden;
+    width: 144px;
+    height: 144px;
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
 
 
 </style>
@@ -584,7 +593,62 @@ button{
 				<!-- peopleKeyword.end -->
 			</div>
 			<!-- reviewBanner.end -->
+			<div id="reivewListWrap">
+				<div id="reviewFilter">
+					<div id="arrayFilter">
+						<a href="javascript:;">
+							<span>.</span>
+							<span>최신순</span>
+						</a>
+						<a href="javascript:;">
+							<span>.</span>
+							<span>인기순</span>
+						</a>
+					</div>
+					<div id="photoFilter">
+						<a href="javascript:;">
+							<span><i class=" ${only eq 'all' ? 'far fa-check-square' : 'fas fa-check-square' }"></i></span>
+							<span>사진 리뷰만</span>
+						</a>
+					</div>
+				</div>
+				<!-- reviewFilter.end -->
+				<c:forEach var="listR" items="${reviewList }">
+				<p>스크랩 유무 : ${listR.is_user_good }</p>
+				<div class="review">
+					<div class="review_header">
+						<div class="profile_wrap">
+						<c:choose>
+							<c:when test="${empty listR.profile }">
+								<i class="far fa-user-circle" style="font-size:45px;"></i>
+							</c:when>
+							<c:otherwise>
+								<img src="${pageContext.request.contextPath}${listR.profile }" alt="${listR.writer }" class="profile" style="width:50px; height:50px;"/>
+							</c:otherwise>
+						</c:choose>
+						</div>
+						<div class="writer_info">
+							<p>${listR.writer }</p>
+							<p>${listR.regdate } | ${listR.review_kind eq 'reserve'?'예약':'포장'}</p>
+						</div>
+					</div>
+					<p class="review_content">${listR.review_content }</p>
+					<c:if test="${not empty listR.review_image }">
+						<div class="review_img" style="background-image:url('${pageContext.request.contextPath}${listR.review_image}');"></div>
+					</c:if>
+					<div class="review_key_wrap" data-num="${listR.review_num }" data-key="${listR.keyword_review}">
+					</div>
+					<div class="goodWrap">
+						<a href="javascript:;">
+							<i class="far fa-thumbs-up"></i>
+						</a>
+					</div>
+				</div>
+				</c:forEach>
+			</div>
 		</div>
+		
+		
 		
 	</div>
 	<!-- leftContent.end -->
@@ -610,47 +674,39 @@ button{
 </div>
 
 
+
+
+
+
 <!-- 키워드 데이터 뽑아오기 위한 코드 -->
 <c:forEach var="test" items="${keyList }">
 <div id="test" style="display:none;">${test.good_count }/${test.key_word}</div>
 </c:forEach>
 <!-- 테스트장소 -->
-<h1>메뉴 리스트</h1>
-<c:forEach var="tmp2" items="${menuList }">
-	<p>
-		${tmp2.menu_name }
-	</p>
-</c:forEach>
-<h1>리뷰 리스트 최신순</h1>
-<c:forEach var="tmp3" items="${reviewList }">
-	<p>
-		${tmp3.review_image }
-		${tmp3.keyword_review }
-	</p>
-</c:forEach>
 
+<h1>테스트장소</h1>
 <div class="page-ui clearfix">
 	<ul>
 		<c:if test="${startPageNum ne 1 }">
 			<li>
-				<a href="list.do?pageNum=${startPageNum-1 }">Prev</a>
+				<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${dto.b_id}&array=${array }&only=${only }&pageNum=${startPageNum-1 }">Prev</a>
 			</li>
 		</c:if>
 		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 			<li>
 				<c:choose>
 					<c:when test="${pageNum eq i }">
-						<a  class="active" href="list.do?pageNum=${i }">${i }</a>
+						<a  class="active" href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${dto.b_id}&array=${array }&only=${only }&pageNum=${i }">${i }</a>
 					</c:when>
 					<c:otherwise>
-						<a href="list.do?pageNum=${i }">${i }</a>
+						<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${dto.b_id}&array=${array }&only=${only }&pageNum=${i }">${i }</a>
 					</c:otherwise>
 				</c:choose>
 			</li>
 		</c:forEach>
 		<c:if test="${endPageNum lt totalPageCount }">
 			<li>
-				<a href="list.do?pageNum=${endPageNum+1 }">Next</a>
+				<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${dto.b_id}&array=${array }&only=${only }&pageNum=${endPageNum+1 }">Next</a>
 			</li>
 		</c:if>
 	</ul>
@@ -662,6 +718,26 @@ button{
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+	function keywordSplit(sel){
+		let keyWraps=document.querySelectorAll(sel);
+
+		for(let i=0;i<keyWraps.length;i++){	
+			//배열 선언
+			let saveKey=$(keyWraps[i]).attr("data-key");
+			let keyarr2=[];
+			keyarr2=saveKey.split(",");
+			
+			for(let j=0;j<keyarr2.length;j++){
+				let keyHtml=`<div class="review_key">
+								<span><i class="fas fa-check"></i></span>
+								<span>`+keyarr2[j]+`</span>
+							</div>`;
+				$(keyWraps[i]).append(keyHtml);
+			};
+		};
+	}
+	keywordSplit(".review_key_wrap");
+	
 	//키워드 + 키워드 순서 추출
 	let keyarr=[];
 	tests=document.querySelectorAll("#test");
