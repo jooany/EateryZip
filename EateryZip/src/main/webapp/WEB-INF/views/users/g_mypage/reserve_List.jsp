@@ -63,8 +63,22 @@
 	<h2>${g_id }님의 마이페이지</h2>
 	<p>Click on the element below to open the side navigation menu.</p>
 	<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; 메뉴</span>
-
+	
+<button type="button" id="btn">예약리뷰 11111 11111 버튼</button>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+	// 혜림님 버튼 아이디에 ex) 
+	// <button type="button" class="takeout_btn" data-takeoutnum="${tmp.takeout_num}" data-id="${tmp.b_id}"> 이런 식으로 만드시고 클릭할 때마다  
+	// $(.takeout_btn).click(function(){
+	//	let takeNum=this.attr("data-takeoutnum"); <- 이런식으로 번호 자바스크립트에서 얻어오실 수 있습니다. 이걸 아래의 url에 연결해서 사용하시면 됩니다.
+	//	let bId=this.attr("data-id");
+	//window.open("${pageContext.request.contextPath}/users/g_mypage/review_takeout_form.do?takeout_num="+takeNum+"&b_id="+bId, "리뷰 작성", "width=520px,height=751px");
+	//})
+	$("#btn").click(function(){
+		window.open("${pageContext.request.contextPath}/users/g_mypage/review_reservation_form.do?reservation_num=161&b_id=1111111111", "리뷰 작성", "width=520px,height=751px");
+		
+	});
+
 	function openNav() {
 	  document.getElementById("mySidenav").style.width = "250px";
 	}

@@ -80,29 +80,25 @@ public class UserController {
 	}
 	
 	//일반 회원 로그인
-	@RequestMapping("/users/g_login")
-	public ModelAndView Glogin(ModelAndView mView, GUserDto dto,
-			@RequestParam String url , HttpSession session , @RequestParam (value="isSave", required=false) String isSave
-			, HttpServletResponse response) {
-
-		Gservice.loginProcess(dto, session , isSave , response); //Service에 필요로 하는 객체가 있다면 넣어주어야한다.
+	@RequestMapping("/users/ajax_g_login")
+	@ResponseBody
+	public Map<String, Object> Ajax_g_login(GUserDto dto,
+			@RequestParam String url , HttpSession session, 
+			@RequestParam (value="isSave", required=false) String isSave, 
+			HttpServletResponse response,
+			HttpServletRequest request) {
 		
-		String encodedUrl=URLEncoder.encode(url);
-		mView.addObject("url", url);
-		mView.addObject("encodedUrl", encodedUrl);
-		
-		mView.setViewName("users/g_login");
-		return mView;
+		return Gservice.loginProcess(dto, session , isSave , response , url);
 	}
 	
 	//비즈니스 회원 로그인
-	@RequestMapping(value="/users/b_login", method = RequestMethod.POST)
-	public ModelAndView Blogin(ModelAndView mView, BUserDto Bdto, 
+	@RequestMapping(value="/users/ajax_b_login", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> Ajax_b_login(BUserDto Bdto, 
 			HttpSession session, @RequestParam (value="isSave", required=false) String isSave, HttpServletResponse response) {
 			
-		Bservice.loginProcess(Bdto, session, isSave , response); 
-		mView.setViewName("users/b_login");
-		return mView;
+		return Bservice.loginProcess(Bdto, session, isSave , response); 
+	
 	}
 		
 	//회원가입 이용약관 폼으로 이동
@@ -124,21 +120,19 @@ public class UserController {
 	}		
 	
 	//일반 회원 가입 
-	@RequestMapping(value="/users/g_signup", method=RequestMethod.POST)
-	public ModelAndView B_signup(ModelAndView mView, GUserDto dto) {
+	@RequestMapping(value="/users/ajax_g_signup", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> Ajax_g_signup(GUserDto dto) {
 		
-		Gservice.addUser(dto);
-		mView.setViewName("users/g_signup");
-		return mView;
+		return Gservice.addUser(dto);
 	}
 	
 	//비즈니스 회원 가입 
-	@RequestMapping(value="/users/b_signup", method=RequestMethod.POST)
-	public ModelAndView G_signup(ModelAndView mView, BUserDto dto) {
+	@RequestMapping(value="/users/ajax_b_signup", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> Ajax_b_signup(ModelAndView mView, BUserDto dto) {
 		
-		Bservice.addUser(dto);
-		mView.setViewName("users/b_signup");
-		return mView;
+		return Bservice.addUser(dto);
 	}
 	
 	//비즈니스 회원 가입 아이디 중복 확인을 해서 json 문자열을 리턴해주는 메소드
@@ -165,12 +159,11 @@ public class UserController {
 	
 	
 	//사업자번호 찾기 기능 
-	@RequestMapping("/users/b_find_id")
-	public ModelAndView b_find_id(ModelAndView mView, BUserDto dto){
+	@RequestMapping("/users/ajax_b_find_id")
+	@ResponseBody
+	public Map<String, Object> b_find_id(BUserDto dto){
 	
-		Bservice.findId(dto , mView);
-		mView.setViewName("users/b_find_id");
-		return mView;
+		return Bservice.findId(dto);
 	}
 	
 	//일반 ID 찾기 폼으로 이동
@@ -180,12 +173,12 @@ public class UserController {
 	}
 	
 	//사업자번호 찾기 기능 
-	@RequestMapping("/users/g_find_id")
-	public ModelAndView g_find_id(ModelAndView mView, GUserDto dto){
+	@RequestMapping("/users/ajax_g_find_id")
+	@ResponseBody
+	public Map<String, Object> g_find_id(GUserDto dto){
 	
-		Gservice.findId(dto , mView);
-		mView.setViewName("users/g_find_id");
-		return mView;
+		return Gservice.findId(dto);
+
 	}
 	
 	//사업자 패스워드 찾기 폼으로 이동
@@ -195,27 +188,25 @@ public class UserController {
 	}
 	
 	//사업자 패스워드 찾기
-	@RequestMapping("/users/b_find_pwd")
-	public ModelAndView b_find_pwd(ModelAndView mView, BUserDto dto){
-		boolean result=Bservice.findPwd(dto, mView);
-
-		if(result==true) {
-			String b_id = dto.getB_id();
-			mView.addObject("b_id", b_id);
-			mView.setViewName("users/b_change_pwd_form");
-			return mView;
-		}else{
-			mView.setViewName("home");
-			return mView;
-		}
+	@RequestMapping("/users/ajax_b_find_pwd")
+	@ResponseBody
+	public Map<String, Object> b_find_pwd(BUserDto dto){
+		
+		return Bservice.findPwd(dto);
 	}
+	//사업자 패스워드 변경 폼으로 이동
+		@RequestMapping("/users/b_change_pwd_form")
+		public String b_change_pwd_form(@RequestParam String b_id) {
+			return "users/b_change_pwd_form";
+		}
 	
 	//사업자 패스워드 바꾸기
-	@RequestMapping("/users/b_change_pwd")
-	public ModelAndView b_change_pwd(ModelAndView mView, BUserDto dto, HttpSession session) {
-		Bservice.updatePwd(dto,mView,session);
-		mView.setViewName("users/b_update_pwd");
-		return mView;
+	@RequestMapping("/users/ajax_b_change_pwd")
+	@ResponseBody
+	public Map<String, Object> Ajax_b_change_pwd(BUserDto dto,
+			HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+		
+		return Bservice.updatePwd(dto,session,response,request);
 	}
 	
 		
@@ -226,27 +217,24 @@ public class UserController {
 	}
 	
 	//사업자 패스워드 찾기
-		@RequestMapping("/users/g_find_pwd")
-		public ModelAndView g_find_pwd(ModelAndView mView, GUserDto dto){
-			boolean result=Gservice.findPwd(dto, mView);
-
-			if(result==true) {
-				String g_id = dto.getG_id();
-				mView.addObject("g_id", g_id);
-				mView.setViewName("users/g_change_pwd_form");
-				return mView;
-			}else{
-				mView.setViewName("home");
-				return mView;
-			}
+		@RequestMapping("/users/ajax_g_find_pwd")
+		@ResponseBody
+		public Map<String, Object> g_find_pwd(GUserDto dto){
+			return Gservice.findPwd(dto);
+		}
+		
+		//사업자 패스워드 변경 폼으로 이동
+		@RequestMapping("/users/g_change_pwd_form")
+		public String g_change_pwd_form(@RequestParam String g_id) {
+			return "users/g_change_pwd_form";
 		}
 		
 		//사업자 패스워드 바꾸기
-		@RequestMapping("/users/g_change_pwd")
-		public ModelAndView g_change_pwd(ModelAndView mView, GUserDto dto, HttpSession session) {
-			Gservice.updatePwd(dto,mView,session);
-			mView.setViewName("users/g_update_pwd");
-			return mView;
+		@RequestMapping("/users/ajax_g_change_pwd")
+		@ResponseBody
+		public Map<String, Object> Ajax_g_change_pwd(GUserDto dto,
+				HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+			return Gservice.updatePwd(dto,session,response,request);
 		}
 	
 	//일반 , 비즈니스 회원 로그아웃
@@ -255,7 +243,7 @@ public class UserController {
 		//logout 하면서 b_id , g_id 모두 제거되도록
 		session.removeAttribute("b_id");
 		session.removeAttribute("g_id");
-		return "users/logout";
+		return "redirect:/home.do";
 	}
 	
 	// 혜림 --------------------------------------------------------------------------
@@ -296,13 +284,13 @@ public class UserController {
 	// 일반회원 가입정보보기
 	@RequestMapping("/users/g_mypage/g_mypage")
 	public ModelAndView Gmypage(HttpSession session, ModelAndView mView, HttpServletRequest request) {
-
+		
 		Gservice.getGmypage(session, mView);
-
+		
 		mView.setViewName("users/g_mypage/g_mypage");
 		return mView;
 	}
-
+	
 	// 일반 개인정보 수정반영 요청처리
 	@RequestMapping(value="users/g_mypage/update", method=RequestMethod.POST)
 	public String update(GUserDto dto, HttpSession session) {
@@ -310,7 +298,7 @@ public class UserController {
 		Gservice.updateGUser(dto, session);
 		return "redirect:/users/g_mypage/g_mypage.do";
 	}
-
+	
 	// 일반 회원가입정보 수정하기
 	@RequestMapping("/users/g_mypage/g_mypage_updateform")
 	public ModelAndView GupdateForm(ModelAndView mView, HttpSession session, HttpServletRequest request) {
@@ -318,7 +306,7 @@ public class UserController {
 		mView.setViewName("users/g_mypage/g_mypage_updateform");
 		return mView;
 	}
-
+	
 	// 일반회원 프로필이미지 ajax처리
 	@RequestMapping(value="users/g_mypage/ajax_g_profile_upload", method=RequestMethod.POST)
 	@ResponseBody

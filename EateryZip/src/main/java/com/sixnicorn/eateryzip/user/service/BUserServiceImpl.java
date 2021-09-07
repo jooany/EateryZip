@@ -27,7 +27,7 @@ public class BUserServiceImpl implements BUserService {
 
 	//비즈니스회원 로그인 처리 과정
 	@Override
-	public void loginProcess(BUserDto dto, HttpSession session , String isSave , HttpServletResponse response) {
+	public Map<String, Object> loginProcess(BUserDto dto, HttpSession session , String isSave , HttpServletResponse response) {
 		//입력한 정보가 맞는지 확인 - 기본 값 false
 		boolean isValid= false;
 		
@@ -51,16 +51,16 @@ public class BUserServiceImpl implements BUserService {
 			
 			//session 영역에 아이디를 저장한다.
 			session.setAttribute("b_id", dto.getB_id());
-			session.setMaxInactiveInterval(60*60*6);
+			session.setMaxInactiveInterval(60*60);
 		
 			   if(isSave != null){//만일 넘어오는 값이 있다면
 			      //쿠키에 id 와 pwd 를 특정 키값으로 담아서 쿠키도 응답 되도록 한다.
 			      Cookie idCook=new Cookie("savedb_Id", changedB_id);
-			      idCook.setMaxAge(60*60*6); //쿠키 유지시간 (초단위)
+			      idCook.setMaxAge(60*60); //쿠키 유지시간 (초단위)
 			      response.addCookie(idCook); //기본객체 response의 addCookie 메소드를 사용
 			      
 			      Cookie pwdCook=new Cookie("savedb_Pwd", changedB_pwd);
-			      pwdCook.setMaxAge(60*60*6);
+			      pwdCook.setMaxAge(60*60);
 			      response.addCookie(pwdCook);
 			   }else {
 				      Cookie idCook=new Cookie("savedb_Id", changedB_id);
@@ -72,11 +72,15 @@ public class BUserServiceImpl implements BUserService {
 				      response.addCookie(pwdCook);
 			   }
 		}
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("isLogin",isValid);
+		return map;
 	}
 
 	//비즈니스 회원가입 로직
 	@Override
-	public void addUser(BUserDto dto) {
+	public Map<String, Object> addUser(BUserDto dto) {
 		//입력 받은 비밀번호를 암호화 하는 로직
 		String pwd = dto.getB_pwd();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -84,7 +88,11 @@ public class BUserServiceImpl implements BUserService {
 		//암호화한 비밀번호를 Dto에 다시 넣어준다.
 		dto.setB_pwd(encodedPwd);
 		
-		Bdao.insert(dto);
+		boolean result = Bdao.insert(dto);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("isSuccess",result);
+		return map;
 	}
 
 	//회원가입 ID check
@@ -97,35 +105,88 @@ public class BUserServiceImpl implements BUserService {
 		//Map 객체를 리턴해준다.
 		return map;
 	}
+	
 	//비즈니스회원 아이디 찾기
 	@Override
-	public void findId(BUserDto dto , ModelAndView mView) {
+	public Map<String, Object> findId(BUserDto dto) {
+		
+		boolean result=false;
 		
 		String find_id = Bdao.getId(dto);
 		String b_name =dto.getB_name();
-		mView.addObject("find_id",find_id);
-		mView.addObject("b_name",b_name);
-		
+		if(find_id != null){
+			result=true;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("isResult",result);
+			map.put("b_name",b_name);
+			map.put("find_id",find_id);
+			return map;
+		}else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("isResult",result);
+			map.put("b_name",b_name);
+			return map;
+		}
 	}
 	
 	// 비즈니스 패스워드 유무 확인
 	@Override
-	public boolean findPwd(BUserDto dto, ModelAndView mView) {
-		return Bdao.getPwd(dto);
+	public Map<String, Object> findPwd(BUserDto dto) {
+		boolean result=false;
+		
+		String find_pwd = Bdao.getPwd(dto);
+		String b_id =dto.getB_id();
+		if(find_pwd != null){
+			result=true;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("isResult",result);
+			map.put("b_id",b_id);
+			map.put("find_pwd",find_pwd);
+			return map;
+		}else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("isResult",result);
+			map.put("b_id",b_id);
+			return map;
+		}
 	}
 	// 비즈니스 패스워드 변경
 	@Override
-	public void updatePwd(BUserDto dto, ModelAndView mView, HttpSession session) {
+	public Map<String, Object> updatePwd(BUserDto dto, HttpSession session ,
+			HttpServletResponse response, HttpServletRequest request) {
+		
+		boolean result = false;
+		
 		String b_id = dto.getB_id();
-		BUserDto resultDto = Bdao.getData(b_id);
+		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encodedNewPwd = encoder.encode(dto.getB_newPwd());
+		
 		dto.setB_newPwd(encodedNewPwd);
 		dto.setB_id(b_id);
-		Bdao.changePwd(dto);
-		session.removeAttribute("b_id");
-		
-		mView.addObject("b_id",b_id);
+		boolean changeResult = Bdao.changePwd(dto);
+		if(changeResult) {
+			result = true;
+			
+			 Cookie[] cookies = request.getCookies();
+		  	  for (int i = 0; i < cookies.length; i++) {
+		  		if (cookies[i].getName().equals("savedb_Id")){
+		    		cookies[i].setMaxAge(0);   // 유효시간을 0으로 설정함으로써 쿠키를 삭제 시킨다.  
+		    		cookies[i].setPath("/eateryzip/users");
+		    		response.addCookie(cookies[i]);
+		    		}
+		  	}
+		  	  
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("b_id",b_id);
+			map.put("isResult",result);
+			return map;
+		}else{
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("b_id",b_id);
+			map.put("isResult",result);
+			return map;
+		}
 		
 	}
 	

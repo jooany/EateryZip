@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비즈니스회원 로그인</title>
+<title>비밀번호 수정</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
 	.container{
@@ -67,7 +67,7 @@
 <body>
 <div class="container">
 
-	   <form action="${pageContext.request.contextPath}/users/b_change_pwd.do" method="post" id="pwdChangeForm" >
+	   <form action="${pageContext.request.contextPath}/users/ajax_b_change_pwd.do" method="post" id="changePwdForm" >
 	   
 		  <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
 		  class="mx-auto d-block mb-2" alt="" />
@@ -75,29 +75,99 @@
 		  <div class="mb-3 text-center" >
 		  	<h3>사업자 비밀번호 바꾸기</h3>
 		  </div>
-		  <input type="hidden" name="b_id" value="${b_id}" />
+		  <input type="hidden" name="b_id" value="${param.b_id}" />
 	      <div class="mb-3">
-	         <input class="form-control" type="text" name="b_newPwd" id="b_newPwd" placeholder="새로운 비밀번호를 입력해주세요."/>
+	         <input class="form-control" type="password" name="b_newPwd" id="b_newPwd" placeholder="새로운 비밀번호를 입력해주세요."/>
+	          <small class="form-text text-muted" >5글자~10글자 이내로 입력하세요.</small>
+		      <div class="invalid-feedback">형식에 맞지 않는 비밀번호입니다.</div>
 	      </div>
 	      <div class="mt-3">
-	         <input class="form-control" type="password" name="b_newPwd2" id="b_newPwd2" placeholder="새로운 비밀번호를 한번 더 입력해주세요."/>
+	         <input class="form-control" type="password" id="b_newPwd2" placeholder="새로운 비밀번호를 한번 더 입력해주세요."/>
+	          <small class="form-text text-muted" >동일한 비밀번호를 다시 한번 입력해주세요.</small>
+	         <div class="invalid-feedback">새로운 비밀번호와 일치하지 않습니다.</div>
 	      </div>
 	      <div class="mt-3 mb-3" style="text-align:center;">
-	      	<button type="submit" class="btn" style="width:450px;">확인</button>
+	      	<button id="changeBtn" type="button" class="btn" style="width:350px;">확인</button>
 	      </div>
 	   </form>
 </div>
+<script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-   //폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
-   document.querySelector("#pwdChange").addEventListener("submit", function(e){
-      let pwd1=document.querySelector("#b_newPwd").value;
-      let pwd2=document.querySelector("#b_newPwd2").value;
-      //새 비밀번호와 비밀번호 확인이 일치하지 않으면 폼 전송을 막는다.
-      if(pwd1 != pwd2){
-         alert("비밀번호를 확인 하세요!");
-         e.preventDefault();//폼 전송 막기 
+let isNewPwdValid = false;
+let isNewPwdValid2 = false;
+
+  //새로운 비밀번호 확인하는 함수 
+   function newcheckPwd(){
+	  document.querySelector("#b_newPwd").classList.remove("is-valid");
+	  document.querySelector("#b_newPwd").classList.remove("is-invalid");
+	  document.querySelector("#b_newPwd2").classList.remove("is-valid");
+	  document.querySelector("#b_newPwd2").classList.remove("is-invalid");
+	   
+      const newpwd=document.querySelector("#b_newPwd").value;
+      const newpwd2=document.querySelector("#b_newPwd2").value;
+      
+      // 최소5글자 최대 10글자인지를 검증할 정규표현식
+      const reg_pwd=/^.{5,10}$/;
+      if(!reg_pwd.test(newpwd)){
+    	 isNewPwdValid = false;
+         document.querySelector("#b_newPwd").classList.add("is-invalid");
+         return; //함수를 여기서 종료
+      }else{
+    	  isNewPwdValid = true;
+          document.querySelector("#b_newPwd").classList.add("is-valid");
       }
-   });
+      
+      if(newpwd != newpwd2){//비밀번호와 비밀번호 확인란이 다르면    
+    	     isNewPwdValid2 = false;
+	         document.querySelector("#b_newPwd2").classList.add("is-invalid");
+	         return;
+	      }else{
+	    	 isNewPwdValid2 = true;
+			 document.querySelector("#b_newPwd2").classList.add("is-valid");
+	      }
+   }
+   
+   //새 비밀번호 입력란에 input 이벤트가 일어 났을때 실행할 함수 등록
+   document.querySelector("#b_newPwd").addEventListener("input", newcheckPwd);
+   document.querySelector("#b_newPwd2").addEventListener("input", newcheckPwd);
+   
+
+   document.querySelector("#changeBtn").addEventListener("click", function(e){
+	      
+		  let isFormValid = isNewPwdValid && isNewPwdValid2;
+		  console.log(isNewPwdValid);
+		  console.log(isNewPwdValid2);
+
+	      if(!isFormValid){
+	    	  e.preventDefault();
+	      }else{
+	    	  let changePwdForm=document.querySelector("#changePwdForm");
+	    	   // gura_util.js 에 있는 함수를 이용해서 ajax 전송한다. 
+	    	   ajaxFormPromise(changePwdForm)
+	    	   .then(function(response){
+	    	      return response.json();
+	    	   })
+	    	   .then(function(data){
+	    	 	  console.log(data);
+	    	      if(data.isResult){
+	    	    	  swal({
+	    				  title: "비밀번호 변경 성공!",
+	    				  text: "로그인 페이지로 이동합니다.",
+	    				  icon: "success",
+	    				  button: "이동하기"
+	    			  })
+	    			  .then((logingForm)=>{
+	    				 if(logingForm){
+	    					 location.href="${pageContext.request.contextPath}/users/b_login_form.do";
+	    				 } 
+	    			  });  
+	    	      }
+	    	   });
+	      }
+	   });
+   
+   
 </script>
 </body>
 </html>

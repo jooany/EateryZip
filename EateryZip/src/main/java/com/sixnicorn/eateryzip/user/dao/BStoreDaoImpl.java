@@ -87,8 +87,20 @@ public class BStoreDaoImpl implements BStoreDao {
 	}
 	//리뷰 리스트 가져오기
 	@Override
-	public List<ReviewDto> getReviewList(ReviewDto dto){
-		return session.selectList("BStore.getReviewList",dto);
+	public List<ReviewDto> getReviewList_R(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_R",dto);
+	}
+	@Override
+	public List<ReviewDto> getReviewList_R_P(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_R_P",dto);
+	}
+	@Override
+	public List<ReviewDto> getReviewList_P(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_P",dto);
+	}
+	@Override
+	public List<ReviewDto> getReviewList_P_P(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_P_P",dto);
 	}
 	//리뷰 개수 세기
 	@Override

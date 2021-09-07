@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비즈니스회원 로그인</title>
+<title>로그인</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
 	.container{
@@ -68,7 +68,7 @@
 <div class="container">
 	   <c:choose>
 	   		<c:when test="${not empty cookie.savedb_Id}">
-	   			<form action="${pageContext.request.contextPath}/users/b_login.do" method="post" >
+	   			<form action="${pageContext.request.contextPath}/users/ajax_b_login.do" method="post" id="loginForm" >
 	   				
 				  <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
 				  class="mx-auto d-block mb-4" alt="" />
@@ -81,12 +81,12 @@
 			      </div>
 			      <div class="checkbox mb-3 mt-3" style="text-align:center;">
 		              <label>
-		                 <input type="checkbox" name="isSave" value="yes" checked> 로그인 정보 저장
+		                 <input type="checkbox" name="isSave" value="yes" checked> 사업자 로그인 정보 저장
 
 		              </label>
 		          </div>
 			      <div class="mt-3 mb-3" style="text-align:center;">
-			      	<button type="submit" class="btn" style="width:450px;">로그인</button>
+			      	<button id="loginBtn" type="button" class="btn" style="width:450px;">로그인</button>
 			      </div>
 			      <div class="search_wrap">
 				    <div class="search_wrap_child" >
@@ -108,9 +108,8 @@
 	   		
 	   		</c:when>
 	   		<c:otherwise>
-	   			<form action="${pageContext.request.contextPath}/users/b_login.do" method="post" >
+	   			<form action="${pageContext.request.contextPath}/users/ajax_b_login.do" method="post" id="loginForm" >
 	   			  
-	   
 				  <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
 				  class="mx-auto d-block mb-4" alt="" />
 					   
@@ -122,11 +121,11 @@
 			      </div>
 			      <div id="checkbox" class="checkbox mb-3 mt-3" style="text-align:center;">
 		              <label>
-		                 <input type="checkbox" name="isSave" value="yes"> 로그인 정보 저장
+		                 <input type="checkbox" name="isSave" value="yes"> 사업자 로그인 정보 저장
 		              </label>
 		          </div>
 			      <div class="mt-3 mb-3" style="text-align:center;">
-			      	<button type="submit" class="btn" style="width:450px;">로그인</button>
+			      	<button id="loginBtn" type="button" class="btn" style="width:450px;">로그인</button>
 			      </div>
 			      <div class="search_wrap">
 				    <div class="search_wrap_child" >
@@ -148,5 +147,45 @@
 	   		</c:otherwise>
 	   </c:choose>
 </div> 
+<script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+	document.querySelector("#loginBtn").addEventListener("click",function(){
+		let loginForm = document.querySelector("#loginForm");
+		ajaxFormPromise(loginForm)
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(login){
+			console.log(login);
+				if(login.isLogin){
+					  swal({
+	    				  title: "로그인 성공!",
+	    				  icon: "success",
+	    				  button: "이동하기"
+	    			  })
+	    			  .then((logingForm)=>{
+	    				 if(logingForm){
+	    					 location.href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do";
+	    				 } 
+				  });    
+			  }else{
+				  swal({  title: "검색 실패!",
+					  text: "일치한 정보가 없습니다.",
+					  icon: "error", 
+					  buttons: ["재로그인", "아이디찾기"],
+			  })
+			  .then((logingForm)=>{
+				 if(logingForm){
+					 location.href="${pageContext.request.contextPath}/users/b_find_id_form.do";
+				 }else{
+					 location.href="${pageContext.request.contextPath}/users/b_login_form.do";
+				 } 
+			  }); 
+			  }
+		});
+	})
+
+</script>
 </body>
 </html>

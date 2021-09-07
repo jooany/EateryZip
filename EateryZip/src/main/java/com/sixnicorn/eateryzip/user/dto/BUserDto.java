@@ -7,6 +7,7 @@ public class BUserDto {
 	private String b_name;
 	private String b_address;
 	private String b_email;
+	private String b_email2;
 	private String b_phone;
 	private String b_profile;
 	private String b_regdate;
@@ -15,7 +16,7 @@ public class BUserDto {
 	public BUserDto() {}
 
 	public BUserDto(String b_id, String b_pwd, String b_newPwd, String b_name, String b_address, String b_email,
-			String b_phone, String b_profile, String b_regdate, String grade) {
+			String b_email2, String b_phone, String b_profile, String b_regdate, String grade) {
 		super();
 		this.b_id = b_id;
 		this.b_pwd = b_pwd;
@@ -23,6 +24,7 @@ public class BUserDto {
 		this.b_name = b_name;
 		this.b_address = b_address;
 		this.b_email = b_email;
+		this.b_email2 = b_email2;
 		this.b_phone = b_phone;
 		this.b_profile = b_profile;
 		this.b_regdate = b_regdate;
@@ -77,6 +79,14 @@ public class BUserDto {
 		this.b_email = b_email;
 	}
 
+	public String getB_email2() {
+		return b_email2;
+	}
+
+	public void setB_email2(String b_email2) {
+		this.b_email2 = b_email2;
+	}
+
 	public String getB_phone() {
 		return b_phone;
 	}
@@ -108,6 +118,8 @@ public class BUserDto {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
+
+	
 	
 	
 }

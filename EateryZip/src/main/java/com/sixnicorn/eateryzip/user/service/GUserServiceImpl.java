@@ -1,6 +1,7 @@
 package com.sixnicorn.eateryzip.user.service;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,8 @@ public class GUserServiceImpl implements GUserService {
 
 	//일반회원가입 로그인 처리 과정
 	@Override
-	public void loginProcess(GUserDto dto, HttpSession session , String isSave , HttpServletResponse response) {
+	public Map<String, Object> loginProcess(GUserDto dto, HttpSession session , 
+			String isSave , HttpServletResponse response , String url) {
 		boolean isValid= false;
 		
 		String g_id = dto.getG_id();
@@ -38,6 +40,8 @@ public class GUserServiceImpl implements GUserService {
 		
 		String g_pwd = dto.getG_pwd();
 		String changedG_pwd=g_pwd.trim();
+		
+		String encodedUrl=URLEncoder.encode(url);
 		
 		GUserDto result=Gdao.getData(changedG_id);
 		if(result != null) {
@@ -50,33 +54,32 @@ public class GUserServiceImpl implements GUserService {
 		if(isValid) { //만일 위의 정보가 모두 충족될 시,
 			//session 영역에 아이디를 저장한다.
 			session.setAttribute("g_id", dto.getG_id());
-			session.setMaxInactiveInterval(60*60*6);
+			session.setMaxInactiveInterval(60*60);
 			
 			if(isSave != null){//만일 넘어오는 값이 있다면
 			      //쿠키에 id 와 pwd 를 특정 키값으로 담아서 쿠키도 응답 되도록 한다.
 			      Cookie idCook=new Cookie("savedg_Id", changedG_id);
-			      idCook.setMaxAge(60*60*6); //쿠키 유지시간 (초단위)
+			      idCook.setMaxAge(60*60); //쿠키 유지시간 (초단위)
 			      response.addCookie(idCook); //기본객체 response의 addCookie 메소드를 사용
-			      
-			      Cookie pwdCook=new Cookie("savedg_Pwd", changedG_pwd);
-			      pwdCook.setMaxAge(60*60*6);
-			      response.addCookie(pwdCook);
 			   }else {
 				      Cookie idCook=new Cookie("savedg_Id", changedG_id);
 				      idCook.setMaxAge(0); //쿠키 유지시간 (초단위)
 				      response.addCookie(idCook);
-				      
-				      Cookie pwdCook=new Cookie("savedg_Pwd", changedG_pwd);
-				      pwdCook.setMaxAge(0);
-				      response.addCookie(pwdCook);
 			   }
+			
 		}
 		
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("isLogin",isValid);
+		map.put("url",url);
+		map.put("encodedUrl",encodedUrl);
+		
+		return map;
 	}
 
 	//일반 회원 가입 로직
 	@Override
-	public void addUser(GUserDto dto) {
+	public Map<String, Object> addUser(GUserDto dto) {
 		//입력 받은 비밀번호를 암호화 하는 로직
 		String pwd = dto.getG_pwd();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -84,8 +87,11 @@ public class GUserServiceImpl implements GUserService {
 		//암호화한 비밀번호를 Dto에 다시 넣어준다.
 		dto.setG_pwd(encodedPwd);
 		
-		Gdao.insert(dto);
+		boolean result = Gdao.insert(dto);
 		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("isSuccess",result);
+		return map;
 	}
 
 	@Override
@@ -99,39 +105,89 @@ public class GUserServiceImpl implements GUserService {
 	}
 	
 	@Override
-	public void findId(GUserDto dto, ModelAndView mView) {
+	public Map<String, Object> findId(GUserDto dto) {
+		
+		boolean result=false;
 		
 		String find_id = Gdao.getId(dto);
 		String g_name =dto.getG_name();
-		mView.addObject("find_id",find_id);
-		mView.addObject("g_name",g_name);
+		if(find_id != null){
+			result=true;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("isResult",result);
+			map.put("g_name",g_name);
+			map.put("find_id",find_id);
+			return map;
+		}else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("isResult",result);
+			map.put("g_name",g_name);
+			return map;
+		}
+	}
+
+	@Override
+	public Map<String, Object> findPwd(GUserDto dto) {
 		
+		boolean result=false;
+		String find_pwd = Gdao.getPwd(dto);
+		String g_id =dto.getG_id();
+		if(find_pwd != null){
+			result=true;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("isResult",result);
+			map.put("g_id",g_id);
+			map.put("find_pwd",find_pwd);
+			return map;
+		}else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("isResult",result);
+			map.put("g_id",g_id);
+			return map;
+		}
 	}
 
-	@Override
-	public boolean findPwd(GUserDto dto, ModelAndView mView) {
-		return Gdao.getPwd(dto);
-	}
+
 
 	@Override
-	public void updatePwd(GUserDto dto, ModelAndView mView, HttpSession session) {
+	public Map<String, Object> updatePwd(GUserDto dto, HttpSession session, 
+			HttpServletResponse response, HttpServletRequest request) {
+		
+		boolean result = false;
+		
 		String g_id = dto.getG_id();
-		GUserDto resultDto = Gdao.getData(g_id);
+		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encodedNewPwd = encoder.encode(dto.getG_newPwd());
+		
 		dto.setG_newPwd(encodedNewPwd);
 		dto.setG_id(g_id);
-		Gdao.changePwd(dto);
-		session.removeAttribute("g_id");
-		
-		mView.addObject("g_id",g_id);
-		
+		boolean changeResult = Gdao.changePwd(dto);
+		if(changeResult) {
+			result = true;
+			
+			 Cookie[] cookies = request.getCookies();
+		  	  for (int i = 0; i < cookies.length; i++) {
+		  		if (cookies[i].getName().equals("savedg_Id")){
+		    		cookies[i].setMaxAge(0);   // 유효시간을 0으로 설정함으로써 쿠키를 삭제 시킨다.  
+		    		cookies[i].setPath("/eateryzip/users");
+		    		response.addCookie(cookies[i]);
+		    		}
+		  	}
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("g_id",g_id);
+			map.put("isResult",result);
+			return map;
+		}else{
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("g_id",g_id);
+			map.put("isResult",result);
+			return map;
+		}
 	}
 	
-	
-	
 	// 혜림 ---------------------------------------------------------------------
-
 	@Override
 	public void getGmypage(HttpSession session, ModelAndView mView) {
 		// 로그인된 아이디를 읽어온다.
@@ -180,8 +236,6 @@ public class GUserServiceImpl implements GUserService {
 		map.put("imagePath", "/upload/"+saveFileName);
 		return map;
 	}
-
-	
 
 }
 

@@ -8,9 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script>
-	alert("로그 아웃 되었습니다.");
-	location.href="${pageContext.request.contextPath}/home.do";
-</script>
+
 </body>
 </html>
