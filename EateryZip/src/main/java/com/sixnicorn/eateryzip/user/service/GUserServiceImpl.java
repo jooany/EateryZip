@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sixnicorn.eateryzip.user.dao.GUserDao;
-import com.sixnicorn.eateryzip.user.dto.BUserDto;
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
 
 @Service
@@ -147,7 +146,9 @@ public class GUserServiceImpl implements GUserService {
 			return map;
 		}
 	}
-	
+
+
+
 	@Override
 	public Map<String, Object> updatePwd(GUserDto dto, HttpSession session, 
 			HttpServletResponse response, HttpServletRequest request) {
@@ -235,8 +236,6 @@ public class GUserServiceImpl implements GUserService {
 		map.put("imagePath", "/upload/"+saveFileName);
 		return map;
 	}
-
-
 
 }
 

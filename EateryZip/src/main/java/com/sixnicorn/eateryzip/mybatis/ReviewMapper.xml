@@ -45,14 +45,9 @@
 	<select id="getReviewTotalCount" parameterType="String" resultType="int">
 		SELECT NVL(MAX(ROWNUM),0)
 		FROM review
-		WHERE b_id=#{b_id};
+		WHERE b_id=#{b_id}
 	</select>
-	<!-- 키워드별 개수 -->
-	<select id="getCountR1" parameterType="String" resultType="int">
-		SELECT NVL(MAX(ROWNUM),0)
-		FROM review
-		WHERE keyword_review LIKE '%'||'가성비가 좋아요'||'%' AND b_id=#{b_id};
-	</select>
+	
 	<select id="getCountR2" parameterType="String" resultType="int">
 		SELECT NVL(MAX(ROWNUM),0)
 		FROM review

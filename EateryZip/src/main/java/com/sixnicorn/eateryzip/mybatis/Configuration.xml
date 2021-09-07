@@ -24,6 +24,7 @@
  		<mapper resource="com/sixnicorn/eateryzip/mybatis/GUserMapper.xml"/>
  		<mapper resource="com/sixnicorn/eateryzip/mybatis/ReservationMapper.xml"/>
  		<mapper resource="com/sixnicorn/eateryzip/mybatis/ReviewMapper.xml" />
+ 		<mapper resource="com/sixnicorn/eateryzip/mybatis/TakeOutMapper.xml" />
  	</mappers>
  	
  </configuration>

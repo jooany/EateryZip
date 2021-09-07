@@ -20,6 +20,7 @@ public class BStoreDto {
 	private String notice;
 	private String service;
 	private String ex_keyword;
+	private String checkKeyword;
 	// 파일 업로드 처리를 하기위한 필드
 	private MultipartFile storeFile;
 	
@@ -27,14 +28,15 @@ public class BStoreDto {
 	private int endRowNum;
 	private int prevNum;
 	private int nextNum;
+	private String encodedK;
 	
 	// 디폴트 생성자
 	public BStoreDto() {}
 
 	public BStoreDto(String b_id, String b_name, String b_Store_Address, String b_kind, String intro, String b_img_f,
 			String b_Store_phone, String b_Store_date, String b_open, String b_close, String b_holiday, String notice,
-			String service, String ex_keyword, MultipartFile storeFile, int startRowNum, int endRowNum, int prevNum,
-			int nextNum) {
+			String service, String ex_keyword, String checkKeyword, MultipartFile storeFile, int startRowNum,
+			int endRowNum, int prevNum, int nextNum, String encodedK) {
 		super();
 		this.b_id = b_id;
 		this.b_name = b_name;
@@ -50,11 +52,13 @@ public class BStoreDto {
 		this.notice = notice;
 		this.service = service;
 		this.ex_keyword = ex_keyword;
+		this.checkKeyword = checkKeyword;
 		this.storeFile = storeFile;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 		this.prevNum = prevNum;
 		this.nextNum = nextNum;
+		this.encodedK = encodedK;
 	}
 
 	public String getB_id() {
@@ -169,6 +173,14 @@ public class BStoreDto {
 		this.ex_keyword = ex_keyword;
 	}
 
+	public String getCheckKeyword() {
+		return checkKeyword;
+	}
+
+	public void setCheckKeyword(String checkKeyword) {
+		this.checkKeyword = checkKeyword;
+	}
+
 	public MultipartFile getStoreFile() {
 		return storeFile;
 	}
@@ -209,4 +221,13 @@ public class BStoreDto {
 		this.nextNum = nextNum;
 	}
 
+	public String getEncodedK() {
+		return encodedK;
+	}
+
+	public void setEncodedK(String encodedK) {
+		this.encodedK = encodedK;
+	}
+
+	
 }

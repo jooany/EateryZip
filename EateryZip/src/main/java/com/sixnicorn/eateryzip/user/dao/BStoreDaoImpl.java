@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sixnicorn.eateryzip.user.dto.BStoreDto;
+import com.sixnicorn.eateryzip.user.dto.EateryScrapDto;
 import com.sixnicorn.eateryzip.user.dto.MenuDto;
 import com.sixnicorn.eateryzip.user.dto.ReviewDto;
 import com.sixnicorn.eateryzip.user.dto.StoreImgDto;
@@ -38,6 +39,11 @@ public class BStoreDaoImpl implements BStoreDao {
 		 	parameterType : BStoreDto
 		*/
 		session.update("BStore.update", dto);
+	}
+	
+	@Override
+	public void insertStoreImg(StoreImgDto dto) {
+		session.insert("BStore.insertStoreImg",dto);
 	}
 	
 	//혜림&주연
@@ -84,11 +90,32 @@ public class BStoreDaoImpl implements BStoreDao {
 	public List<ReviewDto> getReviewList(ReviewDto dto){
 		return session.selectList("BStore.getReviewList",dto);
 	}
-	//음식점 리뷰 개수 세기
+	//리뷰 개수 세기
 	@Override
 	public int getReviewCount(String b_id){
 
 		return session.selectOne("BStore.getReviewCount",b_id);
+	}
+	//리뷰 키워드별 개수 세기 
+	@Override
+	public ReviewDto getKeyCount(ReviewDto dto) {
+		
+		return session.selectOne("BStore.getKeyCount",dto);
+	}
+	//음식점 스크랩하기
+	@Override
+	public void doScrap(EateryScrapDto dto) {
+		session.insert("BStore.doScrap",dto);
+	}
+	//음식점 스크랩취소하기
+	@Override
+	public void notScrap(EateryScrapDto dto) {
+		session.delete("BStore.notScrap",dto);
+	}
+	//음식점 스크랩 유무 확인하기
+	@Override
+	public int isScrap(EateryScrapDto dto) {
+		return session.selectOne("BStore.isScrap",dto);
 	}
 }
 
