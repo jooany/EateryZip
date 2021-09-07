@@ -193,7 +193,7 @@
 		<div id="reviewFormWrap">
 			<div id="reviewHeader" class="wrap_inner">
 				${empty dto2 ? '<p>리뷰 쓰기</p>' :'<p>리뷰 수정하기</p>' }
-				<button style="font-size:20px; font-weight:100">
+				<button id="closeBtn" style="font-size:20px; font-weight:100">
 					<i class="fas fa-times"></i>
 				</button>
 			</div>
@@ -423,6 +423,9 @@
 	    }
 	});
 	
+	$("#closeBtn").click(function(){
+		window.close();  
+	});
 	
 
 	

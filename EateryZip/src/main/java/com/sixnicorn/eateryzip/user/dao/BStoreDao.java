@@ -37,7 +37,6 @@ public interface BStoreDao {
 	public List<ReviewDto> getReviewList_P(ReviewDto dto);
 	public List<ReviewDto> getReviewList_P_P(ReviewDto dto);
 	
-	
 	public int getReviewCount(String b_id);
 	public void insertStoreImg(StoreImgDto dto);
 	public ReviewDto getKeyCount(ReviewDto dto);
