@@ -20,8 +20,13 @@ public class GUserDaoImpl implements GUserDao {
 	}
 
 	@Override
-	public void insert(GUserDto dto) {
-		session.insert("Guser.insert", dto);
+	public boolean insert(GUserDto dto) {
+		int result = session.insert("Guser.insert", dto);
+			if(result > 0){
+				return true;
+			}else{
+				return false;
+			}
 	}
 
 	@Override
@@ -34,6 +39,27 @@ public class GUserDaoImpl implements GUserDao {
 					return true;
 			}
 	}
+	
+	@Override
+	public String getId(GUserDto dto) {
+		
+		return session.selectOne("Guser.getId",dto);
+	}
+
+	@Override
+	public String getPwd(GUserDto dto) {
+		return session.selectOne("Guser.getPwd", dto);
+	}
+
+	@Override
+	public boolean changePwd(GUserDto dto) {
+		int result = session.update("Guser.pwdChange",dto);
+		if(result > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 	// 혜림 ----------------------------------------------------------
 	// 일반회원 정보 수정하기
@@ -42,26 +68,6 @@ public class GUserDaoImpl implements GUserDao {
 		// TODO Auto-generated method stub
 		session.update("Guser.update", dto);
 	}
-	@Override
-	public String getId(GUserDto dto) {
-		
-		return session.selectOne("Guser.getId",dto);
-	}
 
-	@Override
-	public boolean getPwd(GUserDto dto) {
-		String pwd = session.selectOne("Guser.getPwd", dto);
-		if(pwd==null) {
-			return false;
-		}else {
-			return true;
-		}
-	}
-
-	@Override
-	public void changePwd(GUserDto dto) {
-		session.update("Guser.pwdChange",dto);
-
-	}
 
 }

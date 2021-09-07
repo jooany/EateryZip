@@ -8,12 +8,11 @@
 <title>회원가입 이용약관</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js " ></script>
 <style>
 	.w-50{
 		width: 40% !important;
 	}
-	
-
 	.box{
 	background-color:#CCCCCC;
 	}
@@ -235,8 +234,8 @@
    	</div>
    	
      <div class="mt-1" style="text-align:center;">
-	      <a href="${pageContext.request.contextPath}/users/g_signup_form.do" type="button" class="btn">일반회원 가입</a>
-	      <a href="${pageContext.request.contextPath}/users/b_signup_form.do" type="button" class="btn">사업자회원 가입</a>
+	      <a href="${pageContext.request.contextPath}/users/g_signup_form.do" type="button" class="btn" id="g_sign">일반회원 가입</a>
+	      <a href="${pageContext.request.contextPath}/users/b_signup_form.do" type="button" class="btn" id="b_sign">사업자회원 가입</a>
       </div>
 </div>
 <script>
@@ -252,11 +251,14 @@
 		$("#allchecked").prop("checked", allChecked);
 	});
 	
-
-	 
-
+	$("#g_sign, #b_sign").click(function(e){
+		let isFormValid = $("#infochecked").is(":checked") && $("#servicechecked").is(":checked") && $("#allchecked").is(":checked") ;
+		if(!isFormValid){
+			swal("회원가입 진행불가" ,"이용약관에 동의해주세요!","error");
+			e.preventDefault();	
+		}
+	});
 
 </script>
 </body>
-
 </html>

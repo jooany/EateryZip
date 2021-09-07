@@ -23,8 +23,13 @@ public class BUserDaoImpl implements BUserDao {
 	
 	//회원가입 폼에서 입력 받은 정보를 DB에 insert(비밀번호 암호화 적용)
 	@Override
-	public void insert(BUserDto dto) {
-		session.insert("Buser.insert", dto);
+	public boolean insert(BUserDto dto) {
+		int result = session.insert("Buser.insert", dto);
+			if(result > 0){
+				return true;
+			}else{
+				return false;
+			}
 	}
 
 	@Override
@@ -45,20 +50,19 @@ public class BUserDaoImpl implements BUserDao {
 	}
 	
 	@Override
-	public boolean getPwd(BUserDto dto) {
+	public String getPwd(BUserDto dto) {
 		
-		String pwd = session.selectOne("Buser.getPwd", dto);
-		if(pwd==null) {
-			return false;
-		}else {
-			return true;
-		}
+		return session.selectOne("Buser.getPwd", dto);
 	}
 	
 	@Override
-	public void changePwd(BUserDto dto) {
-		session.update("Buser.pwdChange",dto);
-		
+	public boolean changePwd(BUserDto dto) {
+		int result = session.update("Buser.pwdChange",dto);
+		if(result > 0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	
@@ -71,10 +75,4 @@ public class BUserDaoImpl implements BUserDao {
 	}
 
 	
-
-
-
-
-
-		
 }

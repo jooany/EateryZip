@@ -4,15 +4,15 @@
 
 	<!-- select의 결과가 없으면 0이 된다.-->
 	<select id="getData" parameterType="string" resultType="GuserDto">
-	select g_id, g_pwd, g_name, g_address, g_email, g_phone, g_profile, g_regdate, grade
+	select g_id, g_pwd, g_name, g_address, g_email, g_email2, g_phone, g_profile, to_char(g_regdate,'YYYY-MM-DD'), grade
 	from g_user
 	where g_id = #{g_id}	
 	</select>
 	
 	<insert id="insert" parameterType="GuserDto">
 	insert into g_user
-	(g_id, g_pwd, g_name, g_address, g_email, g_phone, g_regdate, grade)
-	values(#{g_id}, #{g_pwd}, #{g_name}, #{g_address},  #{g_email}, #{g_phone}, sysdate, #{grade})
+	(g_id, g_pwd, g_name, g_address, g_email, g_email2, g_phone, g_regdate, grade)
+	values(#{g_id}, #{g_pwd}, #{g_name}, #{g_address},  #{g_email}, #{g_email2}, #{g_phone}, sysdate, #{grade})
 	</insert>
 	
 	<select id="isExist" parameterType="java.lang.String" resultType="string">
@@ -28,7 +28,7 @@
 	</select>
 	
 	<select id="getPwd" parameterType="GuserDto" resultType="String">
-	Select *
+	Select g_pwd
 	from g_user
 	where g_id=#{g_id} and g_phone=#{g_phone} 
 	</select>

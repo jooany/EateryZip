@@ -7,6 +7,7 @@ public class GUserDto {
 	private String g_name;
 	private String g_address;
 	private String g_email;
+	private String g_email2;
 	private String g_phone;
 	private String g_profile;
 	private String g_regdate;
@@ -15,7 +16,7 @@ public class GUserDto {
 	public GUserDto() {}
 
 	public GUserDto(String g_id, String g_pwd, String g_newPwd, String g_name, String g_address, String g_email,
-			String g_phone, String g_profile, String g_regdate, String grade) {
+			String g_email2, String g_phone, String g_profile, String g_regdate, String grade) {
 		super();
 		this.g_id = g_id;
 		this.g_pwd = g_pwd;
@@ -23,6 +24,7 @@ public class GUserDto {
 		this.g_name = g_name;
 		this.g_address = g_address;
 		this.g_email = g_email;
+		this.g_email2 = g_email2;
 		this.g_phone = g_phone;
 		this.g_profile = g_profile;
 		this.g_regdate = g_regdate;
@@ -75,6 +77,14 @@ public class GUserDto {
 
 	public void setG_email(String g_email) {
 		this.g_email = g_email;
+	}
+
+	public String getG_email2() {
+		return g_email2;
+	}
+
+	public void setG_email2(String g_email2) {
+		this.g_email2 = g_email2;
 	}
 
 	public String getG_phone() {
