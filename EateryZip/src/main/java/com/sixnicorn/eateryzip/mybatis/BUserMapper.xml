@@ -4,15 +4,15 @@
 	
 	<!-- select의 결과가 없으면 0이 된다.-->
 	<select id="getData" parameterType="string" resultType="BuserDto">
-	select b_id, b_pwd, b_name, b_address, b_email, b_phone, b_profile, b_regdate, grade
+	select b_id, b_pwd, b_name, b_address, b_email, b_email2, b_phone, b_profile, to_char(b_regdate,'YYYY-MM-DD'), grade
 	from b_user
 	where b_id = #{b_id}	
 	</select>
 	
 	<insert id="insert" parameterType="BuserDto">
 	insert into b_user
-	(b_id, b_pwd, b_name, b_address, b_email, b_phone, b_regdate, grade)
-	values(#{b_id}, #{b_pwd}, #{b_name}, #{b_address},  #{b_email}, #{b_phone}, sysdate, #{grade})
+	(b_id, b_pwd, b_name, b_address, b_email, b_email2, b_phone, b_regdate, grade)
+	values(#{b_id}, #{b_pwd}, #{b_name}, #{b_address},  #{b_email}, #{b_email2}, #{b_phone}, sysdate, #{grade})
 	</insert>
 
 	<select id="isExist" parameterType="java.lang.String" resultType="string">
@@ -28,7 +28,7 @@
 	</select>
 	
 	<select id="getPwd" parameterType="BuserDto" resultType="String">
-	Select *
+	Select b_pwd
 	from b_user
 	where b_id=#{b_id} and b_phone=#{b_phone} 
 	</select>

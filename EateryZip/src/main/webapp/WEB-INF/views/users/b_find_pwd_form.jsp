@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비즈니스회원 로그인</title>
+<title>비밀번호 찾기</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
 	.container{
@@ -67,7 +67,7 @@
 <body>
 <div class="container">
 
-	   <form action="${pageContext.request.contextPath}/users/b_find_pwd.do" method="post" >
+	   <form action="${pageContext.request.contextPath}/users/ajax_b_find_pwd.do" method="post" id="checkPwdForm">
 	   
 		  <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
 		  class="mx-auto d-block mb-2" alt="" />
@@ -79,10 +79,10 @@
 	         <input class="form-control" type="text" name="b_id" id="b_id" placeholder="회원가입 시 사업자번호를 입력해주세요."/>
 	      </div>
 	      <div class="mt-3">
-	         <input class="form-control" type="password" name="b_phone" id="b_phone" placeholder="회원가입 시 핸드폰번호를 입력해주세요"/>
+	         <input class="form-control" type="text" name="b_phone" id="b_phone" placeholder="회원가입 시 핸드폰번호를 입력해주세요"/>
 	      </div>
 	      <div class="mt-3 mb-3" style="text-align:center;">
-	      	<button type="submit" class="btn" style="width:450px;">확인</button>
+	      	<button id="findBtn" type="button" class="btn" style="width:450px;">확인</button>
 	      </div>
 	      <div class="search_wrap">
 		    <div class="search_wrap_child" >
@@ -102,5 +102,47 @@
 	      </div>	
 	   </form>
 </div>
+<script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+	document.querySelector("#findBtn").addEventListener("click", function(e){
+		let checkIdForm = document.querySelector("#checkPwdForm");
+		ajaxFormPromise(checkIdForm)
+		.then(function(response){
+			  return response.json();
+		})
+		.then(function(data){
+			  console.log(data);
+			  if(data.isResult){
+				  swal({  title: "검색 성공!",
+	    				  text: data.b_id+"님의 일치한 정보가 있습니다.",
+	    				  icon: "success", 
+	    				  buttons: "비밀번호 변경하기"
+    			  })
+    			  .then((logingForm)=>{
+     				 if(logingForm){
+     					 location.href="${pageContext.request.contextPath}/users/b_change_pwd_form.do?b_id="+data.b_id;
+     				 }
+     			  });    
+			  }else{
+				  swal({  title: "검색 실패!",
+    				  text: "일치한 정보가 없습니다.",
+    				  icon: "error", 
+    				  buttons: ["재검색", "회원가입"],
+			  })
+			  .then((logingForm)=>{
+				 if(logingForm){
+					 location.href="${pageContext.request.contextPath}/users/b_signup_form.do";
+				 }else{
+					 location.href="${pageContext.request.contextPath}/users/b_find_id_form.do";
+				 } 
+			  }); 
+			  }
+				  
+		});
+	
+	});
+</script>
 </body>
 </html>
