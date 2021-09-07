@@ -33,6 +33,9 @@ public class BStoreServiceImpl implements BStoreService{
 	//주연
 	@Override
 	public void getDetailData(HttpServletRequest request,String b_id) {
+		
+		String g_id=(String)request.getSession().getAttribute("g_id");
+		
 		//음식점 정보 얻어오기
 		BStoreDto dto=BStoreDao.getStore(b_id);
 		//음식점 이미지 리스트 얻어오기
@@ -45,7 +48,12 @@ public class BStoreServiceImpl implements BStoreService{
 		request.setAttribute("menuList", menuList);
 		
 		//리뷰 페이징 처리 위한 로직
+		// 필터 종류를 파라미터로 읽어와 본다.
+		String array=request.getParameter("array");
+		String only=request.getParameter("only");
 		
+		request.setAttribute("array", array);
+		request.setAttribute("only", only);
 		
 		//한 페이지에 몇개씩 표시할 것인지
 		final int PAGE_ROW_COUNT=5;
@@ -72,10 +80,22 @@ public class BStoreServiceImpl implements BStoreService{
 		dto2.setStartRowNum(startRowNum);
 		dto2.setEndRowNum(endRowNum);
 		dto2.setB_id(b_id);
-		
+		dto2.setId(g_id);
 
-		//글 목록 얻어오기 
-		List<ReviewDto> reviewList=BStoreDao.getReviewList(dto2);
+		//글 목록 얻어오기
+		List<ReviewDto> reviewList =new ArrayList<ReviewDto>();
+		
+		if(array.equals("latest")&&only.equals("all")) { //최신순
+			System.out.println("잘읽어와져?");
+			reviewList=BStoreDao.getReviewList_R(dto2);
+		}else if(array=="latest"&&only=="photo") { //최신순+사진 리뷰만
+			reviewList=BStoreDao.getReviewList_R_P(dto2);	
+		}else if(array=="popular"&&only=="all") { //인기순
+			reviewList=BStoreDao.getReviewList_P(dto2);
+		}else if(array=="popular"&&only=="photo") {  //인기순+사진 리뷰만
+			reviewList=BStoreDao.getReviewList_P_P(dto2);
+		}
+		
 		//전체글의 갯수
 		int totalRow=BStoreDao.getReviewCount(b_id);
 		
@@ -122,7 +142,6 @@ public class BStoreServiceImpl implements BStoreService{
 		
 		
 		//스크랩 유무 확인하기
-		String g_id=(String)request.getSession().getAttribute("g_id");
 		
 		EateryScrapDto eatDto=new EateryScrapDto();
 		eatDto.setB_id(b_id);

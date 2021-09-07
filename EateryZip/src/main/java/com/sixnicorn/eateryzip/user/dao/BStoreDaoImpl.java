@@ -85,11 +85,30 @@ public class BStoreDaoImpl implements BStoreDao {
 	public List<MenuDto> getMenuList(String b_id){
 		return session.selectList("BStore.getMenuList",b_id);
 	}
-	//리뷰 리스트 가져오기
+	
+	
+	//[최신순] 리뷰 리스트 가져오기
 	@Override
-	public List<ReviewDto> getReviewList(ReviewDto dto){
-		return session.selectList("BStore.getReviewList",dto);
+	public List<ReviewDto> getReviewList_R(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_R",dto);
 	}
+	//[최신순+사진리뷰만]
+	@Override
+	public List<ReviewDto> getReviewList_R_P(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_R_P",dto);
+	}
+	//[인기순]
+	@Override
+	public List<ReviewDto> getReviewList_P(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_P",dto);
+	}
+	//[인기순+사진리뷰만]
+	@Override
+	public List<ReviewDto> getReviewList_P_P(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_P_P",dto);
+	}
+	
+	
 	//리뷰 개수 세기
 	@Override
 	public int getReviewCount(String b_id){

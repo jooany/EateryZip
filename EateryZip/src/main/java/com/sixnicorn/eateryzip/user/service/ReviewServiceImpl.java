@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sixnicorn.eateryzip.user.dao.ReviewDao;
+import com.sixnicorn.eateryzip.user.dto.EateryScrapDto;
+import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 import com.sixnicorn.eateryzip.user.dto.ReviewDto;
+import com.sixnicorn.eateryzip.user.dto.ReviewGoodDto;
 import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
 @Service
@@ -20,26 +23,30 @@ public class ReviewServiceImpl implements ReviewService{
 	@Autowired
 	private ReviewDao reviewDao;
 	
+	//리뷰 추천
 	@Override
-	public void getList(HttpServletRequest request,int takeout_num,String b_id) {
+	public Map<String, Object> doReviewGood(HttpServletRequest request,int review_num) {
+		String g_id=(String)request.getSession().getAttribute("g_id");
 		
-		//int takeout_num=Integer.parseInt(request.getParameter("takeout_num"));
-		//String b_id=request.getParameter("b_id");
-		//포장 내역 가져오기
-		TakeoutDto dto=new TakeoutDto();
-		dto.setB_id(b_id);
-		dto.setTakeout_num(takeout_num);
-
-		TakeoutDto dto1=reviewDao.getTakeoutData(dto);
+		ReviewGoodDto dto=new ReviewGoodDto();
+		dto.setReview_num(review_num);
+		dto.setG_id(g_id);
 		
-		//저장된 리뷰 가져오기
-		ReviewDto dto2=new ReviewDto();
-		dto2=reviewDao.getReviewDataT(takeout_num);
+		reviewDao.doReviewGood(dto);
 		
-		request.setAttribute("dto1", dto1);
-		request.setAttribute("dto2", dto2);
-
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("isDoReviewGood",true);
+		return map;
 	}
+	//리뷰 추천 취소
+	@Override
+	public Map<String, Object> notReviewGood(HttpServletRequest request,int review_num) {
+		reviewDao.notReviewGood(review_num);
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("isNotReviewGood",true);
+		return map;
+	}
+	
 	
 	@Override
 	public Map<String, Object> saveImage(HttpServletRequest request, MultipartFile mFile) {
@@ -73,13 +80,63 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		return map;
 	}
+	@Override
+	public void getListR(HttpServletRequest request,int reservation_num,String b_id) {
+		
+		//int takeout_num=Integer.parseInt(request.getParameter("takeout_num"));
+		//String b_id=request.getParameter("b_id");
+		//포장 내역 가져오기
+		ReservationDto dto=new ReservationDto();
+		dto.setB_id(b_id);
+		dto.setReservation_num(reservation_num);
+
+		ReservationDto dto1=reviewDao.getReservationData(dto);
+		
+		//저장된 리뷰 가져오기
+		ReviewDto dto2=new ReviewDto();
+		dto2=reviewDao.getReviewDataR(reservation_num);
+		
+		request.setAttribute("dto1", dto1);
+		request.setAttribute("dto2", dto2);
+
+	}
+	// 포장 리뷰 등록하기
+	@Override
+	public void insertReviewR(ReviewDto dto) {
+		reviewDao.insertReviewR(dto);
+	}
+	//포장 리뷰 수정하기
+	@Override
+	public void updateReviewR(ReviewDto dto) {
+		reviewDao.updateReviewR(dto);
+	}
 	
+	
+	@Override
+	public void getListT(HttpServletRequest request,int takeout_num,String b_id) {
+		
+		//int takeout_num=Integer.parseInt(request.getParameter("takeout_num"));
+		//String b_id=request.getParameter("b_id");
+		//포장 내역 가져오기
+		TakeoutDto dto=new TakeoutDto();
+		dto.setB_id(b_id);
+		dto.setTakeout_num(takeout_num);
+
+		TakeoutDto dto1=reviewDao.getTakeoutData(dto);
+		
+		//저장된 리뷰 가져오기
+		ReviewDto dto2=new ReviewDto();
+		dto2=reviewDao.getReviewDataT(takeout_num);
+		
+		request.setAttribute("dto1", dto1);
+		request.setAttribute("dto2", dto2);
+
+	}
 	// 포장 리뷰 등록하기
 	@Override
 	public void insertReviewT(ReviewDto dto) {
 		reviewDao.insertReviewT(dto);
 	}
-	
 	//포장 리뷰 수정하기
 	@Override
 	public void updateReviewT(ReviewDto dto) {
