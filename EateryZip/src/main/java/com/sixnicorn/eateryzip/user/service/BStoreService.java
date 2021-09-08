@@ -40,5 +40,4 @@ public interface BStoreService {
 	public Map<String, Object> doReviewGood(HttpServletRequest request, int review_num);
 	public Map<String, Object> notReviewGood(HttpServletRequest request, int review_num);
 	public void getDetailDataFilter(HttpServletRequest request);
-	void getList(HttpServletRequest request);
 }
