@@ -29,6 +29,11 @@ public class BStoreController {
 		service.getDetailData(request, b_id);
 		return "eatery/detail";
 	}
+	@RequestMapping("/eatery/ajax_detail")
+	public String  detailDataFilter(HttpServletRequest request) {
+		service.getDetailDataFilter(request);
+		return "eatery/ajax_detail";
+	}
 	// 음식점 스크랩 하기 
 	@RequestMapping(value="/eatery/private/ajax_good_insert")
 	@ResponseBody
@@ -40,6 +45,19 @@ public class BStoreController {
 	@ResponseBody
 	public Map<String,Object> notScrap(HttpServletRequest request,@RequestParam String b_id){
 		return service.notScrap(request,b_id);
+	}
+	
+	// 리뷰 추천
+	@RequestMapping(value="/eatery/private/ajax_good_insert_r")
+	@ResponseBody
+	public Map<String,Object> doReviewGood(HttpServletRequest request,@RequestParam int review_num){
+		return service.doReviewGood(request,review_num);
+	}
+	// 리뷰 추천 취소
+	@RequestMapping(value="/eatery/private/ajax_good_delete_r")
+	@ResponseBody
+	public Map<String,Object> notReviewGood(HttpServletRequest request,@RequestParam int review_num){
+		return service.notReviewGood(request,review_num);
 	}
 
 	
@@ -138,8 +156,8 @@ public class BStoreController {
 	// 나현
 	
 	@RequestMapping("/eatery/list")
-	public String getList(HttpServletRequest request) {
-		service.getList(request);
+	public String getList(HttpServletRequest request, BStoreDto dto) {
+		service.getList(request, dto);
 		
 		return "eatery/list";
 	}

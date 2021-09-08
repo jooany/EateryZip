@@ -1,41 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
+	<!-- 유저가 리뷰 추천했는지 확인 -->
+	<select id="isGood" parameterType="ReviewGoodDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM review_good
+		WHERE review_num=#{review_num} AND g_id=#{g_id}
+	</select>
+
+	<!-- [예약] 음식점 이름,방문 날짜,방문 시간 가져오기 -->
+	<select id="getReservationData" parameterType="ReservationDto" resultType="ReservationDto">
+		SELECT b.b_name AS b_store_name,reservation_date,reservation_time,reservation_num,r.b_id,r.g_id
+		FROM b_store b,reservation r
+		WHERE b.b_id=r.b_id AND b.b_id=#{b_id} AND reservation_num=#{reservation_num}	
+	</select>
+
+	<!-- [예약] 저장된 예약 리뷰 정보 가져오기 -->
+	<select id="getReviewDataR" parameterType="int" resultType="ReviewDto">
+		SELECT *
+		FROM review
+		WHERE reservation_num=#{reservation_num}
+	</select>
+	
+	<!-- [예약 리뷰 ] 리뷰 등록하기  -->
+	<insert id="insertReviewR" parameterType="ReviewDto">
+		INSERT INTO review
+ 		(review_num,b_id,writer,review_image,review_content,regdate,keyword_review,review_kind,reservation_num)
+ 		VALUES(review_seq.NEXTVAL,#{b_id},#{writer},#{review_image,jdbcType=VARCHAR},#{review_content},SYSDATE,#{keyword_review,jdbcType=VARCHAR},#{review_kind,jdbcType=VARCHAR},#{reservation_num,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- [예약 리뷰 ] 리뷰 수정하기  -->
+	<update id="updateReviewR" parameterType="ReviewDto">
+		UPDATE review
+ 		SET keyword_review=#{keyword_review},review_content=#{review_content},review_image=#{review_image}
+ 		WHERE b_id=#{b_id} AND reservation_num=#{reservation_num}
+	</update>
 
 	<!-- [포장] 음식점 이름,방문 날짜,방문 시간,가격 가져오기 -->
-	<select id="getTakeoutData" parameterType="takeoutDto" resultType="takeoutDto">
+	<select id="getTakeoutData" parameterType="TakeoutDto" resultType="TakeoutDto">
 		SELECT b.b_name,TO_CHAR(takeout_date,'YYYY.MM.DD') takeout_date,takeout_time,takeout_price,takeout_num,t.b_id,t.g_id
 		FROM b_store b,takeout t
 		WHERE b.b_id=t.b_id AND b.b_id=#{b_id} AND takeout_num=#{takeout_num}	
 	</select>
 
 	<!-- [포장] 저장된 포장 리뷰 정보 가져오기 -->
-	<select id="getReviewDataT" parameterType="int" resultType="reviewDto">
+	<select id="getReviewDataT" parameterType="int" resultType="ReviewDto">
 		SELECT *
 		FROM review
 		WHERE takeout_num=#{takeout_num}
 	</select>
 	
 	<!-- [포장 리뷰 ] 리뷰 등록하기  -->
-	<insert id="insertReviewT" parameterType="reviewDto">
+	<insert id="insertReviewT" parameterType="ReviewDto">
 		INSERT INTO review
  		(review_num,b_id,writer,review_image,review_content,regdate,keyword_review,review_kind,takeout_num)
  		VALUES(review_seq.NEXTVAL,#{b_id},#{writer},#{review_image,jdbcType=VARCHAR},#{review_content},SYSDATE,#{keyword_review,jdbcType=VARCHAR},#{review_kind,jdbcType=VARCHAR},#{takeout_num,jdbcType=VARCHAR})
 	</insert>
 	
 	<!-- [포장 리뷰 ] 리뷰 수정하기  -->
-	<update id="updateReviewT" parameterType="reviewDto">
+	<update id="updateReviewT" parameterType="ReviewDto">
 		UPDATE review
  		SET keyword_review=#{keyword_review},review_content=#{review_content},review_image=#{review_image}
  		WHERE b_id=#{b_id} AND takeout_num=#{takeout_num}
 	</update>
-	
-	<!-- [예약] -->
-	<select id="getReviewDataR">
-		SELECT *
-		FROM review
-		WHERE buy_num=#{reservation_num}
-	</select>
 	
 	
 	

@@ -32,10 +32,14 @@ public interface BStoreService {
 	
 	
 	//나현
-	public void getList(HttpServletRequest request);
+	public void getList(HttpServletRequest request , BStoreDto dto);
 	
 	//주연
 	public void getDetailData(HttpServletRequest request, String b_id);
 	public Map<String, Object> doScrap(HttpServletRequest request, String b_id);
 	public Map<String, Object> notScrap(HttpServletRequest request, String b_id);
+	
+	public Map<String, Object> doReviewGood(HttpServletRequest request, int review_num);
+	public Map<String, Object> notReviewGood(HttpServletRequest request, int review_num);
+	public void getDetailDataFilter(HttpServletRequest request);
 }

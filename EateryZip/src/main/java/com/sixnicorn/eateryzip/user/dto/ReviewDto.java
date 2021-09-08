@@ -20,11 +20,15 @@ public class ReviewDto {
 	private String id;
 	private int good_count;
 	
+	private String profile;
+	private int is_user_good;
+	
 	public ReviewDto() {}
 
 	public ReviewDto(int review_num, String b_id, String writer, String review_image, String review_content,
 			String regdate, String keyword_review, String review_kind, int buy_num, int takeout_num,
-			int reservation_num, int startRowNum, int endRowNum, String key_word, String id, int good_count) {
+			int reservation_num, int startRowNum, int endRowNum, String key_word, String id, int good_count,
+			String profile, int is_user_good) {
 		super();
 		this.review_num = review_num;
 		this.b_id = b_id;
@@ -42,6 +46,8 @@ public class ReviewDto {
 		this.key_word = key_word;
 		this.id = id;
 		this.good_count = good_count;
+		this.profile = profile;
+		this.is_user_good = is_user_good;
 	}
 
 	public int getReview_num() {
@@ -171,6 +177,25 @@ public class ReviewDto {
 	public void setGood_count(int good_count) {
 		this.good_count = good_count;
 	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
+	public int getIs_user_good() {
+		return is_user_good;
+	}
+
+	public void setIs_user_good(int is_user_good) {
+		this.is_user_good = is_user_good;
+	}
+
+	
+	
 
 	
 	

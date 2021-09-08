@@ -2,14 +2,14 @@ package com.sixnicorn.eateryzip.user.dto;
 
 public class ReviewGoodDto {
 	private int review_num;
-	private String g_id;
+	private String id;
 	
 	public ReviewGoodDto(){}
 
-	public ReviewGoodDto(int review_num, String g_id) {
+	public ReviewGoodDto(int review_num, String id) {
 		super();
 		this.review_num = review_num;
-		this.g_id = g_id;
+		this.id = id;
 	}
 
 	public int getReview_num() {
@@ -20,12 +20,16 @@ public class ReviewGoodDto {
 		this.review_num = review_num;
 	}
 
-	public String getG_id() {
-		return g_id;
+	public String getId() {
+		return id;
 	}
 
-	public void setG_id(String g_id) {
-		this.g_id = g_id;
+	public void setId(String id) {
+		this.id = id;
 	};
+	
+	
+
+
 
 }

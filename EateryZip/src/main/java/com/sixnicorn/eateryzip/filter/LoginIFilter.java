@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 //로그인 필터는 회원의 경우에만 적용
+
 //@WebFilter(urlPatterns = {"/eatery/private/*"}) 
+@WebFilter(urlPatterns = {"/eatery/private/*"}) 
 public class LoginIFilter implements Filter {
 
 	@Override
