@@ -31,11 +31,11 @@ public class UserController {
 	private GUserService Gservice;
 	
 	///------ (임시 추후 혜림 이용)주연 ------------------------------------------
-	@RequestMapping("/users/g_mypage/reserve_List")
-	public String reservationList(HttpServletRequest request) {
+	//@RequestMapping("/users/g_mypage/reserve_List")
+	//public String reservationList(HttpServletRequest request) {
 
-		return "users/g_mypage/reserve_List" ;
-	}
+	//	return "users/g_mypage/reserve_List" ;
+	//}
 	@RequestMapping("/users/g_mypage/takeout_list")
 	public String takeoutList(HttpServletRequest request) {
 		Gservice.getTakeoutList(request);

@@ -91,4 +91,5 @@ public class GUserDaoImpl implements GUserDao {
 		
 		return session.selectOne("Guser.getTakeoutCount", dto);
 	}
+	
 }
