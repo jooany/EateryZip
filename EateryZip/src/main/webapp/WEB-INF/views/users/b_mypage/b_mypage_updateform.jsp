@@ -35,7 +35,7 @@
 		</c:choose>
 	</a>
 	<form action="${pageContext.request.contextPath}/users/b_mypage/update.do" method="post">
-		<input type="hidden" name="image" value="${ empty dto.b_profile ? '' : dto.b_profile }"/>
+		<input type="hidden" name="b_profile" value="${ empty dto.b_profile ? dto.b_profile : ''}"/>
 		<div>
 			<label for="b_id">사업자번호</label>
 			<input type="text" id="b_id" value="${b_id }" disabled/>
@@ -86,7 +86,7 @@
 			let img=`<img id="b_profileImage" src="${pageContext.request.contextPath}\${data.imagePath}"/>`;
 			document.querySelector("#b_profileLink").innerHTML=img;
 			// input name="profile" 요소의 value 값으로 이미지 경로 넣어주기
-			document.querySelector("input[name=image]").value=data.imagePath;
+			document.querySelector("input[name=b_profile]").value=data.imagePath;
 		});
 	});
 </script>

@@ -38,8 +38,8 @@ public class UserController {
 	}
 	@RequestMapping("/users/g_mypage/takeout_list")
 	public String takeoutList(HttpServletRequest request) {
-
-		return "users/g_mypage/takeout_list" ;
+		Gservice.getTakeoutList(request);
+		return "users/g_mypage/takeout_list";
 	}
 	//---------------------------------주연끝----------------------------------
 	

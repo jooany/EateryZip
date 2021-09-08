@@ -99,7 +99,7 @@ CREATE TABLE B_Store(
 	notice VARCHAR2(100), -- 가게 공지사항
 	service VARCHAR2(100) NOT NULL, -- 예약 , 포장 선택
 	ex_keyword VARCHAR2(100) NOT NULL -- 편의사항/ 기타
-	checkKeyword VARCHAR2(200) -- 키워드
+	checkKeyword VARCHAR2(200) -- 키워드 
 );
 -- 가게 등록 예시
 INSERT INTO B_Store(b_id,b_name,b_Store_Address,b_kind,intro,b_img_f,

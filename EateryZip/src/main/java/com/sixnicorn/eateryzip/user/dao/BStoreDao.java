@@ -22,8 +22,6 @@ public interface BStoreDao {
 	public void update(BStoreDto dto);
 	
 	
-	
-	
 	//나현
 	// 가게 리스트 불러오기
 	public List<BStoreDto> getList(BStoreDto dto);

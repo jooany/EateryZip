@@ -62,8 +62,6 @@ public class BStoreController {
 
 	
 	// 혜림
-
-	
 	@RequestMapping("/store/store_insertform")
 	public ModelAndView insertForm(HttpSession session, ModelAndView mView,HttpServletRequest request) {
 		service.getStore(session, mView,request);

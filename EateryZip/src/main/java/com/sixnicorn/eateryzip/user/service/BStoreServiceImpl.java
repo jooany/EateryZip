@@ -440,7 +440,6 @@ public class BStoreServiceImpl implements BStoreService{
 	
 	
 	
-	
 	// 나현
 	@Override
 	public void getList(HttpServletRequest request, BStoreDto dto) {

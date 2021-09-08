@@ -12,10 +12,18 @@ public class TakeoutDto {
 	private int takeout_price;
 	private String b_name;
 	
+	// 혜림 --------------------------------
+	private int startRowNum;
+	private int endRowNum;
+	private int prevNum;
+	private int nextNum;
+	private int did_it;
+	
 	public TakeoutDto() {}
 
 	public TakeoutDto(int takeout_num, String g_id, String b_id, String takeout_name, String takeout_date,
-			String takeout_time, String takeout_phone, String takeout_memo, int takeout_price, String b_name) {
+			String takeout_time, String takeout_phone, String takeout_memo, int takeout_price, String b_name,
+			int startRowNum, int endRowNum, int prevNum, int nextNum, int did_it) {
 		super();
 		this.takeout_num = takeout_num;
 		this.g_id = g_id;
@@ -27,6 +35,11 @@ public class TakeoutDto {
 		this.takeout_memo = takeout_memo;
 		this.takeout_price = takeout_price;
 		this.b_name = b_name;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
+		this.prevNum = prevNum;
+		this.nextNum = nextNum;
+		this.did_it = did_it;
 	}
 
 	public int getTakeout_num() {
@@ -109,10 +122,44 @@ public class TakeoutDto {
 		this.b_name = b_name;
 	}
 
-	
+	public int getStartRowNum() {
+		return startRowNum;
+	}
 
-	
-	
-	
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+
+	public int getPrevNum() {
+		return prevNum;
+	}
+
+	public void setPrevNum(int prevNum) {
+		this.prevNum = prevNum;
+	}
+
+	public int getNextNum() {
+		return nextNum;
+	}
+
+	public void setNextNum(int nextNum) {
+		this.nextNum = nextNum;
+	}
+
+	public int getDid_it() {
+		return did_it;
+	}
+
+	public void setDid_it(int did_it) {
+		this.did_it = did_it;
+	}
 
 }
