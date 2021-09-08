@@ -16,8 +16,6 @@ public interface ReviewDao {
 	public void insertReviewT(ReviewDto dto);
 	public void updateReviewT(ReviewDto dto);
 	
-	public void doReviewGood(ReviewGoodDto dto);
-	public void notReviewGood(int review_num);
 	public int isGood(ReviewGoodDto dto);
 }
 

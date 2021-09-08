@@ -23,30 +23,6 @@ public class ReviewServiceImpl implements ReviewService{
 	@Autowired
 	private ReviewDao reviewDao;
 	
-	//리뷰 추천
-	@Override
-	public Map<String, Object> doReviewGood(HttpServletRequest request,int review_num) {
-		String g_id=(String)request.getSession().getAttribute("g_id");
-		
-		ReviewGoodDto dto=new ReviewGoodDto();
-		dto.setReview_num(review_num);
-		dto.setG_id(g_id);
-		
-		reviewDao.doReviewGood(dto);
-		
-		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("isDoReviewGood",true);
-		return map;
-	}
-	//리뷰 추천 취소
-	@Override
-	public Map<String, Object> notReviewGood(HttpServletRequest request,int review_num) {
-		reviewDao.notReviewGood(review_num);
-		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("isNotReviewGood",true);
-		return map;
-	}
-	
 	
 	@Override
 	public Map<String, Object> saveImage(HttpServletRequest request, MultipartFile mFile) {
