@@ -32,7 +32,7 @@ public interface BStoreService {
 	
 	
 	//나현
-	public void getList(HttpServletRequest request);
+	public void getList(HttpServletRequest request , BStoreDto dto);
 	
 	//주연
 	public void getDetailData(HttpServletRequest request, String b_id);

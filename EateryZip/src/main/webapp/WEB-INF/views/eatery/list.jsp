@@ -208,61 +208,71 @@
 <body>
     <section>
        <div class="main_left">
-  
+   		<form action="${pageContext.request.contextPath}/eatery/list.do" method="get" id="inputForm">
         <!-- 편의사항 선택 -->
+            <div class="search_wrap">
+                <input type="text" class="keyword" placeholder="통합검색" name="keyword">
+            </div>
+        
 		<fieldset>
         	<legend>편의사항</legend>
-            <div class="form-group mb-3 wrap1" id="ex_keyword">
-				<input type='checkbox' name='ex_keyword' value='루프탑' onclick='checkSelectAll()'/> 루프탑
+            <div class="form-group mb-3 wrap1">
+				<input type="checkbox" name="ex_keyword" value="루프탑"/> 루프탑
 				<br />
-				<input type='checkbox' name='ex_keyword' value='주차' onclick='checkSelectAll()'/> 주차
+				<input type="checkbox" name="ex_keyword" value="주차"/> 주차
 				<br />
-				<input type='checkbox' name='ex_keyword' value='무선인터넷' onclick='checkSelectAll()'/> 무선인터넷
+				<input type="checkbox" name="ex_keyword" value="무선인터넷"/> 무선인터넷
 				<br />
-				<input type='checkbox' name='ex_keyword' value='단체석' onclick='checkSelectAll()'/> 단체석
+				<input type="checkbox" name="ex_keyword" value="단체석"/> 단체석
 				<br />
-				<input type='checkbox' name='ex_keyword' value='남/녀 화장실 구분' onclick='checkSelectAll()'/> 남/녀 화장실 구분
+				<input type="checkbox" name="ex_keyword" value="키즈존"/> 키즈존
 				<br />
-				<input type='checkbox' name='ex_keyword' value='키즈존' onclick='checkSelectAll()'/> 키즈존
+				<input type="checkbox" name="ex_keyword" value="노키즈존"/> 노키즈존
 				<br />
-				<input type='checkbox' name='ex_keyword' value='노키즈존' onclick='checkSelectAll()'/> 노키즈존
+				<input type="checkbox" name="ex_keyword" value="반려동물동반가능"/> 반려동물동반가능
 				<br />
-				<input type='checkbox' name='ex_keyword' value='반려동물동반가능' onclick='checkSelectAll()'/> 반려동물동반가능
+				<input type="checkbox" name="ex_keyword" value="프라이빗"/> 프라이빗
 				<br />
-				<input type='checkbox' name='ex_keyword' value='프라이빗' onclick='checkSelectAll()'/> 프라이빗
-				<br />
-				<input type='checkbox' name='ex_keyword' value='흡연실' onclick='checkSelectAll()'/> 흡연실
+				<input type="checkbox" name="ex_keyword" value="흡연실"/> 흡연실
             </div>
 		</fieldset>
 
       	<!-- 업종 -->
       	<h4>업종</h4>
 	      	<div class="wrap1">
-	         <button type="button" id="kFood" class="food btn btn-outline-dark">
-	            <img src="${pageContext.request.contextPath}/resources/images/bibimbap.png"> 한식
-	         </button>
-	         <button type="button" id="jFood" class="food btn btn-outline-dark">
+	         <input type="radio" id="b_kind" name="b_kind" value="한식">
+	         <img src="${pageContext.request.contextPath}/resources/images/bibimbap.png"> 한식
+	         
+	         <input type="radio" name="b_kind" value="일식" >
 	            <img src="${pageContext.request.contextPath}/resources/images/sushi.png"> 일식
-	         </button>
+	
 	         <br />
-	         <button type="button" id="cFood" class="food btn btn-outline-dark">
+	         <input type="radio" name="b_kind" value="중식">
 	            <img src="${pageContext.request.contextPath}/resources/images/xiao-long-bao.png"> 중식
-	         </button>
-	         <button type="button" id="wFood" class="food btn btn-outline-dark">
+	  
+	         <input type="radio" name="b_kind" value="양식">
 	            <img src="${pageContext.request.contextPath}/resources/images/steak.png"> 양식
-	         </button>
 	         <br />
-	         <button type="button" id="brunch" class="food btn btn-outline-dark">
+	         <input type="radio" name="b_kind" value="브런치">
 	            <img src="${pageContext.request.contextPath}/resources/images/pancake.png"> 브런치
-	         </button>
-	         <button type="button" id="bar" class="food btn btn-outline-dark">
+	            
+	         <input type="radio" name="b_kind" value="Bar">
 	            <img src="${pageContext.request.contextPath}/resources/images/cocktail.png"> Bar
-	         </button>
+
 	         <br />
-	         <button type="button" id="cafe" class="food btn btn-outline-dark">
+	         <input type="radio" name="b_kind" value="cafe">
 	            <img src="${pageContext.request.contextPath}/resources/images/coffee-cup.png"> 카페
-	         </button>
+	 
 	       	</div>
+	       	
+	       	<div>
+		       	<h4>선택</h4>
+	         		<input type="radio" name="service" value="예약/방문포장"> 예약 / 방문포장       
+	                <input type="radio" name="service" value="예약"> 예약
+	                <input type="radio" name="service" value="방문포장">방문포장
+		       	</div>
+		       	<button class="btn btn-primary" type="submit">저장하기</button>
+	       	</form>
     	</div>
     </section>
 
@@ -282,13 +292,7 @@
                   </form> -->   
                 </div>
              </div>
-
-             <ul class="tabs">
-                <li class="tab-link current" data-tab="tab-1">전체</li>
-                <li class="tab-link" data-tab="tab-2">예약</li>
-                <li class="tab-link" data-tab="tab-3">방문포장</li>
-             </ul>
-         
+             
             <!-- 음식점 리스트 * 6 -->
             <div id="tab-1" class="card_wrapper tab-content current">         
 			   <c:forEach var="tmp" items="${list }">
@@ -320,69 +324,35 @@
 			   </div>
 			   </c:forEach>
 			</div>
-            
-            <div id="tab-2" class="tab-content">
-            	<c:forEach var="tmp" items="${list }">
-			    <div class="didRow">
-			      <div class="card_wrapper">
-			        <div class="card" style="display:flex;">
-			          <div class="card-image cimg" style="width:150px;">
-			            <img src="${tmp.b_img_f }" width="150" height="150">
-			          </div>
-			          <div class="card-stacked">
-			            <div class="card-content">
-			               <h3>
-			                  <a href="${pageContext.request.contextPath}/eatery/detail.do">${tmp.b_name }</a>
-			                  <span>| ${tmp.b_kind }</span>
-			               </h3>
-			               <!-- 리뷰 3개 -->
-			               <c:forEach begin="1" end="3">
-			                  <p>reviews * 3</p>
-			               </c:forEach>
-			               <p class="card_intro">${tmp.intro }</p>
-			               <!-- 편의사항 3개 -->
-			               <c:forEach begin="1" end="3">
-			                  <p>${tmp.ex_keyword }</p>
-			               </c:forEach>
-			             </div>
-			           </div>
-			         </div>
-			      </div>
-			   </div>
-			   </c:forEach>
-            </div>
-            
-            <div id="tab-3" class="tab-content">
-                <c:forEach var="tmp" items="${list }">
-			    <div class="didRow">
-			      <div class="card_wrapper">
-			        <div class="card" style="display:flex;">
-			          <div class="card-image cimg" style="width:150px;">
-			            <img src="${tmp.b_img_f }" width="150" height="150">
-			          </div>
-			          <div class="card-stacked">
-			            <div class="card-content">
-			               <h3>
-			                  <a href="${pageContext.request.contextPath}/eatery/detail.do">${tmp.b_name }</a>
-			                  <span>| ${tmp.b_kind }</span>
-			               </h3>
-			               <!-- 리뷰 3개 -->
-			               <c:forEach begin="1" end="3">
-			                  <p>reviews * 3</p>
-			               </c:forEach>
-			               <p class="card_intro">${tmp.intro }</p>
-			               <!-- 편의사항 3개 -->
-			               <c:forEach begin="1" end="3">
-			                  <p>${tmp.ex_keyword }</p>
-			               </c:forEach>
-			             </div>
-			           </div>
-			         </div>
-			      </div>
-			   </div>
-			   </c:forEach>
-            </div>
-       </div>
+			
+			 <div class="page-ui clearfix"> <!-- 페이징처리 부분 -->
+		      <ul>
+		         <c:if test="${startPageNum ne 1 }">
+		            <li>
+		               <a href="list.do?pageNum=${startPageNum-1 }&keyword=${encodedK}&ex_keyword=${encodedEx}&b_kind=${encodedB}&service=${encodedS}">Prev</a>
+		            </li>
+		         </c:if>
+		         <c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+		            <li>
+		               <c:choose>
+		                  <c:when test="${pageNum eq i }">
+		                     <a  class="active" href="list.do?pageNum=${i}&keyword=${encodedK}&ex_keyword=${encodedEx}&b_kind=${encodedB}&service=${encodedS}">${i }</a>
+		                  </c:when>
+		                  <c:otherwise>
+		                     <a href="list.do?pageNum=${i}&keyword=${encodedK}&ex_keyword=${encodedEx}&b_kind=${encodedB}&service=${encodedS}">${i }</a>
+		                  </c:otherwise>
+		               </c:choose>
+		            </li>
+		         </c:forEach>
+		         <c:if test="${endPageNum lt totalPageCount }">
+		            <li>
+		               <a href="list.do?pageNum=${endPageNum+1 }&keyword=${encodedK}&ex_keyword=${encodedEx}&b_kind=${encodedB}&service=${encodedS}">Next</a>
+		            </li>
+		         </c:if>
+		      </ul>
+		   </div>
+			
+         </div>
     </section>
 
     <section>

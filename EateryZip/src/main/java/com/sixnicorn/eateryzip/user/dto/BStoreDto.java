@@ -29,6 +29,7 @@ public class BStoreDto {
 	private int prevNum;
 	private int nextNum;
 	private String encodedK;
+	private String keyword;
 	
 	// 디폴트 생성자
 	public BStoreDto() {}
@@ -36,7 +37,7 @@ public class BStoreDto {
 	public BStoreDto(String b_id, String b_name, String b_Store_Address, String b_kind, String intro, String b_img_f,
 			String b_Store_phone, String b_Store_date, String b_open, String b_close, String b_holiday, String notice,
 			String service, String ex_keyword, String checkKeyword, MultipartFile storeFile, int startRowNum,
-			int endRowNum, int prevNum, int nextNum, String encodedK) {
+			int endRowNum, int prevNum, int nextNum, String encodedK, String keyword) {
 		super();
 		this.b_id = b_id;
 		this.b_name = b_name;
@@ -59,6 +60,7 @@ public class BStoreDto {
 		this.prevNum = prevNum;
 		this.nextNum = nextNum;
 		this.encodedK = encodedK;
+		this.keyword = keyword;
 	}
 
 	public String getB_id() {
@@ -229,5 +231,14 @@ public class BStoreDto {
 		this.encodedK = encodedK;
 	}
 
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	
 	
 }

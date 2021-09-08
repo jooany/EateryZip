@@ -158,8 +158,8 @@ public class BStoreController {
 	// 나현
 	
 	@RequestMapping("/eatery/list")
-	public String getList(HttpServletRequest request) {
-		service.getList(request);
+	public String getList(HttpServletRequest request, BStoreDto dto) {
+		service.getList(request, dto);
 		
 		return "eatery/list";
 	}
