@@ -279,7 +279,7 @@ public class BStoreServiceImpl implements BStoreService{
 	
 	// 나현
 	@Override
-	public void getList(HttpServletRequest request) {
+	public void getList(HttpServletRequest request, BStoreDto dto) {
 		//한 페이지에 몇개씩 표시할 것인지
 		final int PAGE_ROW_COUNT=5;
 		//하단 페이지를 몇개씩 표시할 것인지
@@ -305,35 +305,126 @@ public class BStoreServiceImpl implements BStoreService{
 		-검색 키워드가 파라미터로 넘어올수도 있고 안넘어 올수도 있다.		
 		*/
 		String keyword=request.getParameter("keyword");
+		String ex_keyword=dto.getEx_keyword();
+		String b_kind=dto.getB_kind();
+		String service=dto.getService();
+		
+		System.out.println("---들어올때");
+		System.out.println(keyword);
+		System.out.println(ex_keyword);
+		System.out.println(b_kind);
+		System.out.println(service);
+		
+		BStoreDto dto2=new BStoreDto();
 		
 		//만일 키워드가 넘어오지 않는다면 
-		if(keyword==null){
+		if(keyword==null){//1
 			//키워드와 검색 조건에 빈 문자열을 넣어준다. 
 			//클라이언트 웹브라우저에 출력할때 "null" 을 출력되지 않게 하기 위해서  
-			keyword=""; 
+			keyword="";
+			if(ex_keyword==null){ //2
+				ex_keyword="";
+				if(b_kind==null){ //3
+					b_kind="";
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				}else if(!b_kind.equals("")){ 
+					dto2.setB_kind(b_kind);
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);	
+					}
+				} //2
+			}else{ //1
+				dto2.setEx_keyword(ex_keyword);
+				if(!b_kind.equals("")){
+					dto2.setB_kind(b_kind);
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				}else{
+					b_kind="";
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				}
+			}
 		}
-	
+			
 		//특수기호를 인코딩한 키워드를 미리 준비한다. 
-		//String encodedK=URLEncoder.encode(keyword);
+		String encodedK=URLEncoder.encode(keyword);
+		String encodedEx=URLEncoder.encode(ex_keyword);
+		String encodedB=URLEncoder.encode(b_kind);
+		String encodedS=URLEncoder.encode(service);
+		
 		// 혜림 끝 -------------------------------------------------------------
 		//BStoreDto 객체에 startRowNum 과 endRowNum 을 담는다.
-		BStoreDto dto=new BStoreDto();
-		dto.setStartRowNum(startRowNum);
-		dto.setEndRowNum(endRowNum);
+		dto2.setStartRowNum(startRowNum);
+		dto2.setEndRowNum(endRowNum);
 		// 혜림 시작 -------------------------------------------------------------
+		
 		//만일 검색 키워드가 넘어온다면 
 		if(!keyword.equals("")){
-			dto.setEncodedK(keyword);
-			System.out.println(dto.getStartRowNum());
-			System.out.println(dto.getEncodedK());
-		}
-			// 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다.
-		// 혜림 끝 -------------------------------------------------------------
+			dto2.setEncodedK(keyword);
+			if(ex_keyword==null){
+				ex_keyword="";
+				if(b_kind==null){
+					b_kind="";
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				}else if(!b_kind.equals("")){
+					dto2.setB_kind(b_kind);
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				
+				}
+			}else if(!ex_keyword.equals("")){
+				dto2.setEx_keyword(ex_keyword);
+				if(!b_kind.equals("")){
+					dto2.setB_kind(b_kind);
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				}else{
+					b_kind="";
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				
+				}
+			}
+		} 
 		
+		// 혜림 끝 -------------------------------------------------------------
 		//글 목록 얻어오기 
-		List<BStoreDto> list=BStoreDao.getList(dto);
+		System.out.println("--dto2");
+		System.out.println(dto2.getEncodedK());
+		System.out.println(dto2.getEx_keyword());
+		System.out.println(dto2.getB_kind());
+		System.out.println(dto2.getService());
+		
+		List<BStoreDto> list=BStoreDao.getList(dto2);
+		
 		//전체글의 갯수
-		int totalRow=BStoreDao.getCount(dto);
+		int totalRow=BStoreDao.getCount(dto2);
 		
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
@@ -356,12 +447,14 @@ public class BStoreServiceImpl implements BStoreService{
 		request.setAttribute("totalRow", totalRow);
 		// 혜림
 		request.setAttribute("keyword", keyword);
-		
+		request.setAttribute("ex_keyword",ex_keyword);
+		request.setAttribute("service",service);
+		request.setAttribute("b_kind", b_kind);
+		//주소처리
+		request.setAttribute("encodedK", encodedK);
+		request.setAttribute("encodedEx", encodedEx);
+		request.setAttribute("encodedB", encodedB);
+		request.setAttribute("encodedS", encodedS);
 	
 	}
-
-	
-
-	
-
 }

@@ -60,6 +60,18 @@ public class BStoreDaoImpl implements BStoreDao {
 	// 나현
 	@Override
 	public List<BStoreDto> getList(BStoreDto dto) {
+
+		String keyword=dto.getEncodedK();
+		String ex_keyword=dto.getEx_keyword();
+		String b_kind=dto.getB_kind();
+		String service=dto.getService();
+		
+		System.out.println("----DaoImpl");
+		System.out.println(keyword);
+		System.out.println(ex_keyword);
+		System.out.println(b_kind);
+		System.out.println(service);
+		
 		return session.selectList("BStore.getList", dto);
 	}
 

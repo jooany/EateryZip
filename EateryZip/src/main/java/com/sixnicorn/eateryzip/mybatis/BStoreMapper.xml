@@ -2,14 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BStore">
 	<sql id="search">
-		WHERE b_name LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-		OR b_Store_Address LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-		OR b_kind LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-		OR intro LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-		OR notice LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-		OR service LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-		OR ex_keyword LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-		OR checkKeyword LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+		<choose>
+			<when test="encodedK == null and ex_keyword == null and b_kind == null and service == null">
+			WHERE b_name LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR b_Store_Address LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR b_kind LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR intro LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR notice LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR service LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR ex_keyword LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR checkKeyword LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			</when>
+			
+			<when test="keyword == null and ex_keyword == null and b_kind != null and service == null">
+			WHERE b_kind LiKE '%'||#{b_kind}||'%'
+			</when>
+			
+			
+			<when test="encodedK !=null and ex_keyword != null and b_kind != null and service !=null">
+			WHERE b_name LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR b_Store_Address LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR b_kind LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR intro LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR notice LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR service LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR ex_keyword LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			OR checkKeyword LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
+			and ex_keyword LiKE '%'||#{ex_keyword}||'%'
+			and b_kind LiKE '%'||#{b_kind}||'%'
+			and service LiKE '%'||#{service}||'%'
+			</when>
+		
+		</choose>	
 	</sql>
 	
 	<!-- 주연 음식점 상세 정보 페이지 -->
@@ -135,8 +159,7 @@
 	</select>
   
 	<!-- 나현님 부분 -->
-	
-	<select id="getList" parameterType="BstoreDto" resultType="BStoreDto">
+	<select id="getList" parameterType="BStoreDto" resultType="BStoreDto">
 		SELECT *
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
