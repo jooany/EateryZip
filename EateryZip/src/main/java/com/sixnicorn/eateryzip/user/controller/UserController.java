@@ -31,6 +31,11 @@ public class UserController {
 	private GUserService Gservice;
 	
 	///------ (임시 추후 혜림 이용)주연 ------------------------------------------
+	@RequestMapping("/users/g_mypage/reserve_List")
+	public String reservationList(HttpServletRequest request) {
+
+		return "users/g_mypage/reserve_List" ;
+	}
 	@RequestMapping("/users/g_mypage/takeout_list")
 	public String takeoutList(HttpServletRequest request) {
 
@@ -284,13 +289,13 @@ public class UserController {
 	// 일반회원 가입정보보기
 	@RequestMapping("/users/g_mypage/g_mypage")
 	public ModelAndView Gmypage(HttpSession session, ModelAndView mView, HttpServletRequest request) {
-
+		
 		Gservice.getGmypage(session, mView);
-
+		
 		mView.setViewName("users/g_mypage/g_mypage");
 		return mView;
 	}
-
+	
 	// 일반 개인정보 수정반영 요청처리
 	@RequestMapping(value="users/g_mypage/update", method=RequestMethod.POST)
 	public String update(GUserDto dto, HttpSession session) {
@@ -298,7 +303,7 @@ public class UserController {
 		Gservice.updateGUser(dto, session);
 		return "redirect:/users/g_mypage/g_mypage.do";
 	}
-
+	
 	// 일반 회원가입정보 수정하기
 	@RequestMapping("/users/g_mypage/g_mypage_updateform")
 	public ModelAndView GupdateForm(ModelAndView mView, HttpSession session, HttpServletRequest request) {
@@ -306,7 +311,7 @@ public class UserController {
 		mView.setViewName("users/g_mypage/g_mypage_updateform");
 		return mView;
 	}
-
+	
 	// 일반회원 프로필이미지 ajax처리
 	@RequestMapping(value="users/g_mypage/ajax_g_profile_upload", method=RequestMethod.POST)
 	@ResponseBody

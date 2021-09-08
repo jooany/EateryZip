@@ -52,14 +52,32 @@
 	</select>
 	
 	<!-- 리뷰 리스트 최신순 가져오기 -->
-	<select id="getReviewList" parameterType="ReviewDto" resultType="ReviewDto">
+	<select id="getReviewList_R" parameterType="ReviewDto" resultType="ReviewDto">
 		SELECT *
 		FROM
 		(SELECT result1.*, ROWNUM AS rnum
-		   FROM (SELECT DISTINCT a.review_num,a.b_id,a.writer,a.review_image,TO_CHAR(a.review_content) AS review_content,a.regdate,a.keyword_review,a.review_kind,a.takeout_num,a.reservation_num,(SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=b.review_num) as GOOD_COUNT
-		         FROM review a
-		         INNER JOIN review_good b on a.review_num=b.review_num
-		         WHERE a.b_id=#{b_id}
+		   FROM (SELECT DISTINCT c.g_profile,a.review_num,a.b_id,a.writer,a.review_image,TO_CHAR(a.review_content) AS review_content,TO_CHAR(a.regdate,'YYYY.MM.DD hh24:mi') AS regdate,a.keyword_review,a.review_kind,
+                             (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=a.review_num) as GOOD_COUNT,
+                             (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE review_num=a.review_num AND id=#{id,jdbcType=VARCHAR}) AS is_user_good
+		         FROM review a, review_good b,g_user c
+		         WHERE a.b_id=#{b_id} AND c.g_id=a.writer 
+		         ORDER BY regdate DESC) result1)
+		 <![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
+		
+	</select>
+	
+	<!-- 리뷰 리스트 최신순+사진 리뷰만 가져오기 -->
+	<select id="getReviewList_R_P" parameterType="ReviewDto" resultType="ReviewDto">
+		SELECT *
+		FROM
+		(SELECT result1.*, ROWNUM AS rnum
+		   FROM (SELECT DISTINCT c.g_profile,a.review_num,a.b_id,a.writer,a.review_image,TO_CHAR(a.review_content) AS review_content,TO_CHAR(a.regdate,'YYYY.MM.DD hh24:mi') AS regdate,a.keyword_review,a.review_kind,
+                             (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=a.review_num) as GOOD_COUNT,
+                             (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE review_num=a.review_num AND id=#{id,jdbcType=VARCHAR}) AS is_user_good
+		         FROM review a, review_good b,g_user c
+		         WHERE a.b_id=#{b_id} AND c.g_id=a.writer AND NOT a.review_image IS NULL
 		         ORDER BY regdate DESC) result1)
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
@@ -68,14 +86,33 @@
 	
 	<!-- 리뷰 리스트 인기순 가져오기 -->
 	<!-- 일단 미루기 -->
-	<select id="getPopularReviewList" parameterType="ReviewDto" resultType="ReviewDto" >
+	<select id="getReviewList_P" parameterType="ReviewDto" resultType="ReviewDto" >
 		SELECT *
 		FROM
 		(SELECT result1.*, ROWNUM AS rnum
-		   FROM (SELECT DISTINCT a.review_num,a.b_id,a.writer,a.review_image,TO_CHAR(a.review_content) AS review_content,a.regdate,a.keyword_review,a.review_kind,a.takeout_num,a.reservation_num,(SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=a.review_num) as GOOD_COUNT
-		         FROM review a, review_good b
-		         WHERE a.b_id=#{b_id}
-		         ORDER BY good_count DESC) result1)
+		   FROM (SELECT DISTINCT c.g_profile,a.review_num,a.b_id,a.writer,a.review_image,TO_CHAR(a.review_content) AS review_content,TO_CHAR(a.regdate,'YYYY.MM.DD hh24:mi') AS regdate,a.keyword_review,a.review_kind,
+                             (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=a.review_num) as GOOD_COUNT,
+                             (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE review_num=a.review_num AND id=#{id,jdbcType=VARCHAR}) AS is_user_good
+		         FROM review a, review_good b,g_user c
+		         WHERE a.b_id=#{b_id} AND c.g_id=a.writer
+		         ORDER BY good_count DESC, regdate DESC) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
+	</select>
+	
+	<!-- 리뷰 리스트 인기순+사진 리뷰만 가져오기 -->
+	<!-- 일단 미루기 -->
+	<select id="getReviewList_P_P" parameterType="ReviewDto" resultType="ReviewDto" >
+		SELECT *
+		FROM
+		(SELECT result1.*, ROWNUM AS rnum
+		   FROM (SELECT DISTINCT c.g_profile,a.review_num,a.b_id,a.writer,a.review_image,TO_CHAR(a.review_content) AS review_content,TO_CHAR(a.regdate,'YYYY.MM.DD hh24:mi') AS regdate,a.keyword_review,a.review_kind,
+                             (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=a.review_num) as GOOD_COUNT,
+                             (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE review_num=a.review_num AND id=#{id,jdbcType=VARCHAR}) AS is_user_good
+		         FROM review a, review_good b,g_user c
+		         WHERE a.b_id=#{b_id} AND c.g_id=a.writer AND NOT a.review_image IS NULL
+		         ORDER BY good_count DESC, regdate DESC) result1)
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
@@ -86,6 +123,12 @@
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM review
 		WHERE b_id=#{b_id}
+	</select>
+	<!-- 사진리뷰만 개수 세기 -->
+	<select id="getReviewCountOnly" parameterType="String" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM review
+		WHERE b_id='1111111111' AND NOT review_image IS NULL
 	</select>
 	
 	<!-- 키워드별 개수 -->
@@ -99,19 +142,31 @@
 	<insert id="doScrap" parameterType="EateryScrapDto">
 		INSERT INTO eatery_scrap
 		(b_id,g_id)
-		VALUES(#{b_id},#{g_id})
+		VALUES(#{b_id},#{g_id,jdbcType=VARCHAR})
 	</insert>
 	<!-- 음식점 스크랩 취소하기 -->
 	<delete id="notScrap" parameterType="EateryScrapDto">
 		DELETE FROM eatery_scrap
-		WHERE b_id=#{b_id} AND g_id=#{g_id}
+		WHERE b_id=#{b_id} AND g_id=#{g_id,jdbcType=VARCHAR}
 	</delete>
 	<!-- 음식점 스크랩 유무 확인하기 -->
 	<select id="isScrap" parameterType="EateryScrapDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM),0)
 		FROM eatery_scrap
-		WHERE b_id=#{b_id} AND g_id=#{g_id}
+		WHERE b_id=#{b_id} AND g_id=#{g_id,jdbcType=VARCHAR}
 	</select>
+	
+	<!-- 리뷰 추천 -->
+	<insert id="doReviewGood" parameterType="ReviewGoodDto">
+		INSERT INTO review_good
+		(review_num,id)
+		VALUES(#{review_num},#{id})
+	</insert>
+	<!-- 리뷰 추천 취소 -->
+	<delete id="notReviewGood" parameterType="ReviewGoodDto">
+		DELETE FROM review_good
+		WHERE review_num=#{review_num} AND id=#{id}
+	</delete>
 	
 	<!-- 주연&혜림 -->
 	<!-- b_id로 가게정보 얻어오기 -->

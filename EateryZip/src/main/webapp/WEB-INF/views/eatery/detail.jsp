@@ -279,6 +279,7 @@ button{
 /* 리뷰  */
 #reviewWrap{
 	margin-top:25px;
+	margin-bottom:30px;
 }
 #reviewHeader{
 	margin-bottom:15px;
@@ -288,7 +289,7 @@ button{
 #reviewBanner{
 	border-radius:4px;
 	border:1px solid rgb(224, 224, 224);
-	width:760px;
+	width:750px;
 	height:210px;
 	background-color:rgba(224, 224, 224, 0.18);
 	display:flex;
@@ -353,6 +354,100 @@ button{
 	background-color:rgba(255, 133, 59, 0.8);
 }
 
+/* 리뷰 필터 및 리스트 */
+#reviewFilter{
+	margin-top:35px;
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	border-bottom:1px solid rgb(224, 224, 224);
+	padding:10px 0px;
+}
+#reviewFilter #arrayFilter>a{
+	margin-right:10px;
+}
+#reviewFilter #latest1{
+	font-size:14px;
+	color:rgb(253, 83, 0);
+}
+
+#reviewFilter #latest2{
+	font-weight:600;
+}
+#reviewFilter #popular1{
+	font-size:14px;
+	color:rgb(190, 190, 190);
+}
+#reviewFilter #popular2{
+	font-weight:600;
+	color:rgb(190, 190, 190);
+}
+.fa-check-square{
+	color:rgb(158, 158, 158);
+}
+/* 리뷰  */
+.review_header{
+	display:flex;
+	align-items:center;
+}
+.writer_info{
+	margin-left:15px;
+}
+.writer_info>p:nth-child(1){
+	font-weight:600;
+	font-size:14px;
+	margin-bottom:2px;
+}
+.writer_info>p:nth-child(2){
+	font-size:12px;
+	color:rgb(94, 94, 94);
+	margin-bottom:5px;
+}
+.profile_wrap>i{
+	color:rgb(190, 190, 190);
+}
+#reviews{
+	margin:0 15px;
+}
+.review{
+	margin-top:35px;
+}
+.review_content{
+	margin:15px 0;
+	width:620px;
+}
+.review_img{
+	margin-bottom:15px;
+}
+.review_key_wrap{
+	display:flex;
+}
+.review_key_wrap .review_key{
+	padding:5px 10px;
+	border:1px solid rgb(190, 190, 190);
+	border-radius:50px;
+	font-size:13px;
+	margin-right:4px;
+	color:rgb(94, 94, 94);
+}
+.good_wrap{
+	margin-top:15px;
+	display:flex;
+}
+.good_wrap i{
+	font-size:18px;
+	margin-right:4px;
+}
+.good_wrap span:nth-child(2){
+	font-weight:600;
+	margin-right:4px;
+	line-height:23px;
+}
+.good_wrap span:nth-child(3){
+	color:rgb(94, 94, 94);
+	line-height:23px;
+}
+
 /* 오른쪽 영역 */
 #rightContent{
 	width: 300px;
@@ -406,8 +501,41 @@ button{
 	font-size:13px;
 }
 
+.review_img{
+	overflow: hidden;
+    width: 144px;
+    height: 144px;
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
 
-
+#pagination{
+	width:750px;
+	margin-top:60px;
+	display:flex;
+	justify-content:center;
+}
+#pagination li{
+	border-radius:4px;
+	margin:0 4px;
+}
+#pagination li a{
+	border-radius:4px;
+	padding:10px 15px;
+	background-color:rgb(234, 231, 231);
+}
+.active{
+	background-color:rgb(253, 83, 0)!important;
+	color:white!important;
+}
+button:hover{
+	cursor:pointer!important;
+}
+.fixed{
+	top:7
+}
 </style>
 </head>
 <body>
@@ -427,7 +555,7 @@ button{
 	<div id="bannerBtnsWrap">
 		<div id="scrapBtnWrap" class="inner">
 		<c:choose>
-			<c:when test="${isScrap eq 0}">
+			<c:when test="${isScrap eq 0 or empty isScrap}">
 				<button id="scrapBtn" data-isscrap="">
 					<i class="far fa-bookmark"></i>
 				</button>
@@ -536,26 +664,13 @@ button{
 				</div>
 				<ul id="photoList">
 					<c:forEach var="tmp3" items="${reviewList }">
-					<li>
-						<a href="#">
-							<img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
-						</a>
-					</li>
+						<c:if test="${not empty tmp3.review_image}">
+							<li>
+								<a href="#">
+									<img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
+								</a>
+							</li>
+						</c:if>
 					</c:forEach>
 					
 				</ul>
@@ -584,7 +699,103 @@ button{
 				<!-- peopleKeyword.end -->
 			</div>
 			<!-- reviewBanner.end -->
+			<div id="reivewListWrap">
+				<div id="reviewFilter">
+					<div id="arrayFilter">
+						<button type="button" id="latestBtn" data-only="all">
+							<span id="latest1"><i class="fas fa-caret-down"></i></span>
+							<span id="latest2">최신순</span>
+						</button>
+						<button type="button" id="popularBtn" data-only="all">
+							<span id="popular1"><i class="fas fa-caret-down"></i></span>
+							<span id="popular2">인기순</span>
+						</button>
+					</div>
+					<div id="photoFilter">
+						<button type="button" id="onlyBtn" data-array="latest" data-isClicked="">
+							<span id="onlyCheck"><i class=" ${only eq 'all' ? 'far fa-check-square' : 'fas fa-check-square' }"></i></span>
+							<span>사진 리뷰만</span>
+						</button>
+					</div>
+				</div>
+				<!-- reviewFilter.end -->
+				<div id="reviews">
+				<c:forEach var="listR" items="${reviewList }">
+				<!--  <p>스크랩 유무 : ${listR.is_user_good }</p>-->
+					<div class="review">
+						<div class="review_header">
+							<div class="profile_wrap">
+							<c:choose>
+								<c:when test="${empty listR.profile }">
+									<i class="fas fa-user-circle" style="font-size:40px;"></i>
+								</c:when>
+								<c:otherwise>
+									<img src="${pageContext.request.contextPath}${listR.profile }" alt="${listR.writer }" class="profile" style="width:50px; height:50px;"/>
+								</c:otherwise>
+							</c:choose>
+							</div>
+							<div class="writer_info">
+								<p>${listR.writer }</p>
+								<p>${listR.regdate } | ${listR.review_kind eq 'reserve'?'예약':'포장'}</p>
+							</div>
+						</div>
+						<p class="review_content">${listR.review_content }</p>
+						<c:if test="${not empty listR.review_image }">
+							<div class="review_img" style="background-image:url('${pageContext.request.contextPath}${listR.review_image}');"></div>
+						</c:if>
+						<div class="review_key_wrap" data-num="${listR.review_num }" data-key="${listR.keyword_review}">
+						</div>
+						<div class="good_wrap">
+							<button type="button" class="goodBtn" data-num="${listR.review_num }" data-isGoodNum="${listR.is_user_good }" data-goodCount="${listR.good_count }">
+								<c:choose>
+									<c:when test="${listR.is_user_good eq 0 }">
+										<i class="far fa-thumbs-up"></i>
+									</c:when>
+									<c:otherwise>
+										<i class="fas fa-thumbs-up" style="color:rgb(253, 83, 0);"></i>
+									</c:otherwise>
+								</c:choose>
+							</button>
+							<span> ${listR.good_count }</span>
+							<span> 명이 추천했어요!</span>
+						</div>
+					</div>
+					</c:forEach>
+					<div class="page-ui clearfix">
+						<ul id="pagination">
+							<c:if test="${startPageNum ne 1 }">
+								<li>
+									<a href="${pageContext.request.contextPath}/eatery/ajax_detail.do?b_id=${dto.b_id}&array=${array }&only=${only }&pageNum=${startPageNum-1 }">Prev</a>
+								</li>
+							</c:if>
+							<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+								<li>
+									<c:choose>
+										<c:when test="${pageNum eq i }">
+											<a class="active pageBtn" href="javascript:;" data-array="latest" data-only="all" data-pageNum="${i }">${i }</a>
+										</c:when>
+										<c:otherwise>
+											<a class="pageBtn" href="javascript:;" data-array="latest" data-only="all" data-pageNum="${i }">${i }</a>
+										</c:otherwise>
+									</c:choose>
+								</li>
+							</c:forEach>
+							<c:if test="${endPageNum lt totalPageCount }">
+								<li>
+									<a href="${pageContext.request.contextPath}/eatery/ajax_detail.do?b_id=${dto.b_id}&array=${array }&only=${only }&pageNum=${endPageNum+1 }">Next</a>
+								</li>
+							</c:if>
+						</ul>
+					</div>
+					<div style="clear:both;"></div>
+				</div>
+				<!-- reviews.end (ajax 내용 들어갈 곳)-->
+			</div>
+			<!-- reviewListWrap.end -->
 		</div>
+		<!-- reviewWrap.end -->
+		
+		
 		
 	</div>
 	<!-- leftContent.end -->
@@ -609,59 +820,241 @@ button{
 	</div>
 </div>
 
-
 <!-- 키워드 데이터 뽑아오기 위한 코드 -->
 <c:forEach var="test" items="${keyList }">
-<div id="test" style="display:none;">${test.good_count }/${test.key_word}</div>
+	<div id="test" style="display:none; " > ${test.good_count }/${test.key_word}</div>
 </c:forEach>
 <!-- 테스트장소 -->
-<h1>메뉴 리스트</h1>
-<c:forEach var="tmp2" items="${menuList }">
-	<p>
-		${tmp2.menu_name }
-	</p>
-</c:forEach>
-<h1>리뷰 리스트 최신순</h1>
-<c:forEach var="tmp3" items="${reviewList }">
-	<p>
-		${tmp3.review_image }
-		${tmp3.keyword_review }
-	</p>
-</c:forEach>
-
-<div class="page-ui clearfix">
-	<ul>
-		<c:if test="${startPageNum ne 1 }">
-			<li>
-				<a href="list.do?pageNum=${startPageNum-1 }">Prev</a>
-			</li>
-		</c:if>
-		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-			<li>
-				<c:choose>
-					<c:when test="${pageNum eq i }">
-						<a  class="active" href="list.do?pageNum=${i }">${i }</a>
-					</c:when>
-					<c:otherwise>
-						<a href="list.do?pageNum=${i }">${i }</a>
-					</c:otherwise>
-				</c:choose>
-			</li>
-		</c:forEach>
-		<c:if test="${endPageNum lt totalPageCount }">
-			<li>
-				<a href="list.do?pageNum=${endPageNum+1 }">Next</a>
-			</li>
-		</c:if>
-	</ul>
-</div>
-<div style="clear:both;"></div>
-
 
 
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+	//사업자번호
+	let b_id = '<c:out value="${dto.b_id}"/>';
+	
+	// 예약&포장 스크롤 fix 하기 
+	$(window).scroll(function() {
+		  
+		if($(this).scrollTop() > 500) {
+			$("#rightContent").css({'position':'fixed',
+									'margin-left':'800px',
+									'top':'61px'});
+		}
+		else {
+			$("#rightContent").css({'position':'',
+									'margin-left':'',
+									'top':''});
+		}
+	});
+	
+	//페이지 번호 클릭시
+	function pagination(sel){
+		$(sel).click(function(){
+			let nowArray=$(this).attr("data-array");
+			let nowOnly=$(this).attr("data-only");
+			let nowPage=$(this).attr("data-pageNum");
+			let pageBtn=$(this);
+			
+			ajaxPromise("ajax_detail.do","get",
+					"b_id="+b_id+"&array="+nowArray+"&only="+nowOnly+"&pageNum="+nowPage)
+			.then(function(response){
+				return response.text();
+			})
+			.then(function(data){
+				$("#reviews").html(data);
+				keywordSplit(".review_key_wrap");
+				reviewGood(".goodBtn");
+				pagination(".pageBtn");
+				//$(".active").removeClass('active');
+				//pageBtn.addClass('active');
+			});
+		});
+	}
+	pagination(".pageBtn");
+	
+	function latestArray(sel){
+		//최신순 클릭
+		$(sel).click(function(){
+			let nowOnly=$(this).attr("data-only");
+			ajaxPromise("ajax_detail.do","get",
+					"b_id="+b_id+"&array=latest&only="+nowOnly)
+			.then(function(response){
+				return response.text();
+			})
+			.then(function(data){
+				$("#reviews").html(data);
+				$("#onlyBtn").removeAttr("data-array");
+				$("#onlyBtn").attr('data-array','latest');
+				
+				$("#latest1").css("color","rgb(253,83,0)");
+				$("#latest2").css("color","black");
+				$("#popular1").css("color","rgb(190, 190, 190)");
+				$("#popular2").css("color","rgb(190, 190, 190)");
+			
+				keywordSplit(".review_key_wrap");
+				reviewGood(".goodBtn");
+				pagination(".pageBtn");
+			});
+		});
+	}
+	latestArray("#latestBtn");
+
+	function popularArray(sel){
+		//인기순 클릭
+		$(sel).click(function(){
+			let nowOnly=$(this).attr("data-only");
+			ajaxPromise("ajax_detail.do","get",
+					"b_id="+b_id+"&array=popular&only="+nowOnly)
+			.then(function(response){
+				return response.text();
+			})
+			.then(function(data){
+				$("#reviews").html(data);
+				$("#onlyBtn").removeAttr("data-array");
+				$("#onlyBtn").attr('data-array','popular');
+				
+				$("#latest1").css("color","rgb(190, 190, 190)");
+				$("#latest2").css("color","rgb(190, 190, 190)");
+				$("#popular1").css("color","rgb(253,83,0)")
+				$("#popular2").css("color","black");
+
+				keywordSplit(".review_key_wrap");
+				reviewGood(".goodBtn");
+				pagination(".pageBtn");
+			});	
+			
+		});
+	}
+	popularArray("#popularBtn");
+	
+	function onlyFilter(sel){
+		//사진 리뷰만 클릭 
+		$(sel).click(function(){
+			
+			let isClicked=$(this).attr("data-isClicked");
+			
+			if(!isClicked){ //클릭하지 않은 상태라면 
+				let nowArray=$(this).attr("data-array");
+				ajaxPromise("ajax_detail.do","get",
+						"b_id="+b_id+"&array="+nowArray+"&only=photo")
+				.then(function(response){
+					//json 이 아닌 html 문자열을 응답받았기 때문에  return response.text() 해준다.
+					return response.text();
+				})
+				.then(function(data){
+					$("#reviews").html(data);
+					$("#latestBtn").removeAttr("data-only");
+					$("#latestBtn").attr('data-only','all');
+					$("#popularBtn").removeAttr("data-only");
+					$("#popularBtn").attr('data-only','all');
+					$("#onlyBtn").removeAttr("data-isClicked");
+					$("#onlyBtn").attr('data-isClicked','true');
+					
+					$("#onlyCheck").html(`<i class="fas fa-check-square"></i>`);
+					
+
+					keywordSplit(".review_key_wrap");
+					reviewGood(".goodBtn");
+					pagination(".pageBtn");
+				});		
+			}else{ //사진 리뷰를 클릭했다면 
+				let nowArray=$(this).attr("data-array");
+				ajaxPromise("ajax_detail.do","get",
+						"b_id="+b_id+"&array="+nowArray+"&only=all")
+				.then(function(response){
+					//json 이 아닌 html 문자열을 응답받았기 때문에  return response.text() 해준다.
+					return response.text();
+				})
+				.then(function(data){
+					$("#reviews").html(data);
+					$("#latestBtn").removeAttr("data-only");
+					$("#latestBtn").attr('data-only','all');
+					$("#popularBtn").removeAttr("data-only");
+					$("#popularBtn").attr('data-only','all');
+					$("#onlyBtn").removeAttr("data-isClicked");
+					$("#onlyBtn").attr('data-isClicked','');
+					
+					$("#onlyCheck").html(`<i class="far fa-check-square"></i>`);
+					
+					keywordSplit(".review_key_wrap");
+					reviewGood(".goodBtn");
+					pagination(".pageBtn");
+				});			
+			};
+		});
+	}
+	onlyFilter("#onlyBtn");
+
+	//리뷰 키워드 추천 이벤트 리스너
+	function reviewGood(sel){
+		let goodBtns=document.querySelectorAll(sel);
+		
+		for(let i=0;i<goodBtns.length;i++){
+			goodBtns[i].addEventListener("click",function(){
+				let reviewNum=$(goodBtns[i]).attr("data-num");
+				let isGoodNum=$(goodBtns[i]).attr("data-isGoodNum");
+
+				let btn=$(goodBtns[i]);
+				if(isGoodNum=="0"){ //추천하지 않았다면
+		
+					ajaxPromise("private/ajax_good_insert_r.do", "get", "review_num="+reviewNum)
+					.then(function(response){
+						return response.json();
+					})
+					.then(function(data){
+						if(data.isDoReviewGood){//유저가 테이블에 추가되었다면 
+							btn.html(`<i class="fas fa-thumbs-up" style="color:rgb(253, 83, 0);"></i>`);
+							btn.removeAttr("data-isGoodNum");
+							btn.attr('data-isGoodNum','1');
+							let goodCountActive=parseInt(btn.next().text())+1;
+							btn.next().html(goodCountActive);
+						}
+					});	
+
+				}else{ //추천했다면 
+					ajaxPromise("private/ajax_good_delete_r.do", "get", "review_num="+reviewNum)
+					.then(function(response){
+						return response.json();
+					})
+					.then(function(data){
+						if(data.isNotReviewGood){//유저가 테이블에 추가되었다면 
+							btn.html("<i class='far fa-thumbs-up'></i>");
+							btn.removeAttr("data-isGoodNum");
+							btn.attr('data-isGoodNum','0');
+							let goodCountActive=parseInt(btn.next().text())-1;
+							btn.next().html(goodCountActive);
+						}
+					});	
+				}; //if 함수 끝 
+			}); //클릭 끝 
+		}//for함수 끝
+	}//function 끝
+	
+	reviewGood(".goodBtn");
+
+
+	//리뷰 키워드 나열 
+	function keywordSplit(sel){
+		let keyWraps=document.querySelectorAll(sel);
+
+		for(let i=0;i<keyWraps.length;i++){	
+			//배열 선언
+			let saveKey=$(keyWraps[i]).attr("data-key");
+			let keyarr2=[];
+			keyarr2=saveKey.split(",");
+			
+			for(let j=0;j<keyarr2.length;j++){
+				let keyHtml=`<div class="review_key">
+								<span><i class="fas fa-check"></i></span>
+								<span>`+keyarr2[j]+`</span>
+							</div>`;
+				$(keyWraps[i]).append(keyHtml);
+			};
+		};
+	}
+	keywordSplit(".review_key_wrap");
+	
 	//키워드 + 키워드 순서 추출
 	let keyarr=[];
 	tests=document.querySelectorAll("#test");
@@ -753,7 +1146,6 @@ button{
 
 
 	//스크랩 버튼 
-	let b_id = '<c:out value="${dto.b_id}"/>';
 	let g_id = '<c:out value="${g_id}"/>';
 	
 		$("#scrapBtn").click(function(){
@@ -761,7 +1153,6 @@ button{
 			let isScrap=$(this).attr("data-isscrap");
 			
 			if(!isScrap){ //추천안했다면
-				console.log("ajax실행전!!");
 				ajaxPromise("private/ajax_good_insert.do", "get", "b_id="+b_id)
 				.then(function(response){
 					return response.json();
@@ -800,12 +1191,28 @@ button{
 	
 	let maxMargin=imgListWidth-bannerWidth-oneMove;
 	
+	function leftHide(){
+		if(bannerMargin==0){
+			$("#leftBtn").css('visibility','hidden');
+		}else{
+			$("#leftBtn").css('visibility','visible');
+		};
+	};
+	leftHide();
+	
 	$("#rightBtn").click(function(){
 		if(bannerMargin>-maxMargin){
 			bannerMargin-=oneMove;
 			$("#imgList").css({
 		        marginLeft:bannerMargin
 		    });
+			leftHide();
+			$("#rightBtn").css('visibility','visible')
+			if(bannerMargin<=-maxMargin){
+				$("#rightBtn").css('visibility','hidden');
+			}
+		}else{
+			$("#rightBtn").css('visibility','hidden');
 		}
 	});
 	$("#leftBtn").click(function(){
@@ -814,12 +1221,25 @@ button{
 			$("#imgList").css({
 		        marginLeft:bannerMargin
 		    });
+			$("#rightBtn").css('visibility','visible');
+			leftHide();
+		}else{
+			$("#rightBtn").css('visibility','hidden');
 		}
 	});
 		
 	//메뉴 슬라이드
 	let menuMargin=0;
 	let menuListWidth=$("#menuList").width();
+	
+	function leftHide2(){
+		if(menuMargin==0){
+			$("#leftBtn2").css('visibility','hidden');
+		}else{
+			$("#leftBtn2").css('visibility','visible');
+		};
+	};
+	leftHide2();
 	
 	
 	$("#rightBtn2").click(function(){
@@ -828,6 +1248,12 @@ button{
 			$("#menuList").css({
 		        marginLeft:menuMargin
 		    });
+			leftHide2();
+			if(menuMargin<-menuListWidth){
+				$("#rightBtn2").css('visibility','hidden');
+			}
+		}else{
+			$("#rightBtn2").css('visibility','hidden');
 		}
 		
 	});
@@ -837,6 +1263,52 @@ button{
 			$("#menuList").css({
 		        marginLeft:menuMargin
 		    });
+			$("#rightBtn2").css('visibility','visible');
+			leftHide2();
+		}else{	
+			$("#rightBtn2").css('visibility','hidden');
+		}
+	});
+	
+	//사진 리뷰 슬라이드
+	let phMargin=0;
+	let phListWidth=$("#photoList").width();
+	
+	function leftHide3(){
+		if(phMargin==0){
+			$("#leftBtn3").css('visibility','hidden');
+		}else{
+			$("#leftBtn3").css('visibility','visible');
+		};
+	};
+	leftHide3();
+	
+	
+	$("#rightBtn3").click(function(){
+		if(phMargin>=-phListWidth){
+			phMargin-=750;
+			$("#photoList").css({
+		        marginLeft:menuMargin
+		    });
+			leftHide2();
+			if(phMargin<-phListWidth){
+				$("#rightBtn3").css('visibility','hidden');
+			}
+		}else{
+			$("#rightBtn3").css('visibility','hidden');
+		}
+		
+	});
+	$("#leftBtn3").click(function(){
+		if(phMargin<0){
+			phMargin+=750;
+			$("#photoList").css({
+		        marginLeft:menuMargin
+		    });
+			$("#rightBtn3").css('visibility','visible');
+			leftHide3();
+		}else{	
+			$("#rightBtn3").css('visibility','hidden');
 		}
 	});
 	

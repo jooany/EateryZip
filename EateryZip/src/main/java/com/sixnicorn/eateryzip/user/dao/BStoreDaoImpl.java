@@ -11,6 +11,7 @@ import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 import com.sixnicorn.eateryzip.user.dto.EateryScrapDto;
 import com.sixnicorn.eateryzip.user.dto.MenuDto;
 import com.sixnicorn.eateryzip.user.dto.ReviewDto;
+import com.sixnicorn.eateryzip.user.dto.ReviewGoodDto;
 import com.sixnicorn.eateryzip.user.dto.StoreImgDto;
 
 @Repository
@@ -97,17 +98,43 @@ public class BStoreDaoImpl implements BStoreDao {
 	public List<MenuDto> getMenuList(String b_id){
 		return session.selectList("BStore.getMenuList",b_id);
 	}
-	//리뷰 리스트 가져오기
+	
+	
+	//[최신순] 리뷰 리스트 가져오기
 	@Override
-	public List<ReviewDto> getReviewList(ReviewDto dto){
-		return session.selectList("BStore.getReviewList",dto);
+	public List<ReviewDto> getReviewList_R(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_R",dto);
 	}
+	//[최신순+사진리뷰만]
+	@Override
+	public List<ReviewDto> getReviewList_R_P(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_R_P",dto);
+	}
+	//[인기순]
+	@Override
+	public List<ReviewDto> getReviewList_P(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_P",dto);
+	}
+	//[인기순+사진리뷰만]
+	@Override
+	public List<ReviewDto> getReviewList_P_P(ReviewDto dto){
+		return session.selectList("BStore.getReviewList_P_P",dto);
+	}
+	
+	
 	//리뷰 개수 세기
 	@Override
 	public int getReviewCount(String b_id){
 
 		return session.selectOne("BStore.getReviewCount",b_id);
 	}
+	//리뷰 사진만 개수 세기
+	@Override
+	public int getReviewCountOnly(String b_id){
+
+		return session.selectOne("BStore.getReviewCountOnly",b_id);
+	}
+	
 	//리뷰 키워드별 개수 세기 
 	@Override
 	public ReviewDto getKeyCount(ReviewDto dto) {
@@ -128,6 +155,16 @@ public class BStoreDaoImpl implements BStoreDao {
 	@Override
 	public int isScrap(EateryScrapDto dto) {
 		return session.selectOne("BStore.isScrap",dto);
+	}
+	//리뷰 추천
+	@Override
+	public void doReviewGood(ReviewGoodDto dto) {
+		session.insert("BStore.doReviewGood",dto);
+	}
+	//리뷰 취소
+	@Override
+	public void notReviewGood(ReviewGoodDto dto) {
+		session.delete("BStore.notReviewGood",dto);
 	}
 }
 
