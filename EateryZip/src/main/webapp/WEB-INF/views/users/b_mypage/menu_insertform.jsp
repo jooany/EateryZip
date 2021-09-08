@@ -505,6 +505,9 @@ body{
 			}
 		});
 	}
+    
+    let isOnlyNum;
+    
 
 	//메뉴 db 등록하기 
     function insertMenuListener(sel){
@@ -519,7 +522,14 @@ body{
     		let nameNull=form2.children(".wrap_menu_name").children("#inputMenuName").val();
     		let priceNull=form2.children(".wrap_img_n_price").children(".wrap_price").children("input").val();
     		
-    		if(nameNull&&priceNull){
+    		let regex= /^[0-9]/g;
+    		if(!regex.test(priceNull)){
+    			isOnlyNum='';
+    		}else{
+    			isOnlyNum=true;
+    		}
+    		
+    		if(nameNull&&priceNull&&isOnlyNum){
         	
 	        	ajaxFormPromise(form)
 	    		.then(function(response){
@@ -562,6 +572,8 @@ body{
 	    			clickImgEventListener($("#menuImgBtn"+data.menuNum));
 	    		});
         	
+    	}else if(!isOnlyNum){
+    		alert("가격은 숫자로만 입력하세요!");
     	}else{
     		alert("공백 없이 입력하세요!");
     	};
@@ -584,9 +596,16 @@ body{
 				let nameNull=form2.children(".wrap_menu_name").children(".menu_name").val();
 	    		let priceNull=form2.children(".wrap_img_n_price").children(".wrap_price").children("input").val();
 	    		
+	    		let regex= /^[0-9]/g;
+	    		if(!regex.test(priceNull)){
+	    			isOnlyNum='';
+	    		}else{
+	    			isOnlyNum=true;
+	    		}
+	    		
 				let menuNum=$(this).attr("data-menuNum");
 				
-				if(nameNull&&priceNull){
+				if(nameNull&&priceNull&&isOnlyNum){
 					ajaxFormPromise(form)
 					.then(function(response){
 						return response.json();
@@ -598,9 +617,11 @@ body{
 						$("#inputPrice"+menuNum).val(data.menuPrice);
 						$("#inputNum"+menuNum).val(data.menuNum);
 					});
-				}else{
-					alert("공백없이 입력하세요!");
-				}
+				}else if(!isOnlyNum){
+		    		alert("가격은 숫자로만 입력하세요!");
+		    	}else{
+		    		alert("공백 없이 입력하세요!");
+		    	};
 				
 			});//submit 이벤트 끝
 		}//for문끝
