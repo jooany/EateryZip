@@ -7,6 +7,7 @@ import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 import com.sixnicorn.eateryzip.user.dto.EateryScrapDto;
 import com.sixnicorn.eateryzip.user.dto.MenuDto;
 import com.sixnicorn.eateryzip.user.dto.ReviewDto;
+import com.sixnicorn.eateryzip.user.dto.ReviewGoodDto;
 import com.sixnicorn.eateryzip.user.dto.StoreImgDto;
 
 public interface BStoreDao {
@@ -38,10 +39,16 @@ public interface BStoreDao {
 	public List<ReviewDto> getReviewList_P_P(ReviewDto dto);
 	
 	public int getReviewCount(String b_id);
+	public int getReviewCountOnly(String b_id);
+	
 	public void insertStoreImg(StoreImgDto dto);
 	public ReviewDto getKeyCount(ReviewDto dto);
 	public void doScrap(EateryScrapDto dto);
 	public void notScrap(EateryScrapDto dto);
 	public int isScrap(EateryScrapDto dto);
+	
+	public void doReviewGood(ReviewGoodDto dto);
+	public void notReviewGood(ReviewGoodDto dto);
+	
 
 }

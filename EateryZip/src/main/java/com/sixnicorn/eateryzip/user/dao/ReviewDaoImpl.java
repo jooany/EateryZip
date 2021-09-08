@@ -16,16 +16,6 @@ public class ReviewDaoImpl implements ReviewDao{
 	@Autowired
 	private SqlSession session;
 	
-	//리뷰 추천
-	@Override
-	public void doReviewGood(ReviewGoodDto dto) {
-		session.insert("review.doReviewGood",dto);
-	}
-	//리뷰 취소
-	@Override
-	public void notReviewGood(int review_num) {
-		session.delete("review.notReviewGood",review_num);
-	}
 	//리뷰 추천 유무 확인
 	@Override
 	public int isGood(ReviewGoodDto dto) {

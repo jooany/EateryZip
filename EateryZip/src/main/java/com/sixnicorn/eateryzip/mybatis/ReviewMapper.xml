@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
-	<!-- 리뷰 추천 -->
-	<insert id="doReviewGood" parameterType="ReviewGoodDto">
-		INSERT INTO review_good
-		(review_num,g_id)
-		VALUES(#{review_num},#{g_id})
-	</insert>
-	<!-- 리뷰 추천 취소 -->
-	<delete id="notReviewGood" parameterType="int">
-		DELETE FROM review_good
-		WHERE review_num=#{review_num}
-	</delete>
 	<!-- 유저가 리뷰 추천했는지 확인 -->
 	<select id="isGood" parameterType="ReviewGoodDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM),0)

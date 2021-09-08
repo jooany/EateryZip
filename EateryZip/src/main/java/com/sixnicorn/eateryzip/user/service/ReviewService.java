@@ -19,8 +19,5 @@ public interface ReviewService {
 	public void insertReviewT(ReviewDto dto);
 	public void updateReviewT(ReviewDto dto);
 
-	public Map<String, Object> doReviewGood(HttpServletRequest request, int review_num);
-
-	public Map<String, Object> notReviewGood(HttpServletRequest request, int review_num);
 
 }
