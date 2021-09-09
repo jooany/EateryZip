@@ -1,39 +1,69 @@
 package com.sixnicorn.eateryzip.user.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
+import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
 @Repository
 public class GUserDaoImpl implements GUserDao {
-	
-	@Autowired
-	private SqlSession session;
-	
-	//DB에서 회원 한명의 정보를 select
-	@Override
-	public GUserDto getData(String g_id) {
-		
-		return session.selectOne("Guser.getData", g_id);
-	}
+   
+   @Autowired
+   private SqlSession session;
+   
+   //DB에서 회원 한명의 정보를 select
+   @Override
+   public GUserDto getData(String g_id) {
+      
+      return session.selectOne("Guser.getData", g_id);
+   }
 
-	@Override
-	public void insert(GUserDto dto) {
-		session.insert("Guser.insert", dto);
-	}
+   @Override
+   public boolean insert(GUserDto dto) {
+      int result = session.insert("Guser.insert", dto);
+         if(result > 0){
+            return true;
+         }else{
+            return false;
+         }
+   }
 
-	@Override
-	public boolean isExist(String inputId) {
-		//인자로 전달 받은 아이디가 존재하는지 select 해본다.
-		String id = session.selectOne("Guser.isExist", inputId);
-			if(id==null) {
-					return false;
-			}else {
-					return true;
-			}
-	}
+   @Override
+   public boolean isExist(String inputId) {
+      //인자로 전달 받은 아이디가 존재하는지 select 해본다.
+      String id = session.selectOne("Guser.isExist", inputId);
+         if(id==null) {
+               return false;
+         }else {
+               return true;
+         }
+   }
+
+   @Override
+   public String getId(GUserDto dto) {
+      
+      return session.selectOne("Guser.getId",dto);
+   }
+
+   @Override
+   public String getPwd(GUserDto dto) {
+      return session.selectOne("Guser.getPwd", dto);
+   }
+
+   @Override
+   public boolean changePwd(GUserDto dto) {
+      int result = session.update("Guser.pwdChange",dto);
+      if(result > 0) {
+         return true;
+      }else {
+         return false;
+      }
+   }
+
 
 	// 혜림 ----------------------------------------------------------
 	// 일반회원 정보 수정하기
@@ -42,26 +72,24 @@ public class GUserDaoImpl implements GUserDao {
 		// TODO Auto-generated method stub
 		session.update("Guser.update", dto);
 	}
+	// 일반회원 탈퇴하기
 	@Override
-	public String getId(GUserDto dto) {
+	public void delete(String g_id) {
+		// guser에 담긴 값들을 보내준다.
+		session.delete("Guser.delete", g_id);
 		
-		return session.selectOne("Guser.getId",dto);
 	}
 
 	@Override
-	public boolean getPwd(GUserDto dto) {
-		String pwd = session.selectOne("Guser.getPwd", dto);
-		if(pwd==null) {
-			return false;
-		}else {
-			return true;
-		}
+	public List<TakeoutDto> getList(TakeoutDto dto) {
+
+		return session.selectList("Guser.getTakeoutList", dto);
 	}
 
 	@Override
-	public void changePwd(GUserDto dto) {
-		session.update("Guser.pwdChange",dto);
-
+	public int getTakeoutCount(TakeoutDto dto) {
+		
+		return session.selectOne("Guser.getTakeoutCount", dto);
 	}
-
+	
 }

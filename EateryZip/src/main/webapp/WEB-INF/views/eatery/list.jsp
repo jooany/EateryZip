@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,24 +9,23 @@
 <title>/views/eatery/list.jsp</title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
-<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
+<jsp:include page="/navbar/header/navbar_list.jsp"></jsp:include>
 <style>
-      *{
+	*{
          margin: 0;
          padding: 0;
-      }
-      html{
+	}
+	html{
           margin: 0;
-      } 
-      body{
+	} 
+	body{
           line-height: 1.6
-      }
-      section{
-        margin: 30px;
+	}
+	section{
+        margin: 40px;
           display: flex;
           float: left;
           flex-wrap: wrap;
-          margin-right: 30px;
       }
       a{
          color:black!important;
@@ -39,10 +39,22 @@
          border:none;
          background-color:rgba(0,0,0,0);
       }
+      .wrap1{
+      	margin-left: 15px;
+      }
       .food{
          margin-bottom: 10px;
       }
-    /* 전체, 예약, 방문포장 */
+      h2{
+      	font-size: 30px;
+      	font-weight: bold;
+      	color: rgb(255, 255, 255);
+      }
+      .main_title{
+      	padding: 15px;
+      	background-color: rgb(253, 83, 0);
+      }
+	/* 전체, 예약, 방문포장 */
     .tab_container{
        width: 500px;
         margin: 0 auto;
@@ -60,55 +72,124 @@
         cursor: pointer;
       }
       ul.tabs li.current{
-        background: #ededed;
+        border: 1px solid #cecece;
         color: #222;
       }
       .tab-content{
         display: none;
-        background: #ededed;
+        border: 1px solid #cecece;
         padding: 15px;
       }
       .tab-content.current{
         display: inherit;
-        width: 700px;
-        height: 250px; 
       }
-      .card_wrapper{
-         max-width: 680px;
-         margin: 50px auto;
-         padding: 2em;
-      }
-      .card{
-         background-color: #fff;
-         overflow: hidden;
-      }
-      .card_image{
-         background-color: #eee;
-         max-heigth: 240px;
-      }
-      .card_image img{
-         display: block;
-      }
-      .card_content{
-         display: inline-flex;
-         /* position: relative;*/
-      }
-      .card_padding{
-         padding: 1.6rem;
-      }
-      .card_meta span{
-         font-size: 1rem;
-         color: #444;
-         margin-left: 0.8rem;
-      }
-      /* 텍스트 배치 */
-      .inner_wrapper{
-         margin-left: 30px;
-      }
-      .ex_tag{
-         display: inline-flex;
-         align-items: baseline;
-      }
+      
+	/*----------2.Headings & Buttons----------*/	
+	h3 {
+	   font-size:1.2em;
+	   font-weight:600;
+	   text-transform:capitalize;
+	   margin:0 0 10px 0;
+	   padding:0;
+	   color:#555555;
+	}
+	.btn-styled {
+	   background-color:transparent;
+	   border:#666666 1.9px solid;
+	   color:#666666;
+	   font-size:0.85em;
+	   border-radius:30px;
+	   padding:5px 13px 4px 13px;
+	   margin:10px 0 10px 0;
+	}
+	.btn-styled:hover, .btn-styled:active  {
+	   background-color:#ededed;
+	   border-color:#ededed;
+	   color:#555555;
+	}
+	.btn-styled:focus {
+	   outline:0 !important;
+	}
+	/*----------3.Cards----------*/
+	.card {
+	   position: relative;
+	   margin:2% 5px 2% 5px;
+	   background-color: #fff;
+	   transition: box-shadow .25s;
+	   border-radius: 2px;
+	   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+	   padding:0;
+	   min-width:660px;
+	   max-width:700px;
+	   flex-direction:row!important;
+	}
+	.card .card-image img {
+	  display: block;
+	  border-radius: 2px 2px 0 0;
+	  position: relative;
+	  left: 0;
+	  right: 0;
+	  top: 0;
+	  bottom: 0;
+	  width: 100%;
+	}
+	.cimg{
+		display: flex;
+		margin: 15px;
+		align-items:center;
+	}
+	.card .card-content {
+	  padding: 10px;
+	  width: 480px;
+	  border-radius: 0 0 2px 2px;
+	}
+	
+	.card .card-content p {
+	  margin:0;
+	  font-size:1rem;
+	  color: #555555;
+	}
+	/*----3.a.Horizontal----*/
+	.card.horizontal {
+	   display: -webkit-flex;
+	   display: -ms-flexbox;
+	   display: flex;
+	}
+	.card.horizontal.small .card-image,
+	 .card.horizontal.medium .card-image,
+	  .card.horizontal.large .card-image {
+	   height: 100%;
+	   max-height: none;
+	   overflow: visible;
+	}
+	.card.horizontal .card-image img {
+	   width:150px;
+	   height:150px;
+	   margin-right:20px;
+	}
+	.card.horizontal .card-stacked {
+	   -webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	    flex-direction: column;
+	   -webkit-flex: 1;
+	    -ms-flex: 1;
+	    flex: 1;
+	   position: relative;
+	}
+	.card.horizontal .card-stacked .card-content {
+	   -webkit-flex-grow: 1;
+	    -ms-flex-positive: 1;
+	   flex-grow: 1;
+	}
+	.card .card-image {
+	  position: relative;
+	}
+	.card_intro{
+		border-bottom: 1px solid #e4e8eb;
+	}
+	h3 span {
+		font-size: 15px;
+	}
       /* 지도api */
     .main_right{
           width: 320px;
@@ -116,103 +197,91 @@
           background-color: #cecece;
          
     }
-   /* 모바일(~576px) */
-   @media screen and (max-width: 576px) {
-
-   }
+    footer{
+    	clear: both;
+    	padding: 15px;
+    	text-align: center;
+    	color: rgb(255, 255, 255);
+    	background-color: rgb(33, 33, 33);
+    }
 </style>
 </head>
 <body>
-   <form class="search">
-      <select class="select_search" name="b-kind">
-         <option id="kFood" value="kFood">한식</option>
-         <option id="jFood" value="kFood">일식</option>
-         <option id="cFood" value="kFood">중식</option>
-         <option id="wFood" value="kFood">양식</option>
-         <option id="brunch" value="brunch">브런치</option>
-         <option id="bar" value="bar">Bar</option>
-         <option id="cafe" value="cafe">카페</option>
-      </select>
-      <input class="keyword" type="text" name="b-kind" maxlength="100" value="">
-      <input class="keyword" type="text" name="search" maxlength="100" value="">
-      <button class="search_btn" type="submit" name="click">
-         <i class="fas fa-search"></i>
-      </button>
-   </form>
-   
+<h1>테스트 : ${keyword } ${ex_keyword } ${service } ${b_kind }</h1>
     <section>
        <div class="main_left">
-         <!-- 가격 필터 -->
-         
-            <!-- 편의사항 선택 -->
-            <fieldset>
-            <legend>편의사항</legend>
-            <div class="form-group mb-3" id="ex_keyword">
-               <input type="checkbox" class="check-input" id="check-outlined" value="루프탑" name="ex_keyword" onclick="check();">
-               <label class="check-label" for="check-outlined" >루프탑</label>
-               <br />
-               <input type="checkbox" class="check-input" id="check-2-outlined" value="주차" name="ex_keyword" onclick="check();">
-               <label class="check-label" for="check-2-outlined">주차</label>
-               <br />
-               <input type="checkbox" class="check-input" id="check-3-outlined" value="무선인터넷" name="ex_keyword" onclick="check();">
-               <label class="check-label" for="check-3-outlined">무선인터넷</label>
-               <br />
-               <input type="checkbox" class="check-input" id="check-4-outlined" value="단체석" name="ex_keyword" onclick="check();">
-               <label class="check-label" for="check-4-outlined" >단체석</label>
-               <br />
-               <input type="checkbox" class="check-input" id="check-5-outlined" value="남/녀 화장실 구분" name="ex_keyword" onclick="check();">
-               <label class="check-label" for="check-5-outlined">남/녀 화장실 구분</label>
-               <br />
-               <input type="checkbox" class="check-input" id="check-6-outlined" value="키즈존" name="ex_keyword" onclick="check();">
-               <label class="check-label" for="check-6-outlined" >키즈존</label>
-               <br />
-               <input type="checkbox" class="check-input" id="check-7-outlined" value="노키즈존" name="ex_keyword" onclick="check();">
-               <label class="check-label" for="check-7-outlined">노키즈존</label>
-               <br />
-               <input type="checkbox" class="check-input" id="check-8-outlined" value="반려동물동반가능" name="ex_keyword" onclick="check();">
-               <label class="check-label" for="check-8-outlined" >반려동물동반가능</label>
-               <br />
-               <input type="checkbox" class="check-input" id="check-9-outlined" value="프라이빗" name="ex_keyword" onclick="check();">
-               <label class="check-label" for="check-9-outlined" >프라이빗</label>
-               <br />
-               <input type="checkbox" class="check-input" id="check-10-outlined" value="흡연실" name="ex_keyword" onclick="check();">
-               <label class="check-label" for="check-10-outlined">흡연실</label>
+   		<form action="${pageContext.request.contextPath}/eatery/list.do" method="get" id="inputForm">
+        <!-- 편의사항 선택 -->
+            <div class="search_wrap">
+                <input type="text" class="keyword" placeholder="통합검색" name="keyword" value="${ not empty keyword ? keyword :''}">
             </div>
-         </fieldset>
+        
+		<fieldset>
+        	<legend>편의사항</legend>
+            <div class="form-group mb-3 wrap1">
+   				<c:set var="searchExKey" value="${ex_keyword }" />
+				<input id="ch1" type="checkbox" name="ex_keyword" value="루프탑" ${fn:contains(searchExKey,'루프탑') ? 'checked': ''}/> 루프탑
+				<br />
+				<input id="ch2" type="checkbox" name="ex_keyword" value="주차" ${fn:contains(searchExKey,'주차') ? 'checked': ''}/> 주차
+				<br />
+				<input id="ch3" type="checkbox" name="ex_keyword" value="무선인터넷" ${fn:contains(searchExKey,'무선인터넷') ? 'checked': ''}/> 무선인터넷
+				<br />
+				<input id="ch4" type="checkbox" name="ex_keyword" value="단체석" ${fn:contains(searchExKey,'단체석') ? 'checked': ''}/> 단체석
+				<br />
+				<input id="ch5" type="checkbox" name="ex_keyword" value="키즈존" ${fn:contains(searchExKey,'키즈존') ? 'checked': ''}/> 키즈존
+				<br />
+				<input id="ch6" type="checkbox" name="ex_keyword" value="노키즈존" ${fn:contains(searchExKey,'노키즈존') ? 'checked': ''}/> 노키즈존
+				<br />
+				<input id="ch7" type="checkbox" name="ex_keyword" value="반려동물동반가능" ${fn:contains(searchExKey,'반려동물동반가능') ? 'checked': ''}/> 반려동물동반가능
+				<br />
+				<input id="ch8" type="checkbox" name="ex_keyword" value="프라이빗" ${fn:contains(searchExKey,'프라이빗') ? 'checked': ''}/> 프라이빗
+				<br />
+				<input id="ch9" type="checkbox" name="ex_keyword" value="흡연실" ${fn:contains(searchExKey,'흡연실') ? 'checked': ''}/> 흡연실
+            </div>
+		</fieldset>
 
-      <!-- 업종 -->
-      <h4>업종</h4>
-      <div>
-         <button type="submit" id="kFood" class="food btn btn-outline-dark">
-            <img src="${pageContext.request.contextPath}/resources/images/bibimbap.png"> 한식
-         </button>
-         <button type="submit" id="jFood" class="food btn btn-outline-dark">
-            <img src="${pageContext.request.contextPath}/resources/images/sushi.png"> 일식
-         </button>
-         <br />
-         <button type="submit" id="cFood" class="food btn btn-outline-dark">
-            <img src="${pageContext.request.contextPath}/resources/images/xiao-long-bao.png"> 중식
-         </button>
-         <button type="submit" id="wFood" class="food btn btn-outline-dark">
-            <img src="${pageContext.request.contextPath}/resources/images/steak.png"> 양식
-         </button>
-         <br />
-         <button type="submit" id="brunch" class="food btn btn-outline-dark">
-            <img src="${pageContext.request.contextPath}/resources/images/pancake.png"> 브런치
-         </button>
-         <button type="submit" id="bar" class="food btn btn-outline-dark">
-            <img src="${pageContext.request.contextPath}/resources/images/cocktail.png"> Bar
-         </button>
-         <br />
-         <button type="submit" id="cafe" class="food btn btn-outline-dark">
-            <img src="${pageContext.request.contextPath}/resources/images/coffee-cup.png"> 카페
-         </button>
-       </div>
+      	<!-- 업종 -->
+      	<h4>업종</h4>
+	      	<div class="wrap1">
+	         <input type="radio" id="b_kind" name="b_kind" value="한식" ${b_kind eq '한식' ? 'checked' : ''}>
+	         <img src="${pageContext.request.contextPath}/resources/images/bibimbap.png"> 한식
+	         
+	         <input type="radio" name="b_kind" value="일식" ${b_kind eq '일식' ? 'checked' : ''}>
+	            <img src="${pageContext.request.contextPath}/resources/images/sushi.png"> 일식
+	
+	         <br />
+	         <input type="radio" name="b_kind" value="중식" ${b_kind eq '중식' ? 'checked' : ''}>
+	            <img src="${pageContext.request.contextPath}/resources/images/xiao-long-bao.png"> 중식
+	  
+	         <input type="radio" name="b_kind" value="양식" ${b_kind eq '양식' ? 'checked' : ''}>
+	            <img src="${pageContext.request.contextPath}/resources/images/steak.png"> 양식
+	         <br />
+	         <input type="radio" name="b_kind" value="브런치" ${b_kind eq '브런치' ? 'checked' : ''}>
+	            <img src="${pageContext.request.contextPath}/resources/images/pancake.png"> 브런치
+	            
+	         <input type="radio" name="b_kind" value="Bar" ${b_kind eq 'Bar' ? 'checked' : ''}>
+	            <img src="${pageContext.request.contextPath}/resources/images/cocktail.png"> Bar
+
+	         <br />
+	         <input type="radio" name="b_kind" value="cafe" ${b_kind eq 'cafe' ? 'checked' : ''}>
+	            <img src="${pageContext.request.contextPath}/resources/images/coffee-cup.png"> 카페
+	 
+	       	</div>
+	       	
+	       	<div>
+		       	<h4>선택</h4>
+	         		<input type="radio" name="service" value="예약/방문포장" ${service eq '예약/방문포장' ? 'checked' : ''}> 예약 / 방문포장       
+	                <input type="radio" name="service" value="예약" ${service eq '예약' ? 'checked' : ''} > 예약
+	                <input type="radio" name="service" value="방문포장" ${service eq '방문포장' ? 'checked' : ''}>방문포장
+		       	</div>
+		       	<button class="btn btn-primary" type="submit">저장하기</button>
+	       	</form>
+    	</div>
     </section>
 
     <section>
       <div class="main_middle">
-            <div class="title">
+            <div class="main_title">
                 <h2>추천 맛집</h2>
                 <div>
                    <!-- 인기순, 리뷰순 -->
@@ -226,87 +295,67 @@
                   </form> -->   
                 </div>
              </div>
-
-             <ul class="tabs">
-                <li class="tab-link current" data-tab="tab-1">전체</li>
-                <li class="tab-link" data-tab="tab-2">
-                   예약 <img src="${pageContext.request.contextPath}/resources/images/booking (1).png" width="30px" height="30px">
-                </li>
-                <li class="tab-link" data-tab="tab-3">
-                   방문포장 <img src="${pageContext.request.contextPath}/resources/images/take-away (1).png" width="30px" height="30px">
-                </li>
-             </ul>
-         
+             
             <!-- 음식점 리스트 * 6 -->
             <div id="tab-1" class="card_wrapper tab-content current">         
-             <c:forEach var="tmp" items="${list }">
-               <div class="card">
-                  <div class="card_image">
-                     <img src="${tmp.b_img_f }" width="150" height="150">
-                  </div>
-                  <div class="card_content card_padding">
-                     <div class="card_meta">
-                        <h2>
-                           <!-- 상세페이지로 이동 -->
-                           <a href="">${tmp.b_name }</a>
-                           <span>${tmp.b_kind }</span>
-                        </h2>
-                     </div>
-                     <div>
-                        <c:forEach begin="1" end="3">
-                           <p>reviews * 3</p>
-                        </c:forEach>
-                        <p>${tmp.intro }</p>
-                        <c:forEach begin="1" end="3">
-                           <p>${tmp.ex_keyword }</p>
-                        </c:forEach>
-                     </div>
-                  </div>
-               </div>
-            </c:forEach>
-            </div>
-            
-            <div id="tab-2" class="tab-content">
-               <c:forEach var="tmp" items="${list }">
-            <div>
-               <img src="${tmp.b_img_f }" width="150" height="150">
-               <h2>${tmp.b_name }</h2>
-               <div>
-                  <span>${tmp.b_kind }</span>
-               </div>
-               <c:forEach begin="1" end="3">
-                  <p>reviews * 3</p>
-               </c:forEach>
-               <p>${tmp.intro }</p>
-               <c:forEach begin="1" end="3">
-                  <p>${tmp.ex_keyword }</p>
-               </c:forEach>
-            </div>
-         </c:forEach>
-            </div>
-            
-            <div id="tab-3" class="tab-content">
-                  <c:forEach var="tmp" items="${list }">
-            <div>
-               <img src="${tmp.b_img_f }" width="150" height="150">
-               <h2>${tmp.b_name }</h2>
-               <div>
-                  <span>${tmp.b_kind }</span>
-               </div>
-               <c:forEach begin="1" end="3">
-                  <p>reviews * 3</p>
-               </c:forEach>
-               <p>${tmp.intro }</p>
-               <c:forEach begin="1" end="3">
-                  <p>${tmp.ex_keyword }</p>
-               </c:forEach>
-            </div>
-         </c:forEach>
-            </div>
-            
-            <!-- 로딩 -->
-            <div id="ajax-loading"><img src=""></div>
-       </div>
+			   <c:forEach var="tmp" items="${list }">
+			    <div class="didRow">
+			      <div class="card_wrapper">
+			        <div class="card" style="display:flex;">
+			          <div class="card-image cimg" style="width:150px;">
+			            <img src="${tmp.b_img_f }" width="150" height="150">
+			          </div>
+			          <div class="card-stacked">
+			            <div class="card-content">
+			               <h3>
+			                  <a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${tmp.b_id}">${tmp.b_name }</a>
+			                  <span>| ${tmp.b_kind }</span>
+			               </h3>
+			               <!-- 리뷰 3개 -->
+			               <c:forEach begin="1" end="3">
+			                  <p>reviews * 3</p>
+			               </c:forEach>
+			               <p class="card_intro">${tmp.intro }</p>
+			               <!-- 편의사항 3개 -->
+			               <c:forEach begin="1" end="3">
+			                  <p>${tmp.ex_keyword }</p>
+			               </c:forEach>
+			             </div>
+			           </div>
+			         </div>
+			      </div>
+			   </div>
+			   </c:forEach>
+			</div>
+			
+			 <div class="page-ui clearfix"> <!-- 페이징처리 부분 -->
+		      <ul>
+		         <c:if test="${startPageNum ne 1 }">
+		            <li>
+		               <a href="list.do?pageNum=${startPageNum-1 }&keyword=${encodedK}&ex_keyword=${encodedEx}&b_kind=${encodedB}&service=${encodedS}">Prev</a>
+		            </li>
+		         </c:if>
+		         <c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+		            <li>
+		               <c:choose>
+		                  <c:when test="${pageNum eq i }">
+		                     <a  class="active" href="list.do?pageNum=${i}&keyword=${encodedK}&ex_keyword=${encodedEx}&b_kind=${encodedB}&service=${encodedS}">${i }</a>
+		                  </c:when>
+		                  <c:otherwise>
+		                     <a href="list.do?pageNum=${i}&keyword=${encodedK}&ex_keyword=${encodedEx}&b_kind=${encodedB}&service=${encodedS}">${i }</a>
+		                  </c:otherwise>
+		               </c:choose>
+		            </li>
+		         </c:forEach>
+		         <c:if test="${endPageNum lt totalPageCount }">
+		            <li>
+		               <a href="list.do?pageNum=${endPageNum+1 }&keyword=${encodedK}&ex_keyword=${encodedEx}&b_kind=${encodedB}&service=${encodedS}">Next</a>
+		            </li>
+		         </c:if>
+		      </ul>
+		   </div>
+			
+         </div>
     </section>
 
     <section>
@@ -315,60 +364,75 @@
        </div>
     </section>
 
+	<footer>
+		<div>
+			<p>사업자등록번호 : 111-11-11111 / 대표자 : 정주연/ 강민재/ 윤혜림/ 김나현/ 유형우</p> 
+			<p> 주소 : 서울특별시 강남구 테헤란로 124 삼원타워 5 COPYRIGHT 2021 © MAT ZIP ALL RIGHTS RESERVED.</p>
+		</div>
+	</footer>
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
-   //검색창
-   const searching=search.prototype;
-   function search(){
-      this.category=docuement.querySelector('input[name="b-kind"]');
-      this.keyword=docuement.querySelector('input[name="search"]');
-      this.engine=document.querySelector('.select_search');
-      this.button=document.querySelector('.img_btn');
-      this.form=docuement.querySelector('.search');
-      
-      this.engine();
-   }
-   searching.engine=function(){
-      this.form.addEventListener('submit', e => {
-         e.preventDefault();
-         
-         let engine=this.engine.value;
-         let keyword=this.keyword.value;
-      });
-   }
-   
-   //조건 검색
-   $(document).ready(function(){
-      $(".so").on("change", function(){
-         $("#so").value($(this).val());
-         $("#searchForm").submit();
-      })
-   });
       
    //편의사항   
-   function allcheck(){
-        var ex_keyword = document.getElementsByName("ex_keyword");
-        var checkItem="";
-        for(var i = 0; i < ex_keyword.length; i++){
-           if(ex_keyword[0].checked == true){
-              ex_keyword[i].checked = true;
-           } else {
-              ex_keyword[i].checked = false;
-           }
-        }
-     }
-   
-   function check(){
-        var ex_keyword = document.getElementsByName("ex_keyword");
-        var checkItem="";
-        for(var i = 0 ; i < ex_keyword.length; i++){
-           if(ex_keyword[i].checked == false){
-              checkItem = false;
-           }
-        }
-        ex_keyword[0].checked = checkItem;
-     }
+	//function checkSelectAll()  {
+	  // 전체 체크박스
+	//  const checkboxes 
+	//    = document.querySelectorAll('input[name="ex_keyword"]');
+	  // 선택된 체크박스
+	//  const checked 
+	//    = document.querySelectorAll('input[name="ex_keyword"]:checked');
+	  
+	//  if(checkboxes.length === checked.length)  {
+	//    selectAll.checked = true;
+	//  }else {
+	//    selectAll.checked = false;
+	//  }
+	
+	//}
+	
+	function selectAll(selectAll)  {
+	  const checkboxes 
+	     = document.getElementsByName('ex_keyword');
+	  
+	  checkboxes.forEach((checkbox) => {
+	    checkbox.checked = selectAll.checked
+	  })
+	}
 
+   //업종
+   //function btnClickEventListener(){
+	//   for(let i=0; i<7; i++){
+	//	   $("#ex_keyword").children.eq(i).click(function({
+	//		   let ex_key=("#ex_keyword").children().eq(i);
+	//	   })
+	//   }
+ //  }
+   
+   //리뷰키워드
+   let reviewArr=[];
+   let reviewArr2=[];
+   let nowReview='<c:out value="${dto2.keyword_review}"/>'
+   console.log(nowReview);
+   
+   if(nowReview){
+	   reviewArr2=nowReview.split(",");
+   }
+   console.log(reviewArr2);
+   for(let i=0; i<7;i++){
+	   let keyBtn=$("keywordBtns").children().eq(i);
+	   
+	   for(let item of reviewArr2){
+		   if(keyBtn.text()==item){
+			   $("#keywords").children().eq(i).prop("checked", true);
+		   }
+	   }
+   }
+
+   //편의사항 키워드
+   let exarr=[];
+   let exarr2=[];
+   let nowex=''
    
     //전체, 예약, 방문포장
    $(document).ready(function(){
@@ -383,14 +447,6 @@
             $("#"+tab_id).addClass('current');
         })
     });
-    
-      //스크롤시 로딩
-    $("#ajax-loading").ajaxStart(function() {
-         $(this).show();
-      })
-      .ajaxStop(function() {
-         $(this).delay(10).hide(1); 
-      });    
 
 </script>
 </body>

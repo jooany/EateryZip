@@ -8,7 +8,7 @@
 <title>회원가입</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
-	.btn-primary {
+	.btn {
 	    background-color: #FD5300;
 	    border-color: #FD5300;
 	    color: #FFF; }
@@ -19,7 +19,7 @@
    <img src="${pageContext.request.contextPath}/resources/images/main.PNG"
    		class="mx-auto d-block mt-3 mb-3" alt="" />
    		
-   <form action="g_signup.do" method="post" id="myForm">
+   <form action="${pageContext.request.contextPath}/users/ajax_g_signup.do" method="post" id="signupForm">
    	  <input type="hidden" name="grade" value="general" />
    	  
 	   <div class="mb-2">
@@ -37,7 +37,7 @@
       <div class="mb-2">
          <label class="col-form-label mb-1" for="g_pwd2">비밀번호 확인</label>
          <input class="form-control" type="password" name="g_pwd2" id="g_pwd2" placeholder="비밀번호를 재입력해주세요."/>
-      	 <div class="invalid-feedback">비밀번호를 재입력 해주세요.</div>
+      	 <div class="invalid-feedback">앞에 입력한 비밀번호와 일치하지 않습니다.</div>
       </div>
       
       <div class="mb-2">
@@ -47,14 +47,27 @@
       </div>
       
       <div class="mb-2">
-         <label class="col-form-label mb-1" for="g_address">(초안)주소[주소API체크중]</label>
+         <label class="col-form-label mb-1" for="g_address">주소</label>
          <input class="form-control" type="text" name="g_address" id="g_address" placeholder="주소를 입력해주세요."/>
       </div>
       
-      <div class="mb-2">
-         <label class="col-form-label mb-1" for="g_email">(초안)이메일[select형변경가능]</label>
-         <input class="form-control" type="text" name="g_email" id="g_email" placeholder="이메일을 입력해주세요.(@ 포함)"/>
-         <div class="invalid-feedback">이메일 형식을 확인 하세요.</div>
+      <div class="mb-2 row">
+      	 <label class="col-form-label mb-1" for="g_email">이메일</label>
+      	 <div class="invalid-feedback">이메일을 입력해주세요.</div>
+      	 <div class="col-md-6">
+         	<input class="form-control" type="text" name="g_email" id="g_email" placeholder="이메일을 입력해주세요."/>
+         </div>
+         <div class="col-md-6">
+         <select class="form-select" name="g_email2" id="g_email2"> 
+         	<option value="No" selected>도메인을 선택해주세요.</option>
+         	<option value="@gmail.com">@gmail.com</option>
+         	<option value="@naver.com">@naver.com</option>
+         	<option value="@daum.net">@daum.net</option>
+         	<option value="@nate.com">@nate.com</option>
+         	<option value="@kakao.com">@kakao.com</option>
+         </select>
+         <div class="invalid-feedback">도메인을 선택해주세요.</div>
+         </div>
       </div> 
       
       <div class="mb-2">
@@ -64,19 +77,22 @@
       </div>
       
       <div class="mt-4 mb-5" style="text-align:center;">
-	      <a href="${pageContext.request.contextPath}/home.do" type="button" class="btn btn-primary">취소</a>
-	      <button type="submit" class="btn btn-primary">가입</button>
+	      <a href="${pageContext.request.contextPath}/home.do" type="button" class="btn">회원가입취소</a>
+	      <button id="submitBtn" type="button" class="btn">회원가입</button>
       </div>
    </form>
 </div>
 
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
    //아이디, 비밀번호, 이메일의 유효성 여부를 관리한 변수 만들고 초기값 대입
    let isIdValid=false;
    let isPwdValid=false;
    let isEmailValid=false;
+   let isEmailValid2=false;
    let isNameValid=false;
+   let isAddressValid=false;
    let isPhoneValid=false;
 
    //아이디를 입력했을때(input) 실행할 함수 등록 
@@ -178,7 +194,7 @@
       //1. 입력한 이메일을 읽어와서
       const inputEmail=this.value;
       //2. 이메일을 검증할 정규 표현식 객체를 만들어서
-      const reg_email=/@/;
+      const reg_email=/^.{1,20}$/;
       //3. 정규표현식 매칭 여부에 따라 분기하기
       if(reg_email.test(inputEmail)){//만일 매칭된다면
          //document.querySelector(".invalid-feedback3").style.display="none";
@@ -189,6 +205,36 @@
          isEmailValid=false;
          document.querySelector("#g_email").classList.add("is-invalid");
       }
+   });
+   
+   document.querySelector("#g_email2").addEventListener("change",function(){
+	  document.querySelector("#g_email2").classList.remove("is-valid");
+	  document.querySelector("#g_email2").classList.remove("is-invalid");
+	  
+	  const changeEmail = this.value;
+	  if(changeEmail=="No"){
+		  isEmailValid2=false;
+		  document.querySelector("#g_email2").classList.add("is-invalid");
+	  }else{
+		  isEmailValid2=true;
+		  document.querySelector("#g_email2").classList.add("is-valid");
+	  }
+   });
+   
+   document.querySelector("#g_address").addEventListener("input",function(){
+	   document.querySelector("#g_address").classList.remove("is-valid");
+	   document.querySelector("#g_address").classList.remove("is-invalid");
+	   
+	   const inputAddress = this.value;
+		  const reg_address=/^.{6,20}$/;
+		  if(!reg_address.test(inputAddress)){
+			  isAddressValid=false;
+			  document.querySelector("#g_address").classList.add("is-invalid");
+			  return;
+		  }else{
+			  isAddressValid=true;
+			  document.querySelector("#g_address").classList.add("is-valid");
+		  }
    });
    
    document.querySelector("#g_phone").addEventListener("input",function(){
@@ -208,18 +254,46 @@
    
    
    //폼에 submit 이벤트가 발생했을때 실행할 함수 등록
-   document.querySelector("#myForm").addEventListener("submit", function(e){
+   document.querySelector("#submitBtn").addEventListener("click", function(e){
       /*
          입력한 아이디, 비밀번호, 이메일의 유효성 여부를 확인해서 하나라도 유효 하지 않으면
          e.preventDefault(); 
          가 수행 되도록 해서 폼의 제출을 막아야 한다. 
       */
       //폼 전체의 유효성 여부 알아내기 
-      let isFormValid = isIdValid && isPwdValid && isEmailValid && isNameValid && isPhoneValid;
-      if(!isFormValid){//폼이 유효하지 않으면
+      let isFormValid = isIdValid && isPwdValid && isEmailValid && isEmailValid2 && isNameValid && isPhoneValid && isAddressValid;
+      if(!isFormValid){//폼이 유효하지 않으면 
          //폼 전송 막기 
          e.preventDefault();
-      }   
+         swal({
+			  title: "회원가입 실패!",
+			  text: "회원가입 조건에 부적합합니다.",
+			  icon: "error",
+			  dangerMode:"돌아가기"
+		  });
+      }else{
+    	  let signupForm = document.querySelector("#signupForm");
+    	  ajaxFormPromise(signupForm)
+    	  .then(function(response){
+    		  return response.json();
+    	  })
+    	  .then(function(sign){
+    		  console.log(sign);
+    		  if(sign.isSuccess){
+    			  swal({
+    				  title: "회원가입 성공!",
+    				  text: "로그인 페이지로 이동합니다.",
+    				  icon: "success",
+    				  button: "이동하기"
+    			  })
+    			  .then((logingForm)=>{
+    				 if(logingForm){
+    					 location.href="${pageContext.request.contextPath}/users/g_login_form.do";
+    				 } 
+    			  });  
+    		  }
+    	  }) 
+      }
    });
 </script>
 </body>

@@ -45,6 +45,7 @@ CREATE TABLE G_USER(
 	G_NAME VARCHAR2(100) NOT NULL, 
 	G_ADDRESS VARCHAR2(100), -- 주소 API 사용에 따른 파악 필요
 	G_EMAIL VARCHAR2(100), 
+	G_EMAIL2 VARCHAR2(100),
 	G_PHONE VARCHAR2(100) NOT NULL, 
 	G_REGDATE DATE NOT NULL, -- 가입날짜
 	G_PROFILE varchar2(100),
@@ -58,6 +59,7 @@ CREATE TABLE B_USER(
 	B_NAME VARCHAR2(100) NOT NULL,
 	B_ADDRESS VARCHAR2(100), -- 주소 API 사용에 따른 파악 필요
 	B_EMAIL VARCHAR2(100),
+	B_EMAIL2 VARCHAR2(100),
 	B_PHONE VARCHAR2(100) NOT NULL,
 	B_REGDATE DATE NOT NULL, -- 가입날짜
 	B_PROFILE varchar2(100),
@@ -66,12 +68,20 @@ CREATE TABLE B_USER(
 
 
 --일반회원 등록 예시
-INSERT INTO G_USER (G_ID,G_PWD,G_NAME,G_ADDRESS,G_EMAIL,G_PHONE,G_REGDATE,GRADE)
-VALUES('zzzzz', 'zzzzz','이름', '경기도 부천시', 'zzz@zzz','01012345678',sysdate,'general');
+INSERT INTO G_USER (G_ID,G_PWD,G_NAME,G_ADDRESS,G_EMAIL,G_EMAIL2,G_PHONE,G_REGDATE,GRADE)
+VALUES('zzzzz', 'zzzzz','이름', '경기도 부천시', 'zzz','@naver.com','01012345678',sysdate,'general');
 
 --비즈니스회원 등록 예시
-INSERT INTO B_USER (B_ID,B_PWD,B_NAME,B_ADDRESS,B_EMAIL,B_PHONE,B_REGDATE,GRADE)
-VALUES('11111111', '11111111','이름','경기도 부천시', 'aaa@aaa','01012345678',sysdate,'business');
+INSERT INTO B_USER (B_ID,B_PWD,B_NAME,B_ADDRESS,B_EMAIL,G_EMAIL2,B_PHONE,B_REGDATE,GRADE)
+VALUES('11111111', '11111111','이름','경기도 부천시', 'aaa','@naver.com','01012345678',sysdate,'business');
+
+--일반 회원 이메일 Email2 추가
+update g_user set g_email2 ='@naver'
+where g_id = '해당 아이디 입력';
+
+--비즈니스 회원 이메일 email2 추가
+update b_user set b_email2 = '@naver'
+where b_id = '해당 사업자 번호 입력';
 
 -- 가게등록 테이블
 CREATE TABLE B_Store(
@@ -89,6 +99,7 @@ CREATE TABLE B_Store(
 	notice VARCHAR2(100), -- 가게 공지사항
 	service VARCHAR2(100) NOT NULL, -- 예약 , 포장 선택
 	ex_keyword VARCHAR2(100) NOT NULL -- 편의사항/ 기타
+	checkKeyword VARCHAR2(200) -- 키워드 
 );
 -- 가게 등록 예시
 INSERT INTO B_Store(b_id,b_name,b_Store_Address,b_kind,intro,b_img_f,
