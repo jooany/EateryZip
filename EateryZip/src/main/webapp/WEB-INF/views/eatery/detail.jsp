@@ -31,6 +31,9 @@ button{
 	width:1100px;
 	margin:0 auto;
 }
+.container{
+	border-bottom:none!important;
+}
 /*배너*/
 #banner{
 	height:400px;
@@ -539,9 +542,8 @@ button:hover{
 </style>
 </head>
 <body>
-<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
+<jsp:include page="/navbar/header/navbar_list.jsp"></jsp:include>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-
 <div id="banner">
 	<!-- 이미지 슬라이드 담기 -->
 	<ul id="imgList">
@@ -819,7 +821,7 @@ button:hover{
 		</ul>
 	</div>
 </div>
-
+<jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <!-- 키워드 데이터 뽑아오기 위한 코드 -->
 <c:forEach var="test" items="${keyList }">
 	<div id="test" style="display:none; " > ${test.good_count }/${test.key_word}</div>
@@ -830,6 +832,7 @@ button:hover{
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+	let g_id = '<c:out value="${g_id}"/>';
 	//사업자번호
 	let b_id = '<c:out value="${dto.b_id}"/>';
 	
@@ -1144,11 +1147,10 @@ button:hover{
 		};
 	});
 
-
 	//스크랩 버튼 
-	let g_id = '<c:out value="${g_id}"/>';
-	
 		$("#scrapBtn").click(function(){
+
+			
 			let btn=$(this);
 			let isScrap=$(this).attr("data-isscrap");
 			
@@ -1159,10 +1161,12 @@ button:hover{
 				})
 				.then(function(data){
 					if(data.isDoScrap){//유저가 테이블에 추가되었다면 
+						console.log(data);
 						btn.removeAttr("data-isscrap");
 						btn.attr('data-isscrap','true');
 						$("#scrapBtn").html(`<i class="fas fa-bookmark"></i>`);
 					}
+					console.log(data.isDoScrap+"은?");
 				});	
 			}else{ //추천했다면
 				ajaxPromise("private/ajax_good_delete.do", "get", "b_id="+b_id)

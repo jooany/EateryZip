@@ -1,10 +1,13 @@
 package com.sixnicorn.eateryzip.user.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
+import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
 @Repository
 public class GUserDaoImpl implements GUserDao {
@@ -61,12 +64,32 @@ public class GUserDaoImpl implements GUserDao {
       }
    }
 
-   // 혜림 ----------------------------------------------------------
-   // 일반회원 정보 수정하기
-   @Override
-   public void update(GUserDto dto) {
-      // TODO Auto-generated method stub
-      session.update("Guser.update", dto);
-   }
 
+	// 혜림 ----------------------------------------------------------
+	// 일반회원 정보 수정하기
+	@Override
+	public void update(GUserDto dto) {
+		// TODO Auto-generated method stub
+		session.update("Guser.update", dto);
+	}
+	// 일반회원 탈퇴하기
+	@Override
+	public void delete(String g_id) {
+		// guser에 담긴 값들을 보내준다.
+		session.delete("Guser.delete", g_id);
+		
+	}
+
+	@Override
+	public List<TakeoutDto> getList(TakeoutDto dto) {
+
+		return session.selectList("Guser.getTakeoutList", dto);
+	}
+
+	@Override
+	public int getTakeoutCount(TakeoutDto dto) {
+		
+		return session.selectOne("Guser.getTakeoutCount", dto);
+	}
+	
 }

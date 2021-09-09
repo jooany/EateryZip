@@ -58,6 +58,7 @@ public class BStoreDaoImpl implements BStoreDao {
 		*/
 		return session.selectOne("BStore.getStore", b_id);
 	}
+	
 	// 나현
 	@Override
 	public List<BStoreDto> getList(BStoreDto dto) {

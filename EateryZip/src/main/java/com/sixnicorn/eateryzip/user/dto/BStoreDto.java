@@ -31,6 +31,7 @@ public class BStoreDto {
 	private String encodedK;
 	private String keyword;
 	
+	
 	// 디폴트 생성자
 	public BStoreDto() {}
 

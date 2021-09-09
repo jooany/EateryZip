@@ -1,6 +1,9 @@
 package com.sixnicorn.eateryzip.user.dao;
 
+import java.util.List;
+
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
+import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
 public interface GUserDao {
    //인자로 전달하는 아이디에 해당하는 정보를 리턴하는 메소드
@@ -17,7 +20,15 @@ public interface GUserDao {
    public boolean changePwd(GUserDto dto);
    
 
-   /* 혜림 */
-   // 일반 회원정보를 수정하는 메소드
-   public void update(GUserDto dto);
+	// 혜림 -----------------------------------------------------------
+	// 일반 회원정보를 수정하는 메소드
+	public void update(GUserDto dto);
+	// 일반회원탈퇴하는 메소드
+	public void delete(String g_id);
+	
+	// 포장내역 목록
+	public List<TakeoutDto> getList(TakeoutDto dto);
+	
+	// 포장내역 갯수
+	public int getTakeoutCount(TakeoutDto dto);
 }

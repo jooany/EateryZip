@@ -8,26 +8,54 @@
 <title>포장 리뷰 내역</title>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/users/g_mypage/review_takeout_form.do?takeout_num=5&b_id=1111111111">qweqwe 1111111111음식점의 포장리뷰작성</a>
-	<a href="${pageContext.request.contextPath}/users/g_mypage/review_takeout_form.do?takeout_num=6&b_id=123123">qweqwe 123123음식점의 포장리뷰작성</a>
+<div id="container">
+	<h1>포장내역입니다.</h1>
+	<c:forEach var="tmp" items="${list }">
+		<div class="content_num">
+			<p>포장번호</p>
+			<p>${tmp.takeout_num }</p>
+		</div>
+		<div class="content_date">
+			<p>방문시간</p>
+			<p>${tmp.takeout_date } ${tmp.takeout_time }</p>
+		</div>
+		<div class="content_name">
+			<p>방문시간</p>
+			<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${tmp.b_id}">${tmp.b_name }</a>
+		</div>
+		<div class="content_price">
+			<p>상호명</p>
+			<p>${tmp.b_name }</p>
+		</div>
+		<div class="content_review">
+			<c:choose>
+				<c:when  test="${tmp.did_it == 0 }">
+					<button type="button" class="takeout_btn" data-takeoutnum="${tmp.takeout_num}" data-id="${tmp.b_id}">리뷰작성</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="takeout_btn" data-takeoutnum="${tmp.takeout_num}" data-id="${tmp.b_id}">리뷰수정</button>
+				</c:otherwise>
+			</c:choose>
+		</div>
+		<div class="content_detail">
+			<button type="button" class="takeout_btn2" data-takeoutnum2="${tmp.takeout_num}" data-id2="${tmp.b_id}">포장내역보기</button>
+		</div>
+	</c:forEach>
 	
-	<a href="${pageContext.request.contextPath}/users/g_mypage/review_takeout_form.do?takeout_num=25&b_id=1111111111">qweqwe1 1111111111음식점의 포장리뷰작성</a>
-	
-	
-	<button type="button" id="btn">11111 11111 버튼</button>
+</div>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	// 혜림님 버튼 아이디에 ex) 
-	// <button type="button" class="takeout_btn" data-takeoutnum="${tmp.takeout_num}" data-id="${tmp.b_id}"> 이런 식으로 만드시고 클릭할 때마다  
-	// $(.takeout_btn).click(function(){
-	//	let takeNum=this.attr("data-takeoutnum"); <- 이런식으로 번호 자바스크립트에서 얻어오실 수 있습니다. 이걸 아래의 url에 연결해서 사용하시면 됩니다.
-	//	let bId=this.attr("data-id");
-	//window.open("${pageContext.request.contextPath}/users/g_mypage/review_takeout_form.do?takeout_num="+takeNum+"&b_id="+bId, "리뷰 작성", "width=520px,height=751px");
-	//})
-	$("#btn").click(function(){
-		window.open("${pageContext.request.contextPath}/users/g_mypage/review_takeout_form.do?takeout_num=5&b_id=1111111111", "리뷰 작성", "width=520px,height=751px");
+		$(".takeout_btn").click(function(){
+			let takeNum=$(this).attr("data-takeoutnum");
+			let bId=$(this).attr("data-id");
+		window.open("${pageContext.request.contextPath}/users/g_mypage/review_takeout_form.do?takeout_num="+takeNum+"&b_id="+bId, "리뷰 작성", "width=520px,height=751px");
+		});
+		$(".takeout_btn2").click(function(){
+			let takeNum2=$(this).attr("data-takeoutnum2");
+			let bId2=$(this).attr("data-id2");
+		window.open("${pageContext.request.contextPath}/eatery/takeout_info.do?takeout_num="+takeNum2+"&b_id="+bId2, "포장내역보기", "width=520px,height=751px");
+		});
 		
-	});
 </script>
 
 </body>
