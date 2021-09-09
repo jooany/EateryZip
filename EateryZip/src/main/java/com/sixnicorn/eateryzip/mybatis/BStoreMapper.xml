@@ -240,7 +240,7 @@
   
 	<!-- 나현님 부분 -->
 	
-	<select id="getList" parameterType="BstoreDto" resultType="BStoreDto">
+	<select id="getList" parameterType="BStoreDto" resultType="BStoreDto">
 		SELECT *
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
@@ -256,8 +256,14 @@
 		]]>
 	</select>
 	
-	<select id="getCount" resultType="int">
+	<select id="getCount" parameterType="BStoreDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
-		FROM b_Store
+		FROM 
+			(Select *
+			 From B_Store
+			<include refid="search"/>)
+		<include refid="all"/>
 	</select>
+	
+	
 </mapper>
