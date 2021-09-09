@@ -84,7 +84,7 @@ public class BStoreDaoImpl implements BStoreDao {
 		 * sql's id : getCount
 		 * resultType : int
 		 */
-		return session.selectOne("BStore.getCount");
+		return session.selectOne("BStore.getCount", dto);
 	}
 	
 	//주연

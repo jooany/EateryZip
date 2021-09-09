@@ -457,7 +457,7 @@ public class BStoreServiceImpl implements BStoreService{
 	@Override
 	public void getList(HttpServletRequest request, BStoreDto dto) {
 		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=5;
+		final int PAGE_ROW_COUNT=4;
 		//하단 페이지를 몇개씩 표시할 것인지
 		final int PAGE_DISPLAY_COUNT=5;
 		
@@ -490,12 +490,24 @@ public class BStoreServiceImpl implements BStoreService{
 		System.out.println(ex_keyword);
 		System.out.println(b_kind);
 		System.out.println(service);
-		
-//		String encodedK=URLEncoder.encode(keyword);
-//		String encodedEx=URLEncoder.encode(ex_keyword);
-//		String encodedB=URLEncoder.encode(b_kind);
-//		String encodedS=URLEncoder.encode(service);
-
+	
+		if(keyword !=null){
+			String encodedK=URLEncoder.encode(keyword);
+			request.setAttribute("encodedK", encodedK);
+		}
+		if(ex_keyword!=null){
+			String encodedEx=URLEncoder.encode(ex_keyword);
+			request.setAttribute("encodedEx", encodedEx);
+		}
+		if(b_kind !=null){
+			String encodedB=URLEncoder.encode(b_kind);
+			
+			request.setAttribute("encodedB", encodedB);
+		}
+		if(service !=null){
+			String encodedS=URLEncoder.encode(service);
+			request.setAttribute("encodedS", encodedS);
+		}
 		
 		BStoreDto dto2=new BStoreDto();
 		
@@ -623,17 +635,12 @@ public class BStoreServiceImpl implements BStoreService{
 		request.setAttribute("endPageNum", endPageNum);
 		request.setAttribute("totalPageCount", totalPageCount);
 		request.setAttribute("list", list);
-		request.setAttribute("totalRow", totalRow);
 		// 혜림
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("ex_keyword",ex_keyword);
 		request.setAttribute("service",service);
 		request.setAttribute("b_kind", b_kind);
-		//주소처리
-//		request.setAttribute("encodedK", encodedK);
-//		request.setAttribute("encodedEx", encodedEx);
-//		request.setAttribute("encodedB", encodedB);
-//		request.setAttribute("encodedS", encodedS);
+	
 	
 	}
 }
