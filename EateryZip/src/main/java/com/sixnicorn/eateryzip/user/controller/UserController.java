@@ -31,17 +31,29 @@ public class UserController {
 	private GUserService Gservice;
 	
 	///------ (임시 추후 혜림 이용)주연 ------------------------------------------
-	//@RequestMapping("/users/g_mypage/reserve_List")
-	//public String reservationList(HttpServletRequest request) {
-
-	//	return "users/g_mypage/reserve_List" ;
-	//}
+	@RequestMapping("/users/g_mypage/reserve_List")
+	public String reservationList(HttpServletRequest request) {
+		Gservice.getReservationList(request);
+		return "users/g_mypage/reserve_List" ;
+	}
 	@RequestMapping("/users/g_mypage/takeout_list")
 	public String takeoutList(HttpServletRequest request) {
 		Gservice.getTakeoutList(request);
 		return "users/g_mypage/takeout_list";
 	}
 	//---------------------------------주연끝----------------------------------
+	///------ 혜림 ------------------------------------------------------------
+	@RequestMapping("/users/b_mypage/b_reservation_list")
+	public String BreservationList(HttpServletRequest request) {
+		Bservice.getBreservationList(request);
+		return "users/b_mypage/b_reservation_list" ;
+	}
+	@RequestMapping("/users/b_mypage/b_takeout_list")
+	public String BtakeoutList(HttpServletRequest request) {
+		Bservice.getBtakeoutList(request);
+		return "users/b_mypage/b_takeout_list";
+	}
+	//-----------------------------------------------------------------------
 	
 	//maps 테스트 .jsp로 이동
 	@RequestMapping("users/map_seoul")

@@ -42,4 +42,6 @@ public interface GUserService {
 	
 	// 포장내역보기
 	public void getTakeoutList(HttpServletRequest request);
+	// 예약내역보기
+	public void getReservationList(HttpServletRequest request);
 }

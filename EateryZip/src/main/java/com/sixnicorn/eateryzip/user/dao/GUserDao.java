@@ -3,6 +3,7 @@ package com.sixnicorn.eateryzip.user.dao;
 import java.util.List;
 
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
+import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
 public interface GUserDao {
@@ -28,7 +29,11 @@ public interface GUserDao {
 	
 	// 포장내역 목록
 	public List<TakeoutDto> getList(TakeoutDto dto);
-	
 	// 포장내역 갯수
 	public int getTakeoutCount(TakeoutDto dto);
+	
+	// 예약내역 목록
+	public List<ReservationDto> getList2(ReservationDto dto);
+	// 예약내역 갯수
+	public int getReservationCount(ReservationDto dto);
 }
