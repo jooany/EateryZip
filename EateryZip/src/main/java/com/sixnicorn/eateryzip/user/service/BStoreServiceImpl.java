@@ -84,6 +84,15 @@ public class BStoreServiceImpl implements BStoreService{
 		String array=request.getParameter("array");
 		String only=request.getParameter("only");
 		
+		if(array == null){
+			//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+			array="latest";
+		}
+		if(only == null){
+			//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+			only="all";
+		}
+		
 		request.setAttribute("array", array);
 		request.setAttribute("only", only);
 		
@@ -303,15 +312,18 @@ public class BStoreServiceImpl implements BStoreService{
 	public Map<String, Object> doScrap(HttpServletRequest request,String b_id) {
 		String g_id=(String)request.getSession().getAttribute("g_id");
 		
-		EateryScrapDto dto=new EateryScrapDto();
-		dto.setB_id(b_id);
-		dto.setG_id(g_id);
-		
-		BStoreDao.doScrap(dto);
-		
 		Map<String,Object> map=new HashMap<String,Object>();
 		
-		map.put("isDoScrap",true);
+		if(g_id == null) {
+			map.put("isDoScrap","");
+		}else {
+			EateryScrapDto dto=new EateryScrapDto();
+			dto.setB_id(b_id);
+			dto.setG_id(g_id);
+			
+			BStoreDao.doScrap(dto);
+			map.put("isDoScrap",true);
+		}
 		return map;
 	}
 	//스크랩 취소하기
@@ -440,7 +452,7 @@ public class BStoreServiceImpl implements BStoreService{
 	
 	
 	
-	// 나현
+	// 리스트 페이지 리스트 불러오기 ///////////////////
 	@Override
 	public void getList(HttpServletRequest request, BStoreDto dto) {
 		//한 페이지에 몇개씩 표시할 것인지
