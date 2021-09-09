@@ -83,7 +83,7 @@
        </div>
       <div class="content_profile" id="content_profile">               
          <c:choose>
-            <c:when test="${not empty sesssion.g_id}">
+            <c:when test="${not empty sessionScope.g_id}">
                <span class="navbar-text me-2">
                   <c:if test="${empty g_profile }">
                      <div class="loginproflie">

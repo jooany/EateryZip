@@ -315,7 +315,7 @@ public class BStoreServiceImpl implements BStoreService{
 		
 		Map<String,Object> map=new HashMap<String,Object>();
 		
-		if(g_id == null) {
+		if(g_id == null){
 			map.put("isDoScrap","");
 		}else {
 			EateryScrapDto dto=new EateryScrapDto();
@@ -609,6 +609,11 @@ public class BStoreServiceImpl implements BStoreService{
 		System.out.println(dto2.getB_kind());
 		System.out.println(dto2.getService());
 		
+		//주연 
+		String g_id=(String)request.getSession().getAttribute("g_id");
+		if(g_id!=null) {
+			dto2.setG_id(g_id);
+		}
 		
 		List<BStoreDto> list=BStoreDao.getList(dto2);
 		//글 목록 얻어오기 
@@ -640,6 +645,8 @@ public class BStoreServiceImpl implements BStoreService{
 		request.setAttribute("ex_keyword",ex_keyword);
 		request.setAttribute("service",service);
 		request.setAttribute("b_kind", b_kind);
+		
+
 	
 	
 	}
