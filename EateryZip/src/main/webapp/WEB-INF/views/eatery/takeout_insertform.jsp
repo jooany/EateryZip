@@ -99,20 +99,33 @@ button{
 			</div>
 		</c:forEach>
 	</div>
+	<div style="position: fixed; right: 300px; bottom:100px; width:250px; height:300px; border:1px solid darkgray; overflow: auto;">
+		<span>메뉴 주문 정보</span>
+		<form id="add_menu" name="add_menu" method="post" action="${pageContext.request.contextPath }/eatery/takeout_info_insertform.do" onsubmit="return confirm('주문 하시겠습니까?');">
+			<input type="hidden" name="b_store_name" id="b_store_name" value="${param.b_store_name }"/>
+			<input type="hidden" name="b_store_addr" id="b_store_addr" value="${param.b_store_addr }"/>
+			<input type="hidden" name="b_id" id="b_id" value="${param.b_id }"/>
+			<div id="menu_kind">
+				
+			</div>
+			<button type="submit">결제 하기</button>
+		</form>
+		
+	</div>
 </div>	
-<div>
-	<form id="add_menu" name="add_menu" action="takeout_info_insertform.do">
-		<input type="hidden" name="b_store_name" id="b_store_name" value="${param.b_store_name }"/>
-		<input type="hidden" name="b_store_addr" id="b_store_addr" value="${param.b_store_addr }"/>
-		<input type="hidden" name="b_id" id="b_id" value="${param.b_id }"/>
-	</form>
-</div>
+
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>  
 
 	let preTakeOutNum=${takeOutMaxNum};
-
-	// 인원 체크
+	preTakeOutNum ++;
+	
+	$("<input/>")
+	.attr("type","hidden")
+	.attr("name","takeout_menu_num")
+	.val(preTakeOutNum)
+	.appendTo("#add_menu");
 	
 	 function plus(index){
 	 	var currentCount=parseInt($("#amount"+index).text());
@@ -127,56 +140,75 @@ button{
 	 };
 	
 	function addToCart(index){
-		var num=$("#amount"+index).attr("data-num");
-		var amount=$("#amount"+index).text();
-		var name=$("#menu_name"+index).text();
-		var price=$("#menu_price"+index).text();
+		var num=$("#amount"+index).attr("data-num");//메뉴의 seq_num
+		var a=$("#basket"+num).attr("data-num");
+		var amount=$("#amount"+index).text();//수량
+		var name=$("#menu_name"+index).text();//메뉴 이름
+		var price=$("#menu_price"+index).text();//메뉴 가격
 		var priceSplit=price.split('원');
-		for (var i in priceSplit){
-			
-			alert(num+" 번 상품 "+amount+" 개가 담겼습니다."+priceSplit[0]+" 가격입니다.");
-			
-			$("<input/>")
-			.attr("type","hidden")
-			.attr("name","menu_choice")
-			.val(num+"/"+amount)
-			.appendTo("#add_menu");
-			
-			$("<input/>")
-			.attr("type","hidden")
-			.attr("name","menu_price")
-			.val(amount*priceSplit[0])
-			.appendTo("#add_menu");
-			
-			
-			$("<p/>")
-			.attr("name", "basket")
-			.text(name+amount+amount*priceSplit[0])
-			.appendTo("#add_menu");
-			return;
-		}
-		
-		
+		console.log(num+"하이"+a+amount);
+		$("#amount"+index).text(1);//수량을 기본 값 1 로 돌려주는 
+		if(num == a){
+					
+		}else{
+			for (var i in priceSplit){
+				alert(num+" 번 상품 "+amount+" 개가 담겼습니다."+amount*priceSplit[0]+" 가격입니다.");
+				//DB에 저장 하려는 정보
+				$("<input/>")
+				.attr("type","hidden")
+				.attr("name","menu_choice")
+				.attr("id", "menu_choice"+num)
+				.val(num+"/"+amount+"/"+preTakeOutNum+"/"+name)
+				.appendTo("#add_menu");
+				
+				//장바구니 정보
+				$("<input/>")
+				.attr("type","hidden")
+				.attr("name","menu_info")
+				.attr("id", "menu_info"+num)
+				.val(name+"/"+amount+"/"+amount*priceSplit[0])
+				.appendTo("#add_menu");
+				
+				//가격 
+				$("<input/>")
+				.attr("type","hidden")
+				.attr("name","menu_price")
+				.attr("id", "menu_price"+num)
+				.val(amount*priceSplit[0])
+				.appendTo("#add_menu");
+				
+				
+				$("<span/>")
+				.attr("name", "basket")
+				.attr("id", "basket"+num)
+				.attr("data-num", num)
+				.text(name+amount+amount*priceSplit[0])
+				.appendTo("#menu_kind");
+				/* $("<button/>")
+				.attr("name", "delete")
+				.attr("type", "button")
+				.text("X")
+				.appendTo("#menu_kind"); */
 
-	}
-
-	/* //동적 생성 버튼에 id 값 부여
-	$("[id~=row_]").each(function(index) { // row_로 시작하는 id값을 가진 모든 것들을
-	    var idx = index + 1; // 1을 더해준다.
-	    $(this).attr('id', 'row_'+idx);
-	});
-	 */
+				return ;
+			}	
+		};
+	};
 	
-	/* $(document).ready(function(){
-		$(".menuBtn").click(function(){
-			var id_check = $(this).attr("id");
-			var menu_num = $(this).val();
-			
-			$("#add_menu").append(`
-				<input type="hidden" value="`+menu_num+`/`+amount+`">`
-			);	
-		});
-	}); */
+
+	//예약 한번 더 확인 하는 alert 띄우는 함수
+	function showConfirm() {
+		var rtn;
+		rtn=confirm("주문 하시겠습니까?");
+		
+			if (rtn){
+				document.getElementById('add_menu').submit();
+			}else{
+				return false;
+			}
+	};
+
+
 </script>
 </body>
 </html>

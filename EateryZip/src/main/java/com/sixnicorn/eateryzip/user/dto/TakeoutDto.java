@@ -10,6 +10,11 @@ public class TakeoutDto {
 	private String takeout_phone;
 	private String takeout_memo;
 	private int takeout_price;
+	private int takeout_menu_num;
+	private int take_menu_num;
+	private int menu_num;
+	private int menu_count;
+	private String menu_name;
 	private String b_name;
 	
 	// 혜림 --------------------------------
@@ -22,8 +27,9 @@ public class TakeoutDto {
 	public TakeoutDto() {}
 
 	public TakeoutDto(int takeout_num, String g_id, String b_id, String takeout_name, String takeout_date,
-			String takeout_time, String takeout_phone, String takeout_memo, int takeout_price, String b_name,
-			int startRowNum, int endRowNum, int prevNum, int nextNum, int did_it) {
+			String takeout_time, String takeout_phone, String takeout_memo, int takeout_price, int takeout_menu_num,
+			int take_menu_num, int menu_num, int menu_count, String menu_name, String b_name, int startRowNum,
+			int endRowNum, int prevNum, int nextNum, int did_it) {
 		super();
 		this.takeout_num = takeout_num;
 		this.g_id = g_id;
@@ -34,6 +40,11 @@ public class TakeoutDto {
 		this.takeout_phone = takeout_phone;
 		this.takeout_memo = takeout_memo;
 		this.takeout_price = takeout_price;
+		this.takeout_menu_num = takeout_menu_num;
+		this.take_menu_num = take_menu_num;
+		this.menu_num = menu_num;
+		this.menu_count = menu_count;
+		this.menu_name = menu_name;
 		this.b_name = b_name;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
@@ -114,6 +125,46 @@ public class TakeoutDto {
 		this.takeout_price = takeout_price;
 	}
 
+	public int getTakeout_menu_num() {
+		return takeout_menu_num;
+	}
+
+	public void setTakeout_menu_num(int takeout_menu_num) {
+		this.takeout_menu_num = takeout_menu_num;
+	}
+
+	public int getTake_menu_num() {
+		return take_menu_num;
+	}
+
+	public void setTake_menu_num(int take_menu_num) {
+		this.take_menu_num = take_menu_num;
+	}
+
+	public int getMenu_num() {
+		return menu_num;
+	}
+
+	public void setMenu_num(int menu_num) {
+		this.menu_num = menu_num;
+	}
+
+	public int getMenu_count() {
+		return menu_count;
+	}
+
+	public void setMenu_count(int menu_count) {
+		this.menu_count = menu_count;
+	}
+
+	public String getMenu_name() {
+		return menu_name;
+	}
+
+	public void setMenu_name(String menu_name) {
+		this.menu_name = menu_name;
+	}
+
 	public String getB_name() {
 		return b_name;
 	}
@@ -161,5 +212,7 @@ public class TakeoutDto {
 	public void setDid_it(int did_it) {
 		this.did_it = did_it;
 	}
+
+	
 
 }

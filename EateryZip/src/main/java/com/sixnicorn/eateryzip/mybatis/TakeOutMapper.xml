@@ -6,4 +6,33 @@
 		SELECT NVL(MAX(take_menu_num),0)
 		FROM takeout_menu
 	</select>
+	
+	<select id="getSequence" resultType="int">
+		select takeout_seq.NEXTVAL 
+		from dual
+	</select>
+	<!-- 주문 정보 insert -->
+	<insert id="insert" parameterType="TakeoutDto">
+		INSERT INTO takeout
+		(takeout_num, g_id, b_id, takeout_name, takeout_time, takeout_phone, takeout_memo, takeout_price, takeout_menu_num, takeout_date)
+		VALUES(#{takeout_num}, #{g_id}, #{b_id}, #{takeout_name}, #{takeout_time}, #{takeout_phone}, #{takeout_memo}, #{takeout_price}, #{takeout_menu_num}, #{takeout_date})
+	</insert>
+	<!-- 주문 메뉴 insert -->
+	<insert id="menu_insert" parameterType="TakeoutDto">
+		INSERT INTO takeout_menu
+		(take_menu_num, g_id, menu_num, menu_count, menu_name)
+		VALUES(#{take_menu_num}, #{g_id}, #{menu_num}, #{menu_count}, #{menu_name})
+	</insert>
+	<!-- 주문 정보 가져오기 -->
+	<select id="getData" parameterType="int" resultType="TakeoutDto">
+		select *
+		from takeout
+		where takeout_num=#{num}
+	</select>
+	<!-- 주문 메뉴 가져오기 -->
+	<select id="getData2" parameterType="int" resultType="TakeoutDto">
+		SELECT menu_name, menu_count
+		FROM takeout_menu
+		WHERE take_menu_num = (SELECT takeout_menu_num FROM takeout WHERE takeout_num=#{num})
+	</select>
 </mapper>
