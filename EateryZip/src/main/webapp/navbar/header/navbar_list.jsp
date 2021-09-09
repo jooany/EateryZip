@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link rel="stylesheet" 
+   href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
 	.container{
 		width: 1100px!important;
@@ -29,9 +31,9 @@
 	}
 	
 	#g_profileImage{
-		width : 40px;
-		height: 40px;
-		line-height: center;
+		font-size:20px;
+		margin-left:-2px;
+		margin-top:-2px;
 	}
 	
 	#testForm{
@@ -41,7 +43,7 @@
 	.content_search input {
 		width: 400px;
 		height: 45px;
-		margin-left: 100px;
+		
 	}
 	#searchBtn{
 		background-color: rgba(253,83,0);
@@ -65,7 +67,7 @@
 		background-color: #ededed;
 		min-width: 160px;
 		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-		z-index: 1;
+		z-index: 9999;
 	}
 	
 	.dropdown-content a {
@@ -129,6 +131,7 @@
 </style>
 <nav id="navbar">
    <div class="container">
+   	 <div style="display:flex; align-items:center;">
       <div class="content_logo">
           <a class="wrap_logo" href="${pageContext.request.contextPath}/">
                <img src="${pageContext.request.contextPath}/navbar/images/logo.png" alt="">
@@ -144,6 +147,7 @@
                </button>
            </form>
        </div>
+      </div>
       <div class="content_profile" id="content_profile">               
          <c:choose>
             <c:when test="${not empty g_id}">
@@ -175,9 +179,9 @@
                   </c:if>
                </span>
             </c:when>
-            <c:when test="${not empty b_id}">
+            <c:when test="${not empty sessionScope.b_id}">
                <span class="navbar-text me-2">
-                  <a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">${b_id }</a> 로그인중...
+                  <a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">${sessionScope.b_id }</a> 로그인중...
                </span>
             <a class="btn btn-outline-danger btn-sm me-2" href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
             </c:when>

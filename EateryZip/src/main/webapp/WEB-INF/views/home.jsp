@@ -190,7 +190,7 @@
 	<a href="${pageContext.request.contextPath}/store/store_insertform.do">가게등록</a>
 	<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">비즈니스회원정보</a>
 	<h2>나현 테스트 링크</h2>
-	<a href="${pageContext.request.contextPath}/eatery/list.do?keyword=">list</a>
+	<a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
 	
 	<h2>민재 테스트 링크</h2>
 	<a href="${pageContext.request.contextPath}/users/map_seoul.do">서울 테스트</a>
