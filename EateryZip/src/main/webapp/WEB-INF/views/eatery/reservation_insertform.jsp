@@ -9,6 +9,7 @@
 	.reservation{
 		width: 700px;
 		margin: 0 auto;
+		height: 700px
 	}
 	textarea{
 		width: 100%;
@@ -66,7 +67,7 @@
 				<br />
 				<span id="store_addr">${param.b_store_addr }</span>
 			</p>
-			<form action="reservation_insert.do" method="post" id="reservation_insert" onsubmit="return confirm('예약 하시겠습니까? (취소는 1일 전까지 취소 가능)');">
+			<form action="${pageContext.request.contextPath }/eatery/reservation_insert.do" method="post" id="reservation_insert" onsubmit="return confirm('예약 하시겠습니까? (취소는 1일 전까지 취소 가능)');">
 				<input type="hidden" name="b_id" id="b_id" value="${param.b_id }"/>
 				<input type="hidden" name="reservation_date" id="reservation_date"  value="${param.datepicker }"/>
 				<input type="hidden" name="reservation_time" id="reservation_time"  value="${param.reservation_time }"/>
@@ -76,9 +77,9 @@
 				<input type="hidden" name="b_store_name" id="b_store_name" value="${param.b_store_name }"/>
 				<input type="hidden" name="b_store_addr" id="b_store_addr" value="${param.b_store_addr }"/>
 				<div id="info_1">
-					<p>날짜 <span>${param.datepicker }</span>${dto.reservation_num }</p>
-					<p>시간 <sapn>${param.reservation_time }</sapn></p>
-					<p>인원 <span>${param.person }</span></p>	
+					<p>날짜 <i class="far fa-calendar-alt" style="font-size:18px;"></i><span>${param.datepicker }</span></p>
+					<p>시간 <span><i class="far fa-clock" style="font-size:18px;"></i>${param.reservation_time }</span></p>
+					<p>인원 <span><i class="far fa-user" style="font-size:18px;"></i> <strong>${param.person }명</strong></span></p>	
 				</div>
 				<div id="info_2">
 					<p>예약자    <span>${param.name }</span></p> 
@@ -90,7 +91,10 @@
 					<textarea name="reservation_memo" id="reservation_memo" placeholder="요청사항 입력 하세요..."></textarea>
 				</div>
 				<p>※ 예약 취소는 1일 전까지 가능 합니다</p>
-				<button type="submit">예약하기</button>
+				<div>
+					<button type="submit">예약하기</button>
+					<button type="reset" onclick="location.href='javascript:history.back();'">취소</button>
+				</div>
 			</form>
 		</div>
 	</div>

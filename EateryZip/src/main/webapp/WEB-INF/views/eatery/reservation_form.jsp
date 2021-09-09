@@ -10,12 +10,25 @@
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
 </head>
 <style>
-    #container{
+/* 공통 */
+a{
+	color:black!important;
+	text-decoration:none!important;
+}
+img,svg{
+	vertical-align:baseline!important;
+}
+button{
+	border:none;
+	background-color:rgba(0,0,0,0);
+}
+#container{
 	width: 250px;
 	margin: 0 auto;
 	border: 0.5px solid darkgray;
 	height: auto!important;
 }
+/* 방문예약 / 포장예약 tab css */
 ul.tabs{
 	margin: 0px;
 	padding: 0px;
@@ -47,16 +60,104 @@ ul.tabs li.current{
     width: 250px;
     
 }
-
 .tab-content.current{
 	display: inherit;
 }
-.time label{
+/* 시간 버튼  */
+.r_time label{
 	cursor:pointer;
 	}
-.time .hide{
+.r_time .hide{
 	display:none;
 	}
+/* 내부 css */
+.r_date{
+	margin-bottom: 5px;
+}
+#datepicker{
+	margin-left:12px;
+	font-size: 14px;
+}
+.r_time{
+	margin-bottom: 5px;
+}
+#choice{
+	margin-left: 8px;
+	font-size: 14px;
+}
+.r_person{
+	margin-bottom:5px;	
+}
+#person{
+	margin-left:10px;
+	font-size:14px;
+}
+#r_info{
+	font-size:14px;
+	margin-bottom: 3px;
+}
+.r_name{
+	margin-bottom:5px;
+}
+.r_name label{
+	font-size: 14px;
+}
+#name{
+	width:150px;
+	margin-left: 28px;
+	font-size: 14px;
+}
+.r_phone{
+	margin-bottom:8px;
+}
+.r_phone label{
+	font-size: 14px;
+}
+#phone{
+	width:150px;
+	font-size: 14px;
+}
+#rBtn{
+	width:200px;
+	/* display: block;
+	margin:auto; */
+	background-color: #fd5300;
+    border: 1px solid;
+    color: white;
+    font-size: 14px;
+    height: 33px;
+    border-radius: 3px;
+}
+.rBtn{
+	text-align:center;
+}
+#tBtn{
+	width:200px;
+	display: block;
+	margin:auto;
+	background-color: #fd5300;
+    border: 1px solid;
+    color: white;
+    font-size: 14px;
+    height: 33px;
+    border-radius: 3px;
+}
+.timeSelect{
+	background-color: #fd5300;
+    color: white;
+    font-size: 14px;
+    border: 1px;
+    border-radius: 3px;
+    margin: 1px;
+}
+#am{
+	font-size: 14px;
+    margin-left: 3px;
+}
+#pm{
+	font-size: 14px;
+    margin-left: 3px;
+}
 </style>
 <body>
 <div>
@@ -72,16 +173,16 @@ ul.tabs li.current{
             	<input type="hidden" id="reservation_time" name="reservation_time"/>
             	<input type="hidden" id="b_store_name" name="b_store_name" value="팬케이크 스토리"/>
             	<input type="hidden" id="b_store_addr" name="b_store_addr" value="서울특별시 강남구 언주로 33"/>
-                <div>
-                    <label for="datepicker"><i class="far fa-calendar-alt"></i></i></label>
-                    <input class="calendar" type="text" name="datepicker" id="datepicker" placeholder="날짜 입력"/>   
+                <div class="r_date">
+                    <label for="datepicker"><i class="far fa-calendar-alt" style="font-size:20px;"></i></label>
+                    <input class="calendar" type="text" name="datepicker" id="datepicker" placeholder="날짜 입력" />   
                 </div>
                 
-                <div class="time">
-                	<label for="time"><i class="far fa-clock"></i>  <span id="choice">시간을 입력해 주세요.. <i class="fas fa-angle-down"></i></span></label>
+                <div class="r_time">
+                	<label for="time"><i class="far fa-clock" style="font-size:20px;"></i>  <span id="choice">시간을 입력해 주세요.. <i class="fas fa-angle-down"></i></span></label>
                 
                 	<div class="hide">
-                		<span >AM</span>
+                		<span id="am">AM</span>
 	                    <br />
 	                    <script>
 			                  let a="10:00";
@@ -122,7 +223,7 @@ ul.tabs li.current{
 			                  }
 			            </script>
 	               		<br />
-	               		<span>PM</span>
+	               		<span id="pm">PM</span>
 	               		<br />
 	                    <script>
 							for(let i=2; i<17; i++){ 
@@ -149,8 +250,8 @@ ul.tabs li.current{
                 	</div>
                 	
                 </div>
-                <div>
-                    <label for="personAdd"><i class="far fa-user"></i></label>
+                <div class="r_person">
+                    <label for="personAdd"><i class="far fa-user" style="font-size:20px;"></i></label>
                     <select name="person" id="person">
                          <option value="1">1</option>
                          <option value="2">2</option>
@@ -162,16 +263,18 @@ ul.tabs li.current{
                          <option value="8">8</option>
                       </select>
                 </div>
-                <span><strong>예약자 정보</strong></span>
-                <div>
+                <span id="r_info"><strong>예약자 정보</strong></span>
+                <div class="r_name">
                     <label for="name">이름</label>
                     <input type="text" name="name" id="name" placeholder="이름 입력">
                 </div>  
-                <div>
+                <div class="r_phone">
                     <label for="phone">전화번호</label>
                     <input type="text" name="phone" id="phone" placeholder="번호 입력">
                 </div>    
-                <button type="submit">예약</button>
+                <div class="rBtn">
+                	 <button id="rBtn" type="submit">예약</button>
+                </div>
             </form>  
         </div>
         <div id="tab-2" class="tab-content">
@@ -179,7 +282,7 @@ ul.tabs li.current{
                <input type="hidden" id="b_id" name="b_id" value="12345678"/>
                <input type="hidden" id="b_store_name" name="b_store_name" value="팬케이크 스토리"/>
             	<input type="hidden" id="b_store_addr" name="b_store_addr" value="서울특별시 강남구 언주로 33"/>
-               <button type="submit">포장</button>
+               <button id="tBtn" type="submit">포장</button>
             </form>
         </div>
     </div>
@@ -280,7 +383,7 @@ ul.tabs li.current{
     // html dom 이 다 로딩된 후 실행된다.
     $(document).ready(function(){
         // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
-        $(".time>label").click(function(){
+        $(".r_time>label").click(function(){
             var submenu = $(this).next("div");
  
             // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
