@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BStore">
-	<sql id="search">
+	<sql id="all">
 		<choose>
-			<when test="encodedK == null and ex_keyword == null and b_kind == null and service == null">
+			<when test="keyword !=null">
 			WHERE b_name LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
 			OR b_Store_Address LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
 			OR b_kind LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
@@ -13,22 +13,47 @@
 			OR ex_keyword LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
 			OR checkKeyword LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
 			</when>
+		</choose>
+	</sql>
+	
+	<sql id="search">
+		<choose>
+			<!-- 편의사항만만 있을 때 // 중복선택불가-->
+			<when test="ex_keyword != null and b_kind == null and service == null">
+			WHERE ex_keyword LiKE '%'||#{ex_keyword}||'%'
+			</when>
 			
-			<when test="keyword == null and ex_keyword == null and b_kind != null and service == null">
+			<!-- 업종만 있을 때-->
+			<when test="ex_keyword == null and b_kind != null and service == null">
 			WHERE b_kind LiKE '%'||#{b_kind}||'%'
 			</when>
 			
+			<!-- 선택만 있을 때-->
+			<when test="ex_keyword == null and b_kind == null and service != null">
+			WHERE service LiKE '%'||#{service}||'%'
+			</when>
 			
-			<when test="encodedK !=null and ex_keyword != null and b_kind != null and service !=null">
-			WHERE b_name LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-			OR b_Store_Address LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-			OR b_kind LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-			OR intro LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-			OR notice LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-			OR service LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-			OR ex_keyword LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-			OR checkKeyword LIKE '%'||#{encodedK,jdbcType=VARCHAR}||'%'
-			and ex_keyword LiKE '%'||#{ex_keyword}||'%'
+			<!-- 편의사항 / 업종 -->
+			<when test="ex_keyword != null and b_kind != null and service == null">
+			where ex_keyword LiKE '%'||#{ex_keyword}||'%'
+			and b_kind LiKE '%'||#{b_kind}||'%'
+			</when>
+			
+			<!-- 편의사항 / 서비스 -->
+			<when test="ex_keyword != null and b_kind == null and service != null">
+			where ex_keyword LiKE '%'||#{ex_keyword}||'%'
+			and service LiKE '%'||#{service}||'%'
+			</when>
+
+			<!-- 업종 / 서비스 -->
+			<when test="ex_keyword == null and b_kind != null and service != null">
+			where b_kind LiKE '%'||#{b_kind}||'%'
+			and service LiKE '%'||#{service}||'%'
+			</when>
+			
+			<!-- 업종 / 서비스 / 선택 -->
+			<when test="ex_keyword != null and b_kind != null and service !=null">
+			where ex_keyword LiKE '%'||#{ex_keyword}||'%'
 			and b_kind LiKE '%'||#{b_kind}||'%'
 			and service LiKE '%'||#{service}||'%'
 			</when>
@@ -223,8 +248,9 @@
 				(SELECT * 
 				FROM B_STORE
 				<!-- 혜림추가 -->
-				<include refid="search" />
-				ORDER BY b_id DESC) result1)
+				<include refid="search"/>
+				ORDER BY b_id DESC) result1
+			<include refid="all"/> )
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
