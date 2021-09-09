@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
+import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
 @Repository
@@ -79,17 +80,35 @@ public class GUserDaoImpl implements GUserDao {
 		session.delete("Guser.delete", g_id);
 		
 	}
-
+	// 포장내역 리스트
 	@Override
 	public List<TakeoutDto> getList(TakeoutDto dto) {
 
 		return session.selectList("Guser.getTakeoutList", dto);
 	}
-
+	// 포장내역 갯수
 	@Override
 	public int getTakeoutCount(TakeoutDto dto) {
 		
 		return session.selectOne("Guser.getTakeoutCount", dto);
 	}
+	
+	// 예약내역 리스트
+	@Override
+	public List<ReservationDto> getList2(ReservationDto dto) {
+
+		return session.selectList("Guser.getReservationList", dto);
+	}
+	// 예약내역 갯수
+	@Override
+	public int getReservationCount(ReservationDto dto) {
+		
+		return session.selectOne("Guser.getReservationCount", dto);
+	}
+	
+	
+	
+	
+	
 	
 }

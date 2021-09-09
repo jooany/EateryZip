@@ -58,9 +58,9 @@
 		SELECT *
 		 FROM
 		 (SELECT result1.*, ROWNUM AS rnum
-		  FROM (SELECT b.b_name,TO_CHAR(takeout_date,'YYYY.MM.DD') takeout_date,takeout_time,takeout_price,takeout_num,t.b_id,t.g_id,(SELECT NVL(MAX(ROWNUM),0) FROM REVIEW WHERE takeout_num=t.takeout_num) did_it
+		  FROM (SELECT b.b_name, takeout_date,takeout_time,takeout_price,takeout_num,t.b_id,t.g_id,(SELECT NVL(MAX(ROWNUM),0) FROM REVIEW WHERE takeout_num=t.takeout_num) did_it
 		      FROM b_store b,takeout t
-		      WHERE b.b_id=t.b_id AND t.g_id=#{g_id}) result1)
+		      WHERE b.b_id=t.b_id AND t.g_id=#{g_id,jdbcType=VARCHAR}) result1)
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
@@ -69,6 +69,26 @@
 	<select id="getTakeoutCount" parameterType="takeoutDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM),0)
 		FROM takeout 
-		WHERE g_id=#{g_id}
+		WHERE g_id=#{g_id,jdbcType=VARCHAR}
 	</select>
+	
+	<!-- 일반유저 예약내역리스트 가져오기 -->
+	<select id="getReservationList" parameterType="ReservationDto" resultType="ReservationDto">
+		SELECT *
+		 FROM
+		 (SELECT result1.*, ROWNUM AS rnum
+		  FROM (SELECT b.b_name, reservation_date, reservation_time, reservation_name, reservation_people ,reservation_num,r.b_id,r.g_id,(SELECT NVL(MAX(ROWNUM),0) FROM REVIEW WHERE reservation_num=r.reservation_num) did_it
+		      FROM b_store b,reservation r
+		      WHERE b.b_id=r.b_id AND r.g_id=#{g_id,jdbcType=VARCHAR}) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
+	</select>
+	
+	<select id="getReservationCount" parameterType="ReservationDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM reservation 
+		WHERE g_id=#{g_id,jdbcType=VARCHAR}
+	</select>
+	
 </mapper>

@@ -1,6 +1,10 @@
 package com.sixnicorn.eateryzip.user.dao;
 
+import java.util.List;
+
 import com.sixnicorn.eateryzip.user.dto.BUserDto;
+import com.sixnicorn.eateryzip.user.dto.ReservationDto;
+import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
 public interface BUserDao {
 	//인자로 전달하는 아이디에 해당하는 정보를 리턴하는 메소드
@@ -18,5 +22,13 @@ public interface BUserDao {
 	
 	/* 혜림 */
 	// 비즈니스회원정보를 수정하는 메소드
-	public void update(BUserDto dto);	
+	public void update(BUserDto dto);
+	// 포장내역 목록
+	public List<TakeoutDto> getList(TakeoutDto dto);
+	// 포장내역 갯수
+	public int getBtakeoutCount(TakeoutDto dto);
+	// 예약내역 목록
+	public List<ReservationDto> getList2(ReservationDto dto);
+	// 예약내역 갯수
+	public int getBreservationCount(ReservationDto dto);
 }

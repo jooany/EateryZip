@@ -1,91 +1,135 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>/views/users/g_mypage/reserve_List.jsp</title>
+<jsp:include page="/navbar/header/navbar_list.jsp"></jsp:include>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
-	body {
-	  font-family: "Lato", sans-serif;
+	#container{
+		width:1100px!important;
+		margin:auto;
 	}
 	
-	.sidenav {
-	  height: 100%;
-	  width: 0;
-	  position: fixed;
-	  z-index: 1;
-	  top: 0;
-	  left: 0;
-	  background-color: #111;
-	  overflow-x: hidden;
-	  transition: 0.5s;
-	  padding-top: 60px;
-	}
 	
-	.sidenav a {
-	  padding: 8px 8px 8px 32px;
-	  text-decoration: none;
-	  font-size: 25px;
-	  color: #818181;
-	  display: block;
-	  transition: 0.3s;
-	}
-	
-	.sidenav a:hover {
-	  color: #f1f1f1;
-	}
-	
-	.sidenav .closebtn {
-	  position: absolute;
-	  top: 0;
-	  right: 25px;
-	  font-size: 36px;
-	  margin-left: 50px;
-	}
-	
-	@media screen and (max-height: 450px) {
-	  .sidenav {padding-top: 15px;}
-	  .sidenav a {font-size: 18px;}
-	}
 </style>
 </head>
 <body>
-	<div id="mySidenav" class="sidenav">
-		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href="#">마이페이지</a>
-		<a href="#">스크랩</a>
-		<a href="#">예약내역</a>
-		<a href="#">포장내역</a>
-		<a href="#">회원탈퇴</a>
-	</div>
-	
-	<h2>${g_id }님의 마이페이지</h2>
-	<p>Click on the element below to open the side navigation menu.</p>
-	<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; 메뉴</span>
-	
-<button type="button" id="btn">예약리뷰 11111 11111 버튼</button>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-	// 혜림님 버튼 아이디에 ex) 
-	// <button type="button" class="takeout_btn" data-takeoutnum="${tmp.takeout_num}" data-id="${tmp.b_id}"> 이런 식으로 만드시고 클릭할 때마다  
-	// $(.takeout_btn).click(function(){
-	//	let takeNum=this.attr("data-takeoutnum"); <- 이런식으로 번호 자바스크립트에서 얻어오실 수 있습니다. 이걸 아래의 url에 연결해서 사용하시면 됩니다.
-	//	let bId=this.attr("data-id");
-	//window.open("${pageContext.request.contextPath}/users/g_mypage/review_takeout_form.do?takeout_num="+takeNum+"&b_id="+bId, "리뷰 작성", "width=520px,height=751px");
-	//})
-	$("#btn").click(function(){
-		window.open("${pageContext.request.contextPath}/users/g_mypage/review_reservation_form.do?reservation_num=161&b_id=1111111111", "리뷰 작성", "width=520px,height=751px");
+	<div id="container">
+		<h1>포장내역입니다.</h1>
+		<table class="rStable">
+			<thead class="rSthead">
+				<tr class="rStrh">
+					<th class="rSno">예약번호</th>
+					<th class="rStime">예약일</th>
+					<th class="rSname">예약자 성함</th>
+					<th class="rSbname">상호명</th>
+					<th class="rSpeople">인원</th>
+					<th class="rSreview">리뷰</th>
+					<th class="rSdetail">내역</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="tmp" items="${list }">
+					<tr class="rStrd">
+						<td class="rSno">${tmp.reservation_num }</td>
+						<td class="rStime">${tmp.reservation_date } ${tmp.reservation_time }</td>
+						<td class="rSname">${tmp.reservation_name }</td>
+						<td class="rSbname">
+							<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${tmp.b_id}">${tmp.b_name }</a>
+						</td>
+						<td class="rSpeople">${tmp.reservation_people }</td>
+						<td class="rSreview">
+							<c:choose>
+								<c:when  test="${tmp.did_it == 0 }">
+									<button type="button" class="reservation_btn" data-reservationnum="${tmp.reservation_num}" data-id="${tmp.b_id}">리뷰작성</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button" class="reservation_btn" data-reservationnum="${tmp.reservation_num}" data-id="${tmp.b_id}">리뷰수정</button>
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td class="rSdetail">
+							<button type="button" class="reservation_btn2" data-reservationnum2="${tmp.reservation_num}" data-id2="${tmp.b_id}">예약내역보기</button>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 		
-	});
+		<c:forEach var="tmp" items="${list }">
+			<div class="rSList">
+				<div class="content_num">
+					<p>예약번호</p>
+					<p>${tmp.reservation_num }</p>
+				</div>
+				<div class="content_date">
+					<p>방문시간</p>
+					<p>${tmp.reservation_date } ${tmp.reservation_time }</p>
+				</div>
+				<div>
+					<p>예약자</p>
+					<p>${tmp.reservation_name }</p>
+				</div>
+				<div class="content_name">
+					<p>상호명</p>
+					<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${tmp.b_id}">${tmp.b_name }</a>
+				</div>
+				<div class="content_people">
+					<p>인원</p>
+					<p>${tmp.reservation_people }</p>
+				</div>
+				<div class="content_review">
+					<c:choose>
+						<c:when  test="${tmp.did_it == 0 }">
+							<button type="button" class="reservation_btn" data-reservationnum="${tmp.reservation_num}" data-id="${tmp.b_id}">리뷰작성</button>
+						</c:when>
+						<c:otherwise>
+							<button type="button" class="reservation_btn" data-reservationnum="${tmp.reservation_num}" data-id="${tmp.b_id}">리뷰수정</button>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div class="content_detail">
+					<button type="button" class="reservation_btn2" data-reservationnum2="${tmp.reservation_num}" data-id2="${tmp.b_id}">포장내역보기</button>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
 
-	function openNav() {
-	  document.getElementById("mySidenav").style.width = "250px";
-	}
-	
-	function closeNav() {
-	  document.getElementById("mySidenav").style.width = "0";
-	}
+
+
+
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<script>
+		$(".reservation_btn").click(function(){
+			let reservNum=$(this).attr("data-reservationnum");
+			let bId=$(this).attr("data-id");
+		window.open("${pageContext.request.contextPath}/users/g_mypage/review_reservation_form.do?reservation_num="+reservNum+"&b_id="+bId, "리뷰 작성", "width=520px,height=751px");
+		});
+		$(".reservation_btn2").click(function(){
+			let reservNum2=$(this).attr("data-reservationnum2");
+			let bId2=$(this).attr("data-id2");
+		window.open("${pageContext.request.contextPath}/eatery/reservation_info.do?reservation_num="+reservNum2+"&b_id="+bId2, "포장내역보기", "width=520px,height=751px");
+		});
+		
+		$("#btn").click(function(){
+			window.open("${pageContext.request.contextPath}/users/g_mypage/review_reservation_form.do?reservation_num=161&b_id=1111111111", "리뷰 작성", "width=520px,height=751px");
+			
+		});
+
+		function openNav() {
+		  document.getElementById("mySidenav").style.width = "250px";
+		}
+		
+		function closeNav() {
+		  document.getElementById("mySidenav").style.width = "0";
+		}
+		
 </script>
 
 </body>
