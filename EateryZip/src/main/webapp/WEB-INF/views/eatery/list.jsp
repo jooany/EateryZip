@@ -22,10 +22,10 @@
           line-height: 1.6
 	}
 	section{
-        margin: 40px;
           display: flex;
           float: left;
           flex-wrap: wrap;
+          margin:30px 10px;
       }
       a{
          color:black!important;
@@ -204,17 +204,50 @@
     	color: rgb(255, 255, 255);
     	background-color: rgb(33, 33, 33);
     }
+    .container{
+		border-bottom:none!important;
+	}
+	.list_search_wrap{
+		display:flex;
+		border:1px solid rgba(0,0,0,.2);
+		border-radius:50px;
+		width:220px;
+		height:30px;
+	}
+	.list_search_wrap>input{
+		border:none;
+		margin-left:15px;
+		
+	}
+	.list_search_wrap>input::placeholder{
+		margin-left:30px;
+	}
+	.list_search_btn{
+		
+	}
+	#container{
+		margin:0 auto;
+		display:flex;
+	}
+	.filter_box{
+		margin:30px 10px;
+	}
+
 </style>
 </head>
 <body>
-<h1>테스트 : ${keyword } ${ex_keyword } ${service } ${b_kind }</h1>
-    <section>
+<div style="width:100%; height:10px; border-bottom:1px solid rgba(0,0,0,.1);"></div>
+   <div id="container">
+    <section class="inner filter_box">
        <div class="main_left">
    		<form action="${pageContext.request.contextPath}/eatery/list.do" method="get" id="inputForm">
-        <!-- 편의사항 선택 -->
-            <div class="search_wrap">
-                <input type="text" class="keyword" placeholder="통합검색" name="keyword" value="${ not empty keyword ? keyword :''}">
-            </div>
+       
+           <div class="list_search_wrap">
+               <input type="text" class="keyword" placeholder="통합검색" name="keyword" value="${ not empty keyword ? keyword :''}">
+           
+           <button class="list_search_btn" type="submit"><i class="fas fa-search"></i></button>
+           </div>
+            
         
 		<fieldset>
         	<legend>편의사항</legend>
@@ -274,7 +307,7 @@
 	                <input type="radio" name="service" value="예약" ${service eq '예약' ? 'checked' : ''} > 예약
 	                <input type="radio" name="service" value="방문포장" ${service eq '방문포장' ? 'checked' : ''}>방문포장
 		       	</div>
-		       	<button class="btn btn-primary" type="submit">저장하기</button>
+		       	
 	       	</form>
     	</div>
     </section>
@@ -357,19 +390,12 @@
 			
          </div>
     </section>
-
+    
     <section>
-       <div class="main_right">
-          
-       </div>
+    	<div style="width:320px; height:530px; background-color:gray;"></div>
     </section>
+</div>
 
-	<footer>
-		<div>
-			<p>사업자등록번호 : 111-11-11111 / 대표자 : 정주연/ 강민재/ 윤혜림/ 김나현/ 유형우</p> 
-			<p> 주소 : 서울특별시 강남구 테헤란로 124 삼원타워 5 COPYRIGHT 2021 © MAT ZIP ALL RIGHTS RESERVED.</p>
-		</div>
-	</footer>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
