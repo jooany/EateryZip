@@ -997,8 +997,8 @@ button:hover{
 			goodBtns[i].addEventListener("click",function(){
 				let reviewNum=$(goodBtns[i]).attr("data-num");
 				let isGoodNum=$(goodBtns[i]).attr("data-isGoodNum");
-
 				let btn=$(goodBtns[i]);
+				
 				if(isGoodNum=="0"){ //추천하지 않았다면
 		
 					ajaxPromise("private/ajax_good_insert_r.do", "get", "review_num="+reviewNum)
