@@ -230,7 +230,7 @@
         </div>
     </div>
     
-    	<h1>메인페이지</h1>
+  <h1>메인페이지</h1>
 	<h2>형우 테스트 링크</h2>
 	<a href="${pageContext.request.contextPath}/eatery/reservation_form.do">예약 폼</a>
 	<h2>주연 테스트 링크</h2>

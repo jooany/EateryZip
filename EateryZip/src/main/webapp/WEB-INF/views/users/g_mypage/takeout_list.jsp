@@ -108,8 +108,8 @@
 		window.open("${pageContext.request.contextPath}/users/g_mypage/review_takeout_form.do?takeout_num="+takeNum+"&b_id="+bId, "리뷰 작성", "width=520px,height=751px");
 		});
 		$(".takeout_btn2").click(function(){
-			let takeNum2=$(".takeout_btn2").attr("data-takeoutnum2");
-			let bId2=$(".takeout_btn2").attr("data-id2");
+			let takeNum2=$(this).attr("data-takeoutnum2");
+			let bId2=$(this).attr("data-id2");
 		window.open("${pageContext.request.contextPath}/eatery/takeout_info.do?takeout_num="+takeNum2+"&b_id="+bId2, "포장내역보기", "width=520px,height=751px");
 		});
 		

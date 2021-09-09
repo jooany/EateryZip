@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
 <title>/views/eatery/list.jsp</title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
-<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
+<jsp:include page="/navbar/header/navbar_list.jsp"></jsp:include>
 <style>
 	*{
          margin: 0;
@@ -21,10 +22,10 @@
           line-height: 1.6
 	}
 	section{
-        margin: 40px;
           display: flex;
           float: left;
           flex-wrap: wrap;
+          margin:30px 10px;
       }
       a{
          color:black!important;
@@ -203,75 +204,110 @@
     	color: rgb(255, 255, 255);
     	background-color: rgb(33, 33, 33);
     }
+    .container{
+		border-bottom:none!important;
+	}
+	.list_search_wrap{
+		display:flex;
+		border:1px solid rgba(0,0,0,.2);
+		border-radius:50px;
+		width:220px;
+		height:30px;
+	}
+	.list_search_wrap>input{
+		border:none;
+		margin-left:15px;
+		
+	}
+	.list_search_wrap>input::placeholder{
+		margin-left:30px;
+	}
+	.list_search_btn{
+		
+	}
+	#container{
+		margin:0 auto;
+		display:flex;
+	}
+	.filter_box{
+		margin:30px 10px;
+	}
+
 </style>
 </head>
 <body>
-    <section>
+<div style="width:100%; height:10px; border-bottom:1px solid rgba(0,0,0,.1);"></div>
+   <div id="container">
+    <section class="inner filter_box">
        <div class="main_left">
    		<form action="${pageContext.request.contextPath}/eatery/list.do" method="get" id="inputForm">
-        <!-- 편의사항 선택 -->
-            <div class="search_wrap">
-                <input type="text" class="keyword" placeholder="통합검색" name="keyword">
-            </div>
+       
+           <div class="list_search_wrap">
+               <input type="text" class="keyword" placeholder="통합검색" name="keyword" value="${ not empty keyword ? keyword :''}">
+           
+           <button class="list_search_btn" type="submit"><i class="fas fa-search"></i></button>
+           </div>
+            
         
 		<fieldset>
         	<legend>편의사항</legend>
             <div class="form-group mb-3 wrap1">
-				<input type="checkbox" name="ex_keyword" value="루프탑"/> 루프탑
+   				<c:set var="searchExKey" value="${ex_keyword }" />
+				<input id="ch1" type="checkbox" name="ex_keyword" value="루프탑" ${fn:contains(searchExKey,'루프탑') ? 'checked': ''}/> 루프탑
 				<br />
-				<input type="checkbox" name="ex_keyword" value="주차"/> 주차
+				<input id="ch2" type="checkbox" name="ex_keyword" value="주차" ${fn:contains(searchExKey,'주차') ? 'checked': ''}/> 주차
 				<br />
-				<input type="checkbox" name="ex_keyword" value="무선인터넷"/> 무선인터넷
+				<input id="ch3" type="checkbox" name="ex_keyword" value="무선인터넷" ${fn:contains(searchExKey,'무선인터넷') ? 'checked': ''}/> 무선인터넷
 				<br />
-				<input type="checkbox" name="ex_keyword" value="단체석"/> 단체석
+				<input id="ch4" type="checkbox" name="ex_keyword" value="단체석" ${fn:contains(searchExKey,'단체석') ? 'checked': ''}/> 단체석
 				<br />
-				<input type="checkbox" name="ex_keyword" value="키즈존"/> 키즈존
+				<input id="ch5" type="checkbox" name="ex_keyword" value="키즈존" ${fn:contains(searchExKey,'키즈존') ? 'checked': ''}/> 키즈존
 				<br />
-				<input type="checkbox" name="ex_keyword" value="노키즈존"/> 노키즈존
+				<input id="ch6" type="checkbox" name="ex_keyword" value="노키즈존" ${fn:contains(searchExKey,'노키즈존') ? 'checked': ''}/> 노키즈존
 				<br />
-				<input type="checkbox" name="ex_keyword" value="반려동물동반가능"/> 반려동물동반가능
+				<input id="ch7" type="checkbox" name="ex_keyword" value="반려동물동반가능" ${fn:contains(searchExKey,'반려동물동반가능') ? 'checked': ''}/> 반려동물동반가능
 				<br />
-				<input type="checkbox" name="ex_keyword" value="프라이빗"/> 프라이빗
+				<input id="ch8" type="checkbox" name="ex_keyword" value="프라이빗" ${fn:contains(searchExKey,'프라이빗') ? 'checked': ''}/> 프라이빗
 				<br />
-				<input type="checkbox" name="ex_keyword" value="흡연실"/> 흡연실
+				<input id="ch9" type="checkbox" name="ex_keyword" value="흡연실" ${fn:contains(searchExKey,'흡연실') ? 'checked': ''}/> 흡연실
             </div>
 		</fieldset>
 
       	<!-- 업종 -->
       	<h4>업종</h4>
 	      	<div class="wrap1">
-	         <input type="radio" id="b_kind" name="b_kind" value="한식">
+	         <input type="radio" id="b_kind" name="b_kind" value="한식" ${b_kind eq '한식' ? 'checked' : ''}>
 	         <img src="${pageContext.request.contextPath}/resources/images/bibimbap.png"> 한식
 	         
-	         <input type="radio" name="b_kind" value="일식" >
+	         <input type="radio" name="b_kind" value="일식" ${b_kind eq '일식' ? 'checked' : ''}>
 	            <img src="${pageContext.request.contextPath}/resources/images/sushi.png"> 일식
 	
 	         <br />
-	         <input type="radio" name="b_kind" value="중식">
+	         <input type="radio" name="b_kind" value="중식" ${b_kind eq '중식' ? 'checked' : ''}>
 	            <img src="${pageContext.request.contextPath}/resources/images/xiao-long-bao.png"> 중식
 	  
-	         <input type="radio" name="b_kind" value="양식">
+	         <input type="radio" name="b_kind" value="양식" ${b_kind eq '양식' ? 'checked' : ''}>
 	            <img src="${pageContext.request.contextPath}/resources/images/steak.png"> 양식
 	         <br />
-	         <input type="radio" name="b_kind" value="브런치">
+	         <input type="radio" name="b_kind" value="브런치" ${b_kind eq '브런치' ? 'checked' : ''}>
 	            <img src="${pageContext.request.contextPath}/resources/images/pancake.png"> 브런치
 	            
-	         <input type="radio" name="b_kind" value="Bar">
+	         <input type="radio" name="b_kind" value="Bar" ${b_kind eq 'Bar' ? 'checked' : ''}>
 	            <img src="${pageContext.request.contextPath}/resources/images/cocktail.png"> Bar
 
 	         <br />
-	         <input type="radio" name="b_kind" value="cafe">
+	         <input type="radio" name="b_kind" value="cafe" ${b_kind eq 'cafe' ? 'checked' : ''}>
 	            <img src="${pageContext.request.contextPath}/resources/images/coffee-cup.png"> 카페
 	 
 	       	</div>
 	       	
 	       	<div>
 		       	<h4>선택</h4>
-	         		<input type="radio" name="service" value="예약/방문포장"> 예약 / 방문포장       
-	                <input type="radio" name="service" value="예약"> 예약
-	                <input type="radio" name="service" value="방문포장">방문포장
+	         		<input type="radio" name="service" value="예약/방문포장" ${service eq '예약/방문포장' ? 'checked' : ''}> 예약 / 방문포장       
+	                <input type="radio" name="service" value="예약" ${service eq '예약' ? 'checked' : ''} > 예약
+	                <input type="radio" name="service" value="방문포장" ${service eq '방문포장' ? 'checked' : ''}>방문포장
 		       	</div>
-		       	<button class="btn btn-primary" type="submit">저장하기</button>
+		       	
 	       	</form>
     	</div>
     </section>
@@ -305,7 +341,7 @@
 			          <div class="card-stacked">
 			            <div class="card-content">
 			               <h3>
-			                  <a href="${pageContext.request.contextPath}/eatery/detail.do">${tmp.b_name }</a>
+			                  <a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${tmp.b_id}">${tmp.b_name }</a>
 			                  <span>| ${tmp.b_kind }</span>
 			               </h3>
 			               <!-- 리뷰 3개 -->
@@ -354,19 +390,12 @@
 			
          </div>
     </section>
-
+    
     <section>
-       <div class="main_right">
-          
-       </div>
+    	<div style="width:320px; height:530px; background-color:gray;"></div>
     </section>
+</div>
 
-	<footer>
-		<div>
-			<p>사업자등록번호 : 111-11-11111 / 대표자 : 정주연/ 강민재/ 윤혜림/ 김나현/ 유형우</p> 
-			<p> 주소 : 서울특별시 강남구 테헤란로 124 삼원타워 5 COPYRIGHT 2021 © MAT ZIP ALL RIGHTS RESERVED.</p>
-		</div>
-	</footer>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
