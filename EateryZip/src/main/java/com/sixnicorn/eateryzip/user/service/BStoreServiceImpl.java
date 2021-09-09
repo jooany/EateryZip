@@ -189,6 +189,7 @@ public class BStoreServiceImpl implements BStoreService{
 		}
 
 	}
+	
 	// ajax 상세페이지
 	@Override
 	public void getDetailDataFilter(HttpServletRequest request) {
@@ -469,9 +470,9 @@ public class BStoreServiceImpl implements BStoreService{
 		-검색 키워드가 파라미터로 넘어올수도 있고 안넘어 올수도 있다.		
 		*/
 		String keyword=request.getParameter("keyword");
-		String ex_keyword=dto.getEx_keyword();
-		String b_kind=dto.getB_kind();
-		String service=dto.getService();
+		String ex_keyword=request.getParameter("ex_keyword");
+		String b_kind=request.getParameter("b_kind");
+		String service=request.getParameter("service");
 		
 		System.out.println("---들어올때");
 		System.out.println(keyword);
@@ -479,33 +480,80 @@ public class BStoreServiceImpl implements BStoreService{
 		System.out.println(b_kind);
 		System.out.println(service);
 		
+//		String encodedK=URLEncoder.encode(keyword);
+//		String encodedEx=URLEncoder.encode(ex_keyword);
+//		String encodedB=URLEncoder.encode(b_kind);
+//		String encodedS=URLEncoder.encode(service);
+
+		
 		BStoreDto dto2=new BStoreDto();
 		
+		// 혜림 시작 -------------------------------------------------------------
 		//만일 키워드가 넘어오지 않는다면 
 		if(keyword==null){//1
 			//키워드와 검색 조건에 빈 문자열을 넣어준다. 
 			//클라이언트 웹브라우저에 출력할때 "null" 을 출력되지 않게 하기 위해서  
-			keyword="";
-			if(ex_keyword==null){ //2
+			dto2.setKeyword("");
+			dto2.setEncodedK("");
+			if(ex_keyword!=null){
+				dto2.setEx_keyword(ex_keyword);
+				if(b_kind!=null){
+					dto2.setB_kind(b_kind);
+					if(service!=null){
+						dto2.setService(service);
+					}else{
+						dto2.setService("");
+					}
+				}else if(b_kind==null){ 
+					dto2.setB_kind("");
+					if(service!=null){
+						dto2.setService(service);
+					}else if(service==null){
+						dto2.setService("");
+					}
+				} //2
+			}else{ //1
+				dto2.setEx_keyword("");
+				if(b_kind!=null){
+					dto2.setB_kind(b_kind);
+					if(service!=null){
+						dto2.setService(service);
+					}else{
+						dto2.setService("");
+					}
+				}else{
+					dto2.setB_kind("");
+					if(service!=null){
+						dto2.setService(service);
+					}else{
+						dto2.setService("");
+					}
+				}
+			}
+		}else{
+			dto2.setKeyword(keyword);
+			dto2.setEncodedK(keyword);
+			if(ex_keyword==null){
 				ex_keyword="";
-				if(b_kind==null){ //3
+				if(b_kind==null){
 					b_kind="";
 					if(service==null){
 						service="";
 					}else{
 						dto2.setService(service);
 					}
-				}else if(!b_kind.equals("")){ 
+				}else if(b_kind!=null){
 					dto2.setB_kind(b_kind);
 					if(service==null){
 						service="";
 					}else{
-						dto2.setService(service);	
+						dto2.setService(service);
 					}
-				} //2
-			}else{ //1
+				
+				}
+			}else if(ex_keyword!=null){
 				dto2.setEx_keyword(ex_keyword);
-				if(!b_kind.equals("")){
+				if(b_kind!=null){
 					dto2.setB_kind(b_kind);
 					if(service==null){
 						service="";
@@ -522,71 +570,26 @@ public class BStoreServiceImpl implements BStoreService{
 				}
 			}
 		}
-			
-		//특수기호를 인코딩한 키워드를 미리 준비한다. 
-		String encodedK=URLEncoder.encode(keyword);
-		String encodedEx=URLEncoder.encode(ex_keyword);
-		String encodedB=URLEncoder.encode(b_kind);
-		String encodedS=URLEncoder.encode(service);
+		
+		//만일 검색 키워드가 넘어온다면 
 		
 		// 혜림 끝 -------------------------------------------------------------
+
+		
 		//BStoreDto 객체에 startRowNum 과 endRowNum 을 담는다.
 		dto2.setStartRowNum(startRowNum);
 		dto2.setEndRowNum(endRowNum);
-		// 혜림 시작 -------------------------------------------------------------
 		
-		//만일 검색 키워드가 넘어온다면 
-		if(!keyword.equals("")){
-			dto2.setEncodedK(keyword);
-			if(ex_keyword==null){
-				ex_keyword="";
-				if(b_kind==null){
-					b_kind="";
-					if(service==null){
-						service="";
-					}else{
-						dto2.setService(service);
-					}
-				}else if(!b_kind.equals("")){
-					dto2.setB_kind(b_kind);
-					if(service==null){
-						service="";
-					}else{
-						dto2.setService(service);
-					}
-				
-				}
-			}else if(!ex_keyword.equals("")){
-				dto2.setEx_keyword(ex_keyword);
-				if(!b_kind.equals("")){
-					dto2.setB_kind(b_kind);
-					if(service==null){
-						service="";
-					}else{
-						dto2.setService(service);
-					}
-				}else{
-					b_kind="";
-					if(service==null){
-						service="";
-					}else{
-						dto2.setService(service);
-					}
-				
-				}
-			}
-		} 
-		
-		// 혜림 끝 -------------------------------------------------------------
-		//글 목록 얻어오기 
 		System.out.println("--dto2");
 		System.out.println(dto2.getEncodedK());
 		System.out.println(dto2.getEx_keyword());
 		System.out.println(dto2.getB_kind());
 		System.out.println(dto2.getService());
 		
-		List<BStoreDto> list=BStoreDao.getList(dto2);
 		
+		List<BStoreDto> list=BStoreDao.getList(dto2);
+		//글 목록 얻어오기 
+	
 		//전체글의 갯수
 		int totalRow=BStoreDao.getCount(dto2);
 		
@@ -595,6 +598,7 @@ public class BStoreServiceImpl implements BStoreService{
 		//하단 끝 페이지 번호
 		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 		
+		//특수기호를 인코딩한 키워드를 미리 준비한다. 
 
 		//전체 페이지의 갯수
 		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
@@ -615,10 +619,10 @@ public class BStoreServiceImpl implements BStoreService{
 		request.setAttribute("service",service);
 		request.setAttribute("b_kind", b_kind);
 		//주소처리
-		request.setAttribute("encodedK", encodedK);
-		request.setAttribute("encodedEx", encodedEx);
-		request.setAttribute("encodedB", encodedB);
-		request.setAttribute("encodedS", encodedS);
+//		request.setAttribute("encodedK", encodedK);
+//		request.setAttribute("encodedEx", encodedEx);
+//		request.setAttribute("encodedB", encodedB);
+//		request.setAttribute("encodedS", encodedS);
 	
 	}
 }

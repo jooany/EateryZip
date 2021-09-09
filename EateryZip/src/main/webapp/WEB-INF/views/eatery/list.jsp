@@ -305,7 +305,7 @@
 			          <div class="card-stacked">
 			            <div class="card-content">
 			               <h3>
-			                  <a href="${pageContext.request.contextPath}/eatery/detail.do">${tmp.b_name }</a>
+			                  <a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${tmp.b_id}">${tmp.b_name }</a>
 			                  <span>| ${tmp.b_kind }</span>
 			               </h3>
 			               <!-- 리뷰 3개 -->
