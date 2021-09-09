@@ -29,11 +29,17 @@ public interface GUserService {
    public Map<String, Object> updatePwd(GUserDto dto, HttpSession session,
          HttpServletResponse response, HttpServletRequest request);
    
-   // 혜림 -----------------------------------------------------------------------
-   // 일반 회원정보
-   public void getGmypage(HttpSession session, ModelAndView mView);
-   // 일반회원 정보수정
-   public void updateGUser(GUserDto dto, HttpSession session);
-   // 일반회원 프로필이미지
-   public Map<String, Object> saveG_profileImage(HttpServletRequest request, MultipartFile image);
+	
+	// 혜림 -----------------------------------------------------------------------
+	// 일반 회원정보
+	public void getGmypage(HttpSession session, ModelAndView mView);
+	// 일반회원 정보수정
+	public void updateGUser(GUserDto dto, HttpSession session);
+	// 일반회원 프로필이미지
+	public Map<String, Object> saveG_profileImage(HttpServletRequest request, MultipartFile image);
+	// 일반회원 탈퇴
+	public void deleteUser(HttpSession session, ModelAndView mView);
+	
+	// 포장내역보기
+	public void getTakeoutList(HttpServletRequest request);
 }

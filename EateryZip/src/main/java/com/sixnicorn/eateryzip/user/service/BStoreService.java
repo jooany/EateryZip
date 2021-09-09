@@ -29,8 +29,6 @@ public interface BStoreService {
 	public void updateStore(BStoreDto dto);
 	
 	
-	
-	
 	//나현
 	public void getList(HttpServletRequest request , BStoreDto dto);
 	

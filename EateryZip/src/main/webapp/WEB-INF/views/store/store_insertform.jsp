@@ -36,7 +36,7 @@
 		<c:choose>
 			<c:when test="${not empty dto }">
 			<form action="${pageContext.request.contextPath}/store/store_update.do" method="post" id="StoreForm">
-				<input type="hidden" name="b_img_f" value="${ empty dto.b_img_f ? '' : dto.b_img_f }"/>
+				<input type="hidden" name="store_img" value="${ empty imgTmp.store_img ? '' : imgTmp.store_img }"/>
 				<%-- 상호명 입력란 --%> 	 		
 				<div class="wrap_name">
 					<label for="b_name" class="form-label">상호명</label>
@@ -74,9 +74,24 @@
 							<input class="form-control" type="text" name="intro" id="intro" value="${dto.intro}">
 						</div>
 				</div>
-				<c:forEach var="imgTmp" items="${imgList }">
-					
-				</c:forEach>
+				
+					<div class="wrap_img">
+						<label class="form-label" for="b_img_f">대표이미지</label>
+						<button id="addItemBtn" type="button">+</button>
+						<table id="example" border="1px">
+							<tr>
+					            <th>옵션명</th>
+					            <th>항목명</th>
+					        </tr>
+					        <c:forEach var="imgTmp" items="${imgList }">
+						        <tr class="item1">
+						            <td><input type="file" name="store_img" value="${imgTmp.store_img }"/></td>
+								    <td><button class="delBtn" type="button">삭제</button></td>
+						        </tr>
+					        </c:forEach>
+						</table>
+					</div>
+				
 				<%--가게 연락처 숫자만 추출하려면 정규표현식 사용 /\d/ /[0-9]/--%>
 				<div class="wrap_phone">
 					<label for="b_Store_phone" class="form-label">연락처</label>
@@ -236,18 +251,17 @@
 				<div class="wrap_img">
 					<label class="form-label" for="b_img_f">대표이미지</label>
 					<button id="addItemBtn" type="button">+</button>
-						<table id="example" border="1px">
-						        <tr>
-						            <th>옵션명</th>
-						            <th>항목명</th>
-						            
-						        </tr>
-						        <tr class="item1">
-						            <td><input type="file" name="store_img" /></td>
-						            <td><button class="delBtn" type="button">삭제</button></td>
-						        </tr>
-						        
-						</table>
+					<table id="example" border="1px">
+						<tr>
+				            <th>옵션명</th>
+				            <th>항목명</th>
+				            
+				        </tr>
+				        <tr class="item1">
+				            <td><input type="file" name="store_img" /></td>
+						    <td><button class="delBtn" type="button">삭제</button></td>
+				        </tr>
+					</table>
 				</div>
 				<%--가게 연락처 숫자만 추출하려면 정규표현식 사용 /\d/ /[0-9]/--%>
 				<div class="wrap_phone">
@@ -372,7 +386,7 @@
 		</form>
 	</div>
 	<script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
-	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
 	<script>
 		//프로필 이미지 링크를 클릭하면 
 		//document.querySelector("#store_imglink").addEventListener("click", function(){
@@ -468,7 +482,6 @@
 		}
 		
 		
-		// 이미지 추가 및 삭제
 		$(document).ready(function(){
             // 옵션추가 버튼 클릭시
             $("#addItemBtn").click(function(){
@@ -507,7 +520,6 @@
                 $("."+cls+":first td:eq(0)").attr("rowspan", rowspan);
             }
         });
-		
 	</script>
 </body>
 </html>

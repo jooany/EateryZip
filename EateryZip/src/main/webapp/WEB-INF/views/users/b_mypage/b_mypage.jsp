@@ -1,15 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>/users/info.jsp</title>
 <script src="https://kit.fontawesome.com/eda0c6c5f7.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
-	
+	#b_profileImage{
+		width: 50px;
+		height: 50px;
+		border: 1px solid #cecece;
+		border-radius: 50%;
+	}
 </style>
 </head>
 <body>
@@ -56,12 +60,11 @@
 					<th>프로필 이미지</th>
 					<td>
 					<c:choose>
-						<c:when test="${not empty dto.b_profile }">
-							
-							<img id="b_profileImage" src="${pageContext.request.contextPath}${dto.b_profile}"/>
+						<c:when test="${empty dto.b_profile }">
+							<i id="b_profileImage" class="far fa-user fa-3x"></i>
 						</c:when>
 						<c:otherwise>
-							<i id="b_profileImage" class="far fa-user fa-3x"></i>
+							<img id="b_profileImage" src="${pageContext.request.contextPath}${dto.b_profile}"/>
 						</c:otherwise>
 					</c:choose>
 					</td>

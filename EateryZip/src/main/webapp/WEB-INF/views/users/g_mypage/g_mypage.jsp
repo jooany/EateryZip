@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,12 @@
 <title>/users/info.jsp</title>
 <script src="https://kit.fontawesome.com/eda0c6c5f7.js" crossorigin="anonymous"></script>
 <style>
-	
+	#g_profileImage{
+		width: 50px;
+		height: 50px;
+		border: 1px solid #cecece;
+		border-radius: 50%;
+	}
 </style>
 </head>
 <body>
@@ -18,14 +23,15 @@
 	<div id="container">
 		<div class="left_content">
 			<ul class="left_menu">
-				<li>마이페이지</li>
-				<li>예약내역</li>
-				<li>포장내역</li>
-				<li>스크랩</li>
-				<li>회원탈퇴</li>
+				<li><a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage_updateform.do">개인정보 수정</a></li>
+				<li><a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">마이페이지</a></li>
+				<li><a href="${pageContext.request.contextPath}/users/g_mypage/reserve_List.do">예약내역</a></li>
+				<li><a href="${pageContext.request.contextPath}/users/g_mypage/takeout_list.do">포장내역</a></li>
+				<li><a href="${pageContext.request.contextPath}/users/g_mypage/scrap_List.do">스크랩</a></li>
+				<li><a href="javascript:deleteConfirm()">회원탈퇴</a></li>
 			</ul>
 		</div>
-		<h1>${BUserDto.g_profile }</h1>
+		<h1>${GUserDto.g_profile }</h1>
 		<div class="right_content">
 		<input type="hidden" name="g_profile" value="${ empty dto.g_profile ? '' : dto.g_profile }"/>
 			<table>
@@ -36,13 +42,12 @@
 				<tr>
 					<th>프로필 이미지</th>
 					<td>
-					<c:choose>
-						<c:when test="${not empty dto.g_profile }">
-							
-							<img id="g_profileImage" src="${pageContext.request.contextPath}${dto.g_profile}"/>
+						<c:choose>
+						<c:when test="${empty dto.g_profile }">
+							<i id="g_profileImage" class="far fa-user fa-3x"></i>
 						</c:when>
 						<c:otherwise>
-							<i id="g_profileImage" class="far fa-user fa-3x"></i>
+							<img id="g_profileImage" src="${pageContext.request.contextPath}${dto.g_profile}"/>
 						</c:otherwise>
 					</c:choose>
 					</td>
@@ -76,5 +81,13 @@
 	</div>
 	<a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage_updateform.do">개인정보 수정</a>
 </div>
+<script>
+	function deleteConfirm(){
+		const isDelete=confirm("${g_id} 님 탈퇴 하시겠습니까?");
+		if(isDelete){
+			location.href="${pageContext.request.contextPath}/users/g_delete.do";
+		}
+	}
+</script>
 </body>
 </html>

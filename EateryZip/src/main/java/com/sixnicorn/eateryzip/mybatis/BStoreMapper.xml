@@ -214,7 +214,8 @@
 	</select>
   
 	<!-- 나현님 부분 -->
-	<select id="getList" parameterType="BStoreDto" resultType="BStoreDto">
+	
+	<select id="getList" parameterType="BstoreDto" resultType="BStoreDto">
 		SELECT *
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
@@ -233,22 +234,4 @@
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM b_Store
 	</select>
-	
-	
-	
-	<!-- <select id="getData" parameterType="string" resultType="BStoreDto">
-		SELECT b_id, b_name, b_kind, b_intro, b_img_f, service, ex_keyword
-		FROM b_Store
-		where b_id=#{b_id}
-	</select> -->
-
-<!-- b_kind, intro, b_img_f, b_Store_phone, b_Store_date,
-		b_open, b_close, b_holiday, notice, service, ex_keyword, storeFile -->
-
-<!-- 
-	String b_id, String b_name, String b_Store_Address, String b_kind, String intro, String b_img_f,
-			String b_Store_phone, String b_Store_date, String b_open, String b_close,
-			String notice, String service, String ex_keyword, MultipartFile storeFile,checkKeyword
-
- -->
 </mapper>
