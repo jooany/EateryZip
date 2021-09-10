@@ -47,7 +47,7 @@
 	#left_content {
 		position: absolute;
 		background-color: #fff;
-		min-width: 160px;
+		min-width: 200px;
 	}
 	
 	#left_content a {
@@ -126,7 +126,7 @@
 		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보수정</a></p>
 		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_takeout_list.do">포장주문내역</a></p>
 		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_reservation_list.do">예약내역</a></p>
-		<li><a href="javascript:deleteConfirm()">회원탈퇴</a></li>
+		<p class="position"><a href="javascript:deleteConfirm()">회원탈퇴</a></p>
 	</div>
 	<div id="right_content">
 		<table>

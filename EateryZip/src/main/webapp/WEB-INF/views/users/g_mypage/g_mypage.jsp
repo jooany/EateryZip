@@ -5,97 +5,153 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/info.jsp</title>
+<title>/users/g_mypage/g_mypage.jsp</title>
 <script src="https://kit.fontawesome.com/eda0c6c5f7.js" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <style>
-	#g_profileImage{
-		width: 50px;
-		height: 50px;
-		border: 1px solid #cecece;
-		border-radius: 50%;
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+   /* 공통 */
+   *{
+    font-family: 'Gothic A1', sans-serif;
+    margin-top:0;
+    }
+	body{
+		background-color: #efefef
 	}
+	
+	.inner{
+		width:1100px;
+		height: 700px;
+		margin:0 auto;
+		display:flex;
+		justify-content: space-between;
+		margin-top: 40px;
+	}
+/*-------------------------------------------------------------------------*/
+/*-------------------민재님이 설정해주신 비번수정 modal css 만지지 마시오----------------------------------*/	
 	.btn {
 	    background-color: #FD5300;
 	    border-color: #FD5300;
 	    color: #FFF; 
 	    text-align:center;
 	 }
-	 	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
-	   /* 공통 */
-   *{
-    font-family: 'Gothic A1', sans-serif;
-    }
-	body{
-		background-color: #efefef
+	 
+/*-------------------민재님이 설정해주신 비번수정 modal css 만지지 마시오----------------------------------*/
+/*---------------------------------------프로필 이미지 css---------------------------------------*/
+	#g_profileImage{
+		width: 50px;
+		height: 50px;
+		border: 1px solid #cecece;
+		border-radius: 50%;
 	}
+/*---------------------------------------프로필 이미지 css----------------------------------------*/
+/*------------------------------side nav start------------------------------*/
+
+	#left_content {
+		background-color: #fff;
+		min-width: 200px;
+		list-style:none;
+		border: 1px solid rgba(0,0,0,.1);
+		height: fit-content;
+	}
+	
+	#left_content a {
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	}
+	
+	#left_content a:hover {
+		background-color: rgba(253,83,0);
+		color : white;
+	}
+
+/*------------------------------side nav end------------------------------*/
+/*------------------------------right_content start------------------------------*/
+/*------------------------------ right_content end ------------------------------*/
+/*------------------------------right_content start------------------------------*/
+
+	#right_content{
+		width: 600px;
+		height: fit-content;
+		background-color: white;
+		margin-right: 120px;
+		padding: 20px 0px 20px 40px;
+	}
+	
+	table{
+	    width: 300px;
+		margin:0 auto;
+		text-align: left;
+		padding: 50px;
+	}
+	tr,th ,td{
+		border-bottom: 1px solid #efefef;
+    	line-height: 36px;
+	}
+
 </style>
 </head>
 <body>
-<div class="container">
-	<a href="${pageContext.request.contextPath}/home.do">(임시)메인페이지가기</a>
-	<h1>가입 정보 입니다.</h1>
-	<div id="container">
-		<div class="left_content">
-			<ul class="left_menu">
-				<li><a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage_updateform.do">개인정보 수정</a></li>
-				<li><a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">마이페이지</a></li>
-				<li><a href="${pageContext.request.contextPath}/users/g_mypage/reserve_List.do">예약내역</a></li>
-				<li><a href="${pageContext.request.contextPath}/users/g_mypage/takeout_list.do">포장내역</a></li>
-				<li><a href="${pageContext.request.contextPath}/users/g_mypage/scrap_List.do">스크랩</a></li>
-				<li><a href="javascript:deleteConfirm()">회원탈퇴</a></li>
-			</ul>
-		</div>
-		<h1>${GUserDto.g_profile }</h1>
-		<div class="right_content">
-		<input type="hidden" name="g_profile" value="${ empty dto.g_profile ? '' : dto.g_profile }"/>
-			<table>
-				<tr>
-					<th>아이디</th>
-					<td>${g_id }</td>
-				</tr>
-				<tr>
-					<th>프로필 이미지</th>
-					<td>
-						<c:choose>
-						<c:when test="${empty dto.g_profile }">
-							<i id="g_profileImage" class="far fa-user fa-3x"></i>
-						</c:when>
-						<c:otherwise>
-							<img id="g_profileImage" src="${pageContext.request.contextPath}${dto.g_profile}"/>
-						</c:otherwise>
-					</c:choose>
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td><a href="javascript:" data-bs-toggle="modal" data-bs-target="#changePwdModal">수정하기</a></td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td>${dto.g_name }</td>
-				</tr>
-				<tr>
-					<th>주소</th>
-					<td>${dto.g_address }</td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td>${dto.g_email }</td>
-				</tr>
-				<tr>
-					<th>연락처</th>
-					<td>${dto.g_phone }</td>
-				</tr>
-				<tr>
-					<th>가입일</th>
-					<td>${dto.g_regdate }</td>
-				</tr>
-			</table>
-		</div>
+<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
+<div id="container" class="inner">
+	<div id="left_content">
+		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">마이페이지</a></p>
+		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage_updateform.do">개인정보 수정</a></p>
+		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/reserve_List.do">예약내역</a></p>
+		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/takeout_list.do">포장내역</a></p>
+		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/scrap_List.do">스크랩내역</a></p>
+		<p class="position"><a href="javascript:deleteConfirm()">회원탈퇴</a></p>
 	</div>
-	<a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage_updateform.do">개인정보 수정</a>
+	
+<!-- <input type="hidden" name="g_profile" value="${ empty dto.g_profile ? '' : dto.g_profile }"/>  -->	
+	<div id="right_content">
+		<table>
+			<tr>
+				<th>프로필 이미지</th>
+				<td>
+					<c:choose>
+					<c:when test="${empty dto.g_profile }">
+						<i id="g_profileImage" class="far fa-user fa-3x"></i>
+					</c:when>
+					<c:otherwise>
+						<img id="g_profileImage" src="${pageContext.request.contextPath}${dto.g_profile}"/>
+					</c:otherwise>
+				</c:choose>
+				</td>
+			</tr>
+			<tr>
+				<th>아이디</th>
+				<td>${g_id }</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td><a href="javascript:" data-bs-toggle="modal" data-bs-target="#changePwdModal">수정하기</a></td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td>${dto.g_name }</td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td>${dto.g_address }</td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td>${dto.g_email }</td>
+			</tr>
+			<tr>
+				<th>연락처</th>
+				<td>${dto.g_phone }</td>
+			</tr>
+			<tr>
+				<th>가입일</th>
+				<td>${dto.g_regdate }</td>
+			</tr>
+		</table>
+	</div>
 </div>
 
 <!-- 패스워드 변경에 대한 Modal -->
@@ -137,7 +193,7 @@
            </div>
         </div>
    </div>  
-
+<jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
@@ -265,7 +321,5 @@
 		   document.querySelector("#g_newPwd2").value="";
 	   });
 </script>
-
-
 </body>
 </html>

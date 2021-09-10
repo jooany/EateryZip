@@ -47,6 +47,8 @@
 		width: 700px;
 		background-color: white;
 	}
+
+
 	
 	input, select, img{
 		margin-bottom: 10px;
@@ -92,7 +94,7 @@
 	#saveBtn{
 		background-color: rgba(253,83,0);
 		border: 1px solid rgba(253,83,0);
-		width: 100px;
+		width: 120px;
 		margin-top: 50px;
 		margin-left: 135px;
 		margin-right: 100px;

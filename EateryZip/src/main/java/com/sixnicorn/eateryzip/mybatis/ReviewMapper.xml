@@ -38,7 +38,7 @@
 
 	<!-- [포장] 음식점 이름,방문 날짜,방문 시간,가격 가져오기 -->
 	<select id="getTakeoutData" parameterType="TakeoutDto" resultType="TakeoutDto">
-		SELECT b.b_name,TO_CHAR(takeout_date,'YYYY.MM.DD') takeout_date,takeout_time,takeout_price,takeout_num,t.b_id,t.g_id
+		SELECT b.b_name,takeout_date,takeout_time,takeout_price,takeout_num,t.b_id,t.g_id
 		FROM b_store b,takeout t
 		WHERE b.b_id=t.b_id AND b.b_id=#{b_id} AND takeout_num=#{takeout_num}	
 	</select>
