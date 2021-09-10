@@ -1,121 +1,154 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>/users/info.jsp</title>
 <script src="https://kit.fontawesome.com/eda0c6c5f7.js" crossorigin="anonymous"></script>
+
+
+<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />  -->
 <style>
-	#b_profileImage{
-		width: 50px;
-		height: 50px;
-		border: 1px solid #cecece;
-		border-radius: 50%;
+	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+	   /* 공통 */
+   *{
+    font-family: 'Gothic A1', sans-serif;
+    }
+	body{
+		background-color: #efefef
 	}
+	
+	.inner{
+		width:1100px;
+		height: 700px;
+		margin:0 auto;
+	}
+/*------------------------------side nav start------------------------------*/
+	#container{
+		position:relative;
+		margin-top: 40px;
+	}
+
+	#left_content {
+		position: absolute;
+		background-color: #fff;
+		min-width: 160px;
+	}
+	
+	#left_content a {
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	}
+	
+	#left_content a:hover {
+		background-color: rgba(253,83,0);
+		color : white;
+	}
+	
+	#left_content{
+		list-style:none;
+		width: 150px;
+		border: 1px solid #ccc;
+		position: absolute;
+	}
+/*------------------------------side nav end------------------------------*/
+/*------------------------------table start------------------------------*/
+	#right_content table{
+		width: 400px;
+		border: 1px solid #fff;
+		background-color: #fff;
+		position: absolute;
+		text-align: -webkit-center;
+		margin-left: 40%;
+		line-height: 36px;
+		padding-top: 20px;
+		display:flex;
+		justify-content: space-evenly;
+	}
+	
+	#right_content th{
+		text-align: left;
+		padding-right:60px;
+		height: 65px;
+	}
+	
+	
+	#right_content td{
+		text-align: left;
+		height: 65px;
+	}
+	
+	table{
+		width:700px;
+	}
+	
+	table, td, th {
+		border-bottom : 1px solid #efefef;
+		border-collapse : collapse;
+	};
+
+/*------------------------------table end------------------------------*/	
+	/* 안내사항
+	.introduce {
+	    text-align: center;
+	    margin-left: 180px;
+	    padding-top: 500px;
+	    color:rgba(253,83,0);
+	}
+	*/
 </style>
+
 </head>
 <body>
-<div class="container">
-	<a href="${pageContext.request.contextPath}/home.do">(임시)메인페이지가기</a>
-	<h1>가입 정보 입니다.</h1>
-	<div id="container">
-		<div class="left_content">
-			<div class="d-flex align-items-start">
-				<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-					<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab">마이페이지</button>
-					<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab">가게정보등록</button>
-					<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab">
-						<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보수정</a>
-					</button>
-					<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab">포장주문내역</button>
-					<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab">예약내역</button>
-				</div>
-				<div class="tab-content" id="v-pills-tabContent">
-					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel">...</div>
-					<div class="tab-pane fade" id="v-pills-profile" role="tabpanel">...</div>
-					<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">...</div>
-					<div class="tab-pane fade" id="v-pills-settings" role="tabpanel">...</div>
-				</div>
-			</div>
-
-			<ul class="left_menu">
-				<li>마이페이지</li>
-				<li>가게정보등록</li>
-				<li><a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보수정</a></li>
-				<li>포장주문내역</li>
-				<li>예약내역</li>
-				<li><a href="javascript:deleteConfirm()">회원탈퇴</a></li>
-			</ul>
-		</div>
-		<h1>${BUserDto.b_profile }</h1>
-		<div class="right_content">
-		<input type="hidden" name="b_profile" value="${ empty dto.b_profile ? '' : dto.b_profile }"/>
-			<table>
-				<tr>
-					<th>사업자번호</th>
-					<td>${b_id }</td>
-				</tr>
-				<tr>
-					<th>프로필 이미지</th>
-					<td>
-					<c:choose>
-						<c:when test="${empty dto.b_profile }">
-							<i id="b_profileImage" class="far fa-user fa-3x"></i>
-						</c:when>
-						<c:otherwise>
-							<img id="b_profileImage" src="${pageContext.request.contextPath}${dto.b_profile}"/>
-						</c:otherwise>
-					</c:choose>
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td><a href="${pageContext.request.contextPath}/users/b_pwd_updateform.do">수정하기</a></td>
-				</tr>
-				<tr>
-					<th>대표자</th>
-					<td>${dto.b_name }</td>
-				</tr>
-				<tr>
-					<th>주소</th>
-					<td>${dto.b_address }</td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td>${dto.b_email }</td>
-				</tr>
-				<tr>
-					<th>연락처</th>
-					<td>${dto.b_phone }</td>
-				</tr>
-				<tr>
-					<th>가입일</th>
-					<td>${dto.b_regdate }</td>
-				</tr>
-			</table>
-		</div>
+<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
+<div id="container" class="inner">
+	<div id="left_content">
+		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">마이페이지</a></p>
+		<p class="position"><a href="${pageContext.request.contextPath}/store/store_insertform.do">가게정보등록</a></p>
+		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/menu_insertform.do">메뉴등록</a></p>
+		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보수정</a></p>
+		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_takeout_list.do">포장주문내역</a></p>
+		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_reservation_list.do">예약내역</a></p>
 	</div>
-	<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보 수정</a>
+	<div id="right_content">
+		<table>
+			<tr>
+				<th>사업자번호</th>
+				<td>${b_id }</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td><a href="${pageContext.request.contextPath}/users/b_pwd_updateform.do">수정하기</a></td>
+			</tr>
+			<tr>
+				<th>대표자</th>
+				<td>${dto.b_name }</td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td>${dto.b_address }</td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td>${dto.b_email } ${dto.b_email2 }</td>
+			</tr>
+			<tr>
+				<th>연락처</th>
+				<td>${dto.b_phone }</td>
+			</tr>
+			<tr>
+				<th>가입일</th>
+				<td>${dto.b_regdate }</td>
+			</tr>
+		</table>
+	</div>
+	<!-- 안내사항 <div class="introduce">회원탈퇴는 담당자에게 문의 부탁드립니다. 02-333-3333</div> -->
 </div>
-<script>
-	function deleteConfirm(){
-	    const isDelete=confirm("${b_id} 님 탈퇴 하시겠습니까?");
-	    if(isDelete){
-	  	 fetch("${pageContext.request.contextPath}/users/b_mypage/ajax_b_delete.do")
-	  	 .then(function(response){
-	  		 return response.json();
-	  	 })
-	  	 .then(function(data){
-	  		 console.log(data);
-	  		 if(data.isSuccess){
-	  			alert(data.b_id+"님 회원탈퇴 처리 되었습니다.");
-	  			location.href="${pageContext.request.contextPath}/home.do";
-	  		 }
-	  	 }); 
-	    }
-	 }
-</script>
 </body>
+<jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 </html>
