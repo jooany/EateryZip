@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sixnicorn.eateryzip.user.dto.BUserDto;
+import com.sixnicorn.eateryzip.user.dto.GUserDto;
 
 public interface BUserService {
 	//비즈니스 회원 로그인 
@@ -24,6 +25,12 @@ public interface BUserService {
 	//비즈니스 패스워드 변경
 	public Map<String, Object> updatePwd(BUserDto dto, HttpSession session,
 			HttpServletResponse response, HttpServletRequest request);
+	
+	 public Map<String, Object> updatePwd_mypage(BUserDto dto,HttpSession session,
+		         HttpServletResponse response, HttpServletRequest request);
+	 
+	 public Map<String, Object> isExistPwd(String inputPwd,  HttpSession session);
+	 
 	public Map<String, Object> deleteUser(HttpSession session,HttpServletResponse response, HttpServletRequest request);
 	
 	/* 혜림  */

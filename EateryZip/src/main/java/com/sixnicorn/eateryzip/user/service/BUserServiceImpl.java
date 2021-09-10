@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sixnicorn.eateryzip.user.dao.BUserDao;
 import com.sixnicorn.eateryzip.user.dto.BUserDto;
+import com.sixnicorn.eateryzip.user.dto.GUserDto;
 import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
@@ -216,6 +217,60 @@ public class BUserServiceImpl implements BUserService {
 		  	}
 	}
 	
+	@Override
+	public Map<String, Object> updatePwd_mypage(BUserDto dto, HttpSession session, HttpServletResponse response,
+			HttpServletRequest request) {
+		
+		boolean result = false;
+		
+		String b_id = (String)session.getAttribute("b_id");
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedNewPwd = encoder.encode(dto.getB_newPwd());
+		
+		dto.setB_newPwd(encodedNewPwd);
+		dto.setB_id(b_id);
+		boolean changeResult = Bdao.changePwd(dto);
+		if(changeResult) {
+			result = true;
+			
+			 session.removeAttribute("b_id");
+			 
+			 Cookie[] cookies = request.getCookies();
+		  	  for (int i = 0; i < cookies.length; i++) {
+		  		if (cookies[i].getName().equals("savedb_Id")){
+		    		cookies[i].setMaxAge(0);   // 유효시간을 0으로 설정함으로써 쿠키를 삭제 시킨다.  
+		    		cookies[i].setPath("/eateryzip/users");
+		    		response.addCookie(cookies[i]);
+		    		}
+		  	}
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("b_id",b_id);
+			map.put("isResult",result);
+			return map;
+		}else{
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("b_id",b_id);
+			map.put("isResult",result);
+			return map;
+		}
+	}
+
+	@Override
+	public Map<String, Object> isExistPwd(String inputPwd, HttpSession session) {
+		
+		String b_id=(String)session.getAttribute("b_id");
+		
+		BUserDto resultDto = Bdao.getData(b_id);
+		String encodedPwd = resultDto.getB_pwd();
+		boolean result =BCrypt.checkpw(inputPwd, encodedPwd);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("isExist",result);
+		return map;
+	}
+	
 	// 혜림 ------------------------------------------------------
 	
 	// 비즈니스회원가입 정보보기
@@ -351,5 +406,7 @@ public class BUserServiceImpl implements BUserService {
 		request.setAttribute("list", list);
 		request.setAttribute("totalRow", totalRow);
 	}
+
+
 
 }

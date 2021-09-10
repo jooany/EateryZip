@@ -28,6 +28,12 @@ public interface GUserService {
    //일반 패스워드 변경
    public Map<String, Object> updatePwd(GUserDto dto, HttpSession session,
          HttpServletResponse response, HttpServletRequest request);
+   
+   public Map<String, Object> updatePwd_mypage(GUserDto dto,HttpSession session,
+	         HttpServletResponse response, HttpServletRequest request);
+   //
+   public Map<String, Object> isExistPwd(String inputPwd,  HttpSession session);
+   //일반 유저 회원탈퇴
    public Map<String, Object> deleteUser(HttpSession session,HttpServletResponse response, HttpServletRequest request);
    
 	
