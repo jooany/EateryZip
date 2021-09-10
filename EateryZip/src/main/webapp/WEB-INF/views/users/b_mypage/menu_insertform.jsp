@@ -32,13 +32,11 @@ button{
 	
 }
 .inner{
-	width:1100px;
+	width:1000px;
 	margin:0 auto;
 }
 #container{
-	margin-top:50px!important;
-	width:576px;
-	margin:0 auto;
+	margin-top:40px!important;
 	margin-bottom:50px!important;
 }
 body{
@@ -192,103 +190,105 @@ body{
 <body>
 	<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
 
-	<div id="container" class="inner">	
-		<div class="sections">
-	        <c:choose>
-	            <c:when test="${sectionCount ne 0}">
-	                <!-- 저장된 카테고리 개수만큼 섹션을 생성함. -->
-	                <c:forEach var="tmp2" items="${sectionNumList }">
-	                    <div class="wrap_section" id="wrapSection${tmp2 }" data-section="${tmp2 }">
-	                    	<!-- select 태그를 한번만 나타나게 하기 위해서 변수를 설정해줌. -->
-	                    	<c:set var="selectOnlyOne" value="0" />
-	                        <c:forEach var="tmp" items="${list }">
-	                            <c:if test="${tmp2 eq tmp.section_num and selectOnlyOne eq 0}">
-	                            	<c:set var="selectOnlyOne" value="1" />
-	                                <div class="section_header">
-	                                    <select name="section_name_main" class="select select${tmp2}" onchange="changeSectionName(${tmp2},this.value)">
-	                                        <option value="main" ${tmp.section_name eq 'main' ? 'selected' : ''}>메인 메뉴</option>
-	                                        <option value="set" ${tmp.section_name eq 'set' ? 'selected' : ''}>세트</option>
-	                                        <option value="side" ${tmp.section_name eq 'side' ? 'selected' : ''}>사이드</option>
-	                                        <option value="dessert" ${tmp.section_name eq 'dessert' ? 'selected' : ''}>디저트</option>
-	                                        <option value="beverage" ${tmp.section_name eq 'beverage' ? 'selected' : ''}>음료</option>
-	                                    </select>
-	                                    <a id="deleteSectionBtn" href="javascript:deleteSectionConfirm(${tmp2 })">
-	                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-	                                              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-	                                        </svg>
-	                                    </a>
-	                                </div>
-	                                <div class="wrap_menu" id="wrapMenu${tmp2}">
-	                            </c:if>
-	                            <!-- 모든 메뉴 list 중에서 i번째 섹션에 저장된 메뉴 정보를 가져옴. -->
-	                                <c:if test="${tmp.section_num eq tmp2 }">
-	                                	<div id="wrapForm${tmp.menu_num }">
-	                                    <form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_update.do" method="post" data-menuNum="${tmp.menu_num }">
-	                                        
-	                                        <!--  <input type="hidden" name="section_num" value="${tmp.section_num }" />
-	                                        <input type="hidden" name="section_name" value="${tmp.section_name }"> -->
-	                                        <input type="hidden" name="menu_image" value="${tmp.menu_image}" id="inputImg${tmp.menu_num}"/>
-	                                        <input type="hidden" name="menu_num" value="${tmp.menu_num}" id="inputNum${tmp.menu_num }"/>
-	                                        <input type="hidden" name="b_id" value="${b_id}" />		
-	    
-	                                        <div class="wrap_menu_name">
-	                                            <input type="text" id="inputMenuName${tmp.menu_num}" class="menu_name" name="menu_name" placeholder="메뉴명 입력..." value="${tmp.menu_name }"/>
-	                                        </div>
-	                                        <div class="wrap_img_n_price">
-	                                            <a class="menu_img_btn" data-menuNum="${tmp.menu_num}" href="javascript:;">
-	                                                <div id="imgNum${tmp.menu_num}" class="menu_img_wrap">
-	                                                    <c:choose>
-	                                                        <c:when test="${empty tmp.menu_image }">
-	                                                            <i class="far fa-image"></i>
-	                                                        </c:when>
-	                                                        <c:otherwise>
-	                                                            <img class="menu_img" src="${pageContext.request.contextPath}${tmp.menu_image}"/>
-	                                                        </c:otherwise>
-	                                                    </c:choose>
-	                                                </div>
-	                                            </a>							
-	                                            <div class="wrap_price">
-	                                                <input id="price inputPrice${tmp.menu_num}" name="menu_price" type="text" value="${tmp.menu_price }" style="text-align:right;" />
-	                                                <span>원</span>
-	                                            </div>
-	                                        </div>
-	                                        <!--  <button id="insertMenuBtn">등록</button>-->
-	                                        <!-- <a href="${pageContext.request.contextPath}/users/b_mypage/menu_update.do?menu_num=${tmp.menu_num }">수정</a>-->
-	                                        <button type="submit" class="btn_color" style="font-size:13px;">수정</button>
-	                                        <a href="javascript:deleteConfirm(${tmp.menu_num },${tmp.section_num })" id="deleteMenuBtn">삭제</a>
-	                                    </form>
-	                                    </div>	
-	                               </c:if>
-	                  			  </c:forEach>  
-	                       		</div>
-	                       		<!-- wrap_menu.end -->
-	                    
-	        
-	                        <a id="addMenuFormBtn" data-sectionNum="${tmp2 }" class="addMenuFormBtn" href="javascript:;" >
-	                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-	                              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-	                            </svg>
-	                            <span>메뉴 추가</span>
-	                        </a>
-	                    </div>
-	                    <!-- section_wrap.end -->
-	                </c:forEach>
-	                <c:set var="isData" value="1" />
-	            </c:when>
-	            <c:otherwise>
-	            <!-- 섹션 폼 추가 sections에 기본 append 하기 -->
-	                <c:set var="isData" value="0" />
-	            </c:otherwise>
-	        </c:choose>
-    	</div>
-		<!-- sections.end -->
+	<div id="container" class="inner" style="display:flex; justify-content:space-between;">
+	 	 <jsp:include page="/navbar/sideBar/sideBar.jsp"></jsp:include>
+	    <div id="mypageContent">
+			<div class="sections">
+		        <c:choose>
+		            <c:when test="${sectionCount ne 0}">
+		                <!-- 저장된 카테고리 개수만큼 섹션을 생성함. -->
+		                <c:forEach var="tmp2" items="${sectionNumList }">
+		                    <div class="wrap_section" id="wrapSection${tmp2 }" data-section="${tmp2 }">
+		                    	<!-- select 태그를 한번만 나타나게 하기 위해서 변수를 설정해줌. -->
+		                    	<c:set var="selectOnlyOne" value="0" />
+		                        <c:forEach var="tmp" items="${list }">
+		                            <c:if test="${tmp2 eq tmp.section_num and selectOnlyOne eq 0}">
+		                            	<c:set var="selectOnlyOne" value="1" />
+		                                <div class="section_header">
+		                                    <select name="section_name_main" class="select select${tmp2}" onchange="changeSectionName(${tmp2},this.value)">
+		                                        <option value="main" ${tmp.section_name eq 'main' ? 'selected' : ''}>메인 메뉴</option>
+		                                        <option value="set" ${tmp.section_name eq 'set' ? 'selected' : ''}>세트</option>
+		                                        <option value="side" ${tmp.section_name eq 'side' ? 'selected' : ''}>사이드</option>
+		                                        <option value="dessert" ${tmp.section_name eq 'dessert' ? 'selected' : ''}>디저트</option>
+		                                        <option value="beverage" ${tmp.section_name eq 'beverage' ? 'selected' : ''}>음료</option>
+		                                    </select>
+		                                    <a id="deleteSectionBtn" href="javascript:deleteSectionConfirm(${tmp2 })">
+		                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+		                                              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+		                                        </svg>
+		                                    </a>
+		                                </div>
+		                                <div class="wrap_menu" id="wrapMenu${tmp2}">
+		                            </c:if>
+		                            <!-- 모든 메뉴 list 중에서 i번째 섹션에 저장된 메뉴 정보를 가져옴. -->
+		                                <c:if test="${tmp.section_num eq tmp2 }">
+		                                	<div id="wrapForm${tmp.menu_num }">
+		                                    <form id="menuForm" class="menu" action="${pageContext.request.contextPath}/users/b_mypage/menu_update.do" method="post" data-menuNum="${tmp.menu_num }">
+		                                        
+		                                        <!--  <input type="hidden" name="section_num" value="${tmp.section_num }" />
+		                                        <input type="hidden" name="section_name" value="${tmp.section_name }"> -->
+		                                        <input type="hidden" name="menu_image" value="${tmp.menu_image}" id="inputImg${tmp.menu_num}"/>
+		                                        <input type="hidden" name="menu_num" value="${tmp.menu_num}" id="inputNum${tmp.menu_num }"/>
+		                                        <input type="hidden" name="b_id" value="${b_id}" />		
+		    
+		                                        <div class="wrap_menu_name">
+		                                            <input type="text" id="inputMenuName${tmp.menu_num}" class="menu_name" name="menu_name" placeholder="메뉴명 입력..." value="${tmp.menu_name }"/>
+		                                        </div>
+		                                        <div class="wrap_img_n_price">
+		                                            <a class="menu_img_btn" data-menuNum="${tmp.menu_num}" href="javascript:;">
+		                                                <div id="imgNum${tmp.menu_num}" class="menu_img_wrap">
+		                                                    <c:choose>
+		                                                        <c:when test="${empty tmp.menu_image }">
+		                                                            <i class="far fa-image"></i>
+		                                                        </c:when>
+		                                                        <c:otherwise>
+		                                                            <img class="menu_img" src="${pageContext.request.contextPath}${tmp.menu_image}"/>
+		                                                        </c:otherwise>
+		                                                    </c:choose>
+		                                                </div>
+		                                            </a>							
+		                                            <div class="wrap_price">
+		                                                <input id="price inputPrice${tmp.menu_num}" name="menu_price" type="text" value="${tmp.menu_price }" style="text-align:right;" />
+		                                                <span>원</span>
+		                                            </div>
+		                                        </div>
+		                                        <!--  <button id="insertMenuBtn">등록</button>-->
+		                                        <!-- <a href="${pageContext.request.contextPath}/users/b_mypage/menu_update.do?menu_num=${tmp.menu_num }">수정</a>-->
+		                                        <button type="submit" class="btn_color" style="font-size:13px;">수정</button>
+		                                        <a href="javascript:deleteConfirm(${tmp.menu_num },${tmp.section_num })" id="deleteMenuBtn">삭제</a>
+		                                    </form>
+		                                    </div>	
+		                               </c:if>
+		                  			  </c:forEach>  
+		                       		</div>
+		                       		<!-- wrap_menu.end -->
+		                    
+		        
+		                        <a id="addMenuFormBtn" data-sectionNum="${tmp2 }" class="addMenuFormBtn" href="javascript:;" >
+		                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+		                              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+		                            </svg>
+		                            <span>메뉴 추가</span>
+		                        </a>
+		                    </div>
+		                    <!-- section_wrap.end -->
+		                </c:forEach>
+		                <c:set var="isData" value="1" />
+		            </c:when>
+		            <c:otherwise>
+		            <!-- 섹션 폼 추가 sections에 기본 append 하기 -->
+		                <c:set var="isData" value="0" />
+		            </c:otherwise>
+		        </c:choose>
+	    	</div>
+			<!-- sections.end -->
 		
-		<button id="addSectionBtn" class="add_section_btn">
-			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-			  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-			</svg>
-		</button>
-			
+			<button id="addSectionBtn" class="add_section_btn">
+				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+				  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+				</svg>
+			</button>
+		</div>	
 		<form action="${pageContext.request.contextPath}/users/b_mypage/ajax_menu_img_upload.do" method="post" id="imageForm" enctype="multipart/form-data" class="visually-hidden">
 					<input type="file" name="image" id="image" 
 						accept=".jpg, .jpeg, .png, .JPG, .JPEG, .gif"/>

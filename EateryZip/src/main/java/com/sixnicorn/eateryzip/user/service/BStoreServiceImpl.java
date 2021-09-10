@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sixnicorn.eateryzip.user.dao.BStoreDao;
+import com.sixnicorn.eateryzip.user.dao.GUserDao;
 import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 import com.sixnicorn.eateryzip.user.dto.EateryScrapDto;
 import com.sixnicorn.eateryzip.user.dto.MenuDto;
@@ -30,6 +31,9 @@ public class BStoreServiceImpl implements BStoreService{
 
 	@Autowired
 	private BStoreDao BStoreDao;
+	
+	@Autowired
+	private GUserDao Gdao;
 	
 	//주연
 	//리뷰 추천
@@ -67,6 +71,7 @@ public class BStoreServiceImpl implements BStoreService{
 	public void getDetailData(HttpServletRequest request,String b_id) {
 		
 		String g_id=(String)request.getSession().getAttribute("g_id");
+		
 		request.setAttribute("b_id", b_id);
 		//음식점 정보 얻어오기
 		BStoreDto dto=BStoreDao.getStore(b_id);
@@ -579,7 +584,7 @@ public class BStoreServiceImpl implements BStoreService{
 		
 		//주연 
 		String g_id=(String)request.getSession().getAttribute("g_id");
-		if(g_id!=null) {
+		if(g_id != null) {
 			dto2.setG_id(g_id);
 		}
 		

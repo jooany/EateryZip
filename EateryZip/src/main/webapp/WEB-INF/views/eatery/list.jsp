@@ -49,6 +49,14 @@
       .food{
          margin-bottom: 10px;
       }
+      
+      #navbar{
+      	border-bottom:1px solid rgba(0,0,0,.1)!important;
+      }
+      #container_nav{
+		width: 1400px!important;
+	  }
+      
       /*h2{
       	font-size: 30px;
       	font-weight: bold;
@@ -217,6 +225,8 @@
     }
     .container{
 		border-bottom:none!important;
+		width:1410px;
+		margin:0 auto;
 	}
 	.list_search_wrap{
 		display:flex;
@@ -242,6 +252,7 @@
 		line-height:16px;
 	}
 	#container{
+		width:1410px;
 		margin:0 auto;
 		display:flex;
 	}
@@ -367,8 +378,7 @@
 </head>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e12e99f90ddd040d29c835f01fcaa837"></script>
 <body>
-<div style="width:100%; height:10px; border-bottom:1px solid rgba(0,0,0,.1);"></div>
- <div id="containerWrap" style="width:100%; display:flex;justify-content:center;">
+ <div id="containerWrap">
 	   <div id="container">
 	    <section class="inner filter_box">
 	       <div class="main_left">

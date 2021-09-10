@@ -73,22 +73,24 @@
             background-size: cover;
         }
         .content{
-            width: 1100px;
+            width: 100%;
             height: 600px;
             position: relative;
             overflow: hidden;
-            margin: 0 auto;
+            margin: 0 auto;	
+            display:flex;
+            justify-content:center;
+     		align-items:center;
         }
         .content_slider{
             display: flex;
             position: absolute;
-            width: 100%;
-            height: 100%;
             top: 0;
             left: 0;
             vertical-align: middle;
         }
         .item{
+        	margin-top:-300px;
             width:100%;
             height:100%;
             font-size: 35px;
@@ -107,35 +109,36 @@
         /* 검색창 스타일 */
         .content_search {
             display: flex;
+            justify-content:center;
             position: absolute;
         }
-        .content_search .search_wrap {
+        #testForm{
+        	margin:0 auto;
+        }
+        .content_search .search_wrap_wrap {
             width: 100%;
             vertical-align: middle;
             display: flex;
             align-items: revert;
             z-index:1;
-            margin-left: 43%;
-	   		margin-top: 30%;
         }
         
         .search_wrap input {
-        	width: 400px;
+        	width: 820px;
 	   		height: 50px;
 	   		opacity:0.8;
 	   		border: 1px solid #fff;
+	   		border-radius:4px 0 0 4px;
         }
-        .search_wrap button {
+        .search_wrap_wrap button {
             padding: 5px 10px;
             text-align: center;
-            z-index:1;
             background-color: rgba(253,83,0);
 			color: white;
 			width: 50px;
 			height: 50px;
-			border-radius: 0px 10px 10px 0px;
+			border-radius: 0px 4px 4px 0px;
 			border: 1px solid rgba(253,83,0);
-			margin-top: 30%;
         }
         /* 도시 추천 스타일 */
         .content_city.city_wrap{
@@ -175,6 +178,9 @@
         .moreBtn{
             text-align: right;
         }
+        .container_nav{
+        	width:900px!important;
+        }
     </style>
 </head>
 <body>
@@ -192,7 +198,7 @@
                 </li>
             </ul>
             <div class="content_search">
-	            <form id="testForm" action="${pageContext.request.contextPath}/eatery/list.do?keyword=" class="search_wrap search_wrapper"> <!-- 가게리스트로 연결 -->
+	            <form id="testForm" action="${pageContext.request.contextPath}/eatery/list.do?keyword=" class="search_wrap_wrap search_wrapper"> <!-- 가게리스트로 연결 -->
 	                <div class="search_wrap">
 	                    <input type="text" class="keyword" placeholder="  통합검색" name="keyword">
 	                </div>

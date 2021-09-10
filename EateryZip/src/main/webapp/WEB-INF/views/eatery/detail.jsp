@@ -26,14 +26,26 @@ button{
 }
 .navbar{
 	margin:0 auto;
+	border-bottom: 1px solid #999;
 }
 .inner{
 	width:1100px;
 	margin:0 auto;
 }
-.container{
-	border-bottom:none!important;
+/*네비바 덮어 쓰기*/
+#container_nav{
+	width: 1125px!important;
 }
+.content_logo{
+	margin-left:15px!important;
+}
+.btnF{
+	padding:12px 16px!important;
+}
+.btnS{
+	padding:12px 16px!important;
+}
+
 /*배너*/
 #banner{
 	height:400px;
@@ -1006,7 +1018,7 @@ ul.tabs li.current{
 		                
 		                <div class="r_time">
 		                	
-		                	<div><label for="time" style="display:flex;"><i class="far fa-clock" style="font-size:20px;"></i><div id="choice">시간 선택</div><i class="down_ico fas fa-angle-down"></i></label></div>
+		                	<div><label id="timeLabel" for="time" style="display:flex;"><i class="far fa-clock" style="font-size:20px;"></i><div id="choice">시간 선택</div><i class="down_ico fas fa-angle-down"></i></label></div>
 		                
 		                	<div class="hide">
 		                		<span id="am">AM</span>
@@ -1753,7 +1765,7 @@ ul.tabs li.current{
     // html dom 이 다 로딩된 후 실행된다.
     $(document).ready(function(){
         // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
-        $(".r_time>label").click(function(){
+        $("#timeLabel").parent().click(function(){
             var submenu = $(this).next("div");
  
             // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
