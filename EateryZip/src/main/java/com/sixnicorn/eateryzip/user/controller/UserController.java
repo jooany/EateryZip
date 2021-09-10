@@ -234,6 +234,23 @@ public class UserController {
 		return "redirect:/home.do";
 	}
 	
+	//일반 회원 탈퇴
+	@RequestMapping("/users/g_mypage/ajax_g_delete")
+	@ResponseBody
+	public Map<String, Object> Ajax_g_delete(HttpSession session,HttpServletResponse response, HttpServletRequest request) {
+		
+		return Gservice.deleteUser(session,response,request);
+	}
+	
+	//비즈니스 회원 탈퇴
+	@RequestMapping("/users/b_mypage/ajax_b_delete")
+	@ResponseBody
+	public Map<String, Object> Ajax_b_delete(HttpSession session,HttpServletResponse response, HttpServletRequest request) {
+		
+		return Bservice.deleteUser(session,response,request);
+	}
+	
+	
 	// 혜림 --------------------------------------------------------------------------
 	// 비즈니스 회원가입정보보기
 	@RequestMapping("/users/b_mypage/b_mypage")

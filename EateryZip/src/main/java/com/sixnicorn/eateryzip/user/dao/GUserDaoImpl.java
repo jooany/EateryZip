@@ -75,9 +75,14 @@ public class GUserDaoImpl implements GUserDao {
 	}
 	// 일반회원 탈퇴하기
 	@Override
-	public void delete(String g_id) {
+	public boolean delete(String g_id) {
 		// guser에 담긴 값들을 보내준다.
-		session.delete("Guser.delete", g_id);
+		int result =session.delete("Guser.delete", g_id);
+		if(result>0) {
+			return true;
+		}else {
+			return false;
+		}
 		
 	}
 	// 포장내역 리스트

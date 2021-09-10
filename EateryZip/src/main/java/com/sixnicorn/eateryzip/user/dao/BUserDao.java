@@ -21,6 +21,8 @@ public interface BUserDao {
 	public boolean changePwd(BUserDto dto);
 	
 	/* 혜림 */
+	public boolean delete(String b_id);
+	
 	// 비즈니스회원정보를 수정하는 메소드
 	public void update(BUserDto dto);
 	// 포장내역 목록

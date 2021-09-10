@@ -83,11 +83,23 @@
 </div>
 <script>
 	function deleteConfirm(){
-		const isDelete=confirm("${g_id} 님 탈퇴 하시겠습니까?");
-		if(isDelete){
-			location.href="${pageContext.request.contextPath}/users/g_delete.do";
-		}
-	}
+	    const isDelete=confirm("${g_id} 님 탈퇴 하시겠습니까?");
+	    if(isDelete){
+	  	 fetch("${pageContext.request.contextPath}/users/g_mypage/ajax_g_delete.do")
+	  	 .then(function(response){
+	  		 return response.json();
+	  	 })
+	  	 .then(function(data){
+	  		 console.log(data);
+	  		 if(data.isSuccess){
+	  			alert(data.g_id+"님 회원탈퇴 처리 되었습니다.");
+	  			location.href="${pageContext.request.contextPath}/home.do";
+	  		 }
+	  	 }); 
+	    }
+	 }
 </script>
+
+
 </body>
 </html>

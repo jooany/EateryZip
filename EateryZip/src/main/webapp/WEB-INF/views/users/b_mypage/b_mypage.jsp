@@ -46,6 +46,7 @@
 				<li><a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보수정</a></li>
 				<li>포장주문내역</li>
 				<li>예약내역</li>
+				<li><a href="javascript:deleteConfirm()">회원탈퇴</a></li>
 			</ul>
 		</div>
 		<h1>${BUserDto.b_profile }</h1>
@@ -98,5 +99,23 @@
 	</div>
 	<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보 수정</a>
 </div>
+<script>
+	function deleteConfirm(){
+	    const isDelete=confirm("${b_id} 님 탈퇴 하시겠습니까?");
+	    if(isDelete){
+	  	 fetch("${pageContext.request.contextPath}/users/b_mypage/ajax_b_delete.do")
+	  	 .then(function(response){
+	  		 return response.json();
+	  	 })
+	  	 .then(function(data){
+	  		 console.log(data);
+	  		 if(data.isSuccess){
+	  			alert(data.b_id+"님 회원탈퇴 처리 되었습니다.");
+	  			location.href="${pageContext.request.contextPath}/home.do";
+	  		 }
+	  	 }); 
+	    }
+	 }
+</script>
 </body>
 </html>

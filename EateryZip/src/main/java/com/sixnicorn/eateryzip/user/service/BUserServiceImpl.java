@@ -62,17 +62,11 @@ public class BUserServiceImpl implements BUserService {
 			      idCook.setMaxAge(60*60); //쿠키 유지시간 (초단위)
 			      response.addCookie(idCook); //기본객체 response의 addCookie 메소드를 사용
 			      
-			      Cookie pwdCook=new Cookie("savedb_Pwd", changedB_pwd);
-			      pwdCook.setMaxAge(60*60);
-			      response.addCookie(pwdCook);
 			   }else {
 				      Cookie idCook=new Cookie("savedb_Id", changedB_id);
 				      idCook.setMaxAge(0); //쿠키 유지시간 (초단위)
 				      response.addCookie(idCook);
 				      
-				      Cookie pwdCook=new Cookie("savedb_Pwd", changedB_pwd);
-				      pwdCook.setMaxAge(0);
-				      response.addCookie(pwdCook);
 			   }
 		}
 		
@@ -193,6 +187,36 @@ public class BUserServiceImpl implements BUserService {
 		
 	}
 	
+	@Override
+	public Map<String, Object> deleteUser(HttpSession session,HttpServletResponse response, HttpServletRequest request) {
+		
+		boolean result =false;
+		
+		String b_id=(String)session.getAttribute("b_id");
+		boolean deleteResult = Bdao.delete(b_id);
+		if(deleteResult){
+			result = true;
+			 session.removeAttribute("b_id");
+			
+			 Cookie[] cookies = request.getCookies();
+		  	  for (int i = 0; i < cookies.length; i++) {
+		  		if (cookies[i].getName().equals("savedb_Id")){
+		    		cookies[i].setMaxAge(0);   // 유효시간을 0으로 설정함으로써 쿠키를 삭제 시킨다.  
+		    		cookies[i].setPath("/eateryzip/users");
+		    		response.addCookie(cookies[i]);
+		  			}
+		    	}
+		  		Map<String, Object> map = new HashMap<String, Object>();
+				map.put("b_id",b_id);
+				map.put("isSuccess",result);
+				return map;
+		  	}else{
+		  		Map<String, Object> map = new HashMap<String, Object>();
+				map.put("b_id",b_id);
+				map.put("isSuccess",result);
+				return map;
+		  	}
+	}
 	
 	// 혜림 ------------------------------------------------------
 	
