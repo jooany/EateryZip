@@ -66,6 +66,7 @@
 	    display: table-cell;
 	    vertical-align: middle;
 	    background-color: #fd5300;
+	    color:white;
 	    position: relative;
 	    left: 200px;
 	    top:20px;

@@ -185,7 +185,7 @@ ul.tabs li.current{
                 		<span id="am">AM</span>
 	                    <br />
 	                    <script>
-			                  let a="10:00";
+			                  let a="10:30";
 			                  let b=a.split(":");
 			                  let hour=parseInt(b[0]);
 			                  console.log(hour);
@@ -226,7 +226,21 @@ ul.tabs li.current{
 	               		<span id="pm">PM</span>
 	               		<br />
 	                    <script>
-							for(let i=2; i<17; i++){ 
+	                    	let c="21:00";
+		                 	let d=c.split(":");
+		                  	let hour2=parseInt(d[0]);
+		                  	console.log(hour2);
+		                  	let min2 = parseInt(d[1]);
+		                  	console.log(d[1]);
+		                  	if(min2==30){
+			                     min2=1;
+			                  }else{
+			                     min2=0;
+			                  }
+		                  	hour2 = hour2*2-24;
+		                  	let g=hour2+min2;
+		                  	console.log(g); 
+							for(let i=2; i<g; i++){ 
 							   let hour="";
 							   let min=":00";
 							   if((Math.ceil(i/2))<13){
@@ -235,7 +249,7 @@ ul.tabs li.current{
 							      hour = (Math.floor(i/2));
 							   }
 							   hour = (Math.floor(i/2));
-							   if(hour<10){
+							   if(hour<12){
 							      hour = "0"+hour;
 							   }
 							   if(i%2 != 0){
@@ -279,7 +293,7 @@ ul.tabs li.current{
         </div>
         <div id="tab-2" class="tab-content">
             <form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post">
-               <input type="hidden" id="b_id" name="b_id" value="12345678"/>
+               <input type="hidden" id="b_id" name="b_id" value="1111111111"/>
                <input type="hidden" id="b_store_name" name="b_store_name" value="팬케이크 스토리"/>
             	<input type="hidden" id="b_store_addr" name="b_store_addr" value="서울특별시 강남구 언주로 33"/>
                <button id="tBtn" type="submit">포장</button>

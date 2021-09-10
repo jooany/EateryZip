@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
 @Repository
@@ -48,4 +49,9 @@ public class TakeOutDaoImpl implements TakeOutDao{
 		return session.selectList("takeout.getData2", num);
 	}
 
+	/*
+	 * @Override public BStoreDto getStore(String b_id) {
+	 * 
+	 * return session.selectOne("BStore.getStore", b_id); }
+	 */
 }

@@ -113,10 +113,10 @@ textarea::placeholder{padding:5px;}
     border-collapse: collapse;
     border-radius: 4px;
   	border-style: hidden;
-  	box-shadow: 0 0 0 1px rgb(224, 224, 224); 
+  	box-shadow: 0 0 0 1px rgb(224, 224, 224);  
   }
   th{
-    border-bottom: 1px solid rgb(224, 224, 224);
+   	border-bottom: 1px solid rgb(224, 224, 224);
     padding: 10px;
   }
   td{

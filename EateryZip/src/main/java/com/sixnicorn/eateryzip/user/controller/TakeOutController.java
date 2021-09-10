@@ -64,6 +64,7 @@ public class TakeOutController {
 		
 		service.getInfo(request);
 		service.getMenuInfo(request);
+		/* service.getStoreInfo(request); */
 		return "eatery/takeout_info";
 	}
 }
