@@ -184,11 +184,13 @@ button{
 			</div>
 		</c:forEach>
 	</div>
-	<div id="menu_kind" style="position: fixed; right: 300px; top:280px; width:250px; height:auto; border:1px solid rgb(224, 224, 224); border-radius:4px;">
+	<div id="menu_kind" style="position: fixed; right: 300px; top:280px; width:auto; height:auto; border:1px solid rgb(224, 224, 224); border-radius:4px;">
 		<form id="add_menu" name="add_menu" method="post" action="${pageContext.request.contextPath }/eatery/takeout_info_insertform.do" onsubmit="return confirm('주문 하시겠습니까?');">
 			<input type="hidden" name="b_store_name" id="b_store_name" value="${param.b_store_name }"/>
 			<input type="hidden" name="b_store_addr" id="b_store_addr" value="${param.b_store_addr }"/>
 			<input type="hidden" name="b_id" id="b_id" value="${param.b_id }"/>
+			<input type="hidden" name="b_open" id="b_open" value="${param.b_open }"/>
+			<input type="hidden" name="b_close" id="b_close" value="${param.b_close }"/>
 			<div >
 				<table>
 					<thead>
