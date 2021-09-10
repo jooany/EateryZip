@@ -98,4 +98,24 @@
 		WHERE g_id=#{g_id,jdbcType=VARCHAR}
 	</select>
 	
+	<!-- 일반유저 스크랩내역 가져오기 -->
+	<select id="getScrapList" parameterType="EateryScrapDto" resultType="EateryScrapDto">
+		SELECT *
+	    FROM
+	    (SELECT result1.*, ROWNUM AS rnum
+	     FROM (SELECT s.b_id,s.g_id
+	         FROM eatery_scrap s, g_user g
+	         WHERE g.g_id=s.g_id AND s.g_id=#{g_id,jdbcType=VARCHAR}) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
+	</select>
+	
+	<select id="getScrapCount" parameterType="EateryScrapDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM reservation 
+		WHERE g_id=#{g_id,jdbcType=VARCHAR}
+	</select>
+	
+	
 </mapper>
