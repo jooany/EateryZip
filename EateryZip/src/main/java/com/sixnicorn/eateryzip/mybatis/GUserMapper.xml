@@ -77,7 +77,7 @@
 		SELECT *
 		 FROM
 		 (SELECT result1.*, ROWNUM AS rnum
-		  FROM (SELECT b.b_name, reservation_date, reservation_time, reservation_name, reservation_people ,reservation_num,r.b_id,r.g_id,(SELECT NVL(MAX(ROWNUM),0) FROM REVIEW WHERE reservation_num=r.reservation_num) did_it
+		  FROM (SELECT b_store_name, reservation_date, reservation_time, reservation_name, reservation_people ,reservation_num,r.b_id,r.g_id,(SELECT NVL(MAX(ROWNUM),0) FROM REVIEW WHERE reservation_num=r.reservation_num) did_it
 		      FROM b_store b,reservation r
 		      WHERE b.b_id=r.b_id AND r.g_id=#{g_id,jdbcType=VARCHAR}) result1)
 		<![CDATA[ 
