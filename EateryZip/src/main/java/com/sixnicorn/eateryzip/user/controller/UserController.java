@@ -55,35 +55,6 @@ public class UserController {
 	}
 	//-----------------------------------------------------------------------
 	
-	//maps 테스트 .jsp로 이동
-	@RequestMapping("users/map_seoul")
-	public String S_map() {
-		
-		return "users/map_seoul";
-	}
-	
-	//maps 테스트 .jsp로 이동
-	@RequestMapping("users/map_busan")
-	public String B_map() {
-		
-		return "users/map_busan";
-	}
-	
-	//maps 테스트 .jsp로 이동
-	@RequestMapping("users/map_seoul_detail")
-	public String BD_map() {
-		
-		return "users/map_seoul_detail";
-	}
-	
-	//maps 테스트 .jsp로 이동
-	@RequestMapping("users/map_busan_detail")
-	public String map() {
-		
-		return "users/map_busan_detail";
-	}
-	
-	
 	//일반회원 로그인 폼으로 이동
 	@RequestMapping("/users/g_login_form")
 	public String GloginForm(){

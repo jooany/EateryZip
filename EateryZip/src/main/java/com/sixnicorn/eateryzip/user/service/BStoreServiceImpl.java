@@ -645,9 +645,6 @@ public class BStoreServiceImpl implements BStoreService{
 		request.setAttribute("ex_keyword",ex_keyword);
 		request.setAttribute("service",service);
 		request.setAttribute("b_kind", b_kind);
-		
 
-	
-	
 	}
 }

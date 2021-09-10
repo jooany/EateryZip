@@ -363,9 +363,9 @@
     background-position: center;
     background-size: cover;
 }
-
 </style>
 </head>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e12e99f90ddd040d29c835f01fcaa837"></script>
 <body>
 <div style="width:100%; height:10px; border-bottom:1px solid rgba(0,0,0,.1);"></div>
  <div id="containerWrap" style="width:100%; display:flex;justify-content:center;">
@@ -477,7 +477,6 @@
 	            <!-- 음식점 리스트 * 6 -->
 	            <div id="tab-1" class="card_wrapper tab-content current">         
 				   <c:forEach var="tmp" items="${list }">
-				   
 					    <div class="didRow">
 					      <div class="card_wrapper">
 						        <div class="card" style="display:flex;">
@@ -512,7 +511,6 @@
 							                 <p class="card_intro">${tmp.intro }</p>
 							                 <!-- 편의사항 3개 -->
 							                 <div class="ex_wrap" data-ex="${tmp.ex_keyword }"></div>
-							               
 							             </div>
 							              </a>
 							           </div>
@@ -568,7 +566,7 @@
 	    </section>
 	    
 	    <section>
-	    	<div style="width:320px; height:530px; background-color:gray; margin-top:50px;">지도</div>
+	    	<div id="List_map" style="width:320px; height:530px;"></div>
 	    </section>
 	</div>
 </div>
@@ -734,8 +732,90 @@
 	}
 	scrapDo("#scrapRight");
 	
+	let list ='<c:out value="${list}"/>';
+	console.log(list);
+	console.log(list.length);
 	
+	//지도
+	let keyword = '<c:out value="${keyword}"/>';
+	let ex_keyword = '<c:out value="${ex_keyword}"/>';
+	let service = '<c:out value="${service}"/>';
+	let b_kind = '<c:out value="${b_kind}"/>';
+	let pageNum = '<c:out value="${pageNum}"/>';
+	console.log(keyword);
+	console.log(ex_keyword);
+	console.log(service);
+	console.log(b_kind);
+	
+	
+	ajaxPromise("ajax_map.do","get",
+			"pageNum="+pageNum+"&keyword="+keyword+"&ex_keyword="+ex_keyword+"&b_kind="+b_kind+"&service="+service)
+			.then(function(response){
+				return response.json();
+			})
+			.then(function(data){
+				console.log(data);
+				
+				var mapContainer = document.getElementById('List_map'), // 지도를 표시할 div  
+				mapOption = { 
+				     center: new kakao.maps.LatLng(
+				    		 		36.4453, 128.0453
+				    		 ), // 지도의 중심좌표
+				     level: 13// 지도의 확대 레벨
+				};
+				
+				var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+				
+				var positions = [];
+				
+				for(var i=0; i<data.length; i++){
+					var position = new Object();
+					position.content = '<div>'+data[i].b_name+'</div>';
+					position.latlng = new kakao.maps.LatLng(data[i].lattitude, data[i].longitude);
+					positions.push(position);
+				}
+				console.log(positions);
+				
+				// 마커 이미지의 이미지 주소입니다
+				var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+				
+				for (var i = 0; i < positions.length; i ++) {
+				    // 마커 이미지의 이미지 크기 입니다
+				    var imageSize = new kakao.maps.Size(24, 35); 
+				    // 마커 이미지를 생성합니다    
+				    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+				    // 마커를 생성합니다
+				    var marker = new kakao.maps.Marker({
+				        map: map, // 마커를 표시할 지도
+				        position: positions[i].latlng, // 마커를 표시할 위치
+				        image : markerImage // 마커 이미지 
+				    });
+				    
+				    //인포윈도우를 생성합니다
+					var infowindow = new kakao.maps.InfoWindow({
+				    	content : positions[i].content
+					});
+				    
+					 kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+					 kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+				}
+							    
+			
+				// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+				function makeOverListener(map, marker, infowindow) {
+				    return function() {
+				        infowindow.open(map, marker);
+				    };
+				}
 
+				// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+				function makeOutListener(infowindow) {
+				    return function() {
+				        infowindow.close();
+				    };
+				}
+			});
+	
 </script>
 </body>
 </html>
