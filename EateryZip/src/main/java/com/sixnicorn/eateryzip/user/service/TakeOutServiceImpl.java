@@ -57,9 +57,10 @@ public class TakeOutServiceImpl implements TakeOutService{
 		
 		for(String tmp : menu){
 		   String[] info = tmp.split("/");  // [ "1". "2" ], ["2", "5"]
-		   int code = Integer.parseInt(info[0]);
-		   int amount = Integer.parseInt(info[1]);
-		   int m_num = Integer.parseInt(info[2]);
+		   
+		   int code = Integer.parseInt(info[0].trim());
+		   int amount = Integer.parseInt(info[1].trim());
+		   int m_num = Integer.parseInt(info[2].trim());
 		   String m_name=info[3];
 		   dto.setMenu_num(code);;
 		   dto.setMenu_count(amount);
