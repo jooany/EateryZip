@@ -1,9 +1,8 @@
 package com.sixnicorn.eateryzip.user.controller;
 
-import java.net.URLEncoder;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -123,7 +122,7 @@ public class UserController {
 		return Bservice.addUser(dto);
 	}
 	
-	//비즈니스 회원 가입 아이디 중복 확인을 해서 json 문자열을 리턴해주는 메소드
+	//일반 회원 가입 아이디 중복 확인을 해서 json 문자열을 리턴해주는 메소드
 	@RequestMapping("/users/g_checkid")
 	@ResponseBody
 	public Map<String, Object> G_checkid(@RequestParam String inputId){
@@ -138,6 +137,36 @@ public class UserController {
 		return Bservice.isExistId(inputId);
 		//결국 {isExist":true}or{isExist":false} 형태
 	}
+	
+	@RequestMapping("/users/g_mypage/g_checkpwd")
+	@ResponseBody
+	public Map<String, Object> G_checkpwd(@RequestParam String inputPwd, HttpSession session ){
+		return Gservice.isExistPwd(inputPwd, session);
+	}
+	
+	//일반 패스워드 바꾸기
+	@RequestMapping("/users/g_mypage/ajax_g_change_pwd")
+	@ResponseBody
+	public Map<String, Object> Ajax_g_change_pwd2(GUserDto dto,
+			HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+		return Gservice.updatePwd_mypage(dto,session,response,request);
+	}
+	
+	//비즈니스 회원 가입 아이디 중복 확인을 해서 json 문자열을 리턴해주는 메소드
+		@RequestMapping("/users/b_mypage/b_checkpwd")
+		@ResponseBody
+		public Map<String, Object> B_checkpwd(@RequestParam String inputPwd, HttpSession session){
+			return Bservice.isExistPwd(inputPwd,session);
+			//결국 {isExist":true}or{isExist":false} 형태
+		}
+		
+		//일반 패스워드 바꾸기
+		@RequestMapping("/users/b_mypage/ajax_b_change_pwd")
+		@ResponseBody
+		public Map<String, Object> Ajax_b_change_pwd2(BUserDto dto,
+				HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+			return Bservice.updatePwd_mypage(dto,session,response,request);
+		}
 	
 	//사업자번호 찾기 폼으로 이동
 	@RequestMapping("/users/b_find_id_form")
@@ -204,20 +233,20 @@ public class UserController {
 		return "users/g_find_pwd_form";
 	}
 	
-	//사업자 패스워드 찾기
+	//일반 패스워드 찾기
 		@RequestMapping("/users/ajax_g_find_pwd")
 		@ResponseBody
 		public Map<String, Object> g_find_pwd(GUserDto dto){
 			return Gservice.findPwd(dto);
 		}
 		
-		//사업자 패스워드 변경 폼으로 이동
+		//일반 패스워드 변경 폼으로 이동
 		@RequestMapping("/users/g_change_pwd_form")
 		public String g_change_pwd_form(@RequestParam String g_id) {
 			return "users/g_change_pwd_form";
 		}
 		
-		//사업자 패스워드 바꾸기
+		//일반 패스워드 바꾸기
 		@RequestMapping("/users/ajax_g_change_pwd")
 		@ResponseBody
 		public Map<String, Object> Ajax_g_change_pwd(GUserDto dto,
