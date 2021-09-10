@@ -577,6 +577,7 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	
+	let g_id = '<c:out value="${g_id}"/>';
 	//편의사항 키워드 넣기
 	function exSplit(sel){
 		let exWraps=document.querySelectorAll(sel);
@@ -702,32 +703,37 @@
 				let b_id=$(this).attr("data-bid");
 				let btn=$(this);
 				
-				if(!isScrap){ //추천안했다면
-					ajaxPromise("private/ajax_good_insert.do", "get", "b_id="+b_id)
-					.then(function(response){
-						return response.json();
-					})
-					.then(function(data){
-						if(data.isDoScrap){//유저가 테이블에 추가되었다면 
-							btn.removeAttr("data-isscrap");
-							btn.attr('data-isscrap','true');
-							btn.html(`<i class="fas fa-bookmark"></i>`);
-						}		
-					});	
-				}else{ //추천했다면
-					ajaxPromise("private/ajax_good_delete.do", "get", "b_id="+b_id)
-					.then(function(response){
-						return response.json();
-					})
-					.then(function(data){
-						if(data.isNotScrap){//유저가 테이블에 삭제되었다면
-							btn.removeAttr("data-isscrap");
-							btn.attr('data-isscrap','');	
-							btn.html(`<i class="far fa-bookmark"></i>`);
-						}
-					});	
-				}
+				if(!g_id){
+					alert("로그인이 필요합니다.");
+				}else{
 				
+					if(!isScrap){ //추천안했다면
+						ajaxPromise("private/ajax_good_insert.do", "get", "b_id="+b_id)
+						.then(function(response){
+							return response.json();
+						})
+						.then(function(data){
+							if(data.isDoScrap){//유저가 테이블에 추가되었다면 
+								btn.removeAttr("data-isscrap");
+								btn.attr('data-isscrap','true');
+								btn.html(`<i class="fas fa-bookmark"></i>`);
+							}		
+						});	
+					}else{ //추천했다면
+						ajaxPromise("private/ajax_good_delete.do", "get", "b_id="+b_id)
+						.then(function(response){
+							return response.json();
+						})
+						.then(function(data){
+							if(data.isNotScrap){//유저가 테이블에 삭제되었다면
+								btn.removeAttr("data-isscrap");
+								btn.attr('data-isscrap','');	
+								btn.html(`<i class="far fa-bookmark"></i>`);
+							}
+						});	
+					}//ajax if 함수 끝
+				}//로그인 확인 함수 끝 
+					
 			});
 		};
 		

@@ -500,7 +500,9 @@ button{
 }
 #etcInfo #convenience span:nth-child(2){
 	margin-left:10px;
+	padding-right:10px;
 	font-size:13px;
+	line-height:20px;
 }
 
 .review_img{
@@ -547,10 +549,12 @@ button:hover{
 <div id="banner">
 	<!-- 이미지 슬라이드 담기 -->
 	<ul id="imgList">
-		<c:forEach var="tmp1" items="${storeImgList }">
+		<c:forEach var="tmp1" items="${reviewList  }">
+		<c:if test="${not empty tmp1.review_image}">
 		<li>
-			<img class="img_item" src="${pageContext.request.contextPath}${tmp1.store_img }" alt="음식점 대표 이미지" height="400px"/>
+			<img class="img_item" src="${pageContext.request.contextPath}${tmp1.review_image }" alt="음식점 대표 이미지" height="400px"/>
 		</li>
+		</c:if>
 		</c:forEach>
 	</ul>
 	<div id="blackEffect"></div>
@@ -596,7 +600,7 @@ button:hover{
 
 <div class="inner">
 	<div id="detailWrap">
-		<span>상세보기 |</span> <a href="#">리뷰(${totalRow})</a>
+		<span>상세보기 |</span> <a href="#reviewWrap">리뷰(${totalRow})</a>
 	</div>
 </div>
 
@@ -605,7 +609,12 @@ button:hover{
 		 <div id="menuWrap">
 			<div id="menuHeader" style="display:flex; justify-content:space-between;">
 				<span>메뉴</span>
-				<a href="#">전체 메뉴 보기</a>
+				<form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post">
+		               <input type="hidden" id="b_id" name="b_id" value="${dto.b_id }"/>
+		               <input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
+		            	<input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
+	               <button id="tBtn" type="submit">전체 메뉴 보기</button>
+            	</form>
 			</div>
 			<div id="menuListWrap">
 				<div id="slideBtnsWrap2">
@@ -821,6 +830,8 @@ button:hover{
 		</ul>
 	</div>
 </div>
+<span id="goTop"></span>
+
 <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <!-- 키워드 데이터 뽑아오기 위한 코드 -->
 <c:forEach var="test" items="${keyList }">
@@ -828,21 +839,35 @@ button:hover{
 </c:forEach>
 <!-- 테스트장소 -->
 
-
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	let g_id = '<c:out value="${g_id}"/>';
 	//사업자번호
 	let b_id = '<c:out value="${dto.b_id}"/>';
+	let goNum=0;
+	
+	//top 으로 가는 버튼 
+	$(window).scroll(function() {
+		if($(this).scrollTop() > 150) {
+			let btnHtml=`<a style=" width:44px; height:44px; border:1px solid rgba(0,0,0,.15); background-color:white; display:flex; justify-content:center; flex-direction:column; align-items:center;position:fixed; top:800px; right:50px" href="#"><i style="font-size:15px;" class="fas fa-chevron-up"></i><div style="font-size:13px;">TOP</div></a></div>`;
+			if(goNum==0){
+				$("#goTop").append(btnHtml);
+				goNum=1;
+			}
+		}else{
+			$("#goTop").html('');
+			goNum=0;
+		}
+	});
 	
 	// 예약&포장 스크롤 fix 하기 
 	$(window).scroll(function() {
 		  
-		if($(this).scrollTop() > 500) {
+		if($(this).scrollTop() > 460) {
 			$("#rightContent").css({'position':'fixed',
 									'margin-left':'800px',
-									'top':'61px'});
+									'top':'60px'});
 		}
 		else {
 			$("#rightContent").css({'position':'',
@@ -999,37 +1024,41 @@ button:hover{
 				let isGoodNum=$(goodBtns[i]).attr("data-isGoodNum");
 				let btn=$(goodBtns[i]);
 				
-				if(isGoodNum=="0"){ //추천하지 않았다면
-		
-					ajaxPromise("private/ajax_good_insert_r.do", "get", "review_num="+reviewNum)
-					.then(function(response){
-						return response.json();
-					})
-					.then(function(data){
-						if(data.isDoReviewGood){//유저가 테이블에 추가되었다면 
-							btn.html(`<i class="fas fa-thumbs-up" style="color:rgb(253, 83, 0);"></i>`);
-							btn.removeAttr("data-isGoodNum");
-							btn.attr('data-isGoodNum','1');
-							let goodCountActive=parseInt(btn.next().text())+1;
-							btn.next().html(goodCountActive);
-						}
-					});	
-
-				}else{ //추천했다면 
-					ajaxPromise("private/ajax_good_delete_r.do", "get", "review_num="+reviewNum)
-					.then(function(response){
-						return response.json();
-					})
-					.then(function(data){
-						if(data.isNotReviewGood){//유저가 테이블에 추가되었다면 
-							btn.html("<i class='far fa-thumbs-up'></i>");
-							btn.removeAttr("data-isGoodNum");
-							btn.attr('data-isGoodNum','0');
-							let goodCountActive=parseInt(btn.next().text())-1;
-							btn.next().html(goodCountActive);
-						}
-					});	
-				}; //if 함수 끝 
+				if(!g_id){
+					alert("로그인이 필요합니다.");
+				}else{
+					if(isGoodNum=="0"){ //추천하지 않았다면
+			
+						ajaxPromise("private/ajax_good_insert_r.do", "get", "review_num="+reviewNum)
+						.then(function(response){
+							return response.json();
+						})
+						.then(function(data){
+							if(data.isDoReviewGood){//유저가 테이블에 추가되었다면 
+								btn.html(`<i class="fas fa-thumbs-up" style="color:rgb(253, 83, 0);"></i>`);
+								btn.removeAttr("data-isGoodNum");
+								btn.attr('data-isGoodNum','1');
+								let goodCountActive=parseInt(btn.next().text())+1;
+								btn.next().html(goodCountActive);
+							}
+						});	
+	
+					}else{ //추천했다면 
+						ajaxPromise("private/ajax_good_delete_r.do", "get", "review_num="+reviewNum)
+						.then(function(response){
+							return response.json();
+						})
+						.then(function(data){
+							if(data.isNotReviewGood){//유저가 테이블에 추가되었다면 
+								btn.html("<i class='far fa-thumbs-up'></i>");
+								btn.removeAttr("data-isGoodNum");
+								btn.attr('data-isGoodNum','0');
+								let goodCountActive=parseInt(btn.next().text())-1;
+								btn.next().html(goodCountActive);
+							}
+						});	
+					}; //if 함수 끝 
+				};//로그인 함수 끝
 			}); //클릭 끝 
 		}//for함수 끝
 	}//function 끝
@@ -1154,32 +1183,36 @@ button:hover{
 			let btn=$(this);
 			let isScrap=$(this).attr("data-isscrap");
 			
-			if(!isScrap){ //추천안했다면
-				ajaxPromise("private/ajax_good_insert.do", "get", "b_id="+b_id)
-				.then(function(response){
-					return response.json();
-				})
-				.then(function(data){
-					if(data.isDoScrap){//유저가 테이블에 추가되었다면 
-						console.log(data);
-						btn.removeAttr("data-isscrap");
-						btn.attr('data-isscrap','true');
-						$("#scrapBtn").html(`<i class="fas fa-bookmark"></i>`);
-					}
-					console.log(data.isDoScrap+"은?");
-				});	
-			}else{ //추천했다면
-				ajaxPromise("private/ajax_good_delete.do", "get", "b_id="+b_id)
-				.then(function(response){
-					return response.json();
-				})
-				.then(function(data){
-					if(data.isNotScrap){//유저가 테이블에 삭제되었다면
-						btn.removeAttr("data-isscrap");
-						btn.attr('data-isscrap','');	
-						$("#scrapBtn").html(`<i class="far fa-bookmark"></i>`);
-					}
-				});	
+			if(!g_id){
+				alert("로그인이 필요합니다.");
+			}else{
+				if(!isScrap){ //추천안했다면
+					ajaxPromise("private/ajax_good_insert.do", "get", "b_id="+b_id)
+					.then(function(response){
+						return response.json();
+					})
+					.then(function(data){
+						if(data.isDoScrap){//유저가 테이블에 추가되었다면 
+							console.log(data);
+							btn.removeAttr("data-isscrap");
+							btn.attr('data-isscrap','true');
+							$("#scrapBtn").html(`<i class="fas fa-bookmark"></i>`);
+						}
+						console.log(data.isDoScrap+"은?");
+					});	
+				}else{ //추천했다면
+					ajaxPromise("private/ajax_good_delete.do", "get", "b_id="+b_id)
+					.then(function(response){
+						return response.json();
+					})
+					.then(function(data){
+						if(data.isNotScrap){//유저가 테이블에 삭제되었다면
+							btn.removeAttr("data-isscrap");
+							btn.attr('data-isscrap','');	
+							$("#scrapBtn").html(`<i class="far fa-bookmark"></i>`);
+						}
+					});	
+				}
 			}
 		});
 	
@@ -1203,6 +1236,10 @@ button:hover{
 		};
 	};
 	leftHide();
+	
+	if(bannerMargin==0){
+		$("#rightBtn").css('visibility','hidden');
+	}
 	
 	$("#rightBtn").click(function(){
 		if(bannerMargin>-maxMargin){
