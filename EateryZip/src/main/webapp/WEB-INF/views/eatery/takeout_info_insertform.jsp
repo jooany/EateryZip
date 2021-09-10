@@ -74,12 +74,14 @@ textarea::placeholder{padding:5px;}
 }
 /* 시간 버튼 */
 .timeSelect{
-	background-color: #fd5300;
-    color: white;
-    font-size: 14px;
-    border: 1px;
-    border-radius: 3px;
+	background-color: rgba(253, 83, 0, 0.2);
+   	color: black;
+    border-radius: 1px;
     margin: 1px;
+    width: 47px;
+    height: 25px;
+    font-size: 12px;
+    border: 1px solid rgba(253, 83, 0, 0.27);
 }
 #am{
 	font-size: 14px;
@@ -90,9 +92,9 @@ textarea::placeholder{padding:5px;}
     margin-left: 3px;
 }
 .timeSelect:hover{
-	color:#fd5300;
-	background-color:white;
-	border: 1px solid rgb(224, 224, 224);
+	color:black;
+	background-color:rgb(224, 224, 224);
+	border: 1px solid black;
 }
 #takeout_name{
 	font-size: 14px;
@@ -159,7 +161,7 @@ textarea::placeholder{padding:5px;}
 	}
 	#total{
 		position: relative;
-    	left: 518px;
+    	left: 572px;
     	font-size:13px; 
     	font-weight:bold;
 	}
@@ -177,7 +179,7 @@ textarea::placeholder{padding:5px;}
 		<input type="hidden" name="b_id" value="${param.b_id }"/>
 		<input type="hidden" name="takeout_time" id="takeout_time"/>	
 		<input type="hidden" name="takeout_menu_num"  id="takeout_menu_num" value="${param.takeout_menu_num }"/>
-		<c:forTokens  var="cs" items="${choice }" delims="[ ,]">
+		<c:forTokens  var="cs" items="${choice }" delims="[,]">
 	    		<input type="hidden" name="menu_choice" value="<c:out value="${cs}"/>"></input>
 		</c:forTokens>
 		<div style="margin-top:15px; border-bottom:1px solid rgb(224, 224, 224)">
@@ -247,7 +249,6 @@ textarea::placeholder{padding:5px;}
 	                  	let g=hour2+min2;
 	                  	console.log(g); 
 						for(let i=2; i<g; i++){ 
-						for(let i=2; i<17; i++){ 
 						   let hour="";
 						   let min=":00";
 						   if((Math.ceil(i/2))<13){
@@ -256,13 +257,13 @@ textarea::placeholder{padding:5px;}
 						      hour = (Math.floor(i/2));
 						   }
 						   hour = (Math.floor(i/2));
-						   if(hour<10){
+						   if(hour<12){
 						      hour = "0"+hour;
 						   }
 						   if(i%2 != 0){
 						      min=":30";
 						   }
-						   document.write('<button id="row_" type="button" class="timeSelect" value = "PM ' + hour + min +'">'
+						   document.write('<button id="row_" type="button" class="timeSelect" value = "PM  ' + hour + min +'">'
 						      + hour
 						      + min
 						      + '</button>');

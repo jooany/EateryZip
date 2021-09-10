@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.scripting.xmltags.TrimSqlNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +57,7 @@ public class TakeOutServiceImpl implements TakeOutService{
 		String[] menu = request.getParameterValues("menu_choice");
 		
 		for(String tmp : menu){
-		   String[] info = tmp.split("/");  // [ "1". "2" ], ["2", "5"]
+		   String[] info = tmp.trim().split("/");  // [ "1". "2" ], ["2", "5"]
 		   int code = Integer.parseInt(info[0]);
 		   int amount = Integer.parseInt(info[1]);
 		   int m_num = Integer.parseInt(info[2]);
@@ -83,13 +84,13 @@ public class TakeOutServiceImpl implements TakeOutService{
 		request.setAttribute("list", list);
 	}
 
-	/*
-	 * @Override public void getStoreInfo(HttpServletRequest request) { String
-	 * b_id=request.getParameter("b_id"); BStoreDto dto2=takeOutDao.getStore(b_id);
-	 * request.setAttribute("dto2", dto2);
-	 * 
-	 * }
-	 */
+	@Override
+	public void getStoreInfo(HttpServletRequest request) {
+		int num=Integer.parseInt(request.getParameter("takeout_num"));
+		BStoreDto dto2=takeOutDao.getStore(num);
+		request.setAttribute("dto2", dto2);
+	}
+
 
 
 }

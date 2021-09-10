@@ -18,7 +18,7 @@ public interface TakeOutDao {
 	public TakeoutDto getData(int num);
 	//저장된 주문 메뉴 가져오기
 	public List<TakeoutDto> getData2(int num);
-	/*
-	 * //B_Store 정보 가져오기 public BStoreDto getStore(String b_id);
-	 */
+	//B_Store 정보 가져오기 
+	public BStoreDto getStore(int num);
+	 
 }

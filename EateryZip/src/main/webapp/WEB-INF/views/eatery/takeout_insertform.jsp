@@ -90,7 +90,7 @@ button{
 	    height: 30px;
 	    background-color: #fd5300;
 	    position: relative;
-	   	left: 32.5px;
+	   	left: 75px;
 	    color: white;
     	border: 1px solid rgb(224, 224, 224);
     	border-radius: 4px;
@@ -104,7 +104,7 @@ button{
 	    border: 1px solid rgba(0,0,0,.5);
 	    border-radius: 4px;
 	    position: relative;
-	   	left: 15px; 
+	   	left: 25px; 
 	    top:10px;
 	}
 	/* #subBtn:hover{
@@ -205,9 +205,9 @@ button{
 					</tbody>
 				</table>	
 			</div>
-			<div style="width:250px; height:50px;">
+			<div style="width:300px; height:50px;">
 				<button id="resBtn" type="reset" onclick="location.href='javascript:history.back();'">취소</button>
-				<button id="subBtn" type="submit">예약하기</button>
+				<button id="subBtn" type="submit">결제하기</button>
 			</div>
 		</form>
 		
@@ -239,7 +239,7 @@ button{
 		 $("#amount"+index).text(currentCount);
 	 };
 	
-	function addToCart(index){
+	 function addToCart(index){
 		var num=$("#amount"+index).attr("data-num");//메뉴의 seq_num
 		var a=$("#basket"+num).attr("data-num");
 		var amount=$("#amount"+index).text();//수량
@@ -281,8 +281,10 @@ button{
 				
 				$("<td/>")
 				.attr("name", "basket")
+				.attr("class", "basket")
 				.attr("id", "basket"+num)
 				.attr("data-num", num)
+				.val(name)
 				.text(name)
 				.appendTo("#m_choice");
 				$("<td/>")
@@ -320,7 +322,20 @@ button{
 				return false;
 			}
 	};
-
+	/* //폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#add_menu")
+		.addEventListener("submit", function(e){
+			//textarea 이외에 입력한 내용을 여기서 검증하고 
+			const time=document.querySelector(".basket").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(time.length < 1){
+				alert("메뉴를 선택해 주세요");
+				e.preventDefault();
+			}
+			
+		}); */
 
 </script>
 </body>

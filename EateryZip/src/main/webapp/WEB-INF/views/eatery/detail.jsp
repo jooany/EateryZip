@@ -687,12 +687,14 @@ ul.tabs li.current{
     border-radius: 3px;
 }
 .timeSelect{
-   background-color: #fd5300;
-    color: white;
-    font-size: 14px;
-    border: 1px;
-    border-radius: 3px;
+    background-color: rgba(253, 83, 0, 0.2);
+    color: black;
+    border-radius: 1px;
     margin: 1px;
+    width: 47px;
+    height: 25px;
+    font-size: 12px;
+    border: 1px solid rgba(253, 83, 0, 0.27);
 }
 #am{
    font-size: 14px;
@@ -1009,7 +1011,7 @@ ul.tabs li.current{
                          <div><label id="timeLabel" for="time" style="display:flex;"><i class="far fa-clock" style="font-size:20px;"></i><div id="choice">시간 선택</div><i class="down_ico fas fa-angle-down"></i></label></div>
                       
                          <div class="hide">
-                            <span id="am">AM</span>
+                         	 <span id="am">AM</span>
                              <br />
                              <script>
                                  let a="${dto.b_open}";
@@ -1816,6 +1818,47 @@ ul.tabs li.current{
            return false;
         }
     };
+    
+  	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#reservation_form")
+		.addEventListener("submit", function(e){
+			//textarea 이외에 입력한 내용을 여기서 검증하고 
+			const time=document.querySelector("#reservation_time").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(time.length < 1){
+				alert("시간을 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#reservation_form")
+		.addEventListener("submit", function(e){
+			const phone=document.querySelector("#phone").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(phone.length < 1){
+				alert("전화번호를 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#reservation_form")
+		.addEventListener("submit", function(e){
+			const name=document.querySelector("#name").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(name.length < 1){
+				alert("이름을 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
 
    //지도
    let lattitude = '<c:out value="${dto.lattitude}"/>';

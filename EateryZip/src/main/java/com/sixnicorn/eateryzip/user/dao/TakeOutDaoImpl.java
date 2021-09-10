@@ -49,9 +49,9 @@ public class TakeOutDaoImpl implements TakeOutDao{
 		return session.selectList("takeout.getData2", num);
 	}
 
-	/*
-	 * @Override public BStoreDto getStore(String b_id) {
-	 * 
-	 * return session.selectOne("BStore.getStore", b_id); }
-	 */
+	@Override
+	public BStoreDto getStore(int num) {
+		return session.selectOne("takeout.getStore", num);
+	}
+
 }
