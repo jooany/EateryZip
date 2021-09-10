@@ -145,7 +145,7 @@
 
 		         <span class="navbar-text">
 		            <c:if test="${empty g_profile }">
-		               <div class="loginproflie">
+		               <div class="loginprofile">
 		                  <button class="dropbtn" style="display:flex;"><i id="g_profileImage" class="far fa-user"></i><i class="fas fa-caret-down" style="margin-left:25px;color:rgba(0,0,0,.2);"></i></button>
 		                  <div class="dropdown-content">
 		                     <a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">마이페이지</a>
