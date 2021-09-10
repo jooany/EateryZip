@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/b_takeout_list.jsp</title>
+<title>/users/b_mypage/b_takeout_list.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <script src="https://kit.fontawesome.com/eda0c6c5f7.js" crossorigin="anonymous"></script>
 <style>
