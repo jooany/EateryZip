@@ -6,24 +6,36 @@
 <meta charset="UTF-8">
 <title>방문예약 insert폼</title>
 <style>
-	.reservation{
-		width: 700px;
-		margin: 0 auto;
-		height: 700px
+	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+	/* 공통 */
+	*{
+	    font-family: 'Gothic A1', sans-serif;
+	}
+	a{
+		color:black!important;
+		text-decoration:none!important;
+	}
+	img,svg{
+		vertical-align:baseline!important;
+	}
+	button{
+		border:none;
+		background-color:rgba(0,0,0,0);
 	}
 	textarea{
-		width: 100%;
+		width: 99%;
         height: 100px;
+        margin-top:10px;
+        border: 1px solid rgb(224, 224, 224);
 	}
+	textarea::placeholder{padding:5px;}
 	#container{
 		margin-top:50px!important;
 		width:700px;
 		margin:0 auto;
+		height: 700px;
 	}
-	.reservation{
-		width:1100px;
-		margin:0 auto;
-	}
+	
 	#title{
 		margin-bottom: 30px;
 		font-size:22px;
@@ -31,7 +43,7 @@
 	}
 	#info{
 		width:700px;
-		border-bottom: 1px solid darkgray;
+		border-bottom: 1px solid rgb(224, 224, 224);
 	}
 	#store_name{
 		color: #fd5300;
@@ -43,15 +55,43 @@
 	    color: #708090;
 	}
 	#info_1{
-		border-bottom: 1px solid darkgray;
+		border-bottom: 1px solid rgb(224, 224, 224);
 	}	
 	#info_2{
 		margin-top: 15px;
-		border-bottom: 1px solid darkgray;
+		border-bottom: 1px solid rgb(224, 224, 224);
 	}
-	#memo{
+	#info_3{
 		margin-top: 15px;
-		margin-bottom: 15px;
+	}
+	/* 버튼 */
+	#subBtn{
+		width: 220px;
+	    height: 40px;
+	    background-color: #fd5300;
+	    position: relative;
+	    left: 195px;
+	    color: white;
+    	border: 1px solid rgb(224, 224, 224);
+    	border-radius: 4px;
+	}
+	#resBtn{
+		width: 220px;
+	    height: 40px;
+	    background-color: white;
+	    color:rgba(0,0,0,.7);
+	    border: 1px solid rgba(0,0,0,.5);
+	    border-radius: 4px;
+	    position: relative;
+	    left: 65px;
+	}
+	/* #subBtn:hover{
+		background-color: white;
+		color: #fd5300;
+	} */
+	#resBtn:hover{
+		background-color: rgba(0,0,0,.5);
+		color: white;
 	}
 </style>
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
@@ -77,23 +117,23 @@
 				<input type="hidden" name="b_store_name" id="b_store_name" value="${param.b_store_name }"/>
 				<input type="hidden" name="b_store_addr" id="b_store_addr" value="${param.b_store_addr }"/>
 				<div id="info_1">
-					<p>날짜 <i class="far fa-calendar-alt" style="font-size:18px;"></i><span>${param.datepicker }</span></p>
-					<p>시간 <span><i class="far fa-clock" style="font-size:18px;"></i>${param.reservation_time }</span></p>
-					<p>인원 <span><i class="far fa-user" style="font-size:18px;"></i> <strong>${param.person }명</strong></span></p>	
+					<p style="padding-top: 10px;">날짜 <i class="far fa-calendar-alt" style="font-size:18px; margin-left:15px; "></i><span style="font-weight:bold; margin-left:15px; ">${param.datepicker }</span></p>
+					<p style="padding-top: 10px;">시간 <i class="far fa-clock" style="font-size:18px; margin-left:15px;"></i><span style="font-weight:bold; margin-left:15px; ">${param.reservation_time }</span></p>
+					<p style="padding-top: 10px;">인원 <i class="far fa-user" style="font-size:18px; margin-left:15px;"></i><span style="font-weight:bold; margin-left:15px; ">${param.person }명</span></p>	
 				</div>
 				<div id="info_2">
-					<p>예약자    <span>${param.name }</span></p> 
-					<p>전화번호 <span>${param.phone }</span></p>
+					<p style="padding-top: 10px;">예약자    <span style="margin-left: 31px; font-weight: bold;">${param.name }</span></p> 
+					<p style="padding-top: 10px;">전화번호 <span style="margin-left: 16px; font-weight: bold;">${param.phone }</span></p>
 				</div>
-				<div>
+				<div id="info_3">
 					<label for="memo" id="memo">요청사항</label>
 					<br />
 					<textarea name="reservation_memo" id="reservation_memo" placeholder="요청사항 입력 하세요..."></textarea>
 				</div>
-				<p>※ 예약 취소는 1일 전까지 가능 합니다</p>
-				<div>
-					<button type="submit">예약하기</button>
-					<button type="reset" onclick="location.href='javascript:history.back();'">취소</button>
+				<p style="font-size:12px; padding-top: 10px;">※ 예약 취소는 1일 전까지 가능 합니다</p>
+				<div style="padding-top: 10px;">
+					<button id="resBtn" type="reset" onclick="location.href='javascript:history.back();'">취소</button>
+					<button id="subBtn" type="submit">예약하기</button>
 				</div>
 			</form>
 		</div>
