@@ -1807,11 +1807,11 @@ ul.tabs li.current{
 	let b_name='<c:out value="${dto.b_name}"/>';
 	
 	var mapContainer = document.getElementById('Detail_map'), // 지도를 표시할 div  
+
 	mapOption = { 
 		   center: new kakao.maps.LatLng(lattitude, longitude), // 지도의 중심좌표
 		   level: 3 // 지도의 확대 레벨
 	};
-	
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	
 	var positions = [
