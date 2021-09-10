@@ -25,12 +25,6 @@
       align-items: center;
       padding: 10px 0;
    }
-
-   .wrap_logo img {
-       width : 120px;
-       height : 100px;
-       
-   }
    .logo{
 	
    }
@@ -78,14 +72,14 @@
       color : white;
    }
    
-   .loginproflie:hover .dropdown-content {
+   .loginprofile:hover .dropdown-content {
       display: block;
    }
    
-   .loginproflie:hover .dropbtn {
+   .loginprofile:hover .dropbtn {
       
    }
-   .loginproflie:hover .dropbtn i:nth-child(2){
+   .loginprofile:hover .dropbtn i:nth-child(2){
 		color:rgba(0,0,0,.6)!important;
 	}
  
@@ -118,11 +112,6 @@
       display: inline-block;
       width: 80px;
       height: 30px;
-   }
-   img{
-   	width:300px;
-   	height:150px;
-   	
    }
    
    .g_login_css .btnF:hover{
@@ -168,9 +157,11 @@
 		               </div>
 		            </c:if>
 		            <c:if test="${not empty sessionScope.g_profile }">
-		               <a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do"><img id="g_profileImage" src="${pageContext.request.contextPath}${sessionScope.g_profile}" /></a>
-		               <div class="loginproflie">
-		                  <button class="dropbtn"><img style="height=;" src="${pageContext.request.contextPath}${sessionScope.g_profile}" /></button>
+		               
+		               <div class="loginprofile">
+		                  <button class="dropbtn" style="margin-right:30px; display:flex; padding:0;"><img style="border-radius:50%;" id="myprofile" height="45px;" src="${pageContext.request.contextPath}${sessionScope.g_profile}" />
+		                  	<i class="fas fa-caret-down" style="margin-left:10px;margin-top:15px;color:rgba(0,0,0,.2);"></i>
+		                  </button>
 		                  <div class="dropdown-content">
 		                     <a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">마이페이지</a>
 		                     <a href="#">스크랩내역</a>
@@ -184,7 +175,7 @@
 		      </c:when>
 		      <c:when test="${not empty sessionScope.b_id}">
 		         <span class="navbar-text">
-		               <div class="loginproflie">
+		               <div class="loginprofile">
 		                  <button class="dropbtn" style="display:flex;"><i id="b_profileImage" class="far fa-building"></i><i class="fas fa-caret-down" style="margin-left:25px;color:rgba(0,0,0,.2);"></i></button>
 		                  <div class="dropdown-content">
 		                     <a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">마이페이지</a>
