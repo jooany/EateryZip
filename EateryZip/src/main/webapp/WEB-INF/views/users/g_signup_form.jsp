@@ -8,6 +8,11 @@
 <title>회원가입</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+   /* 공통 */
+   *{
+    font-family: 'Gothic A1', sans-serif;
+    }
 	.btn {
 	    background-color: #FD5300;
 	    border-color: #FD5300;

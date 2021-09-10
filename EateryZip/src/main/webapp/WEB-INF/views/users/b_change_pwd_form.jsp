@@ -62,6 +62,11 @@
 	.border_left{
 		border-left:1px solid black;
 	}
+	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+   /* 공통 */
+   *{
+    font-family: 'Gothic A1', sans-serif;
+    }
 </style>
 </head>
 <body>
