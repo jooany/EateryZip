@@ -176,8 +176,8 @@ textarea::placeholder{padding:5px;}
 	<form id="takeout_insert" name="takeout_insert" action="${pageContext.request.contextPath }/eatery/takeout_info_insert.do" method="post" onsubmit="return confirm('결제 하시겠습니까?');">
 		<input type="hidden" name="b_id" value="${param.b_id }"/>
 		<input type="hidden" name="takeout_time" id="takeout_time"/>	
-		<input type="hidden" name="takeout_menu_num"  id="takeout_menu_num" value="${param.takeout_menu_num }"/>
-		<c:forTokens  var="cs" items="${choice }" delims="[ ,]">
+		<input type="hidden" name="takeout_menu_num"  id="takeout_menu_num" value="${param.takeout_menu_num}"/>
+		<c:forTokens var="cs" items="${choice}" delims="[,]">
 	    		<input type="hidden" name="menu_choice" value="<c:out value="${cs}"/>"></input>
 		</c:forTokens>
 		<div style="margin-top:15px; border-bottom:1px solid rgb(224, 224, 224)">
@@ -297,9 +297,9 @@ textarea::placeholder{padding:5px;}
 					<th>가격</th>
 				</thead>
 				<tbody>
-					<c:forTokens var="as" items="${info }" delims="[,]">
+					<c:forTokens var="as" items="${info}" delims="[,]">
 						<tr>
-		    				<c:forTokens var="bs" items="${as }" delims="/">
+		    				<c:forTokens var="bs" items="${as}" delims="/">
 		    					<td><c:out value="${bs}"/></td>
 		    				</c:forTokens>
 	    				</tr>
