@@ -356,7 +356,6 @@ button{
 	height:36px;
 	background-color:rgba(255, 133, 59, 0.8);
 }
-
 /* 리뷰 필터 및 리스트 */
 #reviewFilter{
 	margin-top:35px;
@@ -540,6 +539,7 @@ button:hover{
 	top:7
 }
 </style>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e12e99f90ddd040d29c835f01fcaa837"></script>
 </head>
 <body>
 <jsp:include page="/navbar/header/navbar_list.jsp"></jsp:include>
@@ -633,8 +633,8 @@ button:hover{
 
 			<div id="timePlaceContent">
 				<div id="placeWrap">
-					<div id="map" style="width:350px; height:230px; background-color:gray;">
-					 지도 들어갈 부분 
+					<div id="Detail_map" style="width:350px; height:230px;">
+					
 					</div>
 					<div id="placeInfo">
 						<p>${dto.b_name }</p>
@@ -1316,8 +1316,64 @@ button:hover{
 		}
 	});
 	
+	//지도
+	let lattitude = '<c:out value="${dto.lattitude}"/>';
+	let longitude= '<c:out value="${dto.longitude}"/>';
+	let b_name='<c:out value="${dto.b_name}"/>';
 	
+	var mapContainer = document.getElementById('Detail_map'), // 지도를 표시할 div  
+	mapOption = { 
+		   center: new kakao.maps.LatLng(lattitude, longitude), // 지도의 중심좌표
+		   level: 3 // 지도의 확대 레벨
+	};
 	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+	var positions = [
+		  	{
+		        latlng: new kakao.maps.LatLng(lattitude, longitude)
+		    }
+		];
+	
+	var markerPosition  = new kakao.maps.LatLng(lattitude, longitude); 
+	
+	// 이미지 지도에 표시할 마커입니다
+	// 이미지 지도에 표시할 마커는 Object 형태입니다
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+	
+	for (var i = 0; i < positions.length; i ++) {
+	    
+	    // 마커 이미지의 이미지 크기 입니다
+	    var imageSize = new kakao.maps.Size(24, 35); 
+	    
+	    // 마커 이미지를 생성합니다    
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+	    
+	    // 마커를 생성합니다
+	    var marker = new kakao.maps.Marker({
+	        map: map, // 마커를 표시할 지도
+	        position: positions[i].latlng, // 마커를 표시할 위치
+	        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+	        image : markerImage // 마커 이미지 
+	    });
+	}
+	marker.setMap(map);
+	
+	var iwContent = '<div style="padding:4px;width:100px;">'+b_name+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition = new kakao.maps.LatLng(lattitude, longitude); //인포윈도우 표시 위치입니다
+    iwRemoveable = true;
+    
+	// 인포윈도우를 생성합니다
+	var infowindow = new kakao.maps.InfoWindow({
+    position : iwPosition, 
+    content : iwContent,
+    removable : iwRemoveable
+	});
+  
+	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+	infowindow.open(map, marker); 
+
 	
 </script>
 

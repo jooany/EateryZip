@@ -98,14 +98,17 @@ CREATE TABLE B_Store(
 	b_holiday VARCHAR2(100), -- 가게 휴일
 	notice VARCHAR2(100), -- 가게 공지사항
 	service VARCHAR2(100) NOT NULL, -- 예약 , 포장 선택
-	ex_keyword VARCHAR2(100) NOT NULL -- 편의사항/ 기타
-	checkKeyword VARCHAR2(200) -- 키워드 
+	ex_keyword VARCHAR2(100) NOT NULL, -- 편의사항/ 기타
+	checkKeyword VARCHAR2(200), -- 키워드 
+	lattitude number(12,6),
+	longitude number(12,6)
+	
 );
 -- 가게 등록 예시
 INSERT INTO B_Store(b_id,b_name,b_Store_Address,b_kind,intro,b_img_f,
-						b_Store_phone,b_Store_date,b_open,b_close,b_holiday,notice,service,ex_keyword )
+						b_Store_phone,b_Store_date,b_open,b_close,b_holiday,notice,service,ex_keyword,lattitude,longitude )
 VALUES ('1111111111', 'acorn', '서울특별시 강남구 테헤란로 124 삼원타워 5층', '브런치','안녕하세요','https://dummyimage.com/600x400/000/fff&text=dummy',
-			'025398879','매일','09:30','18:00','일요일','만반잘부','예약/방문포장','주차/노키즈존/프라이빗');
+			'025398879','매일','09:30','18:00','일요일','만반잘부','예약/방문포장','주차/노키즈존/프라이빗','위도(소수점가능)','경도(소수점가능)');
 
 -- 예약 테이블
 CREATE TABLE reservation(

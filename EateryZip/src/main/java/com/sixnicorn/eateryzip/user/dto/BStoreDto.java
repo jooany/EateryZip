@@ -30,15 +30,19 @@ public class BStoreDto {
 	private int nextNum;
 	private String encodedK;
 	private String keyword;
+	private double lattitude;
+	private double longitude;
 	
 	
 	// 디폴트 생성자
 	public BStoreDto() {}
 
+
 	public BStoreDto(String b_id, String b_name, String b_Store_Address, String b_kind, String intro, String b_img_f,
 			String b_Store_phone, String b_Store_date, String b_open, String b_close, String b_holiday, String notice,
 			String service, String ex_keyword, String checkKeyword, MultipartFile storeFile, int startRowNum,
-			int endRowNum, int prevNum, int nextNum, String encodedK, String keyword) {
+			int endRowNum, int prevNum, int nextNum, String encodedK, String keyword, double lattitude,
+			double longitude) {
 		super();
 		this.b_id = b_id;
 		this.b_name = b_name;
@@ -62,184 +66,248 @@ public class BStoreDto {
 		this.nextNum = nextNum;
 		this.encodedK = encodedK;
 		this.keyword = keyword;
+		this.lattitude = lattitude;
+		this.longitude = longitude;
 	}
+
 
 	public String getB_id() {
 		return b_id;
 	}
 
+
 	public void setB_id(String b_id) {
 		this.b_id = b_id;
 	}
+
 
 	public String getB_name() {
 		return b_name;
 	}
 
+
 	public void setB_name(String b_name) {
 		this.b_name = b_name;
 	}
+
 
 	public String getB_Store_Address() {
 		return b_Store_Address;
 	}
 
+
 	public void setB_Store_Address(String b_Store_Address) {
 		this.b_Store_Address = b_Store_Address;
 	}
+
 
 	public String getB_kind() {
 		return b_kind;
 	}
 
+
 	public void setB_kind(String b_kind) {
 		this.b_kind = b_kind;
 	}
+
 
 	public String getIntro() {
 		return intro;
 	}
 
+
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
+
 
 	public String getB_img_f() {
 		return b_img_f;
 	}
 
+
 	public void setB_img_f(String b_img_f) {
 		this.b_img_f = b_img_f;
 	}
+
 
 	public String getB_Store_phone() {
 		return b_Store_phone;
 	}
 
+
 	public void setB_Store_phone(String b_Store_phone) {
 		this.b_Store_phone = b_Store_phone;
 	}
+
 
 	public String getB_Store_date() {
 		return b_Store_date;
 	}
 
+
 	public void setB_Store_date(String b_Store_date) {
 		this.b_Store_date = b_Store_date;
 	}
+
 
 	public String getB_open() {
 		return b_open;
 	}
 
+
 	public void setB_open(String b_open) {
 		this.b_open = b_open;
 	}
+
 
 	public String getB_close() {
 		return b_close;
 	}
 
+
 	public void setB_close(String b_close) {
 		this.b_close = b_close;
 	}
+
 
 	public String getB_holiday() {
 		return b_holiday;
 	}
 
+
 	public void setB_holiday(String b_holiday) {
 		this.b_holiday = b_holiday;
 	}
+
 
 	public String getNotice() {
 		return notice;
 	}
 
+
 	public void setNotice(String notice) {
 		this.notice = notice;
 	}
+
 
 	public String getService() {
 		return service;
 	}
 
+
 	public void setService(String service) {
 		this.service = service;
 	}
+
 
 	public String getEx_keyword() {
 		return ex_keyword;
 	}
 
+
 	public void setEx_keyword(String ex_keyword) {
 		this.ex_keyword = ex_keyword;
 	}
+
 
 	public String getCheckKeyword() {
 		return checkKeyword;
 	}
 
+
 	public void setCheckKeyword(String checkKeyword) {
 		this.checkKeyword = checkKeyword;
 	}
+
 
 	public MultipartFile getStoreFile() {
 		return storeFile;
 	}
 
+
 	public void setStoreFile(MultipartFile storeFile) {
 		this.storeFile = storeFile;
 	}
+
 
 	public int getStartRowNum() {
 		return startRowNum;
 	}
 
+
 	public void setStartRowNum(int startRowNum) {
 		this.startRowNum = startRowNum;
 	}
+
 
 	public int getEndRowNum() {
 		return endRowNum;
 	}
 
+
 	public void setEndRowNum(int endRowNum) {
 		this.endRowNum = endRowNum;
 	}
+
 
 	public int getPrevNum() {
 		return prevNum;
 	}
 
+
 	public void setPrevNum(int prevNum) {
 		this.prevNum = prevNum;
 	}
+
 
 	public int getNextNum() {
 		return nextNum;
 	}
 
+
 	public void setNextNum(int nextNum) {
 		this.nextNum = nextNum;
 	}
+
 
 	public String getEncodedK() {
 		return encodedK;
 	}
 
+
 	public void setEncodedK(String encodedK) {
 		this.encodedK = encodedK;
 	}
+
 
 	public String getKeyword() {
 		return keyword;
 	}
 
+
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
 
-	
-	
+
+	public double getLattitude() {
+		return lattitude;
+	}
+
+
+	public void setLattitude(double lattitude) {
+		this.lattitude = lattitude;
+	}
+
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
 }
