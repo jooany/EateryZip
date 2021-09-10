@@ -47,7 +47,7 @@
 	#left_content {
 		position: absolute;
 		background-color: #fff;
-		min-width: 160px;
+		min-width: 200px;
 	}
 	
 	#left_content a {
