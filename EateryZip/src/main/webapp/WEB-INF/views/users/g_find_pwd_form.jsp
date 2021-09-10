@@ -10,6 +10,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+   /* 공통 */
+   *{
+    font-family: 'Gothic A1', sans-serif;
+    }
 	.container{
 	  width: 100%;
 	  height: 100vh;

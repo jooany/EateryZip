@@ -10,10 +10,27 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+/* 공통 */
+*{
+    font-family: 'Gothic A1', sans-serif;
+}
+a{
+	color:black!important;
+	text-decoration:none!important;
+}
+img,svg{
+	vertical-align:baseline!important;
+}
+button{
+	border:none;
+	background-color:rgba(0,0,0,0);
+}
 #container{
 	margin-top:50px!important;
 	width:700px;
 	margin:0 auto;
+	height:800px;
 }
 #title{
 	margin-bottom: 30px;
@@ -22,7 +39,7 @@
 }
 #info{
 	width:700px;
-	border-bottom: 1px solid darkgray;
+	border-bottom: 1px solid rgb(224, 224, 224);
 }
 #store_name{
 	color: #fd5300;
@@ -40,9 +57,112 @@
 	display:none;
 }
 textarea{
-	width: 100%;
+	width: 99%;
     height: 100px;
+    margin-top:10px;
+    border: 1px solid rgb(224, 224, 224);
 }
+textarea::placeholder{padding:5px;}
+#datepicker{
+	margin-left: 10px;
+    font-size: 16px;
+    border: 1px;
+}
+#time_choice{
+	margin-left: 7px;
+    font-size: 16px;
+}
+/* 시간 버튼 */
+.timeSelect{
+	background-color: #fd5300;
+    color: white;
+    font-size: 14px;
+    border: 1px;
+    border-radius: 3px;
+    margin: 1px;
+}
+#am{
+	font-size: 14px;
+    margin-left: 3px;
+}
+#pm{
+	font-size: 14px;
+    margin-left: 3px;
+}
+.timeSelect:hover{
+	color:#fd5300;
+	background-color:white;
+	border: 1px solid rgb(224, 224, 224);
+}
+#takeout_name{
+	font-size: 14px;
+    margin-left: 42px;
+    border: 1px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+#takeout_phone{
+	font-size: 14px;
+    margin-left: 12px;
+    border: 1px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+/* 주문 내역 */
+ table {
+    width: 100%;
+    border: 1px solid rgb(224, 224, 224);
+    border-collapse: collapse;
+    border-radius: 4px;
+  	border-style: hidden;
+  	box-shadow: 0 0 0 1px rgb(224, 224, 224); 
+  }
+  th{
+    border-bottom: 1px solid rgb(224, 224, 224);
+    padding: 10px;
+  }
+  td{
+  	padding: 10px;
+  	text-align: center;
+  	font-size:14px;
+  }
+  /* 버튼 */
+	#subBtn{
+		width: 220px;
+	    height: 40px;
+	    background-color: #fd5300;
+	    position: relative;
+	    left: 195px;
+	    color: white;
+    	border: 1px solid rgb(224, 224, 224);
+    	border-radius: 4px;
+	}
+	#resBtn{
+		width: 220px;
+	    height: 40px;
+	    background-color: white;
+	    color:rgba(0,0,0,.7);
+	    border: 1px solid rgba(0,0,0,.5);
+	    border-radius: 4px;
+	    position: relative;
+	    left: 65px;
+	}
+	#subBtn:hover{
+		background-color: white;
+		color: #fd5300;
+	} 
+	#resBtn:hover{
+		background-color: rgba(0,0,0,.5);
+		color: white;
+	}
+	#info_4{
+		border: 0.5px solid rgb(224, 224, 224);
+    	border-radius: 4px;
+	}
+	#total{
+		position: relative;
+    	left: 518px;
+    	font-size:13px; 
+    	font-weight:bold;
+	}
 </style>
 </head>
 <body>
@@ -60,96 +180,101 @@ textarea{
 		<c:forTokens  var="cs" items="${choice }" delims="[ ,]">
 	    		<input type="hidden" name="menu_choice" value="<c:out value="${cs}"/>"></input>
 		</c:forTokens>
-		<div>
-        	<label for="datepicker">날짜</label>
-            <i class="far fa-calendar-alt"></i> <input class="calendar" type="text" name="takeout_date" id="datepicker" placeholder="날짜 입력"/>   
-            <!-- <p><small>※포장은 당일 예약만 가능</small></p> -->
-        </div>
-        <div class="time">
-        	시간 <label for="time"><i class="far fa-clock"></i>  <span id="time_choice">시간을 입력해 주세요.. <i class="fas fa-angle-down"></i></span></label>   
-            <div class="hide">
-            	<span >AM</span>
-                <br />
-                <script>
-	                let a="10:00";
-	                let b=a.split(":");
-	                let hour=parseInt(b[0]);
-	                console.log(hour);
-	                let min=parseInt(b[1]);
-	                console.log(b[1]);
-	                if(min==30){
-	                   min=1;
-	                }else{
-	                   min=0;
-	                }
-	                console.log(min);
-	                hour = hour *2;
-	                let f = hour+min;
-	                console.log(f);
-	                      
-	               for(let i=f; i<26; i++){
-	                  let hour="";
-	                  let min=":00";
-	                  if((Math.ceil(i/2))<13){
-	                     hour = (Math.floor(i/2));
-	                  }else{
-	                     hour = (Math.floor(i/2));
-	                  }
-	                  hour = (Math.floor(i/2));
-	                  if(hour<10){
-	                     hour = "0"+hour;
-	                  }
-	                  if(i%2 != 0){
-	                     min=":30";
-	                  }
-	                  document.write('<button id="row_" type="button" class="timeSelect" value = "AM ' + hour + min +'">'
-	                     + hour
-	                     + min
-	                     + '</button>');
-	               }
-          		</script>
-              	<br />
-              	<span>PM</span>
-              	<br />
-                <script>
-					for(let i=2; i<17; i++){ 
-					   let hour="";
-					   let min=":00";
-					   if((Math.ceil(i/2))<13){
-					      hour = (Math.floor(i/2));
-					   }else{
-					      hour = (Math.floor(i/2));
-					   }
-					   hour = (Math.floor(i/2));
-					   if(hour<10){
-					      hour = "0"+hour;
-					   }
-					   if(i%2 != 0){
-					      min=":30";
-					   }
-					   document.write('<button id="row_" type="button" class="timeSelect" value = "PM ' + hour + min +'">'
-					      + hour
-					      + min
-					      + '</button>');
-					}
-                </script>
-            </div>	
-        </div>
-        <span><strong>예약자 정보</strong></span>
-        <div>
-            <label for="name">이름</label>
-            <input type="text" name="takeout_name" id="takeout_name" placeholder="이름 입력">
-        </div>  
-        <div>
-            <label for="phone">전화번호</label>
-            <input type="text" name="takeout_phone" id="takeout_phone" placeholder="번호 입력">
-        </div>    
-        <div>
-			<label for="memo" id="memo">요청사항</label>
+		<div style="margin-top:15px; border-bottom:1px solid rgb(224, 224, 224)">
+			<div style="margin-bottom:10px;">
+        		<label for="datepicker">날짜</label>
+            	<i class="far fa-calendar-alt" style="font-size:18px; margin-left:10px;"></i><input class="calendar" type="text" name="takeout_date" id="datepicker" placeholder="날짜 입력"/>   
+        	</div>
+       		<div class="time" style="margin-bottom:10px;">
+        	시간 <label for="time"><i class="far fa-clock" style="font-size:18px; margin-left:10px;"></i>  <span id="time_choice">시간을 입력해 주세요.. <i class="fas fa-angle-down"></i></span></label>   
+	            <div class="hide">
+	            	<span id="am">AM</span>
+	                <br />
+	                <script>
+		                let a="10:00";
+		                let b=a.split(":");
+		                let hour=parseInt(b[0]);
+		                console.log(hour);
+		                let min=parseInt(b[1]);
+		                console.log(b[1]);
+		                if(min==30){
+		                   min=1;
+		                }else{
+		                   min=0;
+		                }
+		                console.log(min);
+		                hour = hour *2;
+		                let f = hour+min;
+		                console.log(f);
+		                      
+		               for(let i=f; i<26; i++){
+		                  let hour="";
+		                  let min=":00";
+		                  if((Math.ceil(i/2))<13){
+		                     hour = (Math.floor(i/2));
+		                  }else{
+		                     hour = (Math.floor(i/2));
+		                  }
+		                  hour = (Math.floor(i/2));
+		                  if(hour<10){
+		                     hour = "0"+hour;
+		                  }
+		                  if(i%2 != 0){
+		                     min=":30";
+		                  }
+		                  document.write('<button id="row_" type="button" class="timeSelect" value = "AM ' + hour + min +'">'
+		                     + hour
+		                     + min
+		                     + '</button>');
+		               }
+	          		</script>
+	              	<br />
+	              	<span id="pm">PM</span>
+	              	<br />
+	                <script>
+						for(let i=2; i<17; i++){ 
+						   let hour="";
+						   let min=":00";
+						   if((Math.ceil(i/2))<13){
+						      hour = (Math.floor(i/2));
+						   }else{
+						      hour = (Math.floor(i/2));
+						   }
+						   hour = (Math.floor(i/2));
+						   if(hour<10){
+						      hour = "0"+hour;
+						   }
+						   if(i%2 != 0){
+						      min=":30";
+						   }
+						   document.write('<button id="row_" type="button" class="timeSelect" value = "PM ' + hour + min +'">'
+						      + hour
+						      + min
+						      + '</button>');
+						}
+	                </script>
+	            </div>	
+	        </div>
+		</div>
+		
+        <p style="font-size:14px; font-weight:bold;">예약자 정보</p>
+        <div style="border-bottom:1px solid rgb(224, 224, 224)">
+        	<div style="margin-bottom:10px;">
+            	<label for="name">이름</label>
+            	<input type="text" name="takeout_name" id="takeout_name" placeholder="이름 입력">
+        	</div>  
+        	<div style="margin-bottom:10px;">
+            	<label for="phone">전화번호</label>
+            	<input type="text" name="takeout_phone" id="takeout_phone" placeholder="번호 입력">
+        	</div> 
+        </div> 
+        <div style="margin-top:15px;">
+			<label for="memo" id="memo" style="font-size:14px; font-weight:bold; padding-left:5px;">요청사항</label>
 			<br />
 			<textarea name="takeout_memo" id="takeout_memo" placeholder="요청사항 입력 하세요..."></textarea>
 		</div>
-		<div>
+		<p style="font-size:14px; font-weight:bold; padding-left:5px;">주문 내역</p>
+		<div id="info_4">
 			<table>
 				<thead>
 					<th>메뉴</th>
@@ -166,16 +291,21 @@ textarea{
 					</c:forTokens>
 				</tbody>
 			</table>
+			<div>
+				<c:set var = "total" value = "0" />
+				<c:forTokens var="result" items="${price}" delims="[ ,]">     
+					<c:set var= "total" value="${total + result}"/>
+				</c:forTokens>
+				<p id="total">총 <span style="margin-left:10px;"><c:out value="${total}원"/></span></p>
+				<input type="hidden" name="takeout_price" id="takeout_price" value="${total }"/>
+			</div>
 		</div>
-		<div>
-			<c:set var = "total" value = "0" />
-			<c:forTokens var="result" items="${price}" delims="[ ,]">     
-				<c:set var= "total" value="${total + result}"/>
-			</c:forTokens>
-			<c:out value="${total}원"/>
-			<input type="hidden" name="takeout_price" id="takeout_price" value="${total }"/>
-		</div>
-		<button type="submit">결제하기</button>		
+		
+		<p style="font-size:12px; padding-top: 10px;">※ 포장 예약시 취소 불가능</p>
+		<div style="padding-top: 10px;">
+			<button id="resBtn" type="reset" onclick="location.href='javascript:history.back();'">취소</button>
+			<button id="subBtn" type="submit">예약하기</button>
+		</div>	
 	</form>
 </div>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

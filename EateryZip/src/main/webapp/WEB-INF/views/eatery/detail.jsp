@@ -356,7 +356,6 @@ button{
 	height:36px;
 	background-color:rgba(255, 133, 59, 0.8);
 }
-
 /* 리뷰 필터 및 리스트 */
 #reviewFilter{
 	margin-top:35px;
@@ -501,7 +500,9 @@ button{
 }
 #etcInfo #convenience span:nth-child(2){
 	margin-left:10px;
+	padding-right:10px;
 	font-size:13px;
+	line-height:20px;
 }
 
 .review_img{
@@ -539,18 +540,190 @@ button:hover{
 .fixed{
 	top:7
 }
+/* 형우 부분 */
+#container{
+	width: 300px;
+	margin: 0 auto;
+	border: 0.5px solid rgb(224, 224, 224);
+	border-radius: 4px;
+	height: auto!important;
+}
+/* 방문예약 / 포장예약 tab css */
+ul.tabs{
+	margin-top:10px;
+	padding: 0 7px;
+	list-style: none;
+	margin-bottom:10px;
+}
+ul.tabs li{
+	background: none;
+	border-bottom: 2px solid rgba(0,0,0,.2);
+	color: #222;
+	display: inline-block;
+	padding: 10px 15px;
+	cursor: pointer;
+	margin-left: 15px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+ul.tabs li.current{
+	background: #white;
+	color: #222;
+	margin-left: 15px;
+	border-bottom: 2px solid #fd5300;
+}
+
+.tab-content{
+	display: none;
+	background: #white;
+	padding: 15px;
+    width: 300px;
+    
+}
+.tab-content.current{
+	display: inherit;
+}
+/* 시간 버튼  */
+.r_time label{
+	cursor:pointer;
+	}
+.r_time .hide{
+	display:none;
+	}
+/* 내부 css */
+.r_date{
+	margin-bottom: 10px;
+	padding-bottom:7px;
+	border-bottom:1px solid rgba(0,0,0,.1);
+}
+#datepicker{
+	margin-left:12px;
+	font-size: 14px;
+	border:none;
+}
+.r_time{
+	margin-bottom: 10px;
+	padding-bottom:7px;
+	border-bottom:1px solid rgba(0,0,0,.1);
+}
+#choice{
+	padding:1px 2px;
+	margin-left: 10px;
+	font-size: 14px;
+	width:200px;
+}
+.r_person{
+	margin-bottom:5px;	
+}
+#person{
+	margin-left:10px;
+	font-size:14px;
+	border:1px solid rgba(0,0,0,.1);
+	width:50px;
+	height:30px;
+}
+#r_info{
+	font-size:14px;
+	margin-bottom: 3px;
+}
+.r_name{
+	margin-bottom:5px;
+}
+.r_name label{
+	font-size: 14px;
+}
+#name{
+	height:30px;
+	line-height:30px;
+	border:1px solid rgba(0,0,0,.15);
+	width:184px;
+	font-size: 14px;
+	margin-left:19px;
+}
+#name::placeholder{
+	font-size:13px;
+}
+#phone::placeholder{
+	font-size:13px;
+}
+.r_phone{
+	margin-bottom:8px;
+}
+.r_phone label{
+	font-size: 14px;
+}
+#phone{
+	height:30px;
+	line-height:30px;
+	border:1px solid rgba(0,0,0,.1);
+	width:184px;
+	font-size: 14px;
+	margin-left:5px;
+}
+#rBtn{
+	width:250px;
+	/* display: block;
+	margin:auto; */
+	background-color: #fd5300;
+    border: 1px solid;
+    color: white;
+    font-size: 14px;
+    height: 33px;
+    border-radius: 3px;
+}
+.rBtn{
+	text-align:center;
+}
+#tBtn{
+	width:200px;
+	display: block;
+	margin:auto;
+	background-color: #fd5300;
+    border: 1px solid;
+    color: white;
+    font-size: 14px;
+    height: 33px;
+    border-radius: 3px;
+}
+.timeSelect{
+	background-color: #fd5300;
+    color: white;
+    font-size: 14px;
+    border: 1px;
+    border-radius: 3px;
+    margin: 1px;
+}
+#am{
+	font-size: 14px;
+    margin-left: 3px;
+}
+#pm{
+	font-size: 14px;
+    margin-left: 3px;
+}
+#reservation_form{
+	width:250px;
+}
+.down_ico{
+	font-size:17px;
+}
 </style>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e12e99f90ddd040d29c835f01fcaa837"></script>
 </head>
 <body>
 <jsp:include page="/navbar/header/navbar_list.jsp"></jsp:include>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <div id="banner">
 	<!-- 이미지 슬라이드 담기 -->
 	<ul id="imgList">
-		<c:forEach var="tmp1" items="${storeImgList }">
+		<c:forEach var="tmp1" items="${reviewList  }">
+		<c:if test="${not empty tmp1.review_image}">
 		<li>
-			<img class="img_item" src="${pageContext.request.contextPath}${tmp1.store_img }" alt="음식점 대표 이미지" height="400px"/>
+			<img class="img_item" src="${pageContext.request.contextPath}${tmp1.review_image }" alt="음식점 대표 이미지" height="400px"/>
 		</li>
+		</c:if>
 		</c:forEach>
 	</ul>
 	<div id="blackEffect"></div>
@@ -596,7 +769,7 @@ button:hover{
 
 <div class="inner">
 	<div id="detailWrap">
-		<span>상세보기 |</span> <a href="#">리뷰(${totalRow})</a>
+		<span>상세보기 |</span> <a href="#reviewWrap">리뷰(${totalRow})</a>
 	</div>
 </div>
 
@@ -605,7 +778,12 @@ button:hover{
 		 <div id="menuWrap">
 			<div id="menuHeader" style="display:flex; justify-content:space-between;">
 				<span>메뉴</span>
-				<a href="#">전체 메뉴 보기</a>
+				<form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post">
+		               <input type="hidden" id="b_id" name="b_id" value="${dto.b_id }"/>
+		               <input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
+		            	<input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
+	               <button id="allBtn" type="submit">전체 메뉴 보기</button>
+            	</form>
 			</div>
 			<div id="menuListWrap">
 				<div id="slideBtnsWrap2">
@@ -633,8 +811,8 @@ button:hover{
 
 			<div id="timePlaceContent">
 				<div id="placeWrap">
-					<div id="map" style="width:350px; height:230px; background-color:gray;">
-					 지도 들어갈 부분 
+					<div id="Detail_map" style="width:350px; height:230px;">
+					
 					</div>
 					<div id="placeInfo">
 						<p>${dto.b_name }</p>
@@ -807,7 +985,141 @@ button:hover{
 			<span>${dto.notice }</span>
 		</div>
 		
-		<div style="width:300px;height:250px;background-color:gray;">형우님 부분</div>
+		<div>
+			<div id="container">
+		        <ul class="tabs">
+		            <li class="tab-link current" data-tab="tab-1">예약</li>
+		            <li class="tab-link" data-tab="tab-2">포장</li>
+		        </ul>
+		    
+		        <div id="tab-1" class="tab-content current">
+		            <form style="margin:0 auto;" action="${pageContext.request.contextPath}/eatery/reservation_insertform.do" method="post" id="reservation_form" onsubmit="return confirm('예약 하시겠습니까?');">
+		            	<input type="hidden" id="b_id" name="b_id" value=${dto.b_id }/><!-- ${dto.b_id} -->
+		            	<input type="hidden" id="reservation_time" name="reservation_time"/>
+		            	<input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
+		            	<input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
+		                <div class="r_date" style="display:flex; align-items:center;">
+		                    <label for="datepicker"><i class="far fa-calendar-alt" style="font-size:20px;"></i></label>
+		                    <input style="width:200px;" class="calendar font-size:15px;" type="text" name="datepicker" id="datepicker" placeholder="날짜 입력" />  
+		                    <i class="down_ico fas fa-angle-down"></i> 
+		                </div>
+		                
+		                <div class="r_time">
+		                	
+		                	<div><label for="time" style="display:flex;"><i class="far fa-clock" style="font-size:20px;"></i><div id="choice">시간 선택</div><i class="down_ico fas fa-angle-down"></i></label></div>
+		                
+		                	<div class="hide">
+		                		<span id="am">AM</span>
+			                    <br />
+			                    <script>
+					                  let a="${dto.b_open}";
+					                  let b=a.split(":");
+					                  let hour=parseInt(b[0]);
+					                  console.log(hour);
+					                  let min=parseInt(b[1]);
+					                  console.log(b[1]);
+					                  if(min==30){
+					                     min=1;
+					                  }else{
+					                     min=0;
+					                  }
+					                  console.log(min);
+					                  hour = hour *2;
+					                  let f = hour+min;
+					                  console.log(f);
+					                        
+					                  for(let i=f; i<26; i++){
+					                     let hour="";
+					                     let min=":00";
+					                     if((Math.ceil(i/2))<13){
+					                        hour = (Math.floor(i/2));
+					                     }else{
+					                        hour = (Math.floor(i/2));
+					                     }
+					                     hour = (Math.floor(i/2));
+					                     if(hour<10){
+					                        hour = "0"+hour;
+					                     }
+					                     if(i%2 != 0){
+					                        min=":30";
+					                     }
+					                     document.write('<button id="row_" type="button" class="timeSelect" value = "AM ' + hour + min +'">'
+					                        + hour
+					                        + min
+					                        + '</button>');
+					                  }
+					            </script>
+			               		<br />
+			               		<span id="pm">PM</span>
+			               		<br />
+			                    <script>
+									for(let i=2; i<17; i++){ 
+									   let hour="";
+									   let min=":00";
+									   if((Math.ceil(i/2))<13){
+									      hour = (Math.floor(i/2));
+									   }else{
+									      hour = (Math.floor(i/2));
+									   }
+									   hour = (Math.floor(i/2));
+									   if(hour<10){
+									      hour = "0"+hour;
+									   }
+									   if(i%2 != 0){
+									      min=":30";
+									   }
+									   document.write('<button id="row_" type="button" class="timeSelect" value = "PM  ' + hour + min +'">'
+									      + hour
+									      + min
+									      + '</button>');
+									}
+			                  	</script>
+		                	</div>
+		                	
+		                </div>
+		                <div class="r_person">
+		                    <label for="personAdd"><i class="far fa-user" style="font-size:20px;"></i></label>
+		                    <select name="person" id="person">
+		                         <option value="1">1</option>
+		                         <option value="2">2</option>
+		                         <option value="3">3</option>
+		                         <option value="4">4</option>
+		                         <option value="5">5</option>
+		                         <option value="6">6</option>
+		                         <option value="7">7</option>
+		                         <option value="8">8</option>
+		                      </select>
+		                </div>
+		                <div class="r_info_wrap" style="margin-top:30px;">
+		                <div style=" border-bottom:1px solid rgba(0,0,0,.5); padding-bottom:10px;">
+		               		<span id="r_info" style="font-weight:600;">예약자 정보</span>
+		                </div>
+		                <div class="r_name" style="margin-top:10px;">
+		                    <label for="name">예약자</label>
+		                    <input type="text" name="name" id="name" placeholder="이름 입력">
+		                </div>  
+		                <div class="r_phone">
+		                    <label for="phone">전화번호</label>
+		                    <input type="text" name="phone" id="phone" placeholder="번호 입력">
+		                </div>
+		                </div>    
+		                <div class="rBtn">
+		                	 <button id="rBtn" type="submit">예약</button>
+		                </div>
+		            </form>  
+		        </div>
+		        <div id="tab-2" class="tab-content">
+		            <form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post">
+		               	<input type="hidden" id="b_id" name="b_id" value=${dto.b_id }/>
+		               	<input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
+		            	<input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
+		            	<p style="text-align:center; ">※직접 가져가실 수 있게 준비 됩니다.</p>
+		            	<br />
+		               	<button id="tBtn" type="submit">포장</button>
+		            </form>
+		        </div>
+		    </div>
+		</div>
 		
 		<ul id="etcInfo">
 			<li id="callNum">
@@ -821,6 +1133,8 @@ button:hover{
 		</ul>
 	</div>
 </div>
+<span id="goTop"></span>
+
 <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <!-- 키워드 데이터 뽑아오기 위한 코드 -->
 <c:forEach var="test" items="${keyList }">
@@ -828,21 +1142,38 @@ button:hover{
 </c:forEach>
 <!-- 테스트장소 -->
 
-
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- 형우 부분 추가 -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	let g_id = '<c:out value="${g_id}"/>';
 	//사업자번호
 	let b_id = '<c:out value="${dto.b_id}"/>';
+	let goNum=0;
+	
+	//top 으로 가는 버튼 
+	$(window).scroll(function() {
+		if($(this).scrollTop() > 150) {
+			let btnHtml=`<a style=" width:44px; height:44px; border:1px solid rgba(0,0,0,.15); background-color:white; display:flex; justify-content:center; flex-direction:column; align-items:center;position:fixed; top:800px; right:50px" href="#"><i style="font-size:15px;" class="fas fa-chevron-up"></i><div style="font-size:13px;">TOP</div></a></div>`;
+			if(goNum==0){
+				$("#goTop").append(btnHtml);
+				goNum=1;
+			}
+		}else{
+			$("#goTop").html('');
+			goNum=0;
+		}
+	});
 	
 	// 예약&포장 스크롤 fix 하기 
 	$(window).scroll(function() {
 		  
-		if($(this).scrollTop() > 500) {
+		if($(this).scrollTop() > 460) {
 			$("#rightContent").css({'position':'fixed',
 									'margin-left':'800px',
-									'top':'61px'});
+									'top':'60px'});
 		}
 		else {
 			$("#rightContent").css({'position':'',
@@ -997,39 +1328,43 @@ button:hover{
 			goodBtns[i].addEventListener("click",function(){
 				let reviewNum=$(goodBtns[i]).attr("data-num");
 				let isGoodNum=$(goodBtns[i]).attr("data-isGoodNum");
-
 				let btn=$(goodBtns[i]);
-				if(isGoodNum=="0"){ //추천하지 않았다면
-		
-					ajaxPromise("private/ajax_good_insert_r.do", "get", "review_num="+reviewNum)
-					.then(function(response){
-						return response.json();
-					})
-					.then(function(data){
-						if(data.isDoReviewGood){//유저가 테이블에 추가되었다면 
-							btn.html(`<i class="fas fa-thumbs-up" style="color:rgb(253, 83, 0);"></i>`);
-							btn.removeAttr("data-isGoodNum");
-							btn.attr('data-isGoodNum','1');
-							let goodCountActive=parseInt(btn.next().text())+1;
-							btn.next().html(goodCountActive);
-						}
-					});	
-
-				}else{ //추천했다면 
-					ajaxPromise("private/ajax_good_delete_r.do", "get", "review_num="+reviewNum)
-					.then(function(response){
-						return response.json();
-					})
-					.then(function(data){
-						if(data.isNotReviewGood){//유저가 테이블에 추가되었다면 
-							btn.html("<i class='far fa-thumbs-up'></i>");
-							btn.removeAttr("data-isGoodNum");
-							btn.attr('data-isGoodNum','0');
-							let goodCountActive=parseInt(btn.next().text())-1;
-							btn.next().html(goodCountActive);
-						}
-					});	
-				}; //if 함수 끝 
+				
+				if(!g_id){
+					alert("로그인이 필요합니다.");
+				}else{
+					if(isGoodNum=="0"){ //추천하지 않았다면
+			
+						ajaxPromise("private/ajax_good_insert_r.do", "get", "review_num="+reviewNum)
+						.then(function(response){
+							return response.json();
+						})
+						.then(function(data){
+							if(data.isDoReviewGood){//유저가 테이블에 추가되었다면 
+								btn.html(`<i class="fas fa-thumbs-up" style="color:rgb(253, 83, 0);"></i>`);
+								btn.removeAttr("data-isGoodNum");
+								btn.attr('data-isGoodNum','1');
+								let goodCountActive=parseInt(btn.next().text())+1;
+								btn.next().html(goodCountActive);
+							}
+						});	
+	
+					}else{ //추천했다면 
+						ajaxPromise("private/ajax_good_delete_r.do", "get", "review_num="+reviewNum)
+						.then(function(response){
+							return response.json();
+						})
+						.then(function(data){
+							if(data.isNotReviewGood){//유저가 테이블에 추가되었다면 
+								btn.html("<i class='far fa-thumbs-up'></i>");
+								btn.removeAttr("data-isGoodNum");
+								btn.attr('data-isGoodNum','0');
+								let goodCountActive=parseInt(btn.next().text())-1;
+								btn.next().html(goodCountActive);
+							}
+						});	
+					}; //if 함수 끝 
+				};//로그인 함수 끝
 			}); //클릭 끝 
 		}//for함수 끝
 	}//function 끝
@@ -1154,32 +1489,36 @@ button:hover{
 			let btn=$(this);
 			let isScrap=$(this).attr("data-isscrap");
 			
-			if(!isScrap){ //추천안했다면
-				ajaxPromise("private/ajax_good_insert.do", "get", "b_id="+b_id)
-				.then(function(response){
-					return response.json();
-				})
-				.then(function(data){
-					if(data.isDoScrap){//유저가 테이블에 추가되었다면 
-						console.log(data);
-						btn.removeAttr("data-isscrap");
-						btn.attr('data-isscrap','true');
-						$("#scrapBtn").html(`<i class="fas fa-bookmark"></i>`);
-					}
-					console.log(data.isDoScrap+"은?");
-				});	
-			}else{ //추천했다면
-				ajaxPromise("private/ajax_good_delete.do", "get", "b_id="+b_id)
-				.then(function(response){
-					return response.json();
-				})
-				.then(function(data){
-					if(data.isNotScrap){//유저가 테이블에 삭제되었다면
-						btn.removeAttr("data-isscrap");
-						btn.attr('data-isscrap','');	
-						$("#scrapBtn").html(`<i class="far fa-bookmark"></i>`);
-					}
-				});	
+			if(!g_id){
+				alert("로그인이 필요합니다.");
+			}else{
+				if(!isScrap){ //추천안했다면
+					ajaxPromise("private/ajax_good_insert.do", "get", "b_id="+b_id)
+					.then(function(response){
+						return response.json();
+					})
+					.then(function(data){
+						if(data.isDoScrap){//유저가 테이블에 추가되었다면 
+							console.log(data);
+							btn.removeAttr("data-isscrap");
+							btn.attr('data-isscrap','true');
+							$("#scrapBtn").html(`<i class="fas fa-bookmark"></i>`);
+						}
+						console.log(data.isDoScrap+"은?");
+					});	
+				}else{ //추천했다면
+					ajaxPromise("private/ajax_good_delete.do", "get", "b_id="+b_id)
+					.then(function(response){
+						return response.json();
+					})
+					.then(function(data){
+						if(data.isNotScrap){//유저가 테이블에 삭제되었다면
+							btn.removeAttr("data-isscrap");
+							btn.attr('data-isscrap','');	
+							$("#scrapBtn").html(`<i class="far fa-bookmark"></i>`);
+						}
+					});	
+				}
 			}
 		});
 	
@@ -1203,6 +1542,10 @@ button:hover{
 		};
 	};
 	leftHide();
+	
+	if(bannerMargin==0){
+		$("#rightBtn").css('visibility','hidden');
+	}
 	
 	$("#rightBtn").click(function(){
 		if(bannerMargin>-maxMargin){
@@ -1316,8 +1659,207 @@ button:hover{
 		}
 	});
 	
+
+	//형우 부분 script
+	// 달력
+   	var holidays = {
+           	"0101":{type:0, title:"신정", year:""},
+           	"0301":{type:0, title:"삼일절", year:""},
+           	"0505":{type:0, title:"어린이날", year:""},
+           	"0606":{type:0, title:"현충일", year:""},
+           	"0815":{type:0, title:"광복절", year:""},
+           	"1003":{type:0, title:"개천절", year:""},
+           	"1009":{type:0, title:"한글날", year:""},
+           	"1225":{type:0, title:"크리스마스", year:""},
+   
+           	"0211":{type:0, title:"설날", year:"2021"},
+           	"0212":{type:0, title:"설날", year:"2021"},
+           	"0213":{type:0, title:"설날", year:"2021"},
+           	"0920":{type:0, title:"추석", year:"2021"},
+           	"0921":{type:0, title:"추석", year:"2021"},
+           	"0922":{type:0, title:"추석", year:"2021"},
+           	"1004":{type:0, title:"대체공휴일", year:"2021"},
+           	"1011":{type:0, title:"대체공휴일", year:"2021"},
+           	"0519":{type:0, title:"석가탄신일", year:"2021"}
+       	};
+
+    // 달력
+    $(function() {
+       //input을 datepicker로 선언
+       $("#datepicker").datepicker({
+           dateFormat: 'yy-mm-dd(DD)' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,minDate: "-0D" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+           ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)  
+             ,beforeShowDay: function(day) {
+                  var result;
+                  // 포맷에 대해선 다음 참조(http://docs.jquery.com/UI/Datepicker/formatDate)
+                  var holiday = holidays[$.datepicker.formatDate("mmdd",day )];
+                  var thisYear = $.datepicker.formatDate("yy", day);
+
+                  // exist holiday?
+                  if (holiday) {
+                  if(thisYear == holiday.year || holiday.year == "") {
+                      result =  [false, "date-holiday", holiday.title];
+                  }
+                  }
+
+                  if(!result) {
+                  switch (day.getDay()) {
+                      case 0: // is sunday?
+                      result = [true, "date-sunday"];
+                      break;
+                      case 6: // is saturday?
+                      result = [true, "date-saturday"];
+                      break;
+                      default:
+                      result = [true, ""];
+                      break;
+                  }
+                  }
+
+                  return result;
+               }
+         });                        
+      
+       //초기값을 오늘 날짜로 설정해줘야 합니다.
+       $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
+   	});
+
+
+    
+    //예약,포장 버튼 바꾸는 함수
+    $(document).ready(function(){
+    
+        $('ul.tabs li').click(function(){
+            var tab_id = $(this).attr('data-tab');
+    
+            $('ul.tabs li').removeClass('current');
+            $('.tab-content').removeClass('current');
+    
+            $(this).addClass('current');
+            $("#"+tab_id).addClass('current');
+        })
+    });
 	
+    // html dom 이 다 로딩된 후 실행된다.
+    $(document).ready(function(){
+        // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+        $(".r_time>label").click(function(){
+            var submenu = $(this).next("div");
+ 
+            // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+            if( submenu.is(":visible") ){
+                submenu.slideUp();
+            }else{
+                submenu.slideDown();
+            }
+        });
+    }); 
+    
+    
+    // html dom 이 다 로딩된 후 실행된다.
+    $(document).ready(function(){
+        //시간 버튼 누르면 값 바뀌는 함수
+        $('.timeSelect').click(function(){
+    		var id_check = $(this).attr("id"); //버튼의 id를 가져온 후
+    		var id_value = $(this).val(); // 가져온 아이디의  value 값을 넣어준다.
+    		console.log(id_check)
+    		console.log(id_value)
+    		
+    		//var timevalue = $(id_check).val(); 
+        	$("#choice").text(id_value); //span에 읽어온 id의 value 값을 넣어준다.
+        	$("#reservation_time").val(id_value)//span은 폼전송이 어려움으로 input type hidden에 value값 전달
+		});
+    }); 
+    
+	// 동적 생성 버튼에 id 값 부여
+    $("[id~=row_]").each(function(index) { // row_로 시작하는 id값을 가진 모든 것들을
+        var idx = index + 1; // 1을 더해준다.
+        $(this).attr('id', 'row_'+idx);
+    });
+   	
+	//예약 한번 더 확인 하는 alert 띄우는 함수
+    function showConfirm() {
+    	
+    	var rtn;
+    	
+    	rtn=confirm("예약 하시겠습니까?");
+    	
+ 		if (rtn){
+ 			document.getElementById('reservation_form').submit();
+  		}else{
+  			return false;
+  		}
+ 	};
+
+	//지도
+	let lattitude = '<c:out value="${dto.lattitude}"/>';
+	let longitude= '<c:out value="${dto.longitude}"/>';
+	let b_name='<c:out value="${dto.b_name}"/>';
 	
+	var mapContainer = document.getElementById('Detail_map'), // 지도를 표시할 div  
+
+	mapOption = { 
+		   center: new kakao.maps.LatLng(lattitude, longitude), // 지도의 중심좌표
+		   level: 3 // 지도의 확대 레벨
+	};
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+	var positions = [
+		  	{
+		        latlng: new kakao.maps.LatLng(lattitude, longitude)
+		    }
+		];
+	
+	var markerPosition  = new kakao.maps.LatLng(lattitude, longitude); 
+	
+	// 이미지 지도에 표시할 마커입니다
+	// 이미지 지도에 표시할 마커는 Object 형태입니다
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+	
+	for (var i = 0; i < positions.length; i ++) {
+	    
+	    // 마커 이미지의 이미지 크기 입니다
+	    var imageSize = new kakao.maps.Size(24, 35); 
+	    
+	    // 마커 이미지를 생성합니다    
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+	    
+	    // 마커를 생성합니다
+	    var marker = new kakao.maps.Marker({
+	        map: map, // 마커를 표시할 지도
+	        position: positions[i].latlng, // 마커를 표시할 위치
+	        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+	        image : markerImage // 마커 이미지 
+	    });
+	}
+	marker.setMap(map);
+	
+	var iwContent = '<div style="padding:4px;width:100px;">'+b_name+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition = new kakao.maps.LatLng(lattitude, longitude); //인포윈도우 표시 위치입니다
+    iwRemoveable = true;
+    
+	// 인포윈도우를 생성합니다
+	var infowindow = new kakao.maps.InfoWindow({
+    position : iwPosition, 
+    content : iwContent,
+    removable : iwRemoveable
+	});
+  
+	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+	infowindow.open(map, marker); 
+
+
 	
 </script>
 

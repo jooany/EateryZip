@@ -8,6 +8,11 @@
 <title>로그인</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+   /* 공통 */
+   *{
+    font-family: 'Gothic A1', sans-serif;
+    }
 	.container{
 	  width: 100%;
 	  height: 100vh;

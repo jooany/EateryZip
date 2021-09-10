@@ -76,6 +76,7 @@ public class BStoreDaoImpl implements BStoreDao {
 		
 		return session.selectList("BStore.getList", dto);
 	}
+	
 
 	@Override
 	public int getCount(BStoreDto dto) {
@@ -167,6 +168,8 @@ public class BStoreDaoImpl implements BStoreDao {
 	public void notReviewGood(ReviewGoodDto dto) {
 		session.delete("BStore.notReviewGood",dto);
 	}
+
+
 }
 
 

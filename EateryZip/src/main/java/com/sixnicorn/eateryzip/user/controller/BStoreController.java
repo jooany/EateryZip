@@ -1,6 +1,8 @@
 package com.sixnicorn.eateryzip.user.controller;
 
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sixnicorn.eateryzip.user.dao.BStoreDao;
 import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 import com.sixnicorn.eateryzip.user.service.BStoreService;
 
@@ -22,6 +25,9 @@ public class BStoreController {
 
 	@Autowired
 	private BStoreService service;
+	@Autowired
+	private BStoreDao BStoreDao;
+	
 	
 	// 주연 음식점 상세 정보 페이지
 	@RequestMapping("/eatery/detail")
@@ -160,6 +166,130 @@ public class BStoreController {
 		service.getList(request, dto);
 		
 		return "eatery/list";
+	}
+	
+	@RequestMapping("/eatery/ajax_map")
+	@ResponseBody
+	public List<BStoreDto> List_map(HttpServletRequest request) {
+		
+		String keyword=request.getParameter("keyword");
+		String ex_keyword=request.getParameter("ex_keyword");
+		String b_kind=request.getParameter("b_kind");
+		String service=request.getParameter("service");
+
+		//한 페이지에 몇개씩 표시할 것인지
+		final int PAGE_ROW_COUNT=4;
+		
+		//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
+		int pageNum=1;
+		//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+		String strPageNum=request.getParameter("pageNum");
+		//만일 페이지 번호가 파라미터로 넘어 온다면
+		if(strPageNum != null){
+			//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+			pageNum=Integer.parseInt(strPageNum);
+		}
+		
+		//보여줄 페이지의 시작 ROWNUM
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//보여줄 페이지의 끝 ROWNUM
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+
+		BStoreDto dto2=new BStoreDto();
+		
+		dto2.setStartRowNum(startRowNum);
+		dto2.setEndRowNum(endRowNum);
+		
+		if(keyword==null){//1
+			//키워드와 검색 조건에 빈 문자열을 넣어준다. 
+			//클라이언트 웹브라우저에 출력할때 "null" 을 출력되지 않게 하기 위해서  
+			dto2.setKeyword("");
+			dto2.setEncodedK("");
+			if(ex_keyword!=null){
+				dto2.setEx_keyword(ex_keyword);
+				if(b_kind!=null){
+					dto2.setB_kind(b_kind);
+					if(service!=null){
+						dto2.setService(service);
+					}else{
+						dto2.setService("");
+					}
+				}else if(b_kind==null){ 
+					dto2.setB_kind("");
+					if(service!=null){
+						dto2.setService(service);
+					}else if(service==null){
+						dto2.setService("");
+					}
+				} //2
+			}else{ //1
+				dto2.setEx_keyword("");
+				if(b_kind!=null){
+					dto2.setB_kind(b_kind);
+					if(service!=null){
+						dto2.setService(service);
+					}else{
+						dto2.setService("");
+					}
+				}else{
+					dto2.setB_kind("");
+					if(service!=null){
+						dto2.setService(service);
+					}else{
+						dto2.setService("");
+					}
+				}
+			}
+		}else{
+			dto2.setKeyword(keyword);
+			dto2.setEncodedK(keyword);
+			if(ex_keyword==null){
+				ex_keyword="";
+				if(b_kind==null){
+					b_kind="";
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				}else if(b_kind!=null){
+					dto2.setB_kind(b_kind);
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				
+				}
+			}else if(ex_keyword!=null){
+				dto2.setEx_keyword(ex_keyword);
+				if(b_kind!=null){
+					dto2.setB_kind(b_kind);
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				}else{
+					b_kind="";
+					if(service==null){
+						service="";
+					}else{
+						dto2.setService(service);
+					}
+				}
+			}
+		}
+		
+		System.out.println("--service");
+		System.out.println(dto2.getKeyword());
+		System.out.println(dto2.getEx_keyword());
+		System.out.println(dto2.getService());
+		System.out.println(dto2.getB_kind());
+		
+		List<BStoreDto> result = BStoreDao.getList(dto2);
+		System.out.println(result);
+		return result;
 	}
 		
 }
