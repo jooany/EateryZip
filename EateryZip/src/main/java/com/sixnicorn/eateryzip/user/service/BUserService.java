@@ -35,4 +35,9 @@ public interface BUserService {
 	// 비즈니스회원 프로필이미지
 	public Map<String, Object> saveB_profileImage(HttpServletRequest request, MultipartFile image);
 
+	// 포장내역보기
+	public void getBtakeoutList(HttpServletRequest request);
+	// 예약내역보기
+	public void getBreservationList(HttpServletRequest request);
+	
 }

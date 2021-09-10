@@ -5,7 +5,7 @@
    href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
 	.container{
-		width: 1100px!important;
+		width: 1100px;
 		border-bottom: 1px solid #999;
 		display:flex;
 		justify-content: space-between;
@@ -150,7 +150,7 @@
       </div>
       <div class="content_profile" id="content_profile">               
          <c:choose>
-            <c:when test="${not empty g_id}">
+            <c:when test="${not empty sessionScope.g_id}">
                <span class="navbar-text me-2">
                   <c:if test="${empty g_profile }">
                      <div class="loginproflie">
