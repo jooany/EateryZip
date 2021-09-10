@@ -38,4 +38,5 @@ public interface GUserDao {
 	public List<ReservationDto> getList2(ReservationDto dto);
 	// 예약내역 갯수
 	public int getReservationCount(ReservationDto dto);
+	public String getProfileImg(String g_id);
 }

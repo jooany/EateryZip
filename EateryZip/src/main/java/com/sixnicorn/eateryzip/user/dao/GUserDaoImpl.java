@@ -16,6 +16,12 @@ public class GUserDaoImpl implements GUserDao {
    @Autowired
    private SqlSession session;
    
+   //프로필이미지
+   @Override
+   public String getProfileImg(String g_id) {
+	   return session.selectOne("Guser.getProfileImg",g_id);
+   }
+   
    //DB에서 회원 한명의 정보를 select
    @Override
    public GUserDto getData(String g_id) {
