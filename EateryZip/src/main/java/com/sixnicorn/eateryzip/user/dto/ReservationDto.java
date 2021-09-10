@@ -13,12 +13,20 @@ public class ReservationDto {
 	private String b_store_name;
 	private String b_store_addr;
 	
+	// 혜림 --------------------------------
+	private int startRowNum;
+	private int endRowNum;
+	private int prevNum;
+	private int nextNum;
+	private int did_it;
+	
 	//디폴트 생성자 
 	public ReservationDto() {}
 
 	public ReservationDto(int reservation_num, String g_id, String b_id, String reservation_name,
 			String reservation_date, String reservation_time, String reservation_people, String reservation_phone,
-			String reservation_memo, String b_store_name, String b_store_addr) {
+			String reservation_memo, String b_store_name, String b_store_addr, int startRowNum, int endRowNum,
+			int prevNum, int nextNum, int did_it) {
 		super();
 		this.reservation_num = reservation_num;
 		this.g_id = g_id;
@@ -31,6 +39,11 @@ public class ReservationDto {
 		this.reservation_memo = reservation_memo;
 		this.b_store_name = b_store_name;
 		this.b_store_addr = b_store_addr;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
+		this.prevNum = prevNum;
+		this.nextNum = nextNum;
+		this.did_it = did_it;
 	}
 
 	public int getReservation_num() {
@@ -121,5 +134,44 @@ public class ReservationDto {
 		this.b_store_addr = b_store_addr;
 	}
 
-	
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+
+	public int getPrevNum() {
+		return prevNum;
+	}
+
+	public void setPrevNum(int prevNum) {
+		this.prevNum = prevNum;
+	}
+
+	public int getNextNum() {
+		return nextNum;
+	}
+
+	public void setNextNum(int nextNum) {
+		this.nextNum = nextNum;
+	}
+
+	public int getDid_it() {
+		return did_it;
+	}
+
+	public void setDid_it(int did_it) {
+		this.did_it = did_it;
+	}
+
 }

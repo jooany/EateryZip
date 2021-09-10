@@ -178,26 +178,6 @@
     </style>
 </head>
 <body>
-	<h1>메인페이지</h1>
-	<h2>형우 테스트 링크</h2>
-	<a href="${pageContext.request.contextPath}/eatery/reservation_form.do">예약 폼</a>
-	<h2>주연 테스트 링크</h2>
-	<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=1111111111">음식점 상세 페이지(사업자번호 1111111111)</a>
-	<a href="${pageContext.request.contextPath}/users/b_mypage/menu_insertform.do">menu_insertform</a>
-	<a href="${pageContext.request.contextPath}/users/g_mypage/reserve_List.do">예약내역</a>
-	<a href="${pageContext.request.contextPath}/users/g_mypage/takeout_list.do">포장내역</a>
-	<h2>혜림 테스트 링크</h2>
-	<a href="${pageContext.request.contextPath}/store/store_insertform.do">가게등록</a>
-	<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">비즈니스회원정보</a>
-	<h2>나현 테스트 링크</h2>
-	<a href="${pageContext.request.contextPath}/eatery/list.do">list</a>
-	
-	<h2>민재 테스트 링크</h2>
-	<a href="${pageContext.request.contextPath}/users/map_seoul.do">서울 테스트</a>
-	<a href="${pageContext.request.contextPath}/users/map_busan.do">부산 테스트</a>
-	<a href="${pageContext.request.contextPath}/users/map_seoul_detail.do">서울 세부 테스트</a>
-	<a href="${pageContext.request.contextPath}/users/map_busan_detail.do">부산 세부 테스트</a>
-<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
     <div id="container">
         <div class="content">
             <ul class="content_slider">
@@ -249,6 +229,29 @@
             </div>
         </div>
     </div>
+    
+  <h1>메인페이지</h1>
+	<h2>형우 테스트 링크</h2>
+	<a href="${pageContext.request.contextPath}/eatery/reservation_form.do">예약 폼</a>
+	<h2>주연 테스트 링크</h2>
+	<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=1111111111">음식점 상세 페이지(사업자번호 1111111111)</a>
+	<a href="${pageContext.request.contextPath}/users/b_mypage/menu_insertform.do">menu_insertform</a>
+	<a href="${pageContext.request.contextPath}/users/g_mypage/reserve_List.do">예약내역</a>
+	<a href="${pageContext.request.contextPath}/users/g_mypage/takeout_list.do">포장내역</a>
+	<h2>혜림 테스트 링크</h2>
+	<a href="${pageContext.request.contextPath}/store/store_insertform.do">가게등록</a>
+	<a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">비즈니스회원정보</a>
+	<a href="${pageContext.request.contextPath}/users/b_mypage/b_takeout_list.do">비즈니스 포장내역</a>
+	<a href="${pageContext.request.contextPath}/users/b_mypage/b_reservation_list.do">비즈니스 포장내역</a>
+	<h2>나현 테스트 링크</h2>
+	<a href="${pageContext.request.contextPath}/eatery/list.do?keyword=">list</a>
+	
+	<h2>민재 테스트 링크</h2>
+	<a href="${pageContext.request.contextPath}/users/map_seoul.do">서울 테스트</a>
+	<a href="${pageContext.request.contextPath}/users/map_busan.do">부산 테스트</a>
+	<a href="${pageContext.request.contextPath}/users/map_seoul_detail.do">서울 세부 테스트</a>
+	<a href="${pageContext.request.contextPath}/users/map_busan_detail.do">부산 세부 테스트</a>
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
     <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>

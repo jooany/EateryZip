@@ -1,10 +1,14 @@
 package com.sixnicorn.eateryzip.user.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sixnicorn.eateryzip.user.dto.BUserDto;
+import com.sixnicorn.eateryzip.user.dto.ReservationDto;
+import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
 
 
@@ -72,6 +76,31 @@ public class BUserDaoImpl implements BUserDao {
 	public void update(BUserDto dto) {
 		
 		session.update("Buser.update", dto);
+	}
+	
+	// 포장내역 리스트
+	@Override
+	public List<TakeoutDto> getList(TakeoutDto dto) {
+
+		return session.selectList("Buser.getBtakeoutList", dto);
+	}
+	// 포장내역 갯수
+	@Override
+	public int getBtakeoutCount(TakeoutDto dto) {
+		
+		return session.selectOne("Buser.getBtakeoutCount", dto);
+	}
+	// 예약내역 리스트
+	@Override
+	public List<ReservationDto> getList2(ReservationDto dto) {
+		
+		return session.selectList("Buser.getBreservationList", dto);
+	}
+	// 예약내역 갯수
+	@Override
+	public int getBreservationCount(ReservationDto dto) {
+
+		return session.selectOne("Buser.getBreservationCount", dto);
 	}
 
 	

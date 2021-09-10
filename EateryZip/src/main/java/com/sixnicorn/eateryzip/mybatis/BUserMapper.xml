@@ -45,4 +45,43 @@
 		SET b_name=#{b_name},b_address=#{b_address,jdbcType=VARCHAR},b_email=#{b_email,jdbcType=VARCHAR},b_phone=#{b_phone},b_profile=#{b_profile,jdbcType=VARCHAR}
 		WHERE b_id = #{b_id }
 	</update>
+	
+	<!-- 포장 내역  리스트 가져오기-->
+	<select id="getBtakeoutList" parameterType="TakeoutDto" resultType="TakeoutDto">
+		SELECT *
+		FROM
+		   (SELECT result1.*,ROWNUM AS rnum
+		    FROM (SELECT bs.b_id,bs.b_name, t.takeout_date, t.takeout_time, t.takeout_price, t.takeout_num
+				FROM b_store bs, takeout t
+				WHERE bs.b_id = t.b_id AND t.b_id=#{b_id,jdbcType=VARCHAR}) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
+	</select>
+	
+	<select id="getBtakeoutCount" parameterType="TakeoutDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM takeout
+		WHERE b_id=#{b_id,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 예약 내역 리스트 가져오기 -->
+	<select id="getBreservationList" parameterType="ReservationDto" resultType="ReservationDto">
+		SELECT *
+		FROM
+		   (SELECT result1.*,ROWNUM AS rnum
+		    FROM (SELECT bs.b_id,bs.b_name,r.reservation_name , r.reservation_date, r.reservation_time, r.reservation_people, r.reservation_num
+		      FROM b_store bs, reservation r
+		      WHERE bs.b_id = r.b_id AND r.b_id=#{b_id,jdbcType=VARCHAR}) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
+	</select>
+	
+	<select id="getBreservationCount" parameterType="ReservationDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM reservation
+		WHERE b_id=#{b_id,jdbcType=VARCHAR}
+	</select>
+	
 </mapper>

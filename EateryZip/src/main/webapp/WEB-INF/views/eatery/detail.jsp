@@ -356,7 +356,6 @@ button{
 	height:36px;
 	background-color:rgba(255, 133, 59, 0.8);
 }
-
 /* 리뷰 필터 및 리스트 */
 #reviewFilter{
 	margin-top:35px;
@@ -501,7 +500,9 @@ button{
 }
 #etcInfo #convenience span:nth-child(2){
 	margin-left:10px;
+	padding-right:10px;
 	font-size:13px;
+	line-height:20px;
 }
 
 .review_img{
@@ -678,6 +679,7 @@ ul.tabs li.current{
     margin-left: 3px;
 }
 </style>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e12e99f90ddd040d29c835f01fcaa837"></script>
 </head>
 <body>
 <jsp:include page="/navbar/header/navbar_list.jsp"></jsp:include>
@@ -686,10 +688,12 @@ ul.tabs li.current{
 <div id="banner">
 	<!-- 이미지 슬라이드 담기 -->
 	<ul id="imgList">
-		<c:forEach var="tmp1" items="${storeImgList }">
+		<c:forEach var="tmp1" items="${reviewList  }">
+		<c:if test="${not empty tmp1.review_image}">
 		<li>
-			<img class="img_item" src="${pageContext.request.contextPath}${tmp1.store_img }" alt="음식점 대표 이미지" height="400px"/>
+			<img class="img_item" src="${pageContext.request.contextPath}${tmp1.review_image }" alt="음식점 대표 이미지" height="400px"/>
 		</li>
+		</c:if>
 		</c:forEach>
 	</ul>
 	<div id="blackEffect"></div>
@@ -735,7 +739,7 @@ ul.tabs li.current{
 
 <div class="inner">
 	<div id="detailWrap">
-		<span>상세보기 |</span> <a href="#">리뷰(${totalRow})</a>
+		<span>상세보기 |</span> <a href="#reviewWrap">리뷰(${totalRow})</a>
 	</div>
 </div>
 
@@ -744,7 +748,12 @@ ul.tabs li.current{
 		 <div id="menuWrap">
 			<div id="menuHeader" style="display:flex; justify-content:space-between;">
 				<span>메뉴</span>
-				<a href="#">전체 메뉴 보기</a>
+				<form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post">
+		               <input type="hidden" id="b_id" name="b_id" value="${dto.b_id }"/>
+		               <input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
+		            	<input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
+	               <button id="tBtn" type="submit">전체 메뉴 보기</button>
+            	</form>
 			</div>
 			<div id="menuListWrap">
 				<div id="slideBtnsWrap2">
@@ -772,8 +781,8 @@ ul.tabs li.current{
 
 			<div id="timePlaceContent">
 				<div id="placeWrap">
-					<div id="map" style="width:350px; height:230px; background-color:gray;">
-					 지도 들어갈 부분 
+					<div id="Detail_map" style="width:350px; height:230px;">
+					
 					</div>
 					<div id="placeInfo">
 						<p>${dto.b_name }</p>
@@ -1088,13 +1097,14 @@ ul.tabs li.current{
 		</ul>
 	</div>
 </div>
+<span id="goTop"></span>
+
 <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <!-- 키워드 데이터 뽑아오기 위한 코드 -->
 <c:forEach var="test" items="${keyList }">
 	<div id="test" style="display:none; " > ${test.good_count }/${test.key_word}</div>
 </c:forEach>
 <!-- 테스트장소 -->
-
 
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -1105,14 +1115,29 @@ ul.tabs li.current{
 	let g_id = '<c:out value="${g_id}"/>';
 	//사업자번호
 	let b_id = '<c:out value="${dto.b_id}"/>';
+	let goNum=0;
+	
+	//top 으로 가는 버튼 
+	$(window).scroll(function() {
+		if($(this).scrollTop() > 150) {
+			let btnHtml=`<a style=" width:44px; height:44px; border:1px solid rgba(0,0,0,.15); background-color:white; display:flex; justify-content:center; flex-direction:column; align-items:center;position:fixed; top:800px; right:50px" href="#"><i style="font-size:15px;" class="fas fa-chevron-up"></i><div style="font-size:13px;">TOP</div></a></div>`;
+			if(goNum==0){
+				$("#goTop").append(btnHtml);
+				goNum=1;
+			}
+		}else{
+			$("#goTop").html('');
+			goNum=0;
+		}
+	});
 	
 	// 예약&포장 스크롤 fix 하기 
 	$(window).scroll(function() {
 		  
-		if($(this).scrollTop() > 500) {
+		if($(this).scrollTop() > 460) {
 			$("#rightContent").css({'position':'fixed',
 									'margin-left':'800px',
-									'top':'61px'});
+									'top':'60px'});
 		}
 		else {
 			$("#rightContent").css({'position':'',
@@ -1267,39 +1292,43 @@ ul.tabs li.current{
 			goodBtns[i].addEventListener("click",function(){
 				let reviewNum=$(goodBtns[i]).attr("data-num");
 				let isGoodNum=$(goodBtns[i]).attr("data-isGoodNum");
-
 				let btn=$(goodBtns[i]);
-				if(isGoodNum=="0"){ //추천하지 않았다면
-		
-					ajaxPromise("private/ajax_good_insert_r.do", "get", "review_num="+reviewNum)
-					.then(function(response){
-						return response.json();
-					})
-					.then(function(data){
-						if(data.isDoReviewGood){//유저가 테이블에 추가되었다면 
-							btn.html(`<i class="fas fa-thumbs-up" style="color:rgb(253, 83, 0);"></i>`);
-							btn.removeAttr("data-isGoodNum");
-							btn.attr('data-isGoodNum','1');
-							let goodCountActive=parseInt(btn.next().text())+1;
-							btn.next().html(goodCountActive);
-						}
-					});	
-
-				}else{ //추천했다면 
-					ajaxPromise("private/ajax_good_delete_r.do", "get", "review_num="+reviewNum)
-					.then(function(response){
-						return response.json();
-					})
-					.then(function(data){
-						if(data.isNotReviewGood){//유저가 테이블에 추가되었다면 
-							btn.html("<i class='far fa-thumbs-up'></i>");
-							btn.removeAttr("data-isGoodNum");
-							btn.attr('data-isGoodNum','0');
-							let goodCountActive=parseInt(btn.next().text())-1;
-							btn.next().html(goodCountActive);
-						}
-					});	
-				}; //if 함수 끝 
+				
+				if(!g_id){
+					alert("로그인이 필요합니다.");
+				}else{
+					if(isGoodNum=="0"){ //추천하지 않았다면
+			
+						ajaxPromise("private/ajax_good_insert_r.do", "get", "review_num="+reviewNum)
+						.then(function(response){
+							return response.json();
+						})
+						.then(function(data){
+							if(data.isDoReviewGood){//유저가 테이블에 추가되었다면 
+								btn.html(`<i class="fas fa-thumbs-up" style="color:rgb(253, 83, 0);"></i>`);
+								btn.removeAttr("data-isGoodNum");
+								btn.attr('data-isGoodNum','1');
+								let goodCountActive=parseInt(btn.next().text())+1;
+								btn.next().html(goodCountActive);
+							}
+						});	
+	
+					}else{ //추천했다면 
+						ajaxPromise("private/ajax_good_delete_r.do", "get", "review_num="+reviewNum)
+						.then(function(response){
+							return response.json();
+						})
+						.then(function(data){
+							if(data.isNotReviewGood){//유저가 테이블에 추가되었다면 
+								btn.html("<i class='far fa-thumbs-up'></i>");
+								btn.removeAttr("data-isGoodNum");
+								btn.attr('data-isGoodNum','0');
+								let goodCountActive=parseInt(btn.next().text())-1;
+								btn.next().html(goodCountActive);
+							}
+						});	
+					}; //if 함수 끝 
+				};//로그인 함수 끝
 			}); //클릭 끝 
 		}//for함수 끝
 	}//function 끝
@@ -1424,32 +1453,36 @@ ul.tabs li.current{
 			let btn=$(this);
 			let isScrap=$(this).attr("data-isscrap");
 			
-			if(!isScrap){ //추천안했다면
-				ajaxPromise("private/ajax_good_insert.do", "get", "b_id="+b_id)
-				.then(function(response){
-					return response.json();
-				})
-				.then(function(data){
-					if(data.isDoScrap){//유저가 테이블에 추가되었다면 
-						console.log(data);
-						btn.removeAttr("data-isscrap");
-						btn.attr('data-isscrap','true');
-						$("#scrapBtn").html(`<i class="fas fa-bookmark"></i>`);
-					}
-					console.log(data.isDoScrap+"은?");
-				});	
-			}else{ //추천했다면
-				ajaxPromise("private/ajax_good_delete.do", "get", "b_id="+b_id)
-				.then(function(response){
-					return response.json();
-				})
-				.then(function(data){
-					if(data.isNotScrap){//유저가 테이블에 삭제되었다면
-						btn.removeAttr("data-isscrap");
-						btn.attr('data-isscrap','');	
-						$("#scrapBtn").html(`<i class="far fa-bookmark"></i>`);
-					}
-				});	
+			if(!g_id){
+				alert("로그인이 필요합니다.");
+			}else{
+				if(!isScrap){ //추천안했다면
+					ajaxPromise("private/ajax_good_insert.do", "get", "b_id="+b_id)
+					.then(function(response){
+						return response.json();
+					})
+					.then(function(data){
+						if(data.isDoScrap){//유저가 테이블에 추가되었다면 
+							console.log(data);
+							btn.removeAttr("data-isscrap");
+							btn.attr('data-isscrap','true');
+							$("#scrapBtn").html(`<i class="fas fa-bookmark"></i>`);
+						}
+						console.log(data.isDoScrap+"은?");
+					});	
+				}else{ //추천했다면
+					ajaxPromise("private/ajax_good_delete.do", "get", "b_id="+b_id)
+					.then(function(response){
+						return response.json();
+					})
+					.then(function(data){
+						if(data.isNotScrap){//유저가 테이블에 삭제되었다면
+							btn.removeAttr("data-isscrap");
+							btn.attr('data-isscrap','');	
+							$("#scrapBtn").html(`<i class="far fa-bookmark"></i>`);
+						}
+					});	
+				}
 			}
 		});
 	
@@ -1473,6 +1506,10 @@ ul.tabs li.current{
 		};
 	};
 	leftHide();
+	
+	if(bannerMargin==0){
+		$("#rightBtn").css('visibility','hidden');
+	}
 	
 	$("#rightBtn").click(function(){
 		if(bannerMargin>-maxMargin){
@@ -1586,6 +1623,7 @@ ul.tabs li.current{
 		}
 	});
 	
+
 	//형우 부분 script
 	// 달력
    	var holidays = {
@@ -1726,6 +1764,66 @@ ul.tabs li.current{
   			return false;
   		}
  	};
+
+	//지도
+	let lattitude = '<c:out value="${dto.lattitude}"/>';
+	let longitude= '<c:out value="${dto.longitude}"/>';
+	let b_name='<c:out value="${dto.b_name}"/>';
+	
+	var mapContainer = document.getElementById('Detail_map'), // 지도를 표시할 div  
+	mapOption = { 
+		   center: new kakao.maps.LatLng(lattitude, longitude), // 지도의 중심좌표
+		   level: 3 // 지도의 확대 레벨
+	};
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+	var positions = [
+		  	{
+		        latlng: new kakao.maps.LatLng(lattitude, longitude)
+		    }
+		];
+	
+	var markerPosition  = new kakao.maps.LatLng(lattitude, longitude); 
+	
+	// 이미지 지도에 표시할 마커입니다
+	// 이미지 지도에 표시할 마커는 Object 형태입니다
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+	
+	for (var i = 0; i < positions.length; i ++) {
+	    
+	    // 마커 이미지의 이미지 크기 입니다
+	    var imageSize = new kakao.maps.Size(24, 35); 
+	    
+	    // 마커 이미지를 생성합니다    
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+	    
+	    // 마커를 생성합니다
+	    var marker = new kakao.maps.Marker({
+	        map: map, // 마커를 표시할 지도
+	        position: positions[i].latlng, // 마커를 표시할 위치
+	        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+	        image : markerImage // 마커 이미지 
+	    });
+	}
+	marker.setMap(map);
+	
+	var iwContent = '<div style="padding:4px;width:100px;">'+b_name+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition = new kakao.maps.LatLng(lattitude, longitude); //인포윈도우 표시 위치입니다
+    iwRemoveable = true;
+    
+	// 인포윈도우를 생성합니다
+	var infowindow = new kakao.maps.InfoWindow({
+    position : iwPosition, 
+    content : iwContent,
+    removable : iwRemoveable
+	});
+  
+	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+	infowindow.open(map, marker); 
+
+
 	
 </script>
 

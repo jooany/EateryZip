@@ -10,6 +10,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js " ></script>
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+   /* 공통 */
+   *{
+    font-family: 'Gothic A1', sans-serif;
+    }
 	.w-50{
 		width: 40% !important;
 	}
