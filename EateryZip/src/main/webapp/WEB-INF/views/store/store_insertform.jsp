@@ -56,9 +56,8 @@
 /*------------------------------side nav start------------------------------*/
 	#left_content {
 		background-color: #fff;
-		min-width: 160px;
+		min-width: 200px;
 		list-style:none;
-		width: 150px;
 		border: 1px solid #ccc;
 	}
 	
@@ -120,7 +119,7 @@
 	#saveBtn{
 		background-color: rgba(253,83,0);
 		border: 1px solid rgba(253,83,0);
-		width: 100px;
+		width: 120px;
 		margin-top: 50px;
 		margin-left: 135px;
 		margin-right: 100px;
