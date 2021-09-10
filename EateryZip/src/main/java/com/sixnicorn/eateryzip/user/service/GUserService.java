@@ -28,6 +28,7 @@ public interface GUserService {
    //일반 패스워드 변경
    public Map<String, Object> updatePwd(GUserDto dto, HttpSession session,
          HttpServletResponse response, HttpServletRequest request);
+   public Map<String, Object> deleteUser(HttpSession session,HttpServletResponse response, HttpServletRequest request);
    
 	
 	// 혜림 -----------------------------------------------------------------------

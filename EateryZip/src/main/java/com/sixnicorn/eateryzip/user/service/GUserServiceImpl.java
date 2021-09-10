@@ -190,6 +190,37 @@ public class GUserServiceImpl implements GUserService {
 		}
 	}
 	
+	@Override
+	public Map<String, Object> deleteUser(HttpSession session,HttpServletResponse response, HttpServletRequest request) {
+		
+		boolean result =false;
+		
+		String g_id=(String)session.getAttribute("g_id");
+		boolean deleteResult = Gdao.delete(g_id);
+		if(deleteResult){
+			result = true;
+			 session.removeAttribute("g_id");
+			
+			 Cookie[] cookies = request.getCookies();
+		  	  for (int i = 0; i < cookies.length; i++) {
+		  		if (cookies[i].getName().equals("savedg_Id")){
+		    		cookies[i].setMaxAge(0);   // 유효시간을 0으로 설정함으로써 쿠키를 삭제 시킨다.  
+		    		cookies[i].setPath("/eateryzip/users");
+		    		response.addCookie(cookies[i]);
+		  			}
+		    	}
+		  		Map<String, Object> map = new HashMap<String, Object>();
+				map.put("g_id",g_id);
+				map.put("isSuccess",result);
+				return map;
+		  	}else{
+		  		Map<String, Object> map = new HashMap<String, Object>();
+				map.put("g_id",g_id);
+				map.put("isSuccess",result);
+				return map;
+		  	}
+	}
+	
 	
 	// 혜림 ---------------------------------------------------------------------
 
@@ -362,6 +393,8 @@ public class GUserServiceImpl implements GUserService {
 		request.setAttribute("list", list);
 		request.setAttribute("totalRow", totalRow);
 	}
+
+
 }
 
 

@@ -82,7 +82,7 @@
 			         <input class="form-control" type="text" name="b_id" id="b_id" value="${cookie.savedb_Id.value}" placeholder="사업자번호 입력"/>
 			      </div>
 			      <div class="mt-3">
-			         <input class="form-control" type="password" name="b_pwd" id="b_pwd" value="${cookie.savedb_Pwd.value}" placeholder="비밀번호 입력"/>
+			         <input class="form-control" type="password" name="b_pwd" id="b_pwd" placeholder="비밀번호 입력"/>
 			      </div>
 			      <div class="checkbox mb-3 mt-3" style="text-align:center;">
 		              <label>

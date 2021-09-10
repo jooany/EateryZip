@@ -68,6 +68,18 @@ public class BUserDaoImpl implements BUserDao {
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean delete(String b_id) {
+		// guser에 담긴 값들을 보내준다.
+		int result =session.delete("Buser.delete", b_id);
+		if(result>0) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
 
 	
 	/* 혜림 */
@@ -102,6 +114,8 @@ public class BUserDaoImpl implements BUserDao {
 
 		return session.selectOne("Buser.getBreservationCount", dto);
 	}
+
+
 
 	
 }

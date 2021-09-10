@@ -20,12 +20,14 @@ public interface GUserDao {
    
    public boolean changePwd(GUserDto dto);
    
+	
+   
 
 	// 혜림 -----------------------------------------------------------
 	// 일반 회원정보를 수정하는 메소드
 	public void update(GUserDto dto);
-	// 일반회원탈퇴하는 메소드
-	public void delete(String g_id);
+	
+	public boolean delete(String g_id);
 	
 	// 포장내역 목록
 	public List<TakeoutDto> getList(TakeoutDto dto);

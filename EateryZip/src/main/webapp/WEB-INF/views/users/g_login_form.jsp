@@ -92,7 +92,7 @@
          <input class="form-control mx-auto" type="text" name="g_id" id="g_id" value="${cookie.savedg_Id.value}" placeholder="아이디 입력" />
       </div>
       <div class="mt-3">
-         <input class="form-control mx-auto" type="password" name="g_pwd" id="g_pwd" value="${cookie.savedg_Id.value}" placeholder="비밀번호 입력" />
+         <input class="form-control mx-auto" type="password" name="g_pwd" id="g_pwd" placeholder="비밀번호 입력" />
       </div>
       	   <div class="checkbox mb-3 mt-3" style="text-align:center;">
 		   <label>
