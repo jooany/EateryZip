@@ -9,16 +9,32 @@
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <style>
-.wrap_image{
-	width: 120px;
-	height: 100px;
-    object-fit: cover;
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+/* 공통 */
+*{
+    font-family: 'Gothic A1', sans-serif;
+}
+a{
+	color:black!important;
+	text-decoration:none!important;
+}
+img,svg{
+	vertical-align:baseline!important;
 }
 
+button{
+	border:none;
+	background-color:rgba(0,0,0,0);
+}
 #container{
 	margin-top:50px!important;
 	width:1100px;
 	margin:0 auto;
+}
+.wrap_image{
+	width: 120px;
+	height: 100px;
+    object-fit: cover;
 }
 #title{
 	margin-bottom: 30px;
@@ -39,18 +55,7 @@
     color: #708090;
 }	
 
-a{
-	color:black!important;
-	text-decoration:none!important;
-}
-img,svg{
-	vertical-align:baseline!important;
-}
 
-button{
-	border:none;
-	background-color:rgba(0,0,0,0);
-}
 #menu-info{
 	text-align: left;
 }
@@ -60,6 +65,86 @@ button{
 #menu_select{
 	float: left;
 }
+/* 주문 내역 */
+ table {
+    width: 100%;
+    height: auto;
+   	border-bottom: 1px solid rgb(224, 224, 224);  
+    border-collapse: collapse;
+    /* border-radius: 4px; */
+  	border-style: hidden;
+  	box-shadow: 0 0 0 1px rgb(224, 224, 224);  
+  }
+  th{
+    border-bottom: 1px solid rgb(224, 224, 224);
+    padding: 10px;
+  }
+  td{
+  	padding: 10px;
+  	text-align: center;
+  	font-size:14px;
+  }
+  /* 버튼 */
+	#subBtn{
+		width: 100px;
+	    height: 30px;
+	    background-color: #fd5300;
+	    position: relative;
+	   	left: 32.5px;
+	    color: white;
+    	border: 1px solid rgb(224, 224, 224);
+    	border-radius: 4px;
+    	top:10px;
+	}
+	#resBtn{
+		width: 100px;
+	    height: 30px;
+	    background-color: white;
+	    color:rgba(0,0,0,.7);
+	    border: 1px solid rgba(0,0,0,.5);
+	    border-radius: 4px;
+	    position: relative;
+	   	left: 15px; 
+	    top:10px;
+	}
+	/* #subBtn:hover{
+		background-color: white;
+		color: #fd5300;
+	} 
+	#resBtn:hover{
+		background-color: rgba(0,0,0,.5);
+		color: white;
+	} */
+	.minus_btn{
+		border:1px solid rgb(224, 224, 224);
+		border-radius:10px;
+		color:black;
+		background-color:white;	
+	}
+	.plus_btn{
+		border:1px solid rgb(224, 224, 224);
+		border-radius:10px;
+		color:black;
+		background-color:white;
+	}
+	/* .minus_btn:hover{
+		color:#fd5300;
+		background-color:white;
+	}
+	.plus_btn:hover{
+		color:#fd5300;
+		background-color:white;
+	} */
+	.menu_btn{
+		border:1px solid #fd5300;
+		border-radius:4px;
+		color:white;
+		background-color:#fd5300;
+	}
+	.menu_btn:hover{
+		color:#fd5300;
+		background-color:white;
+	}
 </style>
 </head>
 <body>
@@ -71,7 +156,7 @@ button{
 		<br />
 		<span id="store_addr">${param.b_store_addr }</span>
 	</div>
-	<div>
+	<div style="width:600px;">
 		<c:forEach var="tmp2" items="${sectionNumList }" varStatus="statusOuter">
 			<div class="wrap_section" id="wrapSection${tmp2 }" data-section="${tmp2 }">
 				<c:set var="selectOnlyOne" value="0" />
@@ -81,17 +166,17 @@ button{
 						<h2>${tmp.section_name }</h2>
 					</c:if>
 					<c:if test="${tmp2 eq tmp.section_num }">
-						<div id="menu_select">
+						<div id="menu_select" style="margin-right:30px;">
 							<img class="wrap_image" src="${pageContext.request.contextPath }${tmp.menu_image }"/>
 							<p id="menu-info">
-								<span id="menu_name${statusOuter.index}${status.index }">${tmp.menu_name }</span>
+								<span id="menu_name${statusOuter.index}${status.index }" style="font-size:14px; font-weight:bold;">${tmp.menu_name }</span>
 								<br />
-								<span id="menu_price${statusOuter.index}${status.index}">${tmp.menu_price}원</span>
+								<span id="menu_price${statusOuter.index}${status.index}" style="font-size:14px; font-weight:bold; color:#fd5300;">${tmp.menu_price}원</span>
 								<br />
-               					<button type="button" onclick="minus('${statusOuter.index}${status.index }')">-</button>
+               					<button class="minus_btn" type="button" onclick="minus('${statusOuter.index}${status.index }')">-</button>
                					<span class="count" data-num="${tmp.menu_seq_num }" id="amount${statusOuter.index}${status.index }">1</span>
-               					<button type="button" onclick="plus('${statusOuter.index}${status.index }')">+</button>  
-								<button type="button" class="menuBtn" onclick="addToCart('${statusOuter.index}${status.index}')">추가</button>	
+               					<button class="plus_btn" type="button" onclick="plus('${statusOuter.index}${status.index }')">+</button>  
+								<button type="button" class="menu_btn" onclick="addToCart('${statusOuter.index}${status.index}')">추가</button>	
 							</p>	
 						</div>	
 					</c:if>
@@ -99,16 +184,29 @@ button{
 			</div>
 		</c:forEach>
 	</div>
-	<div style="position: fixed; right: 300px; bottom:100px; width:250px; height:300px; border:1px solid darkgray; overflow: auto;">
-		<span>메뉴 주문 정보</span>
+	<div id="menu_kind" style="position: fixed; right: 300px; top:280px; width:250px; height:auto; border:1px solid rgb(224, 224, 224); border-radius:4px;">
 		<form id="add_menu" name="add_menu" method="post" action="${pageContext.request.contextPath }/eatery/takeout_info_insertform.do" onsubmit="return confirm('주문 하시겠습니까?');">
 			<input type="hidden" name="b_store_name" id="b_store_name" value="${param.b_store_name }"/>
 			<input type="hidden" name="b_store_addr" id="b_store_addr" value="${param.b_store_addr }"/>
 			<input type="hidden" name="b_id" id="b_id" value="${param.b_id }"/>
-			<div id="menu_kind">
-				
+			<div >
+				<table>
+					<thead>
+						<th>메뉴</th>
+						<th>수량</th>
+						<th>가격</th>
+						<th>취소</th>
+					</thead>
+					<tbody id="m_choice">
+						
+						
+					</tbody>
+				</table>	
 			</div>
-			<button type="submit">결제 하기</button>
+			<div style="width:250px; height:50px;">
+				<button id="resBtn" type="reset" onclick="location.href='javascript:history.back();'">취소</button>
+				<button id="subBtn" type="submit">예약하기</button>
+			</div>
 		</form>
 		
 	</div>
@@ -177,19 +275,32 @@ button{
 				.val(amount*priceSplit[0])
 				.appendTo("#add_menu");
 				
+				$("<tr/>").appendTo("#m_choice"); 
 				
-				$("<span/>")
+				$("<td/>")
 				.attr("name", "basket")
 				.attr("id", "basket"+num)
 				.attr("data-num", num)
-				.text(name+amount+amount*priceSplit[0])
-				.appendTo("#menu_kind");
-				/* $("<button/>")
-				.attr("name", "delete")
-				.attr("type", "button")
+				.text(name)
+				.appendTo("#m_choice");
+				$("<td/>")
+				.attr("name", "basket")
+				.attr("id", "basket"+num)
+				.attr("data-num", num)
+				.text(amount)
+				.appendTo("#m_choice");
+				$("<td/>")
+				.attr("name", "basket")
+				.attr("id", "basket"+num)
+				.attr("data-num", num) 
+				.text(amount*priceSplit[0])
+				.appendTo("#m_choice");
+				$("<td/>")
+				.attr("name", "basket")
+				.attr("id", "basket"+num)
+				.attr("data-num", num) 
 				.text("X")
-				.appendTo("#menu_kind"); */
-
+				.appendTo("#m_choice");
 				return ;
 			}	
 		};

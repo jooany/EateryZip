@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sixnicorn.eateryzip.user.dao.MenuDao;
 import com.sixnicorn.eateryzip.user.dao.TakeOutDao;
+import com.sixnicorn.eateryzip.user.dto.BStoreDto;
 import com.sixnicorn.eateryzip.user.dto.MenuDto;
 import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
 
@@ -81,6 +82,14 @@ public class TakeOutServiceImpl implements TakeOutService{
 		List<TakeoutDto> list=takeOutDao.getData2(num);
 		request.setAttribute("list", list);
 	}
+
+	/*
+	 * @Override public void getStoreInfo(HttpServletRequest request) { String
+	 * b_id=request.getParameter("b_id"); BStoreDto dto2=takeOutDao.getStore(b_id);
+	 * request.setAttribute("dto2", dto2);
+	 * 
+	 * }
+	 */
 
 
 }

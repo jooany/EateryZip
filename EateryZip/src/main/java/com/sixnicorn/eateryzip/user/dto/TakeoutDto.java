@@ -16,6 +16,7 @@ public class TakeoutDto {
    private int menu_count;
    private String menu_name;
    private String b_name;
+   private String b_addr;
    
    // 혜림 --------------------------------
    private int startRowNum;
