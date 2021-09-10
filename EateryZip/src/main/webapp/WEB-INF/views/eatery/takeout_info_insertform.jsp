@@ -191,7 +191,7 @@ textarea::placeholder{padding:5px;}
 	            	<span id="am">AM</span>
 	                <br />
 	                <script>
-		                let a="10:00";
+		                let a="${param.b_open}";
 		                let b=a.split(":");
 		                let hour=parseInt(b[0]);
 		                console.log(hour);
@@ -232,6 +232,21 @@ textarea::placeholder{padding:5px;}
 	              	<span id="pm">PM</span>
 	              	<br />
 	                <script>
+	                	let c="${param.b_close}";
+	                 	let d=c.split(":");
+	                  	let hour2=parseInt(d[0]);
+	                  	console.log(hour2);
+	                  	let min2 = parseInt(d[1]);
+	                  	console.log(d[1]);
+	                  	if(min2==30){
+		                     min2=1;
+		                  }else{
+		                     min2=0;
+		                  }
+	                  	hour2 = hour2*2-24;
+	                  	let g=hour2+min2;
+	                  	console.log(g); 
+						for(let i=2; i<g; i++){ 
 						for(let i=2; i<17; i++){ 
 						   let hour="";
 						   let min=":00";
@@ -282,7 +297,7 @@ textarea::placeholder{padding:5px;}
 					<th>가격</th>
 				</thead>
 				<tbody>
-					<c:forTokens var="as" items="${info }" delims="[ ,]">
+					<c:forTokens var="as" items="${info }" delims="[,]">
 						<tr>
 		    				<c:forTokens var="bs" items="${as }" delims="/">
 		    					<td><c:out value="${bs}"/></td>
