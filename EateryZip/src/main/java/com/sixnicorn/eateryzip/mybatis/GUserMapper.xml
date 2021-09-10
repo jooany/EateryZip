@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Guser">
 
+	<!-- 공통 프로필 이미지 가져오기 -->
+	<select id="getProfileImg" parameterType="String" resultType="String">
+		SELECT g_profile
+		FROM g_user
+		WHERE g_id=#{g_id,jdbcType=VARCHAR}
+	</select>
+
 	<!-- select의 결과가 없으면 0이 된다.-->
 	<select id="getData" parameterType="string" resultType="GuserDto">
 	select g_id, g_pwd, g_name, g_address, g_email, g_email2, g_phone, g_profile, to_char(g_regdate,'YYYY-MM-DD'), grade

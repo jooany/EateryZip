@@ -25,15 +25,28 @@ button{
    background-color:rgba(0,0,0,0);
 }
 .navbar{
-   margin:0 auto;
+	margin:0 auto;
+	border-bottom: 1px solid #999;
 }
 .inner{
    width:1100px;
    margin:0 auto;
 }
-.container{
-   border-bottom:none!important;
+/*네비바 덮어 쓰기*/
+#container_nav{
+	width: 1125px!important;
+
 }
+.content_logo{
+	margin-left:15px!important;
+}
+.btnF{
+	padding:12px 16px!important;
+}
+.btnS{
+	padding:12px 16px!important;
+}
+
 /*배너*/
 #banner{
    height:400px;
@@ -810,7 +823,6 @@ ul.tabs li.current{
       <!-- 위치 및 시간 -->
       <div id="timePlaceWrap">
          <p id="timePlaceHeader">위치 및 시간</p>
-
          <div id="timePlaceContent">
             <div id="placeWrap">
                <div id="Detail_map" style="width:350px; height:230px;">
