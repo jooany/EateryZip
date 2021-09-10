@@ -178,9 +178,11 @@
                      </div>
                   </c:if>
                   <c:if test="${not empty g_profile }">
-                     <a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do"><img id="g_profileImage" src="${pageContext.request.contextPath}${dto.g_profile}" /></a>
+                     
                      <div class="loginproflie">
-                        <button class="dropbtn"><img src="${pageContext.request.contextPath}${dto.g_profile}" /></button>
+                        <button class="dropbtn" style="display:flex; padding:0;"><img style="border-radius:50%;" id="myprofile" height="45px;" src="${pageContext.request.contextPath}${sessionScope.g_profile}" />
+                        	<i class="fas fa-caret-down" style="margin-left:10px;margin-top:15px;color:rgba(0,0,0,.2);"></i>
+                        </button>
                         <div class="dropdown-content">
                            <a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">마이페이지</a>
                            <a href="#">스크랩내역</a>
