@@ -26,6 +26,7 @@ public class TakeOutController {
 		
 		service.getList(request);
 		
+		
 		return "eatery/takeout_insertform";
 	}
 	
@@ -36,9 +37,9 @@ public class TakeOutController {
 			HttpServletRequest request, HttpSession session, ModelAndView mView) {
 		
 		
-		mView.addObject("price", price);
-		mView.addObject("choice", choice);
-		mView.addObject("info", info);
+		mView.addObject("price",price);
+		mView.addObject("choice",choice);
+		mView.addObject("info",info);
 		mView.setViewName("eatery/takeout_info_insertform");
 		System.out.println(choice); 
 		 
@@ -61,10 +62,9 @@ public class TakeOutController {
 	
 	@RequestMapping("/eatery/takeout_info")
 	public String info(HttpServletRequest request) {
-		
+		service.getStoreInfo(request);
 		service.getInfo(request);
 		service.getMenuInfo(request);
-		/* service.getStoreInfo(request); */
 		return "eatery/takeout_info";
 	}
 }

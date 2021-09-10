@@ -45,7 +45,7 @@ button{
     font-weight: bold;
     font-size: 20px;
 }
-#store_addr{
+#storeAddr{
 	font-size: 14px;
     color: #708090;
 }
@@ -109,9 +109,9 @@ table {
 <div id="container">
 	<h2 id="title"> <i class="fas fa-angle-right"></i>포장 예약 정보 확인 페이지</h2>
 	<div id="contentName">
-		<%-- <span id="storeName">${dto.b_name}</span>
+		<span id="storeName">${dto2.b_name}</span>
 		<br />
-		<span id="store_addr">${dto.b_addr}</span> --%>
+		<span id="storeAddr">${dto2.b_Store_Address }</span>
 	</div>
 	<div id="contentDate">
 		<p style="padding-top: 10px;">날짜 <i class="far fa-calendar-alt" style="font-size:18px; margin-left:15px; "></i><span style="font-weight:bold; margin-left:15px; "><span>${dto.takeout_date}</span></p>

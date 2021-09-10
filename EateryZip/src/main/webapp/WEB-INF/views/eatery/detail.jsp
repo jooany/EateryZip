@@ -700,12 +700,14 @@ ul.tabs li.current{
     border-radius: 3px;
 }
 .timeSelect{
-   background-color: #fd5300;
-    color: white;
-    font-size: 14px;
-    border: 1px;
-    border-radius: 3px;
+    background-color: rgba(253, 83, 0, 0.2);
+    color: black;
+    border-radius: 1px;
     margin: 1px;
+    width: 47px;
+    height: 25px;
+    font-size: 12px;
+    border: 1px solid rgba(253, 83, 0, 0.27);
 }
 #am{
    font-size: 14px;
@@ -821,332 +823,345 @@ ul.tabs li.current{
       <!-- 위치 및 시간 -->
       <div id="timePlaceWrap">
          <p id="timePlaceHeader">위치 및 시간</p>
-
-
-			<div id="timePlaceContent">
-				<div id="placeWrap">
-					<div id="Detail_map" style="width:350px; height:230px;">
-					
-					</div>
-					<div id="placeInfo">
-						<p>${dto.b_name }</p>
-						<p>${dto.b_Store_Address }</p>
-					</div>
-				</div>
-				<div id="timeWrap">
-					<div id="timeDate">
-						<i class="far fa-clock"></i>
-						<div id="timeInfo">
-							<span>${dto.b_Store_date }</span>
-							<span>${dto.b_open }-${dto.b_close }</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- timePlaceWrap.end -->
-		<div id="photoWrap">
-			<p id="photoHeader">사진 리뷰</p>
-			<div id="photoListWrap">
-				<div id="slideBtnsWrap3">
-					<button id="leftBtn3">
-						<i class="fas fa-chevron-circle-left"></i>
-					</button>
-					<button id="rightBtn3">
-						<i class="fas fa-chevron-circle-right"></i>
-					</button>
-				</div>
-				<ul id="photoList">
-					<c:forEach var="tmp3" items="${reviewList }">
-						<c:if test="${not empty tmp3.review_image}">
-							<li>
-								<a href="#">
-									<img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
-								</a>
-							</li>
-						</c:if>
-					</c:forEach>
-					
-				</ul>
-			</div>
-		</div>
-		<!-- photoWrap.end -->
-		<div id="reviewWrap">
-			<p id="reviewHeader">리뷰</p>
-			<div id="reviewBanner">
-				<div id="totalReviewCount">
-					<p>전체 리뷰 수</p>
-					<p><i class="fas fa-user-friends"></i></p>
-					<p>${totalRow }</p>
-				</div>
-				<div id="peopleKeyword">
-					<div id="peopleKeywordHeader">
-						<span>이용 고객이 선택한 키워드</span>
-						<button type="button" id="showKeywordBtn">
-							<i class="fas fa-chevron-circle-down"></i>		
-						</button>
-					</div>
-					<div id="keywordGraphWrap">
-						<!-- 그래프 하나씩 -->
-					</div>
-				</div>
-				<!-- peopleKeyword.end -->
-			</div>
-			<!-- reviewBanner.end -->
-			<div id="reivewListWrap">
-				<div id="reviewFilter">
-					<div id="arrayFilter">
-						<button type="button" id="latestBtn" data-only="all">
-							<span id="latest1"><i class="fas fa-caret-down"></i></span>
-							<span id="latest2">최신순</span>
-						</button>
-						<button type="button" id="popularBtn" data-only="all">
-							<span id="popular1"><i class="fas fa-caret-down"></i></span>
-							<span id="popular2">인기순</span>
-						</button>
-					</div>
-					<div id="photoFilter">
-						<button type="button" id="onlyBtn" data-array="latest" data-isClicked="">
-							<span id="onlyCheck"><i class=" ${only eq 'all' ? 'far fa-check-square' : 'fas fa-check-square' }"></i></span>
-							<span>사진 리뷰만</span>
-						</button>
-					</div>
-				</div>
-				<!-- reviewFilter.end -->
-				<div id="reviews">
-				<c:forEach var="listR" items="${reviewList }">
-				<!--  <p>스크랩 유무 : ${listR.is_user_good }</p>-->
-					<div class="review">
-						<div class="review_header">
-							<div class="profile_wrap">
-							<c:choose>
-								<c:when test="${empty listR.profile }">
-									<i class="fas fa-user-circle" style="font-size:40px;"></i>
-								</c:when>
-								<c:otherwise>
-									<img src="${pageContext.request.contextPath}${listR.profile }" alt="${listR.writer }" class="profile" style="width:50px; height:50px;"/>
-								</c:otherwise>
-							</c:choose>
-							</div>
-							<div class="writer_info">
-								<p>${listR.writer }</p>
-								<p>${listR.regdate } | ${listR.review_kind eq 'reserve'?'예약':'포장'}</p>
-							</div>
-						</div>
-						<p class="review_content">${listR.review_content }</p>
-						<c:if test="${not empty listR.review_image }">
-							<div class="review_img" style="background-image:url('${pageContext.request.contextPath}${listR.review_image}');"></div>
-						</c:if>
-						<div class="review_key_wrap" data-num="${listR.review_num }" data-key="${listR.keyword_review}">
-						</div>
-						<div class="good_wrap">
-							<button type="button" class="goodBtn" data-num="${listR.review_num }" data-isGoodNum="${listR.is_user_good }" data-goodCount="${listR.good_count }">
-								<c:choose>
-									<c:when test="${listR.is_user_good eq 0 }">
-										<i class="far fa-thumbs-up"></i>
-									</c:when>
-									<c:otherwise>
-										<i class="fas fa-thumbs-up" style="color:rgb(253, 83, 0);"></i>
-									</c:otherwise>
-								</c:choose>
-							</button>
-							<span> ${listR.good_count }</span>
-							<span> 명이 추천했어요!</span>
-						</div>
-					</div>
-					</c:forEach>
-					<div class="page-ui clearfix">
-						<ul id="pagination">
-							<c:if test="${startPageNum ne 1 }">
-								<li>
-									<a href="${pageContext.request.contextPath}/eatery/ajax_detail.do?b_id=${dto.b_id}&array=${array }&only=${only }&pageNum=${startPageNum-1 }">Prev</a>
-								</li>
-							</c:if>
-							<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-								<li>
-									<c:choose>
-										<c:when test="${pageNum eq i }">
-											<a class="active pageBtn" href="javascript:;" data-array="latest" data-only="all" data-pageNum="${i }">${i }</a>
-										</c:when>
-										<c:otherwise>
-											<a class="pageBtn" href="javascript:;" data-array="latest" data-only="all" data-pageNum="${i }">${i }</a>
-										</c:otherwise>
-									</c:choose>
-								</li>
-							</c:forEach>
-							<c:if test="${endPageNum lt totalPageCount }">
-								<li>
-									<a href="${pageContext.request.contextPath}/eatery/ajax_detail.do?b_id=${dto.b_id}&array=${array }&only=${only }&pageNum=${endPageNum+1 }">Next</a>
-								</li>
-							</c:if>
-						</ul>
-					</div>
-					<div style="clear:both;"></div>
-				</div>
-				<!-- reviews.end (ajax 내용 들어갈 곳)-->
-			</div>
-			<!-- reviewListWrap.end -->
-		</div>
-		<!-- reviewWrap.end -->
-		
-		
-		
-	</div>
-	<!-- leftContent.end -->
-	<div id="rightContent">
-		<div id="bulletin">
-			<span>알림</span>
-			<span>${dto.notice }</span>
-		</div>
-		
-		<div>
-			<div id="container">
-		        <ul class="tabs">
-		            <li class="tab-link current" data-tab="tab-1">예약</li>
-		            <li class="tab-link" data-tab="tab-2">포장</li>
-		        </ul>
-		    
-		        <div id="tab-1" class="tab-content current">
-		            <form style="margin:0 auto;" action="${pageContext.request.contextPath}/eatery/reservation_insertform.do" method="post" id="reservation_form" onsubmit="return confirm('예약 하시겠습니까?');">
-		            	<input type="hidden" id="b_id" name="b_id" value=${dto.b_id }/><!-- ${dto.b_id} -->
-		            	<input type="hidden" id="reservation_time" name="reservation_time"/>
-		            	<input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
-		            	<input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
-		                <div class="r_date" style="display:flex; align-items:center;">
-		                    <label for="datepicker"><i class="far fa-calendar-alt" style="font-size:20px;"></i></label>
-		                    <input style="width:200px;" class="calendar font-size:15px;" type="text" name="datepicker" id="datepicker" placeholder="날짜 입력" />  
-		                    <i class="down_ico fas fa-angle-down"></i> 
-		                </div>
-		                
-		                <div class="r_time">
-		                	
-		                	<div><label id="timeLabel" for="time" style="display:flex;"><i class="far fa-clock" style="font-size:20px;"></i><div id="choice">시간 선택</div><i class="down_ico fas fa-angle-down"></i></label></div>
-		                
-		                	<div class="hide">
-		                		<span id="am">AM</span>
-			                    <br />
-			                    <script>
-					                  let a="${dto.b_open}";
-					                  let b=a.split(":");
-					                  let hour=parseInt(b[0]);
-					                  console.log(hour);
-					                  let min=parseInt(b[1]);
-					                  console.log(b[1]);
-					                  if(min==30){
-					                     min=1;
-					                  }else{
-					                     min=0;
-					                  }
-					                  console.log(min);
-					                  hour = hour *2;
-					                  let f = hour+min;
-					                  console.log(f);
-					                        
-					                  for(let i=f; i<26; i++){
-					                     let hour="";
-					                     let min=":00";
-					                     if((Math.ceil(i/2))<13){
-					                        hour = (Math.floor(i/2));
-					                     }else{
-					                        hour = (Math.floor(i/2));
-					                     }
-					                     hour = (Math.floor(i/2));
-					                     if(hour<10){
-					                        hour = "0"+hour;
-					                     }
-					                     if(i%2 != 0){
-					                        min=":30";
-					                     }
-					                     document.write('<button id="row_" type="button" class="timeSelect" value = "AM ' + hour + min +'">'
-					                        + hour
-					                        + min
-					                        + '</button>');
-					                  }
-					            </script>
-			               		<br />
-			               		<span id="pm">PM</span>
-			               		<br />
-			                    <script>
-									for(let i=2; i<17; i++){ 
-									   let hour="";
-									   let min=":00";
-									   if((Math.ceil(i/2))<13){
-									      hour = (Math.floor(i/2));
-									   }else{
-									      hour = (Math.floor(i/2));
-									   }
-									   hour = (Math.floor(i/2));
-									   if(hour<10){
-									      hour = "0"+hour;
-									   }
-									   if(i%2 != 0){
-									      min=":30";
-									   }
-									   document.write('<button id="row_" type="button" class="timeSelect" value = "PM  ' + hour + min +'">'
-									      + hour
-									      + min
-									      + '</button>');
-									}
-			                  	</script>
-		                	</div>
-		                	
-		                </div>
-		                <div class="r_person">
-		                    <label for="personAdd"><i class="far fa-user" style="font-size:20px;"></i></label>
-		                    <select name="person" id="person">
-		                         <option value="1">1</option>
-		                         <option value="2">2</option>
-		                         <option value="3">3</option>
-		                         <option value="4">4</option>
-		                         <option value="5">5</option>
-		                         <option value="6">6</option>
-		                         <option value="7">7</option>
-		                         <option value="8">8</option>
-		                      </select>
-		                </div>
-		                <div class="r_info_wrap" style="margin-top:30px;">
-		                <div style=" border-bottom:1px solid rgba(0,0,0,.5); padding-bottom:10px;">
-		               		<span id="r_info" style="font-weight:600;">예약자 정보</span>
-		                </div>
-		                <div class="r_name" style="margin-top:10px;">
-		                    <label for="name">예약자</label>
-		                    <input type="text" name="name" id="name" placeholder="이름 입력">
-		                </div>  
-		                <div class="r_phone">
-		                    <label for="phone">전화번호</label>
-		                    <input type="text" name="phone" id="phone" placeholder="번호 입력">
-		                </div>
-		                </div>    
-		                <div class="rBtn">
-		                	 <button id="rBtn" type="submit">예약</button>
-		                </div>
-		            </form>  
-		        </div>
-		        <div id="tab-2" class="tab-content">
-		            <form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post">
-		               	<input type="hidden" id="b_id" name="b_id" value=${dto.b_id }/>
-		               	<input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
-		            	<input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
-		            	<p style="text-align:center; ">※직접 가져가실 수 있게 준비 됩니다.</p>
-		            	<br />
-		               	<button id="tBtn" type="submit">포장</button>
-		            </form>
-		        </div>
-		    </div>
-		</div>
-		
-		<ul id="etcInfo">
-			<li id="callNum">
-				<span><i class="fas fa-phone-alt"></i></span>
-				<span>${dto.b_Store_phone }</span>
-			</li>
-			<li id="convenience">
-				<span><i class="fas fa-store-alt"></i></span>
-				<span>${dto.ex_keyword }</span>
-			</li>
-		</ul>
-	</div>
-
+         <div id="timePlaceContent">
+            <div id="placeWrap">
+               <div id="Detail_map" style="width:350px; height:230px;">
+               
+               </div>
+               <div id="placeInfo">
+                  <p>${dto.b_name }</p>
+                  <p>${dto.b_Store_Address }</p>
+               </div>
+            </div>
+            <div id="timeWrap">
+               <div id="timeDate">
+                  <i class="far fa-clock"></i>
+                  <div id="timeInfo">
+                     <span>${dto.b_Store_date }</span>
+                     <span>${dto.b_open }-${dto.b_close }</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- timePlaceWrap.end -->
+      <div id="photoWrap">
+         <p id="photoHeader">사진 리뷰</p>
+         <div id="photoListWrap">
+            <div id="slideBtnsWrap3">
+               <button id="leftBtn3">
+                  <i class="fas fa-chevron-circle-left"></i>
+               </button>
+               <button id="rightBtn3">
+                  <i class="fas fa-chevron-circle-right"></i>
+               </button>
+            </div>
+            <ul id="photoList">
+               <c:forEach var="tmp3" items="${reviewList }">
+                  <c:if test="${not empty tmp3.review_image}">
+                     <li>
+                        <a href="#">
+                           <img src="${pageContext.request.contextPath}${tmp3.review_image}" class="photo_item" width="100px" height="100px"/>
+                        </a>
+                     </li>
+                  </c:if>
+               </c:forEach>
+               
+            </ul>
+         </div>
+      </div>
+      <!-- photoWrap.end -->
+      <div id="reviewWrap">
+         <p id="reviewHeader">리뷰</p>
+         <div id="reviewBanner">
+            <div id="totalReviewCount">
+               <p>전체 리뷰 수</p>
+               <p><i class="fas fa-user-friends"></i></p>
+               <p>${totalRow }</p>
+            </div>
+            <div id="peopleKeyword">
+               <div id="peopleKeywordHeader">
+                  <span>이용 고객이 선택한 키워드</span>
+                  <button type="button" id="showKeywordBtn">
+                     <i class="fas fa-chevron-circle-down"></i>      
+                  </button>
+               </div>
+               <div id="keywordGraphWrap">
+                  <!-- 그래프 하나씩 -->
+               </div>
+            </div>
+            <!-- peopleKeyword.end -->
+         </div>
+         <!-- reviewBanner.end -->
+         <div id="reivewListWrap">
+            <div id="reviewFilter">
+               <div id="arrayFilter">
+                  <button type="button" id="latestBtn" data-only="all">
+                     <span id="latest1"><i class="fas fa-caret-down"></i></span>
+                     <span id="latest2">최신순</span>
+                  </button>
+                  <button type="button" id="popularBtn" data-only="all">
+                     <span id="popular1"><i class="fas fa-caret-down"></i></span>
+                     <span id="popular2">인기순</span>
+                  </button>
+               </div>
+               <div id="photoFilter">
+                  <button type="button" id="onlyBtn" data-array="latest" data-isClicked="">
+                     <span id="onlyCheck"><i class=" ${only eq 'all' ? 'far fa-check-square' : 'fas fa-check-square' }"></i></span>
+                     <span>사진 리뷰만</span>
+                  </button>
+               </div>
+            </div>
+            <!-- reviewFilter.end -->
+            <div id="reviews">
+            <c:forEach var="listR" items="${reviewList }">
+            <!--  <p>스크랩 유무 : ${listR.is_user_good }</p>-->
+               <div class="review">
+                  <div class="review_header">
+                     <div class="profile_wrap">
+                     <c:choose>
+                        <c:when test="${empty listR.profile }">
+                           <i class="fas fa-user-circle" style="font-size:40px;"></i>
+                        </c:when>
+                        <c:otherwise>
+                           <img src="${pageContext.request.contextPath}${listR.profile }" alt="${listR.writer }" class="profile" style="width:50px; height:50px;"/>
+                        </c:otherwise>
+                     </c:choose>
+                     </div>
+                     <div class="writer_info">
+                        <p>${listR.writer }</p>
+                        <p>${listR.regdate } | ${listR.review_kind eq 'reserve'?'예약':'포장'}</p>
+                     </div>
+                  </div>
+                  <p class="review_content">${listR.review_content }</p>
+                  <c:if test="${not empty listR.review_image }">
+                     <div class="review_img" style="background-image:url('${pageContext.request.contextPath}${listR.review_image}');"></div>
+                  </c:if>
+                  <div class="review_key_wrap" data-num="${listR.review_num }" data-key="${listR.keyword_review}">
+                  </div>
+                  <div class="good_wrap">
+                     <button type="button" class="goodBtn" data-num="${listR.review_num }" data-isGoodNum="${listR.is_user_good }" data-goodCount="${listR.good_count }">
+                        <c:choose>
+                           <c:when test="${listR.is_user_good eq 0 }">
+                              <i class="far fa-thumbs-up"></i>
+                           </c:when>
+                           <c:otherwise>
+                              <i class="fas fa-thumbs-up" style="color:rgb(253, 83, 0);"></i>
+                           </c:otherwise>
+                        </c:choose>
+                     </button>
+                     <span> ${listR.good_count }</span>
+                     <span> 명이 추천했어요!</span>
+                  </div>
+               </div>
+               </c:forEach>
+               <div class="page-ui clearfix">
+                  <ul id="pagination">
+                     <c:if test="${startPageNum ne 1 }">
+                        <li>
+                           <a href="${pageContext.request.contextPath}/eatery/ajax_detail.do?b_id=${dto.b_id}&array=${array }&only=${only }&pageNum=${startPageNum-1 }">Prev</a>
+                        </li>
+                     </c:if>
+                     <c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+                        <li>
+                           <c:choose>
+                              <c:when test="${pageNum eq i }">
+                                 <a class="active pageBtn" href="javascript:;" data-array="latest" data-only="all" data-pageNum="${i }">${i }</a>
+                              </c:when>
+                              <c:otherwise>
+                                 <a class="pageBtn" href="javascript:;" data-array="latest" data-only="all" data-pageNum="${i }">${i }</a>
+                              </c:otherwise>
+                           </c:choose>
+                        </li>
+                     </c:forEach>
+                     <c:if test="${endPageNum lt totalPageCount }">
+                        <li>
+                           <a href="${pageContext.request.contextPath}/eatery/ajax_detail.do?b_id=${dto.b_id}&array=${array }&only=${only }&pageNum=${endPageNum+1 }">Next</a>
+                        </li>
+                     </c:if>
+                  </ul>
+               </div>
+               <div style="clear:both;"></div>
+            </div>
+            <!-- reviews.end (ajax 내용 들어갈 곳)-->
+         </div>
+         <!-- reviewListWrap.end -->
+      </div>
+      <!-- reviewWrap.end -->
+      
+      
+      
+   </div>
+   <!-- leftContent.end -->
+   <div id="rightContent">
+      <div id="bulletin">
+         <span>알림</span>
+         <span>${dto.notice }</span>
+      </div>
+      
+      <div>
+         <div id="container">
+              <ul class="tabs">
+                  <li class="tab-link current" data-tab="tab-1">예약</li>
+                  <li class="tab-link" data-tab="tab-2">포장</li>
+              </ul>
+          
+              <div id="tab-1" class="tab-content current">
+                  <form style="margin:0 auto;" action="${pageContext.request.contextPath}/eatery/reservation_insertform.do" method="post" id="reservation_form" onsubmit="return confirm('예약 하시겠습니까?');">
+                     <input type="hidden" id="b_id" name="b_id" value="${dto.b_id }"/><!-- ${dto.b_id} -->
+                     <input type="hidden" id="reservation_time" name="reservation_time"/>
+                     <input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
+                     <input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
+                      <div class="r_date" style="display:flex; align-items:center;">
+                          <label for="datepicker"><i class="far fa-calendar-alt" style="font-size:20px;"></i></label>
+                          <input style="width:200px;" class="calendar font-size:15px;" type="text" name="datepicker" id="datepicker" placeholder="날짜 입력" />  
+                          <i class="down_ico fas fa-angle-down"></i> 
+                      </div>
+                      
+                      <div class="r_time">
+                         
+                         <div><label id="timeLabel" for="time" style="display:flex;"><i class="far fa-clock" style="font-size:20px;"></i><div id="choice">시간 선택</div><i class="down_ico fas fa-angle-down"></i></label></div>
+                      
+                         <div class="hide">
+                         	 <span id="am">AM</span>
+                             <br />
+                             <script>
+                                 let a="${dto.b_open}";
+                                 let b=a.split(":");
+                                 let hour=parseInt(b[0]);
+                                 console.log(hour);
+                                 let min=parseInt(b[1]);
+                                 console.log(b[1]);
+                                 if(min==30){
+                                    min=1;
+                                 }else{
+                                    min=0;
+                                 }
+                                 console.log(min);
+                                 hour = hour *2;
+                                 let f = hour+min;
+                                 console.log(f);
+                                       
+                                 for(let i=f; i<26; i++){
+                                    let hour="";
+                                    let min=":00";
+                                    if((Math.ceil(i/2))<13){
+                                       hour = (Math.floor(i/2));
+                                    }else{
+                                       hour = (Math.floor(i/2));
+                                    }
+                                    hour = (Math.floor(i/2));
+                                    if(hour<10){
+                                       hour = "0"+hour;
+                                    }
+                                    if(i%2 != 0){
+                                       min=":30";
+                                    }
+                                    document.write('<button id="row_" type="button" class="timeSelect" value = "AM ' + hour + min +'">'
+                                       + hour
+                                       + min
+                                       + '</button>');
+                                 }
+                           </script>
+                           <br />
+                           <span id="pm">PM</span>
+                           <br />
+                           <script>
+                           		let c="${dto.b_close}";
+	 		                 	let d=c.split(":");
+	 		                  	let hour2=parseInt(d[0]);
+	 		                  	console.log(hour2);
+	 		                  	let min2 = parseInt(d[1]);
+	 		                  	console.log(d[1]);
+	 		                  	if(min2==30){
+	 			                     min2=1;
+	 			                  }else{
+	 			                     min2=0;
+	 			                  }
+	 		                  	hour2 = hour2*2-24;
+	 		                  	let g=hour2+min2;
+	 		                  	console.log(g); 
+	 							for(let i=2; i<g; i++){ 
+	 							   let hour="";
+	 							   let min=":00";
+	 							   if((Math.ceil(i/2))<13){
+	 							      hour = (Math.floor(i/2));
+	 							   }else{
+	 							      hour = (Math.floor(i/2));
+	 							   }
+	 							   hour = (Math.floor(i/2));
+	 							   if(hour<12){
+	 							      hour = "0"+hour;
+	 							   }
+	 							   if(i%2 != 0){
+	 							      min=":30";
+	 							   }
+	 							   document.write('<button id="row_" type="button" class="timeSelect" value = "PM  ' + hour + min +'">'
+	 							      + hour
+	 							      + min
+	 							      + '</button>');
+	 							}
+                              </script>
+                         </div>
+                         
+                      </div>
+                      <div class="r_person">
+                          <label for="personAdd"><i class="far fa-user" style="font-size:20px;"></i></label>
+                          <select name="person" id="person">
+                               <option value="1">1</option>
+                               <option value="2">2</option>
+                               <option value="3">3</option>
+                               <option value="4">4</option>
+                               <option value="5">5</option>
+                               <option value="6">6</option>
+                               <option value="7">7</option>
+                               <option value="8">8</option>
+                            </select>
+                      </div>
+                      <div class="r_info_wrap" style="margin-top:30px;">
+                      <div style=" border-bottom:1px solid rgba(0,0,0,.5); padding-bottom:10px;">
+                           <span id="r_info" style="font-weight:600;">예약자 정보</span>
+                      </div>
+                      <div class="r_name" style="margin-top:10px;">
+                          <label for="name">예약자</label>
+                          <input type="text" name="name" id="name" placeholder="이름 입력">
+                      </div>  
+                      <div class="r_phone">
+                          <label for="phone">전화번호</label>
+                          <input type="text" name="phone" id="phone" placeholder="번호 입력">
+                      </div>
+                      </div>    
+                      <div class="rBtn">
+                          <button id="rBtn" type="submit">예약</button>
+                      </div>
+                  </form>  
+              </div>
+              <div id="tab-2" class="tab-content">
+                  <form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post">
+                        <input type="hidden" id="b_id" name="b_id" value="${dto.b_id }"/>
+                        <input type="hidden" id="b_open" name="b_open" value="${dto.b_open }"/>
+                        <input type="hidden" id="b_close" name="b_close" value="${dto.b_close }"/>
+                        <input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
+                     <input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
+                     <p style="text-align:center; ">※직접 가져가실 수 있게 준비 됩니다.</p>
+                     <br />
+                        <button id="tBtn" type="submit">포장</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+      
+      <ul id="etcInfo">
+         <li id="callNum">
+            <span><i class="fas fa-phone-alt"></i></span>
+            <span>${dto.b_Store_phone }</span>
+         </li>
+         <li id="convenience">
+            <span><i class="fas fa-store-alt"></i></span>
+            <span>${dto.ex_keyword }</span>
+         </li>
+      </ul>
+   </div>
 </div>
 <span id="goTop"></span>
 
@@ -1815,6 +1830,47 @@ ul.tabs li.current{
            return false;
         }
     };
+    
+  	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#reservation_form")
+		.addEventListener("submit", function(e){
+			//textarea 이외에 입력한 내용을 여기서 검증하고 
+			const time=document.querySelector("#reservation_time").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(time.length < 1){
+				alert("시간을 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#reservation_form")
+		.addEventListener("submit", function(e){
+			const phone=document.querySelector("#phone").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(phone.length < 1){
+				alert("전화번호를 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#reservation_form")
+		.addEventListener("submit", function(e){
+			const name=document.querySelector("#name").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(name.length < 1){
+				alert("이름을 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
 
    //지도
    let lattitude = '<c:out value="${dto.lattitude}"/>';

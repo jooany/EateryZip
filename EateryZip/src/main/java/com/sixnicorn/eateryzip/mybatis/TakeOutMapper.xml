@@ -35,4 +35,10 @@
 		FROM takeout_menu
 		WHERE take_menu_num = (SELECT takeout_menu_num FROM takeout WHERE takeout_num=#{num})
 	</select>
+	<!-- b_store 정보 가져오기 -->
+	<select id="getStore" parameterType="int" resultType="BStoreDto">
+		SELECT b_name, b_store_address
+		FROM b_store
+		WHERE b_id = (SELECT b_id FROM takeout WHERE takeout_num=#{num} )
+	</select>
 </mapper>
