@@ -550,20 +550,21 @@ button:hover{
 }
 /* 방문예약 / 포장예약 tab css */
 ul.tabs{
-	margin: 0px;
-	padding: 0px;
+	margin-top:10px;
+	padding: 0 7px;
 	list-style: none;
+	margin-bottom:10px;
 }
 ul.tabs li{
 	background: none;
-	border-bottom: 2px solid;
+	border-bottom: 2px solid rgba(0,0,0,.2);
 	color: #222;
 	display: inline-block;
 	padding: 10px 15px;
 	cursor: pointer;
 	margin-left: 15px;
 	font-weight: bold;
-	font-size: 14px
+	font-size: 15px;
 }
 
 ul.tabs li.current{
@@ -592,18 +593,25 @@ ul.tabs li.current{
 	}
 /* 내부 css */
 .r_date{
-	margin-bottom: 5px;
+	margin-bottom: 10px;
+	padding-bottom:7px;
+	border-bottom:1px solid rgba(0,0,0,.1);
 }
 #datepicker{
 	margin-left:12px;
 	font-size: 14px;
+	border:none;
 }
 .r_time{
-	margin-bottom: 5px;
+	margin-bottom: 10px;
+	padding-bottom:7px;
+	border-bottom:1px solid rgba(0,0,0,.1);
 }
 #choice{
-	margin-left: 8px;
+	padding:1px 2px;
+	margin-left: 10px;
 	font-size: 14px;
+	width:200px;
 }
 .r_person{
 	margin-bottom:5px;	
@@ -611,6 +619,9 @@ ul.tabs li.current{
 #person{
 	margin-left:10px;
 	font-size:14px;
+	border:1px solid rgba(0,0,0,.1);
+	width:50px;
+	height:30px;
 }
 #r_info{
 	font-size:14px;
@@ -623,9 +634,18 @@ ul.tabs li.current{
 	font-size: 14px;
 }
 #name{
-	width:150px;
-	margin-left: 28px;
+	height:30px;
+	line-height:30px;
+	border:1px solid rgba(0,0,0,.15);
+	width:184px;
 	font-size: 14px;
+	margin-left:19px;
+}
+#name::placeholder{
+	font-size:13px;
+}
+#phone::placeholder{
+	font-size:13px;
 }
 .r_phone{
 	margin-bottom:8px;
@@ -634,11 +654,15 @@ ul.tabs li.current{
 	font-size: 14px;
 }
 #phone{
-	width:150px;
+	height:30px;
+	line-height:30px;
+	border:1px solid rgba(0,0,0,.1);
+	width:184px;
 	font-size: 14px;
+	margin-left:5px;
 }
 #rBtn{
-	width:200px;
+	width:250px;
 	/* display: block;
 	margin:auto; */
 	background-color: #fd5300;
@@ -677,6 +701,12 @@ ul.tabs li.current{
 #pm{
 	font-size: 14px;
     margin-left: 3px;
+}
+#reservation_form{
+	width:250px;
+}
+.down_ico{
+	font-size:17px;
 }
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e12e99f90ddd040d29c835f01fcaa837"></script>
@@ -752,7 +782,7 @@ ul.tabs li.current{
 		               <input type="hidden" id="b_id" name="b_id" value="${dto.b_id }"/>
 		               <input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
 		            	<input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
-	               <button id="tBtn" type="submit">전체 메뉴 보기</button>
+	               <button id="allBtn" type="submit">전체 메뉴 보기</button>
             	</form>
 			</div>
 			<div id="menuListWrap">
@@ -963,18 +993,20 @@ ul.tabs li.current{
 		        </ul>
 		    
 		        <div id="tab-1" class="tab-content current">
-		            <form action="${pageContext.request.contextPath}/eatery/reservation_insertform.do" method="post" id="reservation_form" onsubmit="return confirm('예약 하시겠습니까?');">
+		            <form style="margin:0 auto;" action="${pageContext.request.contextPath}/eatery/reservation_insertform.do" method="post" id="reservation_form" onsubmit="return confirm('예약 하시겠습니까?');">
 		            	<input type="hidden" id="b_id" name="b_id" value=${dto.b_id }/><!-- ${dto.b_id} -->
 		            	<input type="hidden" id="reservation_time" name="reservation_time"/>
 		            	<input type="hidden" id="b_store_name" name="b_store_name" value="${dto.b_name }"/>
 		            	<input type="hidden" id="b_store_addr" name="b_store_addr" value="${dto.b_Store_Address }"/>
-		                <div class="r_date">
+		                <div class="r_date" style="display:flex; align-items:center;">
 		                    <label for="datepicker"><i class="far fa-calendar-alt" style="font-size:20px;"></i></label>
-		                    <input class="calendar" type="text" name="datepicker" id="datepicker" placeholder="날짜 입력" />   
+		                    <input style="width:200px;" class="calendar font-size:15px;" type="text" name="datepicker" id="datepicker" placeholder="날짜 입력" />  
+		                    <i class="down_ico fas fa-angle-down"></i> 
 		                </div>
 		                
 		                <div class="r_time">
-		                	<label for="time"><i class="far fa-clock" style="font-size:20px;"></i>  <span id="choice">시간을 입력해 주세요.. <i class="fas fa-angle-down"></i></span></label>
+		                	
+		                	<div><label for="time" style="display:flex;"><i class="far fa-clock" style="font-size:20px;"></i><div id="choice">시간 선택</div><i class="down_ico fas fa-angle-down"></i></label></div>
 		                
 		                	<div class="hide">
 		                		<span id="am">AM</span>
@@ -1058,14 +1090,18 @@ ul.tabs li.current{
 		                         <option value="8">8</option>
 		                      </select>
 		                </div>
-		                <span id="r_info">예약자 정보</span>
-		                <div class="r_name">
-		                    <label for="name">이름</label>
+		                <div class="r_info_wrap" style="margin-top:30px;">
+		                <div style=" border-bottom:1px solid rgba(0,0,0,.5); padding-bottom:10px;">
+		               		<span id="r_info" style="font-weight:600;">예약자 정보</span>
+		                </div>
+		                <div class="r_name" style="margin-top:10px;">
+		                    <label for="name">예약자</label>
 		                    <input type="text" name="name" id="name" placeholder="이름 입력">
 		                </div>  
 		                <div class="r_phone">
 		                    <label for="phone">전화번호</label>
 		                    <input type="text" name="phone" id="phone" placeholder="번호 입력">
+		                </div>
 		                </div>    
 		                <div class="rBtn">
 		                	 <button id="rBtn" type="submit">예약</button>
