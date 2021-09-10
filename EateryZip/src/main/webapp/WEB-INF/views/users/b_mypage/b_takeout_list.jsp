@@ -168,11 +168,11 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="page-ui clearfix">
+		<nav class="page-ui clearfix">
 			<ul class="pagination justify-content-center">
 				<c:if test="${startPageNum ne 1 }">
-					<li class="page-link">
-						<a href="b_takeout_list.do?pageNum=${startPageNum-1 }">Prev</a>
+					<li class="page-item">
+						<a class="page-link" href="b_takeout_list.do?pageNum=${startPageNum-1 }">Prev</a>
 					</li>
 				</c:if>
 				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
@@ -188,12 +188,12 @@
 					</li>
 				</c:forEach>
 				<c:if test="${endPageNum lt totalPageCount }">
-					<li class="page-link">
-						<a href="b_takeout_list.do?pageNum=${endPageNum+1 }">Next</a>
+					<li class="page-item">
+						<a class="page-link" href="b_takeout_list.do?pageNum=${endPageNum+1 }">Next</a>
 					</li>
 				</c:if>
 			</ul>
-		</div>
+		</nav>
 	</div>
 </div>	
 	

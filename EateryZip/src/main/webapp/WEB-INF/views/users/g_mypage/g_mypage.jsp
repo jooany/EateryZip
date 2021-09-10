@@ -78,7 +78,7 @@
 		height: fit-content;
 		background-color: white;
 		margin-right: 120px;
-		padding: 20px 0px 20px 50px;
+		padding: 20px 0px 20px 40px;
 	}
 	
 	table{
