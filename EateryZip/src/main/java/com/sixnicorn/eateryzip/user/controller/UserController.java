@@ -261,14 +261,6 @@ public class UserController {
 		return mView;
 	}
 	
-	// 비즈니스회원 프로필이미지 ajax처리
-	@RequestMapping(value="users/b_mypage/ajax_b_profile_upload", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> ajaxProfileUpload(HttpServletRequest request, @RequestParam MultipartFile image){
-		// 서비스를 이용해서 이미지를 upload폴더에 저장하고 리턴되는 Map을 리턴해서 json문자열 응답하기
-		return Bservice.saveB_profileImage(request, image);
-	}
-	
 	// 일반회원 가입정보보기
 	@RequestMapping("/users/g_mypage/g_mypage")
 	public ModelAndView Gmypage(HttpSession session, ModelAndView mView, HttpServletRequest request) {
