@@ -383,46 +383,16 @@ public class BStoreServiceImpl implements BStoreService{
 		System.out.println("----------------------");
 		
 		BStoreDao.insert(dto);
-		
-		String b_id=(String)request.getSession().getAttribute("b_id");
-
-		String[] imgs = request.getParameterValues("store_img");
-
-		for(String tmp: imgs){
-		    StoreImgDto imgDto = new StoreImgDto();
-		    imgDto.setB_id(b_id);
-		    imgDto.setStore_img(tmp);
-		    BStoreDao.insertStoreImg(imgDto);
-		   
-
-		}
 	}
 
 
 	@Override
 	public void updateStore(BStoreDto dto) {
-		System.out.println("-----------2-----------");
-		System.out.println("dto:" +dto);
-		System.out.println("----------------------");
+
 		BStoreDao.update(dto);
-		
-		
 		
 	}
 	
-	/*
-	@Override
-	public void getStore(HttpServletRequest request) {
-		
-		String b_id = (String)request.getSession().getAttribute("b_id");
-		BStoreDto dto=BStoreDao.getStore(b_id);
-		System.out.println("-----------2-----------");
-		System.out.println("request:" +request);
-		System.out.println("dto:" +dto);
-		System.out.println("----------------------");
-		request.setAttribute("dto", dto);
-	}
-	*/
 	@Override
 	public void getStore(HttpSession session, ModelAndView mView, HttpServletRequest request) {
 		String b_id = (String)session.getAttribute("b_id");
@@ -434,9 +404,7 @@ public class BStoreServiceImpl implements BStoreService{
 		System.out.println("----------------------");
 		
 		mView.addObject("dto",dto);
-		
-		List<StoreImgDto> imgList=BStoreDao.getStoreImgList(b_id);
-		request.setAttribute("imgList", imgList);
+
 	}
 	
 	
