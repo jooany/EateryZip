@@ -149,7 +149,7 @@
 		                  <button class="dropbtn" style="display:flex;"><i id="g_profileImage" class="far fa-user"></i><i class="fas fa-caret-down" style="margin-left:25px;color:rgba(0,0,0,.2);"></i></button>
 		                  <div class="dropdown-content">
 		                     <a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">마이페이지</a>
-		                     <a href="#">스크랩내역</a>
+		                     <a href="${pageContext.request.contextPath}/users/g_mypage/scrap_List.do">스크랩내역</a>
 		                     <a href="${pageContext.request.contextPath}/users/g_mypage/takeout_list.do">포장내역</a>
 		                     <a href="${pageContext.request.contextPath}/users/g_mypage/reserve_List.do">예약내역</a>
 		                     <a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
@@ -164,7 +164,7 @@
 		                  </button>
 		                  <div class="dropdown-content">
 		                     <a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">마이페이지</a>
-		                     <a href="#">스크랩내역</a>
+		                     <a href="${pageContext.request.contextPath}/users/g_mypage/scrap_List.do">스크랩내역</a>
 		                     <a href="${pageContext.request.contextPath}/users/g_mypage/takeout_list.do">포장내역</a>
 		                     <a href="${pageContext.request.contextPath}/users/g_mypage/reserve_List.do">예약내역</a>
 		                     <a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
