@@ -41,7 +41,7 @@
 /*------------------------------right_content start------------------------------*/
 
 	#right_content{
-		width: 600px;
+		width: 700px;
 		height: fit-content;
 		background-color: white;
 		padding: 20px 0px 20px 40px;
@@ -51,12 +51,17 @@
 	    width: 300px;
 		margin:0 auto;
 		text-align: left;
-		padding: 50px;
 	}
 	#right_content tr{
 		border-bottom: 1px solid #efefef;
     	margin-bottom: 20px;
     	line-height: 36px;
+	}
+	th{
+		line-height: 50px;
+	}
+	td {
+	    padding-left: 100px;
 	}
 
 </style>
@@ -66,7 +71,7 @@
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
 
 	<div id="container" class="inner" style="display:flex; justify-content:space-between;">
-	<jsp:include page="/navbar/sideBar/sideBar.jsp"></jsp:include>
+	<jsp:include page="/navbar/sideBar/b_sideBar.jsp"></jsp:include>
 	<div id="right_content">
 		<table>
 			<tr>

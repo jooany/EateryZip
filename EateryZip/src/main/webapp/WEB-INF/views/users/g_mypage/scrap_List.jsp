@@ -6,11 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>/views/users/g_mypage/scrap_List.jsp</title>
-<jsp:include page="/navbar/header/navbar_list.jsp"></jsp:include>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
-	
 	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
    /* 공통 */
    *{
@@ -18,7 +16,7 @@
     margin-top:0;
     }
 	body{
-		background-color: #efefef
+		background-color:rgba(0,0,0,.04)!important;
 	}
 	a{
 		text-decoration: none;
@@ -28,55 +26,30 @@
          background-color:rgba(0,0,0,0);
       }
 	.inner{
-		width:1100px;
-		height: 800px;
+		width:1000px;
+		height: 700px;
 		margin:0 auto;
 		display:flex;
 		justify-content: space-between;
 		margin-top: 40px;
 	}
-	
 /*-------------------------------------------------------------------------*/
-
-/*------------------------------side nav start------------------------------*/
-
-	#left_content {
-		background-color: #fff;
-		min-width: 200px;
-		list-style:none;
-		border: 1px solid rgba(0,0,0,.1);
-		height: fit-content;
-	}
-	
-	#left_content a {
-		color: black;
-		padding: 12px 16px;
-		text-decoration: none;
-		display: block;
-	}
-	
-	#left_content a:hover {
-		background-color: rgba(253,83,0);
-		color : white;
-	}
-
-/*------------------------------side nav end------------------------------*/
-/*------------------------------right_content start------------------------------*/
-/*------------------------------ right_content end ------------------------------*/
 /*------------------------------right_content start------------------------------*/
 
 	#right_content{
-		width: 850px;
+		width: 750px;
 		height: fit-content;
 		background-color: white;
-		padding: 10px 50px;
+		padding: 10px 40px;
 	}
 	
 	table{
 		border-bottom:1px solid rgba(0,0,0,.1);
 		margin:0 auto;
 		text-align: center;
+		vertical-align:middle!important;
 	}
+
 /*-----------------------table 숫자 생성------------------------------*/
 	tbody>tr {
 	  counter-increment: a;
@@ -141,16 +114,12 @@
 </style>
 </head>
 <body>
-<div id="container" class="inner">
-	<div id="left_content">
-		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">마이페이지</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage_updateform.do">개인정보 수정</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/reserve_List.do">예약내역</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/takeout_list.do">포장내역</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/scrap_List.do">스크랩내역</a></p>
-	</div>
+<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
+
+<div id="container" class="inner" style="display:flex; justify-content:space-between;">
+	<jsp:include page="/navbar/sideBar/g_sideBar.jsp"></jsp:include>
 	<div id="right_content">
-		<h3>예약내역입니다.</h3>
+		<h3>스크랩내역</h3>
 		<table class="table">
 			<thead>
 				<tr>
@@ -158,7 +127,7 @@
 					<th scope="col">상호명</th>
 					<th scope="col">업종</th>
 					<th scope="col">소개글</th>
-					<th scope="col">스크랩 삭제</th>
+					<th scope="col">스크랩</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -207,6 +176,7 @@
 		</nav>
 	</div>
 </div>
+<jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>

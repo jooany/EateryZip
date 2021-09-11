@@ -416,7 +416,7 @@ public class BStoreServiceImpl implements BStoreService{
 		mView.addObject("dto",dto);
 
 	}
-	
+	/*
 	
 	@Override
 	public void getStore(String b_id, ModelAndView mView) {
@@ -428,7 +428,7 @@ public class BStoreServiceImpl implements BStoreService{
 		System.out.println("mView:" +mView);
 		System.out.println("----------------------");
 	}
-	
+	*/
 	
 	
 	// 리스트 페이지 리스트 불러오기 ///////////////////

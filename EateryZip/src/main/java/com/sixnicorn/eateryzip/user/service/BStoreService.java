@@ -15,7 +15,7 @@ public interface BStoreService {
 	// 혜림
 	
 	// 가게정보 등록 및 가져오기
-	public void getStore(String b_id, ModelAndView mView);
+	//public void getStore(String b_id, ModelAndView mView);
 	// public void getStore(HttpServletRequest request);
 	public void getStore(HttpSession session, ModelAndView mView,HttpServletRequest request);
 

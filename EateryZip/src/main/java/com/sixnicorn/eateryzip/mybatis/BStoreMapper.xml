@@ -218,22 +218,22 @@
 	<!-- 가게 등록하기 -->
 	<insert id="insert" parameterType="BStoreDto">
 		INSERT INTO B_Store
-		(b_id,b_name, b_Store_Address, b_kind, intro, b_Store_phone,b_Store_date, b_open, b_close, notice, service, ex_keyword, checkKeyword)
-		VALUES(#{b_id},#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_Store_phone},#{b_Store_date},#{b_open},#{b_close},#{notice,jdbcType=VARCHAR},#{service},#{ex_keyword},#{checkKeyword,jdbcType=VARCHAR})
+		(b_id,b_name, b_Store_Address, b_kind, intro, b_Store_phone,b_Store_date, b_open, b_close, notice, service, ex_keyword, checkKeyword, b_img_f )
+		VALUES(#{b_id},#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_Store_phone},#{b_Store_date},#{b_open},#{b_close},#{notice,jdbcType=VARCHAR},#{service},#{ex_keyword},#{checkKeyword,jdbcType=VARCHAR},#{b_img_f } )
 	</insert>
 	
-	<!-- 이미지등록하기 -->
+	<!-- 이미지등록하기 
 	<insert id="insertStoreImg" parameterType="StoreImgDto">
 		INSERT INTO store_img
 		(b_id,store_img)
 		VALUES(#{b_id},#{store_img})
 	</insert>
-	
+	-->
 	
 	<!-- 가게정보 수정하기 -->
 	<update id="update" parameterType="BStoreDto">
 		UPDATE B_Store
-		SET b_name=#{b_name}, b_Store_Address=#{b_Store_Address}, b_kind=#{b_kind},intro=#{intro},b_Store_phone=#{b_Store_phone},b_Store_date=#{b_Store_date},
+		SET b_name=#{b_name}, b_Store_Address=#{b_Store_Address}, b_kind=#{b_kind},intro=#{intro},b_Store_phone=#{b_Store_phone},b_Store_date=#{b_Store_date}, b_img_f=#{b_img_f },
 			b_open=#{b_open},b_close=#{b_close},notice=#{notice,jdbcType=VARCHAR},service=#{service},ex_keyword=#{ex_keyword},checkKeyword=#{checkKeyword,jdbcType=VARCHAR}
 		WHERE b_id=#{b_id}
 		
