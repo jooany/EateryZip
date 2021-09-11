@@ -30,6 +30,7 @@ button{
 	margin-top:50px!important;
 	width:1100px;
 	margin:0 auto;
+	margin-bottom:250px;
 }
 .wrap_image{
 	width: 120px;
@@ -145,6 +146,9 @@ button{
 		color:#fd5300;
 		background-color:white;
 	}
+	footer{
+		margn-bottom: 250px;
+	}
 </style>
 </head>
 <body>
@@ -210,11 +214,10 @@ button{
 				<button id="subBtn" type="submit">결제하기</button>
 			</div>
 		</form>
-		
 	</div>
 </div>	
 
-
+<jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>  
 

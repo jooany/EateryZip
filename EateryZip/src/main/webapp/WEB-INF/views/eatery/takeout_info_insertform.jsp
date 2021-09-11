@@ -325,6 +325,7 @@ textarea::placeholder{padding:5px;}
       </div>   
    </form>
 </div>
+<jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>

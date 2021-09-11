@@ -29,7 +29,7 @@
 		margin-top:50px!important;
 		width:700px;
 		margin:0 auto;
-		height: 600px
+		height: 700px;
 	}
 	#title{
 		margin-bottom: 30px;
@@ -105,5 +105,6 @@
 		</a>
 	</div>
 </div>
+<jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 </body>
 </html>
