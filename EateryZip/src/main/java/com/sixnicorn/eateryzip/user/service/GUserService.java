@@ -48,4 +48,8 @@ public interface GUserService {
 	public void getTakeoutList(HttpServletRequest request);
 	// 예약내역보기
 	public void getReservationList(HttpServletRequest request);
+	// 스크랩내역 보기
+	public void getScrapList(HttpServletRequest request);
+	// 스크랩 취소
+	public Map<String, Object> notScrap(HttpServletRequest request,String b_id);
 }

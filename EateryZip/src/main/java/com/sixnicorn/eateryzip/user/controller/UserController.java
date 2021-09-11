@@ -40,6 +40,12 @@ public class UserController {
 		Gservice.getTakeoutList(request);
 		return "users/g_mypage/takeout_list";
 	}
+	@RequestMapping("/users/g_mypage/scrap_List")
+	public String ScrapList(HttpServletRequest request) {
+		Gservice.getScrapList(request);
+		return "users/g_mypage/scrap_List";
+	}
+	
 	//---------------------------------주연끝----------------------------------
 	///------ 혜림 ------------------------------------------------------------
 	@RequestMapping("/users/b_mypage/b_reservation_list")
@@ -52,6 +58,7 @@ public class UserController {
 		Bservice.getBtakeoutList(request);
 		return "users/b_mypage/b_takeout_list";
 	}
+
 	//-----------------------------------------------------------------------
 	
 	//일반회원 로그인 폼으로 이동

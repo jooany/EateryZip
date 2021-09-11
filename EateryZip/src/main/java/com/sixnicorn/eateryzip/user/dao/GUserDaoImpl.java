@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.sixnicorn.eateryzip.user.dto.EateryScrapDto;
 import com.sixnicorn.eateryzip.user.dto.GUserDto;
 import com.sixnicorn.eateryzip.user.dto.ReservationDto;
 import com.sixnicorn.eateryzip.user.dto.TakeoutDto;
@@ -116,10 +117,23 @@ public class GUserDaoImpl implements GUserDao {
 		
 		return session.selectOne("Guser.getReservationCount", dto);
 	}
-	
-	
-	
-	
-	
-	
+
+	// 스크랩 내역 리스트
+	@Override
+	public List<EateryScrapDto> getList3(EateryScrapDto dto) {
+		
+		return session.selectList("Guser.getScrapList", dto);
+	}
+	// 스크랩 내역 갯수
+	@Override
+	public int getScrapCount(EateryScrapDto dto) {
+
+		return session.selectOne("Guser.getScrapCount", dto);
+	}
+	//음식점 스크랩취소하기
+	@Override
+	public void notScrap(EateryScrapDto dto) {
+		session.delete("Guser.notScrap",dto);
+	}
+		
 }

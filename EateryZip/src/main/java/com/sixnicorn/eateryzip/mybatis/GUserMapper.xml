@@ -101,11 +101,13 @@
 	<!-- 일반유저 스크랩내역 가져오기 -->
 	<select id="getScrapList" parameterType="EateryScrapDto" resultType="EateryScrapDto">
 		SELECT *
-	    FROM
-	    (SELECT result1.*, ROWNUM AS rnum
-	     FROM (SELECT s.b_id,s.g_id
-	         FROM eatery_scrap s, g_user g
-	         WHERE g.g_id=s.g_id AND s.g_id=#{g_id,jdbcType=VARCHAR}) result1)
+		FROM
+		(SELECT result1.*, ROWNUM AS rnum
+	 		FROM (SELECT  s.b_id,s.g_id, b.b_name, b.b_kind, b.intro
+				FROM eatery_scrap s, g_user g, b_store b
+				WHERE s.g_id = g.g_id
+				AND s.b_id = b.b_id (+)
+				AND g.g_id =#{g_id,jdbcType=VARCHAR}) result1)
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
@@ -113,9 +115,15 @@
 	
 	<select id="getScrapCount" parameterType="EateryScrapDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM),0)
-		FROM reservation 
+		FROM eatery_scrap 
 		WHERE g_id=#{g_id,jdbcType=VARCHAR}
 	</select>
+	
+	<!-- 음식점 스크랩 취소하기 -->
+   <delete id="notScrap" parameterType="EateryScrapDto">
+      DELETE FROM eatery_scrap
+      WHERE b_id=#{b_id} AND g_id=#{g_id,jdbcType=VARCHAR}
+   </delete>
 	
 	
 </mapper>
