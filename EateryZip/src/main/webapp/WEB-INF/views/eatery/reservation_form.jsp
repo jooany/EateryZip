@@ -485,6 +485,21 @@ ul.tabs li.current{
 			}
 			
 		});
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#reservation_form")
+		.addEventListener("submit", function(e){
+			const name=document.querySelector("#name").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(name.length < 1){
+				alert("이름을 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
+	
+	
  	
 </script>
 </body>
