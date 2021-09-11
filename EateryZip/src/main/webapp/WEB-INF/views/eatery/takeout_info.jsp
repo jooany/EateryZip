@@ -29,7 +29,7 @@ button{
 	margin-top:50px!important;
 	width:700px;
 	margin:0 auto;
-	height:800px;
+	height:900px;
 }
 #title{
 	margin-bottom: 30px;
@@ -154,4 +154,6 @@ table {
 		</div>
 	</a>
 </div>
+<jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
+</body>
 </html>
