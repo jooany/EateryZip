@@ -133,7 +133,7 @@
 			<c:choose>
 				<c:when test="${not empty dto }">
 				<form action="${pageContext.request.contextPath}/store/store_update.do" method="post" id="StoreForm">
-					<input type="hidden" name="store_img" value="${ empty imgTmp.store_img ? '' : imgTmp.store_img }"/>
+					<input type="hidden" name="b_img_f" value="${ empty dto.b_img_f ? '' : dto.b_img_f }"/>
 					<%-- 상호명 입력란 --%> 	 		
 					<div class="wrap_name">
 						<fieldset>
@@ -181,7 +181,7 @@
 										<i id="b_img_f" class="far fa-image"></i>
 									</c:when>
 									<c:otherwise>
-										<img id="b_img_f" class="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f}"/>
+										<img id="b_img_f" name="b_img_f" class="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f}"/>
 									</c:otherwise>
 								</c:choose>
 							</a>
@@ -370,7 +370,6 @@
 									<c:choose>
 										<c:when test="${empty dto.b_img_f }">
 											<i id="b_img_f" class="far fa-image"></i>
-											<div class="invalid-feedback">이미지를 넣어주세요.</div>
 										</c:when>
 										<c:otherwise>
 											<img id="b_img_f" class="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f}"/>
