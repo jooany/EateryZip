@@ -44,9 +44,6 @@ public interface GUserService {
 	public void updateGUser(GUserDto dto, HttpSession session);
 	// 일반회원 프로필이미지
 	public Map<String, Object> saveG_profileImage(HttpServletRequest request, MultipartFile image);
-	// 일반회원 탈퇴
-	public void deleteUser(HttpSession session, ModelAndView mView);
-	
 	// 포장내역보기
 	public void getTakeoutList(HttpServletRequest request);
 	// 예약내역보기
