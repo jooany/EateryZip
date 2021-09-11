@@ -168,7 +168,11 @@ public class BStoreDaoImpl implements BStoreDao {
 	public void notReviewGood(ReviewGoodDto dto) {
 		session.delete("BStore.notReviewGood",dto);
 	}
-
+	//배너이미지리스트<-리뷰이미지가져오기
+	@Override
+	public List<ReviewDto> getReviewImgList(String b_id) {
+		return session.selectList("BStore.getReviewImgList",b_id);
+	}
 
 }
 

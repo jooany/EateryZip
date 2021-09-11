@@ -143,6 +143,18 @@
 		]]>
 	</select>
 	
+	<!-- 배너에 들어갈 인기순 리뷰 사진리스트 가져오기 -->
+	<select id="getReviewImgList" parameterType="String" resultType="ReviewDto" >
+		SELECT *
+		FROM
+		(SELECT result1.*, ROWNUM AS rnum
+		   FROM (SELECT DISTINCT a.review_num,a.b_id,a.writer,a.review_image,TO_CHAR(a.review_content) AS review_content,TO_CHAR(a.regdate,'YYYY.MM.DD hh24:mi') AS regdate,
+                             (SELECT NVL(MAX(ROWNUM), 0) FROM REVIEW_GOOD WHERE REVIEW_NUM=a.review_num) as GOOD_COUNT
+		         FROM review a, review_good b
+		         WHERE a.b_id=#{b_id}  AND NOT a.review_image IS NULL
+		         ORDER BY good_count DESC, regdate DESC) result1)
+	</select>
+	
 	<!-- 리뷰 개수 세기 -->
 	<select id="getReviewCount" parameterType="String" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
