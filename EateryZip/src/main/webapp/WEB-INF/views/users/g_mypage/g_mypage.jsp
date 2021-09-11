@@ -21,7 +21,7 @@
 	}
 	
 	.inner{
-		width:1100px;
+		width:1000px;
 		height: 700px;
 		margin:0 auto;
 		display:flex;

@@ -6,128 +6,67 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/info.jsp</title>
+<title>/users/b_mypage/b_mypage.jsp</title>
 <script src="https://kit.fontawesome.com/eda0c6c5f7.js" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />  -->
+
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
-	   /* 공통 */
+   /* 공통 */
    *{
     font-family: 'Gothic A1', sans-serif;
+    margin-top:0;
     }
 	body{
-		background-color: #efefef
+		background-color:rgba(0,0,0,.04)!important;
 	}
 	
 	.inner{
-		width:1100px;
+		width:1000px;
 		height: 700px;
 		margin:0 auto;
+		display:flex;
+		justify-content: space-between;
+		margin-top: 40px;
 	}
-		#g_profileImage{
-		width: 50px;
-		height: 50px;
-		border: 1px solid #cecece;
-		border-radius: 50%;
-	}
+/*-------------------------------------------------------------------------*/
 	.btn {
 	    background-color: #FD5300;
 	    border-color: #FD5300;
 	    color: #FFF; 
 	    text-align:center;
 	 }
-/*------------------------------side nav start------------------------------*/
-	#container{
-		position:relative;
-		margin-top: 40px;
-	}
+/*-------------------민재님이 설정해주신 비번수정 modal css 만지지 마시오----------------------------------*/
+/*------------------------------right_content start------------------------------*/
 
-	#left_content {
-		position: absolute;
-		background-color: #fff;
-		min-width: 200px;
-	}
-	
-	#left_content a {
-		color: black;
-		padding: 12px 16px;
-		text-decoration: none;
-		display: block;
-	}
-	
-	#left_content a:hover {
-		background-color: rgba(253,83,0);
-		color : white;
-	}
-	
-	#left_content{
-		list-style:none;
-		width: 150px;
-		border: 1px solid #ccc;
-		position: absolute;
-	}
-/*------------------------------side nav end------------------------------*/
-/*------------------------------table start------------------------------*/
-	#right_content table{
-		width: 400px;
-		border: 1px solid #fff;
-		background-color: #fff;
-		position: absolute;
-		text-align: -webkit-center;
-		margin-left: 40%;
-		line-height: 36px;
-		padding-top: 20px;
-		display:flex;
-		justify-content: space-evenly;
-	}
-	
-	#right_content th{
-		text-align: left;
-		padding-right:60px;
-		height: 65px;
-	}
-	
-	
-	#right_content td{
-		text-align: left;
-		height: 65px;
+	#right_content{
+		width: 600px;
+		height: fit-content;
+		background-color: white;
+		padding: 20px 0px 20px 40px;
 	}
 	
 	table{
-		width:700px;
+	    width: 300px;
+		margin:0 auto;
+		text-align: left;
+		padding: 50px;
 	}
-	
-	table, td, th {
-		border-bottom : 1px solid #efefef;
-		border-collapse : collapse;
-	};
+	#right_content tr{
+		border-bottom: 1px solid #efefef;
+    	margin-bottom: 20px;
+    	line-height: 36px;
+	}
 
-/*------------------------------table end------------------------------*/	
-	/* 안내사항
-	.introduce {
-	    text-align: center;
-	    margin-left: 180px;
-	    padding-top: 500px;
-	    color:rgba(253,83,0);
-	}
-	*/
 </style>
 
 </head>
 <body>
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
-<div id="container" class="inner">
-	<div id="left_content">
-		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">마이페이지</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/store/store_insertform.do">가게정보등록</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/menu_insertform.do">메뉴등록</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보수정</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_takeout_list.do">포장주문내역</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_reservation_list.do">예약내역</a></p>
-		<p class="position"><a href="javascript:deleteConfirm()">회원탈퇴</a></p>
-	</div>
+
+	<div id="container" class="inner" style="display:flex; justify-content:space-between;">
+	<jsp:include page="/navbar/sideBar/sideBar.jsp"></jsp:include>
 	<div id="right_content">
 		<table>
 			<tr>
@@ -207,22 +146,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 
-	function deleteConfirm(){
-	    const isDelete=confirm("${b_id} 님 탈퇴 하시겠습니까?");
-	    if(isDelete){
-	  	 fetch("${pageContext.request.contextPath}/users/b_mypage/ajax_b_delete.do")
-	  	 .then(function(response){
-	  		 return response.json();
-	  	 })
-	  	 .then(function(data){
-	  		 console.log(data);
-	  		 if(data.isSuccess){
-	  			alert(data.b_id+"님 회원탈퇴 처리 되었습니다.");
-	  			location.href="${pageContext.request.contextPath}/home.do";
-	  		 }
-	  	 }); 
-	    }
-	 }
+	
 	
 	let isPwdValid = false;
 	let isNewPwdValid = false;

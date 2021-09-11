@@ -35,5 +35,24 @@
       <p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보수정</a></p>
       <p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_takeout_list.do">포장주문내역</a></p>
       <p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_reservation_list.do">예약내역</a></p>
-      <p class="position"><a href="javascript:deleteConfirm()">회원탈퇴</a></p>
+      <p class="position"><a href="javascript:bdeleteConfirm()">회원탈퇴</a></p>
 </div>
+
+<script>
+function bdeleteConfirm(){
+	const isDelete=confirm("${b_id} 님 탈퇴 하시겠습니까?");
+	if(isDelete){
+		fetch("${pageContext.request.contextPath}/users/b_mypage/ajax_b_delete.do")
+		.then(function(response){
+		 return response.json();
+		})
+		.then(function(data){
+			 console.log(data);
+			 if(data.isSuccess){
+				alert(data.b_id+"님 회원탈퇴 처리 되었습니다.");
+				location.href="${pageContext.request.contextPath}/home.do";
+			 }
+		});
+	}
+}
+</script>

@@ -16,48 +16,21 @@
     margin-top:0;
     }
 	body{
-		background-color: #efefef
+		background-color:rgba(0,0,0,.04)!important;
 	}
 	
 	.inner{
-		width:1100px;
-		height: 690px;
+		width:1000px;
+		height: 700px;
 		margin:0 auto;
 		display:flex;
 		justify-content: space-between;
 		margin-top: 40px;
 	}
 /*-------------------------------------------------------------------------*/
-
-
-/*------------------------------side nav start------------------------------*/
-
-	#left_content {
-		background-color: #fff;
-		min-width: 200px;
-		list-style:none;
-		border: 1px solid rgba(0,0,0,.1);
-		height: fit-content;
-	}
-	
-	#left_content a {
-		color: black;
-		padding: 12px 16px;
-		text-decoration: none;
-		display: block;
-	}
-	
-	#left_content a:hover {
-		background-color: rgba(253,83,0);
-		color : white;
-	}
-
-/*------------------------------side nav end------------------------------*/
-
 /*------------------------------right_content start------------------------------*/
 	#right_content{
-		margin-right: 100px;
-		width: 650px;
+		width: 700px;
 		background-color: white;
 		height: fit-content;
 		padding: 10px 40px 26px;
@@ -113,17 +86,10 @@
 </style>
 </head>
 <body>
-<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
-<div id="container" class="inner">
-	
-	<div id="left_content">
-		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage.do">마이페이지</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/store/store_insertform.do">가게정보등록</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/menu_insertform.do">메뉴등록</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_mypage_updateform.do">개인정보수정</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_takeout_list.do">포장주문내역</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/b_mypage/b_reservation_list.do">예약내역</a></p>
-	</div>
+	<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
+	<div id="container" class="inner" style="display:flex; justify-content:space-between;">
+	<jsp:include page="/navbar/sideBar/sideBar.jsp"></jsp:include>
+
 	<div id="right_content">
 		<h3>가입 정보 수정</h3>
 		<form action="${pageContext.request.contextPath}/users/b_mypage/update.do" method="post" id="updateForm">
@@ -133,20 +99,20 @@
 			</div>
 			<div class="innerdiv">
 				<label for="b_name">이름</label>
-				<input type="text" name="b_name" id="b_name" value="${dto.b_name }"/>
+				<input type="text" name="b_name" id="name" value="${dto.b_name }"/>
 				
 			</div>
 			<div class="innerdiv">
 				<label for="b_address">주소</label>
-				<input type="text" name="b_address" id="b_address" value="${dto.b_address }"/>
+				<input type="text" name="b_address" id="address" value="${dto.b_address }"/>
 			</div>
 			<div class="innerdiv">
 				<label class="col-form-label" for="b_email">이메일</label>
 				<div class="innerIndiv">
-					<input class="form-control" type="text" name="b_email" id="b_email" placeholder="이메일을 입력해주세요."/>
+					<input class="form-control" type="text" name="b_email" id="email" placeholder="이메일을 입력해주세요."/>
 				</div>
 				<div class="innerIndiv">
-					<select class="form-select" name="b_email2" id="b_email2"> 
+					<select class="form-select" name="b_email2" id="email2"> 
 						<option value="No" selected>도메인을 선택해주세요.</option>
 						<option value="@gmail.com">@gmail.com</option>
 						<option value="@naver.com">@naver.com</option>
@@ -158,20 +124,63 @@
 			</div>
 			<div class="innerdiv">
 				<label for="b_phone">연락처</label>
-				<input type="text" name="b_phone" id="b_phone" value="${dto.b_phone }"/>
+				<input type="text" name="b_phone" id="phone" value="${dto.b_phone }"/>
 			</div>
-			<button id="submitBtn" type="button" class="btn float-right">수정반영</button>
+			<button id="submitBtn" type="submit" class="btn float-right">수정반영</button>
 		</form>
 	</div>
 </div>
 <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script>
 
-	//등록 버튼을 눌렀을때 form 을 강제 submit 시키기
-	document.querySelector("#submitBtn").addEventListener("click", function(){
-		document.querySelector("#updateForm").submit();
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const name=document.querySelector("#name").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(name.length < 1){
+			alert("이름을 입력하세요!");
+			e.preventDefault();
+		}
+	});
+	
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const address=document.querySelector("#address").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(address.length < 1){
+			alert("주소를 입력하세요!");
+			e.preventDefault();
+		}
 	});
 
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const email=document.querySelector("#email").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(email.length < 1){
+			alert("이메일을 입력하세요!");
+			e.preventDefault();
+		}
+	});
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const email2=document.querySelector("#email2").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(email2 == "No"){
+			alert("도메인을 선택하세요!");
+			e.preventDefault();
+		}
+	});
+	
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const phone=document.querySelector("#phone").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(phone.length < 1){
+			alert("전화번호를 입력하세요!");
+			e.preventDefault();
+		}
+	});
 	
 </script>
 </body>

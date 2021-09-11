@@ -18,12 +18,12 @@
     margin-top:0;
     }
 	body{
-		background-color: #efefef
+		background-color:rgba(0,0,0,.04)!important;
 	}
 	
 	.inner{
 		width:1000px;
-		height: 1800px;
+		height: fit-content;
 		margin:0 auto;
 	}
 	
@@ -38,41 +38,51 @@
 /*-------------------------------css설정----------------------------------*/
 
 	#container{
-		margin-top: 40px;
+		margin-top: 40px!important;
 		display:flex;
 		justify-content: space-between;
-		align-items: flex-start;
+		margin-bottom:40px!important;
 	}
 	.content_form {
 		width: 700px;
+		height: fit-content;
 		background-color: white;
+		padding: 10px 40px 40px 40px;
+		
 	}
-
-
-	
-	input, select, img{
-		margin-bottom: 10px;
-	}
-
 /*------------------------------ start ------------------------------*/	
 	
-	img{
-		margin-left: 150px;
+	#b_img_f{
+		margin-left: 160px;
 	}
+
+	
+	label#b_open {
+	    margin-left: 30px;
+	}
+	
+	label#b_close {
+	    margin-left: 50px;
+	}
+		
+	.content_form div{
+		margin-bottom:20px;
+	}
+	
 	
 /*------------------------------  end  ------------------------------*/	
 
 /*------------------------------ Ekeyword start ------------------------------*/	
 	
 	.Ekeyword{
-		border: 1px solid rgba(0,0,0,.1);
+		border: 1px solid rgba(253,83,0)!important;
 		background-color: white;
 		margin-left: 15px;
     	margin-bottom: 15px;
 	}
 	
 	.Sdate{
-		border: 1px solid rgba(0,0,0,.1);
+		border: 1px solid rgba(253,83,0)!important;
 		background-color: white;
 		margin-left: 30px;
 	}
@@ -83,9 +93,8 @@
 	#resetBtn{
 		background-color: #fff;
 		border: 1px solid #ccc;
-		margin-left: 100px;
-		margin-top: 50px;
 		width: 120px;
+		margin-right: 50px;
 	}
 	#resetBtn:hover{
 		background-color:#ccc;
@@ -95,13 +104,14 @@
 		background-color: rgba(253,83,0);
 		border: 1px solid rgba(253,83,0);
 		width: 120px;
-		margin-top: 50px;
-		margin-left: 135px;
-		margin-right: 100px;
 	}
 	#saveBtn:hover{
 		background-color:rgba(230,77,0,1);
 		color: #fff;
+	}
+	
+	.Btn{
+		text-align:center;
 	}
 /*------------------------------send Btn end------------------------------*/
 
@@ -109,8 +119,8 @@
 </head>
 <body>
 	<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
-	<div id="container" class="inner">
-		<jsp:include page="/navbar/sideBar/sideBar.jsp"></jsp:include>
+	<div id="container" class="inner" style="display:flex; justify-content:space-between;">
+	 	 <jsp:include page="/navbar/sideBar/sideBar.jsp"></jsp:include>
 		
 		<div class="content_form">	
 		<!-- 사업자번호 -->
@@ -182,7 +192,6 @@
 					<div class="wrap_phone">
 						<fieldset>
 							<legend>연락처</legend>
-							<div id="intro_Help" class="form-text">"-" 포함하여 작성해주세요.</div>
 							<input class="form-control" type="text" name="b_Store_phone" id="b_Store_phone" value="${dto.b_Store_phone }">
 						</fieldset>
 					</div>
@@ -195,7 +204,7 @@
 								<div id="intro_Help" class="form-text">수정시 꼭 다시 체크 부탁드립니다.</div>
 								<div class="form-group mb-3" id="b_Store_date">
 									<c:set var = "testStrd" value = "${dto.b_Store_date }"/>
-									<input type="checkbox" class="btn-check excheck" id=""SdateBtn1"" name="b_Store_date" value="월" ${fn:contains(testStrd,'월') ? 'checked data-ischeck=true' : '' }>
+									<input type="checkbox" class="btn-check excheck" id="SdateBtn1" name="b_Store_date" value="월" ${fn:contains(testStrd,'월') ? 'checked data-ischeck=true' : '' }>
 									<label class="Sdate btn" for="SdateBtn1">월</label>
 									
 									<input type="checkbox" class="btn-check excheck" id="SdateBtn2" name="b_Store_date" value="화" ${fn:contains(testStrd,'화') ? 'checked data-ischeck=true' : '' }>
@@ -223,10 +232,10 @@
 						<%-- 영업시간 --%>
 						<div>
 							<div id="intro_Help" class="form-text">30분단위로 선택해주세요</div>
-							<label for="b_open" class="form-label">Open</label>
+							<label for="b_open" class="form-label" id="b_open">Open</label>
 							<input type="time" id="b_open" name="b_open" min="06:00" max="23:00" step="1800"  value="${dto.b_open }">
 
-							<label for="b_close" class="form-label">Close</label>
+							<label for="b_close" class="form-label" id="b_close">Close</label>
 							<input type="time" id="b_close" name="b_close" min="07:00" max="23:00" step="1800" value="${dto.b_close }">
 						</div>
 					</div>
@@ -297,9 +306,10 @@
 							<input type="text" class="form-control mb-3" id="checkKeyword" name="checkKeyword" value="${dto.checkKeyword }" />
 						</fieldset>
 					</div>
-					
-					<button id="resetBtn" class="btn btn-light" type="reset">취소</button>
-					<button id="saveBtn" class="btn btn-primary" type="submit" onclick="submit()">수정하기</button>
+					<div class="Btn">
+						<button id="resetBtn" class="btn btn-light" type="reset">취소</button>
+						<button id="saveBtn" class="btn btn-primary" type="submit" onclick="submit()">수정하기</button>
+					</div>
 				</form>
 				
 				</c:when>
@@ -308,62 +318,74 @@
 					<form action="${pageContext.request.contextPath}/store/store_insert.do" method="post" id="StoreForm">
 						<%-- 상호명 입력란 --%>
 						<div class="wrap_name">
-							<label for="b_name" class="form-label">상호명</label>
-							<div class="box mb-3">
-								<input class="form-control" type="text" name="b_name" id="b_name">
-							</div>
+							<fieldset>
+								<legend>상호명</legend>
+								<div class="box mb-3">
+									<input class="form-control" type="text" name="b_name" id="b_name">
+								</div>
+							</fieldset>
 				        </div> 
 				        <%-- 주소 입력 (민재님 주소 api설정되시면 복사해서 옮겨놓기) --%>
 						<div class="wrap_address">
-							<label for="b_Store_Address" class="form-label">주소</label>
-							<div class="box mb-3">
-								<input class="form-control" type="text" name="b_Store_Address" id="b_Store_Address">
-							</div>
+							<fieldset>
+								<legend>주소</legend>
+								<div class="box mb-3">
+									<input class="form-control" type="text" name="b_Store_Address" id="b_Store_Address">
+								</div>
+							</fieldset>
 						</div>
 						<%-- 업종 선택 --%>
 						<div class="wrap_kind">
-							<label for="b_kind" class="form-label">업종</label>
-							<div class="box mb-3">
-								<select class="form-select" name="b_kind" id="b_kind">
-									<option value="한식">한식</option>
-									<option value="일식">일식</option>
-									<option value="중식">중식</option>
-									<option value="양식">양식</option>
-									<option value="브런치">브런치</option>
-									<option value="카페">카페</option>
-									<option value="Bar">Bar</option>
-								</select>
-							</div>
+							<fieldset>
+								<legend>업종</legend>
+								<div class="box mb-3">
+									<select class="form-select" name="b_kind" id="b_kind">
+										<option value="한식">한식</option>
+										<option value="일식">일식</option>
+										<option value="중식">중식</option>
+										<option value="양식">양식</option>
+										<option value="브런치">브런치</option>
+										<option value="카페">카페</option>
+										<option value="Bar">Bar</option>
+									</select>
+								</div>
+							</fieldset>
 						</div>
 						<%-- 가게 소개글 --%>
 						<div class="wrap_intro">
-							<label for="intro" class="form-label">소개글</label>
-							<div id="intro_Help" class="form-text">30자이내</div>
-							<div class="box mb-3">
-								<input class="form-control" type="text" name="intro" id="intro">
-								<div class="invalid-feedback">30자 초과입니다.</div>
-							</div>
+							<fieldset>
+								<legend>소개글</legend>
+								<div id="intro_Help" class="form-text">30자이내</div>
+								<div class="box mb-3">
+									<input class="form-control" type="text" name="intro" id="intro">
+									<div class="invalid-feedback">30자 초과입니다.</div>
+								</div>
+							</fieldset>
 						</div>
 						<%-- 가게 대표이미지 --%>
 						<div class="wrap_img">
-							<label class="form-label" for="b_img_f">대표이미지</label>
-							<a id="store_imglink" href="javascript: ;">
-								<c:choose>
-									<c:when test="${empty dto.b_img_f }">
-										<i id="b_img_f" class="far fa-image"></i>
-										<div class="invalid-feedback">이미지를 넣어주세요.</div>
-									</c:when>
-									<c:otherwise>
-										<img id="b_img_f" class="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f}"/>
-									</c:otherwise>
-								</c:choose>
-							</a>
+							<fieldset>
+								<legend>대표이미지</legend>
+								<a id="store_imglink" href="javascript: ;">
+									<c:choose>
+										<c:when test="${empty dto.b_img_f }">
+											<i id="b_img_f" class="far fa-image"></i>
+											<div class="invalid-feedback">이미지를 넣어주세요.</div>
+										</c:when>
+										<c:otherwise>
+											<img id="b_img_f" class="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f}"/>
+										</c:otherwise>
+									</c:choose>
+								</a>
+							</fieldset>
 						</div>
 						<%--가게 연락처 숫자만 추출하려면 정규표현식 사용 /\d/ /[0-9]/--%>
 						<div class="wrap_phone">
-							<label for="b_Store_phone" class="form-label">연락처</label>
-							<input class="form-control" type="text" name="b_Store_phone" id="b_Store_phone">
-							<div class="invalid-feedback">연락처를 넣어주세요.</div>
+							<fieldset>
+								<legend>연락처</legend>
+								<input class="form-control" type="text" name="b_Store_phone" id="b_Store_phone">
+								<div class="invalid-feedback">연락처를 넣어주세요.</div>
+							</fieldset>
 						</div>
 						<%-- 가게 영업시간 (영업일 / 오픈시간 / 클로즈시간 / 휴일 )--%>
 						<div class="wrap_opneClose">
@@ -398,13 +420,13 @@
 							<%-- 스크립트 내부에서의 value값을 가져오기 --%>
 							<%-- 오픈시간 --%>
 							<div>
-								<label for="b_open" class="form-label">Open</label>
+								<label for="b_open" class="form-label" id="b_open">Open</label>
 								<input type="time" id="b_open" name="b_open" min="06:00" max="23:00" step="1800" >
 								<div class="invalid-feedback">00분과 30분 중에 선택해주세요</div>
 							</div>
 							<%-- 마감시간 --%>
 							<div>
-								<label for="b_close" class="form-label">Close</label>
+								<label for="b_close" class="form-label" id="b_close">Close</label>
 								<input type="time" id="b_close" name="b_close" min="07:00" max="23:00" step="1800">
 								<div class="invalid-feedback">00분과 30분 중에 선택해주세요</div>
 							</div>
@@ -524,8 +546,7 @@
 				if(keyBtn2.text()==item){
 					console.log(keyBtn2.text());
 					$("#b_Store_date").children().eq(i).prop("checked",true);
-					keyBtn2.css({"background-color":"rgba(253,83,0)",
-						"color":"white"});
+					keyBtn2.css({"background-color":"rgba(253,83,0)","color":"white"});
 				}
 			}
 		}
@@ -570,8 +591,7 @@
 					$(this).removeAttr("data-ischeck");
 					$(this).attr('data-ischeck','');
 				}else{
-					$(this).next().css({"background-color":"rgba(253,83,0)",
-						"color":"white"});
+					$(this).next().css({"background-color":"rgba(253,83,0)","color":"white"});
 					$(this).removeAttr("data-ischeck");
 					$(this).attr('data-ischeck','true');
 				}
@@ -595,8 +615,7 @@
 				if(keyBtn.text()==item){
 					console.log(keyBtn.text());
 					$("#ex_keyword").children().eq(i).prop("checked",true);
-					keyBtn.css({"background-color":"rgba(253,83,0)",
-						"color":"white"});
+					keyBtn.css({"background-color":"rgba(253,83,0)","color":"white"});
 				}
 			}
 		};
@@ -611,12 +630,11 @@
 				let ischeck=$(this).attr("data-ischeck");
 				
 				if(ischeck){ //체크 되어 있다면 
-					$(this).next().css({"background-color":"white","color":"black"});
+					$(this).next().css({"background-color":"white","color":"rgba(253,83,0)"});
 					$(this).removeAttr("data-ischeck");
 					$(this).attr('data-ischeck','');
 				}else{
-					$(this).next().css({"background-color":"rgba(253,83,0)",
-						"color":"white"});
+					$(this).next().css({"background-color":"rgba(0,0,0,.04)","color":"rgba(253,83,0)"});
 					$(this).removeAttr("data-ischeck");
 					$(this).attr('data-ischeck','true');
 				}
@@ -628,7 +646,5 @@
 	</script>
 </body>
 </html>
-
-
 
 
