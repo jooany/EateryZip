@@ -76,6 +76,7 @@ button{
 }
 #bannerBtnsWrap #scrapBtn{
    margin-top:20px;
+   text-shadow: 2px 2px 10px rgba(87, 89, 91, 1);
 }
 #bannerBtnsWrap #scrapBtn>i{
    color:white;
@@ -733,7 +734,7 @@ ul.tabs li.current{
 <div id="banner">
    <!-- 이미지 슬라이드 담기 -->
    <ul id="imgList">
-      <c:forEach var="tmp1" items="${reviewList  }">
+      <c:forEach var="tmp1" items="${reviewImgList  }">
       <c:if test="${not empty tmp1.review_image}">
       <li>
          <img class="img_item" src="${pageContext.request.contextPath}${tmp1.review_image }" alt="음식점 대표 이미지" height="400px"/>
@@ -857,7 +858,7 @@ ul.tabs li.current{
                </button>
             </div>
             <ul id="photoList">
-               <c:forEach var="tmp3" items="${reviewList }">
+               <c:forEach var="tmp3" items="${reviewImgList }">
                   <c:if test="${not empty tmp3.review_image}">
                      <li>
                         <a href="#">
@@ -1552,142 +1553,143 @@ ul.tabs li.current{
          }
       });
    
-   //배너 슬라이드
-   let bannerMargin=0;
-   
-   let bannerWidth=$("#banner").width();
-   let imgListWidth=$("#imgList").width();
-   
-   
-   let imgCount=$(".img_item").length;
-   let oneMove=bannerWidth/imgCount;
-   
-   let maxMargin=imgListWidth-bannerWidth-oneMove;
-   
-   function leftHide(){
-      if(bannerMargin==0){
-         $("#leftBtn").css('visibility','hidden');
-      }else{
-         $("#leftBtn").css('visibility','visible');
+    //배너 슬라이드
+      let bannerMargin=0;
+      
+      let bannerWidth=$("#banner").width();
+      let imgListWidth=$("#imgList").width();
+      
+      
+      let imgCount=$(".img_item").length;
+      let oneMove=bannerWidth/imgCount;
+      
+      let maxMargin=imgListWidth-bannerWidth-oneMove;
+      
+      function leftHide(){
+         if(bannerMargin>=0){
+            $("#leftBtn").css('visibility','hidden');
+         }else{
+            $("#leftBtn").css('visibility','visible');
+         };
       };
-   };
-   leftHide();
-   
-   if(bannerMargin==0){
-      $("#rightBtn").css('visibility','hidden');
-   }
-   
-   $("#rightBtn").click(function(){
-      if(bannerMargin>-maxMargin){
-         bannerMargin-=oneMove;
-         $("#imgList").css({
-              marginLeft:bannerMargin
-          });
-         leftHide();
-         $("#rightBtn").css('visibility','visible')
-         if(bannerMargin<=-maxMargin){
+      leftHide();
+      
+      if(bannerMargin==0){
+         $("#rightBtn").css('visibility','visible');
+      }
+      
+      $("#rightBtn").click(function(){
+         if(bannerMargin>-maxMargin){
+            bannerMargin-=oneMove;
+            $("#imgList").css({
+                 marginLeft:bannerMargin
+             });
+            leftHide();
+            $("#rightBtn").css('visibility','visible')
+            if(bannerMargin<-maxMargin){
+               $("#rightBtn").css('visibility','hidden');
+            }
+         }else{
             $("#rightBtn").css('visibility','hidden');
          }
-      }else{
-         $("#rightBtn").css('visibility','hidden');
-      }
-   });
-   $("#leftBtn").click(function(){
-      if(bannerMargin<0){
-         bannerMargin+=oneMove;
-         $("#imgList").css({
-              marginLeft:bannerMargin
-          });
-         $("#rightBtn").css('visibility','visible');
-         leftHide();
-      }else{
-         $("#rightBtn").css('visibility','hidden');
-      }
-   });
-      
-   //메뉴 슬라이드
-   let menuMargin=0;
-   let menuListWidth=$("#menuList").width();
-   
-   function leftHide2(){
-      if(menuMargin==0){
-         $("#leftBtn2").css('visibility','hidden');
-      }else{
-         $("#leftBtn2").css('visibility','visible');
-      };
-   };
-   leftHide2();
-   
-   
-   $("#rightBtn2").click(function(){
-      if(menuMargin>=-menuListWidth){
-         menuMargin-=750;
-         $("#menuList").css({
-              marginLeft:menuMargin
-          });
-         leftHide2();
-         if(menuMargin<-menuListWidth){
-            $("#rightBtn2").css('visibility','hidden');
+      });
+      $("#leftBtn").click(function(){
+         if(bannerMargin<=0){
+            bannerMargin+=oneMove;
+            $("#imgList").css({
+                 marginLeft:bannerMargin
+             });
+            $("#rightBtn").css('visibility','visible');
+            leftHide();
+         }else{
+            $("#rightBtn").css('visibility','hidden');
          }
-      }else{
-         $("#rightBtn2").css('visibility','hidden');
-      }
-      
-   });
-   $("#leftBtn2").click(function(){
-      if(menuMargin<0){
-         menuMargin+=750;
-         $("#menuList").css({
-              marginLeft:menuMargin
-          });
-         $("#rightBtn2").css('visibility','visible');
-         leftHide2();
-      }else{   
-         $("#rightBtn2").css('visibility','hidden');
-      }
-   });
-   
-   //사진 리뷰 슬라이드
-   let phMargin=0;
-   let phListWidth=$("#photoList").width();
-   
-   function leftHide3(){
-      if(phMargin==0){
-         $("#leftBtn3").css('visibility','hidden');
-      }else{
-         $("#leftBtn3").css('visibility','visible');
-      };
-   };
-   leftHide3();
-   
-   
-   $("#rightBtn3").click(function(){
-      if(phMargin>=-phListWidth){
-         phMargin-=750;
-         $("#photoList").css({
-              marginLeft:menuMargin
-          });
-         leftHide2();
-         if(phMargin<-phListWidth){
-            $("#rightBtn3").css('visibility','hidden');
-         }
-      }else{
-         $("#rightBtn3").css('visibility','hidden');
-      }
-      
-   });
-   $("#leftBtn3").click(function(){
-      if(phMargin<0){
-         phMargin+=750;
-         $("#photoList").css({
-              marginLeft:menuMargin
-          });
-         $("#rightBtn3").css('visibility','visible');
-         leftHide3();
-      }else{   
-         $("#rightBtn3").css('visibility','hidden');
-      }
-   });
+      });
+  		
+  	//메뉴 슬라이드
+  	let menuMargin=0;
+  	let menuListWidth=$("#menuList").width();
+  	
+  	function leftHide2(){
+  		if(menuMargin==0){
+  			$("#leftBtn2").css('visibility','hidden');
+  		}else{
+  			$("#leftBtn2").css('visibility','visible');
+  		};
+  	};
+  	leftHide2();
+  	
+  	
+  	$("#rightBtn2").click(function(){
+  		if(menuMargin>=-menuListWidth){
+  			menuMargin-=750;
+  			$("#menuList").css({
+  		        marginLeft:menuMargin
+  		    });
+  			leftHide2();
+  			if(menuMargin<-menuListWidth){
+  				$("#rightBtn2").css('visibility','hidden');
+  			}
+  		}else{
+  			$("#rightBtn2").css('visibility','hidden');
+  		}
+  		
+  	});
+  	$("#leftBtn2").click(function(){
+  		if(menuMargin<0){
+  			menuMargin+=750;
+  			$("#menuList").css({
+  		        marginLeft:menuMargin
+  		    });
+  			$("#rightBtn2").css('visibility','visible');
+  			leftHide2();
+  		}else{	
+  			$("#rightBtn2").css('visibility','hidden');
+  		}
+  	});
+  	
+  	//사진 리뷰 슬라이드
+  	let phMargin=0;
+  	let phListWidth=$("#photoList").width();
+  	
+  	function leftHide3(){
+  		if(phMargin==0){
+  			$("#leftBtn3").css('visibility','hidden');
+  		}else{
+  			$("#leftBtn3").css('visibility','visible');
+  		};
+  	};
+  	leftHide3();
+  	
+  	
+  	$("#rightBtn3").click(function(){
+  		if(phMargin>=-phListWidth){
+  			phMargin-=750;
+  			$("#photoList").css({
+  		        marginLeft:menuMargin
+  		    });
+  			leftHide2();
+  			if(phMargin<-phListWidth){
+  				$("#rightBtn3").css('visibility','hidden');
+  			}
+  		}else{
+  			$("#rightBtn3").css('visibility','hidden');
+  		}
+  		
+  	});
+  	$("#leftBtn3").click(function(){
+  		if(phMargin<0){
+  			phMargin+=750;
+  			$("#photoList").css({
+  		        marginLeft:menuMargin
+  		    });
+  			$("#rightBtn3").css('visibility','visible');
+  			leftHide3();
+  		}else{	
+  			$("#rightBtn3").css('visibility','hidden');
+  		}
+  	});
+  	
    
 
    //형우 부분 script

@@ -48,6 +48,7 @@ public interface BStoreDao {
 	
 	public void doReviewGood(ReviewGoodDto dto);
 	public void notReviewGood(ReviewGoodDto dto);
+	public List<ReviewDto> getReviewImgList(String b_id);
 	
 
 }

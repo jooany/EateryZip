@@ -75,8 +75,13 @@ public class BStoreServiceImpl implements BStoreService{
 		request.setAttribute("b_id", b_id);
 		//음식점 정보 얻어오기
 		BStoreDto dto=BStoreDao.getStore(b_id);
-		//음식점 이미지 리스트 얻어오기
+		//음식점 이미지 리스트 얻어오기 - 보류
 		List<StoreImgDto> storeImgList=BStoreDao.getStoreImgList(b_id);
+		
+		//음식점 리뷰 이미지 리스트 얻어오기
+		List<ReviewDto> reviewImgList=BStoreDao.getReviewImgList(b_id);
+		request.setAttribute("reviewImgList", reviewImgList);
+		
 		//음식점 메뉴 리스트 얻어오기
 		List<MenuDto> menuList=BStoreDao.getMenuList(b_id);
 

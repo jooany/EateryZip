@@ -580,7 +580,7 @@
 	    </section>
 	</div>
 </div>
-
+<jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
