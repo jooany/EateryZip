@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/views/users/updateform.jsp</title>
+<title>개인정보수정</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <script src="https://kit.fontawesome.com/eda0c6c5f7.js" crossorigin="anonymous"></script>
 <style>
@@ -91,7 +91,7 @@
 	<jsp:include page="/navbar/sideBar/b_sideBar.jsp"></jsp:include>
 
 	<div id="right_content">
-		<h3>가입 정보 수정</h3>
+		<h3>개인정보 수정</h3>
 		<form action="${pageContext.request.contextPath}/users/b_mypage/update.do" method="post" id="updateForm">
 			<div class="innerdiv">
 				<label class="b_id" for="b_id">사업자번호</label>
