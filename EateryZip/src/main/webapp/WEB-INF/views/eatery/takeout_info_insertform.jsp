@@ -126,44 +126,45 @@ textarea::placeholder{padding:5px;}
      text-align: center;
      font-size:14px;
   }
-  /* 버튼 */
-   #subBtn{
-      width: 220px;
-       height: 40px;
-       background-color: #fd5300;
-       position: relative;
-       left: 195px;
-       color: white;
-       border: 1px solid rgb(224, 224, 224);
-       border-radius: 4px;
-   }
-   #resBtn{
-      width: 220px;
-       height: 40px;
-       background-color: white;
-       color:rgba(0,0,0,.7);
-       border: 1px solid rgba(0,0,0,.5);
-       border-radius: 4px;
-       position: relative;
-       left: 65px;
-   }
-   #subBtn:hover{
-      background-color: white;
-      color: #fd5300;
-   } 
-   #resBtn:hover{
-      background-color: rgba(0,0,0,.5);
-      color: white;
-   }
-   #info_4{
-      border: 0.5px solid rgb(224, 224, 224);
-       border-radius: 4px;
-   }
-   #total{
-      position: relative;
-       left: 572px;
-       font-size:13px; 
-       font-weight:bold;
+/* 버튼 */
+#subBtn{
+   	width: 220px;
+    height: 40px;
+    background-color: #fd5300;
+    position: relative;
+    left: 195px;
+    color: white;
+    border: 1px solid rgb(224, 224, 224);
+    border-radius: 4px;
+}
+#resBtn{
+   	width: 220px;
+    height: 40px;
+    background-color: white;
+    color:rgba(0,0,0,.7);
+    border: 1px solid rgba(0,0,0,.5);
+    border-radius: 4px;
+    position: relative;
+    left: 65px;
+}
+#subBtn:hover{
+   background-color: white;
+   color: #fd5300;
+} 
+#resBtn:hover{
+   background-color: rgba(0,0,0,.5);
+   color: white;
+}
+#info_4{
+   border: 0.5px solid rgb(224, 224, 224);
+   border-radius: 4px;
+}
+#total{
+	position: relative;
+	left: 545px;
+	bottom: -8px;
+	font-size:13px; 
+	font-weight:bold;
    }
 </style>
 </head>
@@ -293,9 +294,9 @@ textarea::placeholder{padding:5px;}
       <div id="info_4">
          <table>
             <thead>
-               <th>메뉴</th>
-               <th>수량</th>
-               <th>가격</th>
+               <th style="text-align: center; width: 300px;">메뉴</th>
+               <th style="text-align: center; width: 250px;">수량</th>
+               <th style="text-align: center; width: 250px;">가격</th>
             </thead>
             <tbody>
                <c:forTokens var="as" items="${info}" delims="[,]">
@@ -399,7 +400,46 @@ textarea::placeholder{padding:5px;}
             return false;
          }
    };
-
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#takeout_insert")
+		.addEventListener("submit", function(e){
+			//textarea 이외에 입력한 내용을 여기서 검증하고 
+			const time=document.querySelector("#takeout_time").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(time.length < 1){
+				alert("시간을 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#takeout_insert")
+		.addEventListener("submit", function(e){
+			const phone=document.querySelector("#takeout_phone").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(phone.length < 1){
+				alert("전화번호를 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#takeout_insert")
+		.addEventListener("submit", function(e){
+			const name=document.querySelector("#takeout_name").value;
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(name.length < 1){
+				alert("이름을 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
 
    
 </script>

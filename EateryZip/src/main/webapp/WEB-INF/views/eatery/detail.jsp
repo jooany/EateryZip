@@ -1137,7 +1137,7 @@ ul.tabs li.current{
                   </form>  
               </div>
               <div id="tab-2" class="tab-content">
-                  <form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post">
+                  <form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post" id="takeout_form">
                         <input type="hidden" id="b_id" name="b_id" value="${dto.b_id }"/>
                         <input type="hidden" id="b_open" name="b_open" value="${dto.b_open }"/>
                         <input type="hidden" id="b_close" name="b_close" value="${dto.b_close }"/>
@@ -1867,6 +1867,30 @@ ul.tabs li.current{
 			//을 수행하게 해서 폼 제출을 막아준다.
 			if(name.length < 1){
 				alert("이름을 입력해 주세요");
+				e.preventDefault();
+			}
+			
+		});
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#reservation_form")
+		.addEventListener("submit", function(e){
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(!g_id){
+				alert("로그인이 필요한 서비스 입니다.");
+				e.preventDefault();
+			}
+			
+		});
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#takeout_form")
+		.addEventListener("submit", function(e){
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(!g_id){
+				alert("로그인이 필요한 서비스 입니다.");
 				e.preventDefault();
 			}
 			

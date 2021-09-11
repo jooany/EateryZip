@@ -282,26 +282,26 @@ button{
 				$("<td/>")
 				.attr("name", "basket")
 				.attr("class", "basket")
-				.attr("id", "basket"+num)
+				.attr("id", "basket1"+num)
 				.attr("data-num", num)
 				.val(name)
 				.text(name)
 				.appendTo("#m_choice");
 				$("<td/>")
 				.attr("name", "basket")
-				.attr("id", "basket"+num)
+				.attr("id", "basket2"+num)
 				.attr("data-num", num)
 				.text(amount)
 				.appendTo("#m_choice");
 				$("<td/>")
 				.attr("name", "basket")
-				.attr("id", "basket"+num)
+				.attr("id", "basket3"+num)
 				.attr("data-num", num) 
 				.text(amount*priceSplit[0])
 				.appendTo("#m_choice");
 				$("<td/>")
 				.attr("name", "basket")
-				.attr("id", "basket"+num)
+				.attr("id", "basket4"+num)
 				.attr("data-num", num) 
 				.text("X")
 				.appendTo("#m_choice");
@@ -310,7 +310,6 @@ button{
 		};
 	};
 	
-
 	//예약 한번 더 확인 하는 alert 띄우는 함수
 	function showConfirm() {
 		var rtn;
@@ -322,20 +321,20 @@ button{
 				return false;
 			}
 	};
-	/* //폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
 	document.querySelector("#add_menu")
 		.addEventListener("submit", function(e){
 			//textarea 이외에 입력한 내용을 여기서 검증하고 
-			const time=document.querySelector(".basket").value;
+			const menu=document.querySelector("#m_choice").getElementsByTagName('tr');
 			//만일 폼 제출을 막고 싶으면  
 			//e.preventDefault();
 			//을 수행하게 해서 폼 제출을 막아준다.
-			if(time.length < 1){
+			if(menu.length < 1){
 				alert("메뉴를 선택해 주세요");
 				e.preventDefault();
 			}
 			
-		}); */
+		}); 
 
 </script>
 </body>
