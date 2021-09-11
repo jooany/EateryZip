@@ -57,7 +57,7 @@
 		SELECT *
 		FROM
 		   (SELECT result1.*,ROWNUM AS rnum
-		    FROM (SELECT bs.b_id,bs.b_name, t.takeout_date, t.takeout_time, t.takeout_price, t.takeout_num
+		    FROM (SELECT bs.b_id,bs.b_name,t.takeout_name,t.takeout_date, t.takeout_time, t.takeout_price, t.takeout_num
 				FROM b_store bs, takeout t
 				WHERE bs.b_id = t.b_id AND t.b_id=#{b_id,jdbcType=VARCHAR}) result1)
 		<![CDATA[ 

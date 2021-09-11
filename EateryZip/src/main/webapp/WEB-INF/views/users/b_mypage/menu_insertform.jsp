@@ -145,6 +145,7 @@ body{
 .wrap_img_n_price .wrap_price{
 	display:flex;
 	align-items:center;
+	background-color:rgba(0,0,0,0);
 }
 .wrap_img_n_price .wrap_price>input{
 	border:none;
@@ -160,11 +161,12 @@ body{
 .addMenuFormBtn{
 	display:flex!important;
 	align-items:center;
-	width:550px;
+	width:538px;
 	height:40px;
 	background-color:rgb(243, 156, 18);
 	padding-left:10px;
-	margin-left:10px;
+	margin-left:15px;
+	margin-bottom:5px;
 	color:white!important;
 	font-size:14px;
 }
@@ -182,6 +184,27 @@ body{
 }
 .btn_color{
 	color:rgb(253, 83, 0);
+}
+.btn_color:hover{
+	text-decoration:underline;
+}
+#deleteMenuBtn:hover{
+	text-decoration:underline!important;
+}
+.select:hover{
+	background-color:rgba(0,0,0,.05);
+}
+.menu_name:hover{
+	background-color:rgba(0,0,0,.05);
+}
+.addMenuFormBtn:hover{
+	background-color:rgb(224, 116, 0);
+}
+#addSectionBtn:hover{
+	border:1px solid black;
+}
+.wrap_section:hover{
+	border:1px solid black;
 }
 
 
@@ -536,7 +559,7 @@ body{
 	    			return response.json();
 	    		})
 	    		.then(function(data){
-					
+					alert("등록되었습니다.");
 	    			let cPath = '<c:out value="${pageContext.request.contextPath}"/>';
 	    			let menuImg = data.menuImg;
 	    			//alert(`${menuImg}`);
@@ -611,7 +634,7 @@ body{
 						return response.json();
 					})
 					.then(function(data){
-						
+						alert("수정되었습니다.");
 						$("#inputImg"+menuNum).val(data.menuImg);
 						$("#inputMenuName"+menuNum).val(data.menuName);
 						$("#inputPrice"+menuNum).val(data.menuPrice);
