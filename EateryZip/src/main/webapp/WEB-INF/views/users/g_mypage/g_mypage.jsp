@@ -50,7 +50,7 @@
 /*------------------------------right_content start------------------------------*/
 
 	#right_content{
-		width: 600px;
+		width: 700px;
 		height: fit-content;
 		background-color: white;
 		padding: 20px 0px 20px 40px;
@@ -60,8 +60,15 @@
 	    width: 300px;
 		margin:0 auto;
 		text-align: left;
-		padding: 50px;
 	}
+	th{
+		line-height: 50px;
+	}
+	
+	td {
+    	padding-left: 100px;
+	}
+	
 	#right_content tr{
 		border-bottom: 1px solid #efefef;
     	margin-bottom: 20px;
@@ -72,7 +79,6 @@
 </head>
 <body>
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
-
 	<div id="container" class="inner" style="display:flex; justify-content:space-between;">
 	<jsp:include page="/navbar/sideBar/g_sideBar.jsp"></jsp:include>
 	<div id="right_content">
@@ -164,24 +170,7 @@
 <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-	function deleteConfirm(){
-	    const isDelete=confirm("${g_id} 님 탈퇴 하시겠습니까?");
-	    if(isDelete){
-	  	 fetch("${pageContext.request.contextPath}/users/g_mypage/ajax_g_delete.do")
-	  	 .then(function(response){
-	  		 return response.json();
-	  	 })
-	  	 .then(function(data){
-	  		 console.log(data);
-	  		 if(data.isSuccess){
-	  			alert(data.g_id+"님 회원탈퇴 처리 되었습니다.");
-	  			location.href="${pageContext.request.contextPath}/home.do";
-	  		 }
-	  	 }); 
-	    }
-	 }
-	
+<script>	
 	   let isPwdValid = false;
 	   let isNewPwdValid = false;
 	   let isNewPwdValid2 = false;
