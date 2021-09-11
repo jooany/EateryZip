@@ -224,6 +224,8 @@ public class GUserServiceImpl implements GUserService {
 			result = true;
 			
 			 session.removeAttribute("g_id");
+			 session.removeAttribute("g_profile");
+			 
 			
 			 Cookie[] cookies = request.getCookies();
 		  	  for (int i = 0; i < cookies.length; i++) {
@@ -255,6 +257,8 @@ public class GUserServiceImpl implements GUserService {
 		if(deleteResult){
 			result = true;
 			 session.removeAttribute("g_id");
+			 session.removeAttribute("g_profile");
+			 
 			
 			 Cookie[] cookies = request.getCookies();
 		  	  for (int i = 0; i < cookies.length; i++) {
@@ -287,6 +291,7 @@ public class GUserServiceImpl implements GUserService {
 		GUserDto dto = Gdao.getData(g_id);
 		// ModelAndView 객체에 담아준다.
 		mView.addObject("dto", dto);
+		
 	}
 
 	@Override
@@ -297,6 +302,9 @@ public class GUserServiceImpl implements GUserService {
 		dto.setG_id(g_id);
 		// g_UserDao를 이용해서 수정반영한다.
 		Gdao.update(dto);
+		
+		session.setAttribute("g_profile", dto.getG_profile());
+		session.setMaxInactiveInterval(60*60);
 	}
 
 	@Override
@@ -327,19 +335,6 @@ public class GUserServiceImpl implements GUserService {
 		map.put("imagePath", "/upload/"+saveFileName);
 		return map;
 	}
-
-	@Override
-	public void deleteUser(HttpSession session, ModelAndView mView) {
-		// 로그인된 아이디를 얻어와서
-		String g_id = (String)session.getAttribute("g_id");
-		// 해당 정보를 DB에서 삭제하고
-		Gdao.delete(g_id);
-		// 로그아웃 처리도 한다.
-		session.removeAttribute("g_id");
-		// ModelAndView객체에 탈퇴한 회원의 아이디를 담아준다.
-		mView.addObject("g_id", g_id);
-	}
-
 	
 	// 포장내역 리스트
 	@Override
@@ -448,7 +443,6 @@ public class GUserServiceImpl implements GUserService {
 		request.setAttribute("list", list);
 		request.setAttribute("totalRow", totalRow);
 	}
-
 
 
 }
