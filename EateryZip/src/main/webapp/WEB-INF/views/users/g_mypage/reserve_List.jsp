@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/views/users/g_mypage/reserve_List.jsp</title>
+<title>예약내역</title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
@@ -121,7 +121,7 @@
 <div id="container" class="inner" style="display:flex; justify-content:space-between;">
 	<jsp:include page="/navbar/sideBar/g_sideBar.jsp"></jsp:include>
 	<div id="right_content">
-		<h3>예약내역입니다.</h3>
+		<h3>예약내역</h3>
 		<table class="table">
 			<thead>
 				<tr>
