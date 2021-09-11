@@ -84,7 +84,8 @@ table {
 }
 #total{
 	position: relative;
-   	left: 438px;
+   	left: 433px;
+    top: 10px;
    	font-size:13px; 
    	font-weight:bold;
 }
@@ -125,8 +126,8 @@ table {
 	<div id="contentTable">
 		<table>
 			<thead>
-				<th>메뉴</th>
-				<th>수량</th>
+				<th style="width: 400px;text-align: center;">메뉴</th>
+				<th style="width: 300px;text-align: center;">수량</th>
 			</thead>
 			<tbody>
 				<c:forEach var="tmp" items="${list }">
@@ -137,7 +138,7 @@ table {
 				</c:forEach>
 			</tbody>
 		</table>
-		<div>
+		<div style="height: 40px;">
 			<p id="total">총 결제 금액 <span style="margin-left:10px;">${dto.takeout_price }원</span></p>
 		</div>
 	</div>
