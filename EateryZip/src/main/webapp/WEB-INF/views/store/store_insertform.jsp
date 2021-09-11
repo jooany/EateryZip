@@ -120,7 +120,7 @@
 <body>
 	<jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
 	<div id="container" class="inner" style="display:flex; justify-content:space-between;">
-	 	 <jsp:include page="/navbar/sideBar/sideBar.jsp"></jsp:include>
+	 	 <jsp:include page="/navbar/sideBar/b_sideBar.jsp"></jsp:include>
 		
 		<div class="content_form">	
 		<!-- 사업자번호 -->

@@ -10,14 +10,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
    /* 공통 */
    *{
     font-family: 'Gothic A1', sans-serif;
     margin-top:0;
     }
 	body{
-		background-color: #efefef
+		background-color:rgba(0,0,0,.04)!important;
 	}
 	
 	.inner{
@@ -46,38 +46,13 @@
 		border-radius: 50%;
 	}
 /*---------------------------------------프로필 이미지 css----------------------------------------*/
-/*------------------------------side nav start------------------------------*/
 
-	#left_content {
-		background-color: #fff;
-		min-width: 200px;
-		list-style:none;
-		border: 1px solid rgba(0,0,0,.1);
-		height: fit-content;
-	}
-	
-	#left_content a {
-		color: black;
-		padding: 12px 16px;
-		text-decoration: none;
-		display: block;
-	}
-	
-	#left_content a:hover {
-		background-color: rgba(253,83,0);
-		color : white;
-	}
-
-/*------------------------------side nav end------------------------------*/
-/*------------------------------right_content start------------------------------*/
-/*------------------------------ right_content end ------------------------------*/
 /*------------------------------right_content start------------------------------*/
 
 	#right_content{
 		width: 600px;
 		height: fit-content;
 		background-color: white;
-		margin-right: 120px;
 		padding: 20px 0px 20px 40px;
 	}
 	
@@ -87,8 +62,9 @@
 		text-align: left;
 		padding: 50px;
 	}
-	tr,th ,td{
+	#right_content tr{
 		border-bottom: 1px solid #efefef;
+    	margin-bottom: 20px;
     	line-height: 36px;
 	}
 
@@ -96,17 +72,9 @@
 </head>
 <body>
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
-<div id="container" class="inner">
-	<div id="left_content">
-		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage.do">마이페이지</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/g_mypage_updateform.do">개인정보 수정</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/reserve_List.do">예약내역</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/takeout_list.do">포장내역</a></p>
-		<p class="position"><a href="${pageContext.request.contextPath}/users/g_mypage/scrap_List.do">스크랩내역</a></p>
-		<p class="position"><a href="javascript:deleteConfirm()">회원탈퇴</a></p>
-	</div>
-	
-<!-- <input type="hidden" name="g_profile" value="${ empty dto.g_profile ? '' : dto.g_profile }"/>  -->	
+
+	<div id="container" class="inner" style="display:flex; justify-content:space-between;">
+	<jsp:include page="/navbar/sideBar/g_sideBar.jsp"></jsp:include>
 	<div id="right_content">
 		<table>
 			<tr>
