@@ -129,8 +129,8 @@
 					<th scope="col">예약일</th>
 					<th scope="col">예약자</th>
 					<th scope="col">상호명</th>
+					<th scope="col">내역</th>
 					<th scope="col">리뷰</th>
-					<th scope="col">내역보기</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -143,6 +143,9 @@
 							<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${tmp.b_id}">${tmp.b_store_name }</a>
 						</td>
 						<td>
+							<button type="button" class="reservation_btn2" data-reservationnum2="${tmp.reservation_num}" data-id2="${tmp.b_id}">예약</br>내역</button>
+						</td>
+						<td>
 							<c:choose>
 								<c:when  test="${tmp.did_it == 0 }">
 									<button type="button" class="reservation_btn" data-reservationnum="${tmp.reservation_num}" data-id="${tmp.b_id}">리뷰</br>작성</button>
@@ -151,9 +154,6 @@
 									<button type="button" class="reservation_btn" data-reservationnum="${tmp.reservation_num}" data-id="${tmp.b_id}">리뷰</br>수정</button>
 								</c:otherwise>
 							</c:choose>
-						</td>
-						<td>
-							<button type="button" class="reservation_btn2" data-reservationnum2="${tmp.reservation_num}" data-id2="${tmp.b_id}">예약</br>내역</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -188,36 +188,18 @@
 	</div>
 </div>
 <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
-
-
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-
 <script>
-		$(".reservation_btn").click(function(){
-			let reservNum=$(this).attr("data-reservationnum");
-			let bId=$(this).attr("data-id");
-		window.open("${pageContext.request.contextPath}/users/g_mypage/review_reservation_form.do?reservation_num="+reservNum+"&b_id="+bId, "리뷰 작성", "width=520px,height=751px");
-		});
-		$(".reservation_btn2").click(function(){
-			let reservNum2=$(this).attr("data-reservationnum2");
-			let bId2=$(this).attr("data-id2");
-		window.open("${pageContext.request.contextPath}/eatery/reservation_info.do?reservation_num="+reservNum2+"&b_id="+bId2, "포장내역보기", "width=520px,height=751px");
-		});
-		
-		$("#btn").click(function(){
-			window.open("${pageContext.request.contextPath}/users/g_mypage/review_reservation_form.do?reservation_num=161&b_id=1111111111", "리뷰 작성", "width=520px,height=751px");
-			
-		});
-
-		function openNav() {
-		  document.getElementById("mySidenav").style.width = "250px";
-		}
-		
-		function closeNav() {
-		  document.getElementById("mySidenav").style.width = "0";
-		}
-		
+	$(".reservation_btn").click(function(){
+		let reservNum=$(this).attr("data-reservationnum");
+		let bId=$(this).attr("data-id");
+	window.open("${pageContext.request.contextPath}/users/g_mypage/review_reservation_form.do?reservation_num="+reservNum+"&b_id="+bId, "리뷰 작성", "width=520px,height=751px");
+	});
+	$(".reservation_btn2").click(function(){
+		let reservNum2=$(this).attr("data-reservationnum2");
+		let bId2=$(this).attr("data-id2");
+	window.open("${pageContext.request.contextPath}/eatery/reservation_info.do?reservation_num="+reservNum2+"&b_id="+bId2, "포장내역보기", "width=800px,height=750px");
+	});
 </script>
-
 </body>
 </html>

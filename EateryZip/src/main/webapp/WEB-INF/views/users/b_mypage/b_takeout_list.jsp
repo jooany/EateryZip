@@ -168,9 +168,9 @@
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		$(".takeout_btn").click(function(){
-			let takeNum=$(".takeout_btn").attr("data-takeoutnum");
-			let bId=$(".takeout_btn").attr("data-id");
-		window.open("${pageContext.request.contextPath}/eatery/takeout_info.do?takeout_num="+takeNum+"&b_id="+bId, "포장내역보기", "width=520px,height=751px");
+			let takeNum=$(this).attr("data-takeoutnum");
+			let bId=$(this).attr("data-id");
+		window.open("${pageContext.request.contextPath}/eatery/takeout_info.do?takeout_num="+takeNum+"&b_id="+bId, "포장내역보기", "width=800px,height=750px");
 		});
 		
 	</script>
