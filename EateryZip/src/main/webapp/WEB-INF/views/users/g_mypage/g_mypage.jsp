@@ -42,7 +42,6 @@
 	#g_profileImage{
 		width: 50px;
 		height: 50px;
-		border: 1px solid #cecece;
 		border-radius: 50%;
 	}
 /*---------------------------------------프로필 이미지 css----------------------------------------*/
@@ -114,7 +113,7 @@
 			</tr>
 			<tr>
 				<th>이메일</th>
-				<td>${dto.g_email }</td>
+				<td>${dto.g_email }${dto.g_email2 }</td>
 			</tr>
 			<tr>
 				<th>연락처</th>
