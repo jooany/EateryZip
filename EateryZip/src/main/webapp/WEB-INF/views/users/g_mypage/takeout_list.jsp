@@ -132,8 +132,8 @@
 					<th scope="col">방문시간</th>
 					<th scope="col">상호명</th>
 					<th scope="col">가격</th>
+					<th scope="col">내역</th>
 					<th scope="col">리뷰</th>
-					<th scope="col">자세히</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -147,6 +147,9 @@
 						</td>
 						<td>${tmp.takeout_price }</td>
 						<td>
+							<button type="button" class="takeout_btn2" data-takeoutnum2="${tmp.takeout_num}" data-id2="${tmp.b_id}">포장</br>내역</button>
+						</td>
+						<td>
 							<c:choose>
 								<c:when  test="${tmp.did_it == 0 }">
 									<button type="button" class="takeout_btn" data-takeoutnum="${tmp.takeout_num}" data-id="${tmp.b_id}">리뷰</br>작성</button>
@@ -155,9 +158,6 @@
 									<button type="button" class="takeout_btn" data-takeoutnum="${tmp.takeout_num}" data-id="${tmp.b_id}">리뷰</br>수정</button>
 								</c:otherwise>
 							</c:choose>
-						</td>
-						<td>
-							<button type="button" class="takeout_btn2" data-takeoutnum2="${tmp.takeout_num}" data-id2="${tmp.b_id}">포장</br>내역</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -202,7 +202,7 @@
 		$(".takeout_btn2").click(function(){
 			let takeNum2=$(this).attr("data-takeoutnum2");
 			let bId2=$(this).attr("data-id2");
-		window.open("${pageContext.request.contextPath}/eatery/takeout_info.do?takeout_num="+takeNum2+"&b_id="+bId2, "포장내역보기", "width=520px,height=751px");
+		window.open("${pageContext.request.contextPath}/eatery/takeout_info.do?takeout_num="+takeNum2+"&b_id="+bId2, "포장내역보기", "width=800px,height=750px");
 		});
 		
 </script>
