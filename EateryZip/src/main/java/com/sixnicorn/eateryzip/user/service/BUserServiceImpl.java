@@ -302,7 +302,7 @@ public class BUserServiceImpl implements BUserService {
 	@Override
 	public void getBtakeoutList(HttpServletRequest request) {
 		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=10;
+		final int PAGE_ROW_COUNT=8;
 		//하단 페이지를 몇개씩 표시할 것인지
 		final int PAGE_DISPLAY_COUNT=5;
 		
@@ -357,7 +357,7 @@ public class BUserServiceImpl implements BUserService {
 	@Override
 	public void getBreservationList(HttpServletRequest request) {
 		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=10;
+		final int PAGE_ROW_COUNT=8;
 		//하단 페이지를 몇개씩 표시할 것인지
 		final int PAGE_DISPLAY_COUNT=5;
 		
