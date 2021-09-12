@@ -133,7 +133,7 @@
 					<th scope="col">상호명</th>
 					<th scope="col">가격</th>
 					<th scope="col">리뷰</th>
-					<th scope="col">내역</th>
+					<th scope="col">자세히</th>
 				</tr>
 			</thead>
 			<tbody>
