@@ -271,6 +271,10 @@
 		<input class="keywordCheckbox visually-hidden" type="checkbox" name="keyword" value="특별한 메뉴가 있어요"/>
 		<input class="keywordCheckbox visually-hidden" type="checkbox" name="keyword" value="커피가 맛있어요"/>
 		<input class="keywordCheckbox visually-hidden" type="checkbox" name="keyword" value="음료가 맛있어요"/>
+		<input class="keywordCheckbox visually-hidden" type="checkbox" name="keyword" value="대화하기 좋아요"/>
+		<input class="keywordCheckbox visually-hidden" type="checkbox" name="keyword" value="인테리어가 멋져요"/>
+		<input class="keywordCheckbox visually-hidden" type="checkbox" name="keyword" value="사진이 잘 나와요"/>
+		
 	</div>
 	
 	<script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>

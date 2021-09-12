@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <style>
 	footer{
+		margin-top:150px;
 		text-align:center;
 		line-height: 40px;
 		padding:30px 0;
@@ -12,7 +13,7 @@
 	}
 </style>
 <footer>
-	사업자등록번호 : 111-11-11111 / 대표자 : 정주연 / 강민재 / 윤혜림 / 김나현 / 유형우
+	사업자등록번호 : 111-11-11111 / 대표자 : 정주연 / 강민재 / 윤혜림 / 유형우
 	<br />
 	주소 : 서울특별시 강남구 테헤란로 124 삼원타워 5층 COPYRIGHT 2021 © MAT ZIP ALL RIGHTS RESERVED.
 </footer>
