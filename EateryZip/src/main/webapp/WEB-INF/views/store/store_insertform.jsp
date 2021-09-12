@@ -68,7 +68,10 @@
 	.content_form div{
 		margin-bottom:20px;
 	}
-	
+	.fa-image{
+		width: 300px!important;
+		height: 200px!important;
+	}
 	
 /*------------------------------  end  ------------------------------*/	
 
@@ -178,7 +181,7 @@
 							<a id="store_imglink" href="javascript: ;">
 								<c:choose>
 									<c:when test="${empty dto.b_img_f }">
-										<i id="b_img_f" class="far fa-image"></i>
+										<i id="b_img_f" class="far fa-image fa-5x"></i>
 									</c:when>
 									<c:otherwise>
 										<img id="b_img_f" name="b_img_f" class="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f}"/>
@@ -316,6 +319,7 @@
 	<%-- dto에 전송된 saveStore가 없으면 아래 내역이 보이게 --%>
 				<c:otherwise>
 					<form action="${pageContext.request.contextPath}/store/store_insert.do" method="post" id="StoreForm">
+					<input type="hidden" name="b_img_f" value="${ empty dto.b_img_f ? '' : dto.b_img_f }"/>
 						<%-- 상호명 입력란 --%>
 						<div class="wrap_name">
 							<fieldset>
@@ -369,10 +373,10 @@
 								<a id="store_imglink" href="javascript: ;">
 									<c:choose>
 										<c:when test="${empty dto.b_img_f }">
-											<i id="b_img_f" class="far fa-image"></i>
+											<i id="b_img_f" class="far fa-image fa-5x"></i>
 										</c:when>
 										<c:otherwise>
-											<img id="b_img_f" class="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f}"/>
+											<img id="b_img_f" name="b_img_f" class="b_img_f" src="${pageContext.request.contextPath}${dto.b_img_f}"/>
 										</c:otherwise>
 									</c:choose>
 								</a>
@@ -393,41 +397,38 @@
 								<fieldset>
 									<legend>영업일</legend>
 									<div class="form-group mb-3" id="b_Store_date" style="width:547px;">
-										<input type="checkbox" class="btn-check" id="btn-check-outlined_d" name="b_Store_date" value="월">
-										<label class="btn btn-outline-secondary" for="btn-check-outlined_d" >월</label>
+										<input type="checkbox" class="btn-check excheck" id="btn-check Sdate1" name="b_Store_date" value="월">
+										<label class="Sdate btn" for="btn-check Sdate1" >월</label>
 										
-										<input type="checkbox" class="btn-check" id="btn-check-2-outlined_d" name="b_Store_date" value="화">
-										<label class="btn btn-outline-secondary" for="btn-check-2-outlined_d">화</label>
+										<input type="checkbox" class="btn-check excheck" id="btn-check Sdate2" name="b_Store_date" value="화">
+										<label class="Sdate btn" for="btn-check Sdate2">화</label>
 					
-										<input type="checkbox" class="btn-check" id="btn-check-3-outlined_d" name="b_Store_date" value="수">
-										<label class="btn btn-outline-secondary" for="btn-check-3-outlined_d">수</label>
+										<input type="checkbox" class="btn-check excheck" id="btn-check_Sdate3" name="b_Store_date" value="수">
+										<label class="Sdate btn" for="btn-check_Sdate3">수</label>
 					
-										<input type="checkbox" class="btn-check" id="btn-check-4-outlined_d" name="b_Store_date" value="목">
-										<label class="btn btn-outline-secondary" for="btn-check-4-outlined_d" >목</label>
+										<input type="checkbox" class="btn-check excheck" id="btn-check Sdate4" name="b_Store_date" value="목">
+										<label class="Sdate btn" for="btn-check Sdate4" >목</label>
 					
-										<input type="checkbox" class="btn-check" id="btn-check-5-outlined_d" name="b_Store_date"  value="금">
-										<label class="btn btn-outline-secondary" for="btn-check-5-outlined_d">금</label>
+										<input type="checkbox" class="btn-check excheck" id="btn-check Sdate5" name="b_Store_date"  value="금">
+										<label class="Sdate btn" for="btn-check Sdate5">금</label>
 										
-										<input type="checkbox" class="btn-check" id="btn-check-6-outlined_d" name="b_Store_date" value="토">
-										<label class="btn btn-outline-secondary" for="btn-check-6-outlined_d" >토</label>
+										<input type="checkbox" class="btn-check excheck" id="btn-check Sdate6" name="b_Store_date" value="토">
+										<label class="Sdate btn" for="btn-check Sdate6" >토</label>
 										
-										<input type="checkbox" class="btn-check" id="btn-check-7-outlined_d" name="b_Store_date" value="일">
-										<label class="btn btn-outline-secondary" for="btn-check-7-outlined_d">일</label>
+										<input type="checkbox" class="btn-check excheck" id="btn-check Sdate7" name="b_Store_date" value="일">
+										<label class="Sdate btn" for="btn-check Sdate7">일</label>
 									</div>
 								</fieldset>
 							</div>
 							<%-- 스크립트 내부에서의 value값을 가져오기 --%>
 							<%-- 오픈시간 --%>
 							<div>
+								<div id="intro_Help" class="form-text">30분단위로 선택해주세요</div>
 								<label for="b_open" class="form-label" id="b_open">Open</label>
-								<input type="time" id="b_open" name="b_open" min="06:00" max="23:00" step="1800" >
-								<div class="invalid-feedback">00분과 30분 중에 선택해주세요</div>
-							</div>
-							<%-- 마감시간 --%>
-							<div>
+								<input type="time" id="b_open" name="b_open" min="00:00" max="23:59" step="1800">
+	
 								<label for="b_close" class="form-label" id="b_close">Close</label>
-								<input type="time" id="b_close" name="b_close" min="07:00" max="23:00" step="1800">
-								<div class="invalid-feedback">00분과 30분 중에 선택해주세요</div>
+								<input type="time" id="b_close" name="b_close" min="00:00" max="23:59" step="1800">
 							</div>
 						</div>
 						<%-- 공지사항 필수아님 --%>
@@ -451,48 +452,54 @@
 						</div>
 						<%-- 편의사항 키워드 1개이상 10개이하 data에 넣기 선택안되어있다면 required --%>
 						<div class="wrap_keyword">
-							<fieldset>
-								<legend>편의사항 / 기타</legend>
-								<div class="form-group mb-3" id="ex_keyword" style="width:547px;">
-									<input type="checkbox" class="btn-check" id="keywordBtn" autocomplete="off" name="ex_keyword" value="루프탑">
-									<label class="Ekeyword" for="keywordBtn" >루프탑</label>
-									
-									<input type="checkbox" class="btn-check" id="keywordBtn2" autocomplete="off" name="ex_keyword" value="주차">
-									<label class="Ekeyword" for="keywordBtn2">주차</label>
-				
-									<input type="checkbox" class="btn-check" id="keywordBtn3" autocomplete="off" name="ex_keyword" value="무선인터넷">
-									<label class="Ekeyword" for="keywordBtn3">무선인터넷</label>
-				
-									<input type="checkbox" class="btn-check" id="keywordBtn4" autocomplete="off" name="ex_keyword" value="단체석">
-									<label class="Ekeyword" for="keywordBtn4" >단체석</label>
-				
-									<input type="checkbox" class="btn-check" id="keywordBtn5" autocomplete="off" name="ex_keyword"  value="남녀 화장실 구분">
-									<label class="Ekeyword" for="keywordBtn5">남녀 화장실 구분</label>
-									
-									<input type="checkbox" class="btn-check" id="keywordBtn6" autocomplete="off" name="ex_keyword" value="키즈존">
-									<label class="Ekeyword" for="keywordBtn6" >키즈존</label>
-									
-									<input type="checkbox" class="btn-check" id="keywordBtn7" autocomplete="off" name="ex_keyword" value="노키즈존">
-									<label class="Ekeyword" for="keywordBtn7">노키즈존</label>
-				
-									<input type="checkbox" class="btn-check" id="keywordBtn8" autocomplete="off" name="ex_keyword" value="반려동물동반가능">
-									<label class="Ekeyword" for="keywordBtn8" >반려동물동반가능</label>
-				
-									<input type="checkbox" class="btn-check" id="keywordBtn9" autocomplete="off" name="ex_keyword" value="프라이빗">
-									<label class="Ekeyword" for="keywordBtn9" >프라이빗</label>
-				
-									<input type="checkbox" class="btn-check" id="keywordBtn10" autocomplete="off" name="ex_keyword" value="흡연실">
-									<label class="Ekeyword" for="keywordBtn10">흡연실</label>
-								</div>
-							</fieldset>
-
-						</div>
+						<fieldset>
+							<legend>편의사항 / 기타</legend>
+							<div class="form-group mb-3" id="ex_keyword">
+								<input type="checkbox" class="btn-check excheck" id="btn-check keywordBtn" name="ex_keyword" autocomplete="off" value="루프탑">
+								<label class="Ekeyword btn" for="btn-check keywordBtn" >루프탑</label>
+								
+								<input type="checkbox" class="btn-check excheck" id="btn-check keywordBtn2" name="ex_keyword" autocomplete="off" value="주차">
+								<label class="Ekeyword btn" for="btn-check keywordBtn2">주차</label>
+			
+								<input type="checkbox" class="btn-check excheck" id="btn-check keywordBtn3" name="ex_keyword" autocomplete="off" value="무선인터넷">
+								<label class="Ekeyword btn" for="btn-check keywordBtn3">무선인터넷</label>
+			
+								<input type="checkbox" class="btn-check excheck" id="btn-check keywordBtn4" name="ex_keyword" autocomplete="off" value="단체석">
+								<label class="Ekeyword btn" for="btn-check keywordBtn4" >단체석</label>
+			
+								<input type="checkbox" class="btn-check excheck" id="btn-check keywordBtn5" name="ex_keyword" autocomplete="off" value="남녀 화장실 구분">
+								<label class="Ekeyword btn" for="btn-check keywordBtn5">남녀 화장실 구분</label>
+								<br />
+								<input type="checkbox" class="btn-check excheck" id="btn-check keywordBtn6" name="ex_keyword" autocomplete="off" value="키즈존">
+								<label class="Ekeyword btn" for="btn-check keywordBtn6" >키즈존</label>
+								
+								<input type="checkbox" class="btn-check excheck" id="btn-check keywordBtn7" name="ex_keyword" autocomplete="off" value="노키즈존">
+								<label class="Ekeyword btn" for="btn-check keywordBtn7">노키즈존</label>
+			
+								<input type="checkbox" class="btn-check excheck" id="btn-check keywordBtn8" name="ex_keyword" autocomplete="off" value="반려동물동반가능">
+								<label class="Ekeyword btn" for="btn-check keywordBtn8" >반려동물동반가능</label>
+										
+								<input type="checkbox" class="btn-check excheck" id="btn-check keywordBtn9" name="ex_keyword" autocomplete="off" value="프라이빗">
+								<label class="Ekeyword btn" for="btn-check keywordBtn9" >프라이빗</label>
+			
+								<input type="checkbox" class="btn-check excheck" id="btn-check keywordBtn10" name="ex_keyword" autocomplete="off" value="흡연실">
+								<label class="Ekeyword btn" for="btn-check keywordBtn10">흡연실</label>
+							</div>
+						</fieldset>
+						
+					</div>
 						<%-- checkKeyword입력 --%>
 						<div class="checkKeyword">
-							<input type="text" class="form-control" id="checkKeyword" name="checkKeyword" />
+							<fieldset>
+								<legend>검색키워드</legend>
+								<div id="b_notice_Help" class="form-text">검색하기 좋은 키워드를 작성해주세요. 예시) 햄버거,샌드위치,,, 등</div>
+								<input type="text" class="form-control" id="checkKeyword" name="checkKeyword" />
+							<fieldset>
 						</div>
-						<button id="resetBtn" class="btn btn-light" type="reset">취소</button>
-						<button id="saveBtn" class="btn btn-primary" type="submit" onclick="submit()">저장하기</button>
+						<div class="Btn">
+							<button id="resetBtn" class="btn btn-light" type="reset">취소</button>
+							<button id="saveBtn" class="btn btn-primary" type="submit" onclick="submit()">저장하기</button>
+						</div>
 					</form>
 				</c:otherwise>
 			</c:choose>
