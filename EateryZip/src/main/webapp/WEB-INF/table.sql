@@ -98,7 +98,7 @@ CREATE TABLE B_Store(
 	b_holiday VARCHAR2(100), -- 가게 휴일
 	notice VARCHAR2(100), -- 가게 공지사항
 	service VARCHAR2(100) NOT NULL, -- 예약 , 포장 선택
-	ex_keyword VARCHAR2(100) NOT NULL, -- 편의사항/ 기타
+	ex_keyword VARCHAR2(200) NOT NULL, -- 편의사항/ 기타
 	checkKeyword VARCHAR2(200), -- 키워드 
 	lattitude number(12,6),
 	longitude number(12,6)

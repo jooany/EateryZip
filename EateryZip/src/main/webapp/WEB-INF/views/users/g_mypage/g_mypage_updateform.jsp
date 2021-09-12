@@ -35,13 +35,11 @@
 		background-color: white;
 		height: fit-content;
 		padding: 10px 40px 26px 80px;
-		text-align:center;
 	}
 	/* 프로필 이미지를 작은 원형으로 만든다 */
 	#g_profileImage{
 		width: 50px;
 		height: 50px;
-		border: 1px solid #cecece;
 		border-radius: 50%;
 	}
 	#image{
@@ -53,17 +51,17 @@
 		width: 100px;
 	}
 
-	.innerdiv #b_id{
+	.innerdiv #id{
 		width: 200px;
 	}
-	.innerdiv #b_name{
+	.innerdiv #name{
 		width: 200px;
 	}
-	.innerdiv #b_address{
+	.innerdiv #address{
 		width: 420px;
 	}
 
-	.innerdiv #b_phone{
+	.innerdiv #phone{
 		width: 200px;
 		margin-bottom: 20px;
 	}
@@ -73,11 +71,11 @@
 		margin-top: 20px;
 	}
 	
-	.innerIndiv #b_email{
+	.innerIndiv #email{
 		width: 200px;
 		margin-right:20px;
 	}
-	.innerIndiv #b_email2{
+	.innerIndiv #email2{
 		width: 200px;
 	}
 	
@@ -117,7 +115,7 @@
 				</c:choose>
 			</a>
 		</div>
-		<form action="${pageContext.request.contextPath}/users/g_mypage/update.do" method="post">
+		<form action="${pageContext.request.contextPath}/users/g_mypage/update.do" method="post" id="updateForm">
 			<input type="hidden" name="g_profile" value="${ empty dto.g_profile ? '' : dto.g_profile }"/>
 			<div class="innerdiv">
 				<label for="g_id">사업자번호</label>
@@ -132,18 +130,18 @@
 				<input type="text" name="g_address" id="address" value="${dto.g_address }"/>
 			</div>
 			<div class="innerdiv">
-				<label class="col-form-label" for="b_email">이메일</label>
+				<label class="col-form-label" for="g_email">이메일</label>
 				<div class="innerIndiv">
-					<input class="form-control" type="text" name="b_email" id="email" placeholder="이메일을 입력해주세요."/>
+					<input class="form-control" type="text" name="g_email" id="email" value="${dto.g_email }" placeholder="이메일을 입력해주세요."/>
 				</div>
 				<div class="innerIndiv">
-					<select class="form-select" name="b_email2" id="email2"> 
+					<select class="form-select" name="g_email2" id="email2"> 
 						<option value="No" selected>도메인을 선택해주세요.</option>
-						<option value="@gmail.com">@gmail.com</option>
-						<option value="@naver.com">@naver.com</option>
-						<option value="@daum.net">@daum.net</option>
-						<option value="@nate.com">@nate.com</option>
-						<option value="@kakao.com">@kakao.com</option>
+						<option value="@gmail.com" ${dto.g_email2 eq '@gmail.com' ? 'selected' : ''}>@gmail.com</option>
+						<option value="@naver.com" ${dto.g_email2 eq '@naver.com' ? 'selected' : ''}>@naver.com</option>
+						<option value="@daum.net" ${dto.g_email2 eq '@daum.net' ? 'selected' : ''}>@daum.net</option>
+						<option value="@nate.com" ${dto.g_email2 eq '@nate.com' ? 'selected' : ''}>@nate.com</option>
+						<option value="@kakao.com" ${dto.g_email2 eq '@kakao.com' ? 'selected' : ''}>@kakao.com</option>
 					</select>
 				</div>
 			</div>
@@ -185,6 +183,56 @@
 			// input name="profile" 요소의 value 값으로 이미지 경로 넣어주기
 			document.querySelector("input[name=g_profile]").value=data.imagePath;
 		});
+	});
+	
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const name=document.querySelector("#name").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(name.length < 1){
+			alert("이름을 입력하세요!");
+			e.preventDefault();
+		}
+	});
+	
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const address=document.querySelector("#address").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(address.length < 1){
+			alert("주소를 입력하세요!");
+			e.preventDefault();
+		}
+	});
+
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const email=document.querySelector("#email").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(email.length < 1){
+			alert("이메일을 입력하세요!");
+			e.preventDefault();
+		}
+	});
+	
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const email2=document.querySelector("#email2").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(email2 == "No"){
+			alert("도메인을 선택하세요!");
+			e.preventDefault();
+		}
+	});
+	
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const phone=document.querySelector("#phone").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(phone.length < 1){
+			alert("전화번호를 입력하세요!");
+			e.preventDefault();
+		}
 	});
 </script>
 </body>

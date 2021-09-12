@@ -41,17 +41,17 @@
 		width: 100px;
 	}
 
-	.innerdiv #b_id{
+	.innerdiv #id{
 		width: 200px;
 	}
-	.innerdiv #b_name{
+	.innerdiv #name{
 		width: 200px;
 	}
-	.innerdiv #b_address{
+	.innerdiv #address{
 		width: 420px;
 	}
 
-	.innerdiv #b_phone{
+	.innerdiv #phone{
 		width: 200px;
 		margin-bottom: 20px;
 	}
@@ -61,11 +61,11 @@
 		margin-top: 20px;
 	}
 	
-	.innerIndiv #b_email{
+	.innerIndiv #email{
 		width: 200px;
 		margin-right:20px;
 	}
-	.innerIndiv #b_email2{
+	.innerIndiv #email2{
 		width: 200px;
 	}
 
@@ -109,16 +109,16 @@
 			<div class="innerdiv">
 				<label class="col-form-label" for="b_email">이메일</label>
 				<div class="innerIndiv">
-					<input class="form-control" type="text" name="b_email" id="email" placeholder="이메일을 입력해주세요."/>
+					<input class="form-control" type="text" name="b_email" id="email" value="${dto.b_email }" placeholder="이메일을 입력해주세요."/>
 				</div>
 				<div class="innerIndiv">
 					<select class="form-select" name="b_email2" id="email2"> 
 						<option value="No" selected>도메인을 선택해주세요.</option>
-						<option value="@gmail.com">@gmail.com</option>
-						<option value="@naver.com">@naver.com</option>
-						<option value="@daum.net">@daum.net</option>
-						<option value="@nate.com">@nate.com</option>
-						<option value="@kakao.com">@kakao.com</option>
+						<option value="@gmail.com" ${dto.b_email2 eq '@gmail.com' ? 'selected' : ''}>@gmail.com</option>
+						<option value="@naver.com" ${dto.b_email2 eq '@naver.com' ? 'selected' : ''}>@naver.com</option>
+						<option value="@daum.net" ${dto.b_email2 eq '@daum.net' ? 'selected' : ''}>@daum.net</option>
+						<option value="@nate.com" ${dto.b_email2 eq '@nate.com' ? 'selected' : ''}>@nate.com</option>
+						<option value="@kakao.com" ${dto.b_email2 eq '@kakao.com' ? 'selected' : ''}>@kakao.com</option>
 					</select>
 				</div>
 			</div>

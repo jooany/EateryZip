@@ -457,9 +457,9 @@
 		        	
 			       	<legend>서비스</legend>
 			       	<div style="display:flex; align-items:center;">
-			    		<input class="s_r" type="radio" name="service" value="reserve/takeout" ${service eq '' ? 'checked' : ''} /><p style="display:box; width:40px;height:24px; line-height:26px; margin:0;">전체</p>
-			            <input class="s_r" type="radio" name="service" value="reserve" ${service eq '예약' ? 'checked' : ''} ><p style="display:box; width:40px;height:24px; line-height:26px; margin:0;">예약</p>
-			            <input class="s_r" type="radio" name="service" value="takeout" ${service eq '방문포장' ? 'checked' : ''}><p style="display:box; width:40px;height:24px; line-height:26px; margin:0;">포장</p>
+			    		<input class="s_r" type="radio" name="service" value="" ${service eq '' ? 'checked' : ''} /><p style="display:box; width:40px;height:24px; line-height:26px; margin:0;">전체</p>
+			            <input class="s_r" type="radio" name="service" value="reserve" ${service eq 'reserve' ? 'checked' : ''} ><p style="display:box; width:40px;height:24px; line-height:26px; margin:0;">예약</p>
+			            <input class="s_r" type="radio" name="service" value="takeout" ${service eq 'takeout' ? 'checked' : ''}><p style="display:box; width:40px;height:24px; line-height:26px; margin:0;">포장</p>
 		            </div>
 		        </div>
 			       	
