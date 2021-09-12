@@ -219,7 +219,7 @@
 	<insert id="insert" parameterType="BStoreDto">
 		INSERT INTO B_Store
 		(b_id,b_name, b_Store_Address, b_kind, intro, b_Store_phone,b_Store_date, b_open, b_close, notice, service, ex_keyword, checkKeyword, b_img_f )
-		VALUES(#{b_id},#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_Store_phone},#{b_Store_date},#{b_open},#{b_close},#{notice,jdbcType=VARCHAR},#{service},#{ex_keyword},#{checkKeyword,jdbcType=VARCHAR},#{b_img_f } )
+		VALUES(#{b_id},#{b_name},#{b_Store_Address},#{b_kind},#{intro},#{b_Store_phone},#{b_Store_date},#{b_open},#{b_close},#{notice,jdbcType=VARCHAR},#{service},#{ex_keyword},#{checkKeyword,jdbcType=VARCHAR},#{b_img_f} )
 	</insert>
 	
 	<!-- 이미지등록하기 
