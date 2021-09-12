@@ -1098,8 +1098,10 @@ ul.tabs li.current{
 	 							      hour = (Math.floor(i/2));
 	 							   }
 	 							   hour = (Math.floor(i/2));
-	 							   if(hour<12){
+	 							   if(hour<10){
 	 							      hour = "0"+hour;
+	 							   }else{
+	 								  hour = hour;	
 	 							   }
 	 							   if(i%2 != 0){
 	 							      min=":30";

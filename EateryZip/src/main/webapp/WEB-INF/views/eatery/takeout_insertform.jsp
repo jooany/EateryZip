@@ -26,11 +26,22 @@ button{
 	border:none;
 	background-color:rgba(0,0,0,0);
 }
-#container{
-	margin-top:50px!important;
-	width:1100px;
-	margin:0 auto;
-	margin-bottom:250px;
+#content {
+    display: flex;
+}
+.inner {
+    width: 1100px;
+    margin: 0 auto;
+}
+#banner{
+	margin-top:50px;
+}
+#leftContent {
+    width: 700px;
+}
+#rightContent {
+    width: auto;
+    height: 300px;
 }
 .wrap_image{
 	width: 120px;
@@ -79,6 +90,7 @@ button{
   th{
     border-bottom: 1px solid rgb(224, 224, 224);
     padding: 10px;
+    text-align:center;
   }
   td{
   	padding: 10px;
@@ -146,50 +158,52 @@ button{
 		color:#fd5300;
 		background-color:white;
 	}
-	footer{
-		margn-bottom: 250px;
-	}
 </style>
 </head>
 <body>
-
-<div id="container">
+<div class="inner" id="banner">
 	<h2 id="title"> <i class="fas fa-angle-right"></i> 메뉴 선택 페이지</h2>
 	<div id="info">
 		<span id="store_name">${param.b_store_name }</span>
 		<br />
 		<span id="store_addr">${param.b_store_addr }</span>
 	</div>
-	<div style="width:600px;">
-		<c:forEach var="tmp2" items="${sectionNumList }" varStatus="statusOuter">
-			<div class="wrap_section" id="wrapSection${tmp2 }" data-section="${tmp2 }">
-				<c:set var="selectOnlyOne" value="0" />
-				<c:forEach var="tmp" items="${list }" varStatus="status">
-					<c:if test="${tmp2 eq tmp.section_num and selectOnlyOne eq 0 }">
-						<c:set var="selectOnlyOne" value="1" />
-						<h2>${tmp.section_name }</h2>
-					</c:if>
-					<c:if test="${tmp2 eq tmp.section_num }">
-						<div id="menu_select" style="margin-right:30px;">
-							<img class="wrap_image" src="${pageContext.request.contextPath }${tmp.menu_image }"/>
-							<p id="menu-info">
-								<span id="menu_name${statusOuter.index}${status.index }" style="font-size:14px; font-weight:bold;">${tmp.menu_name }</span>
-								<br />
-								<span id="menu_price${statusOuter.index}${status.index}" style="font-size:14px; font-weight:bold; color:#fd5300;">${tmp.menu_price}원</span>
-								<br />
-               					<button class="minus_btn" type="button" onclick="minus('${statusOuter.index}${status.index }')">-</button>
-               					<span class="count" data-num="${tmp.menu_seq_num }" id="amount${statusOuter.index}${status.index }">1</span>
-               					<button class="plus_btn" type="button" onclick="plus('${statusOuter.index}${status.index }')">+</button>  
-								<button type="button" class="menu_btn" onclick="addToCart('${statusOuter.index}${status.index}')">추가</button>	
-							</p>	
-						</div>	
-					</c:if>
-				</c:forEach>
-			</div>
-		</c:forEach>
+</div>
+<div id="content" class="inner">
+	<div id="leftContent">
+		<div style="width:650px;">
+			<c:forEach var="tmp2" items="${sectionNumList }" varStatus="statusOuter">
+				<div class="wrap_section" id="wrapSection${tmp2 }" data-section="${tmp2 }">
+					<c:set var="selectOnlyOne" value="0" />
+					<c:forEach var="tmp" items="${list }" varStatus="status">
+						<c:if test="${tmp2 eq tmp.section_num and selectOnlyOne eq 0 }">
+							<c:set var="selectOnlyOne" value="1" />
+							<h2>${tmp.section_name }</h2>
+						</c:if>
+						<c:if test="${tmp2 eq tmp.section_num }">
+							<div id="menu_select" style="margin-right:30px;">
+								<img class="wrap_image" src="${pageContext.request.contextPath }${tmp.menu_image }"/>
+								<p id="menu-info">
+									<span id="menu_name${statusOuter.index}${status.index }" style="font-size:14px; font-weight:bold;">${tmp.menu_name }</span>
+									<br />
+									<span id="menu_price${statusOuter.index}${status.index}" style="font-size:14px; font-weight:bold; color:#fd5300;">${tmp.menu_price}원</span>
+									<br />
+	               					<button class="minus_btn" type="button" onclick="minus('${statusOuter.index}${status.index }')">-</button>
+	               					<span class="count" data-num="${tmp.menu_seq_num }" id="amount${statusOuter.index}${status.index }">1</span>
+	               					<button class="plus_btn" type="button" onclick="plus('${statusOuter.index}${status.index }')">+</button>  
+									<button type="button" class="menu_btn" onclick="addToCart('${statusOuter.index}${status.index}')">추가</button>	
+								</p>	
+							</div>	
+						</c:if>
+					</c:forEach>
+				</div>
+			</c:forEach>
+		</div>	
 	</div>
-	<div id="menu_kind" style="position: fixed; right: 300px; top:280px; width:auto; height:auto; border:1px solid rgb(224, 224, 224); border-radius:4px;">
-		<form id="add_menu" name="add_menu" method="post" action="${pageContext.request.contextPath }/eatery/takeout_info_insertform.do" onsubmit="return confirm('주문 하시겠습니까?');">
+	<!-- style="position: fixed; right: 300px; top:280px; width:auto; height:auto; border:1px solid rgb(224, 224, 224); border-radius:4px;" -->
+	<div id="rightContent">
+		<div style="border:1px solid rgb(224, 224, 224); border-radius:4px;">
+			<form id="add_menu" name="add_menu" method="post" action="${pageContext.request.contextPath }/eatery/takeout_info_insertform.do" onsubmit="return confirm('주문 하시겠습니까?');">
 			<input type="hidden" name="b_store_name" id="b_store_name" value="${param.b_store_name }"/>
 			<input type="hidden" name="b_store_addr" id="b_store_addr" value="${param.b_store_addr }"/>
 			<input type="hidden" name="b_id" id="b_id" value="${param.b_id }"/>
@@ -214,8 +228,12 @@ button{
 				<button id="subBtn" type="submit">다음</button>
 			</div>
 		</form>
-	</div>
-</div>	
+		</div>
+	</div>	
+</div>
+
+	
+	
 
 <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -239,12 +257,15 @@ button{
 	 function minus(index){
 		 var currentCount=parseInt($("#amount"+index).text());
 		 currentCount--;
+		 if(currentCount < 1){
+	            return currentCount = 1;
+	        } 
 		 $("#amount"+index).text(currentCount);
 	 };
 	
 	 function addToCart(index){
 		var num=$("#amount"+index).attr("data-num");//메뉴의 seq_num
-		var a=$("#basket"+num).attr("data-num");
+		var a=$("#basket2"+num).attr("data-num");
 		var amount=$("#amount"+index).text();//수량
 		var name=$("#menu_name"+index).text();//메뉴 이름
 		var price=$("#menu_price"+index).text();//메뉴 가격
@@ -252,10 +273,42 @@ button{
 		console.log(num+"하이"+a+amount);
 		$("#amount"+index).text(1);//수량을 기본 값 1 로 돌려주는 
 		if(num == a){
-					
+			alert(name+"  "+amount+" 개가 추가 되었습니다.");
+			//장바구니 수량 변경
+			var basket2=$("#basket2"+num).text();
+			var countPlus1 = Number(basket2) + Number(amount);
+			$("#basket2"+num).text(countPlus1);
+			//장바구니 가격 변경
+			var basket3=$("#basket3"+num).text();
+			for (var i in priceSplit){
+				countPlus2 = Number(basket3) + Number(amount)*priceSplit[0]; 
+			}
+			$("#basket3"+num).text(countPlus2);
+			$("#menu_price"+num).val(countPlus2);
+			//변경되는 장바구니 값 input value 변경
+			var menu_choice = $("#menu_choice"+num).val();
+			console.log(menu_choice);
+			var menu_choiceSplit = menu_choice.split('/');
+			console.log( menu_choiceSplit[1]);
+			var countPlus3 = Number(menu_choiceSplit[1]) + Number(amount);
+			console.log( countPlus3);
+			$("#menu_choice"+num).val(num+"/"+countPlus3+"/"+preTakeOutNum+"/"+name);
+			//변경되는 장바구니 값 input value 변경
+			var menu_info = $("#menu_info"+num).val();
+			console.log(menu_info);
+			var menu_infoSplit = menu_info.split('/');
+			console.log( menu_infoSplit[1]);
+			var countPlus4 = Number(menu_infoSplit[1]) + Number(amount);
+			console.log( countPlus4);
+			var countPlus5 = Number(menu_infoSplit[2])
+			for (var i in priceSplit){
+				countPlus6 = Number(countPlus5) + Number(amount)*priceSplit[0]; 
+			}
+			$("#menu_info"+num).val(name+"/"+countPlus4+"/"+countPlus6);
+			
 		}else{
 			for (var i in priceSplit){
-				alert(num+" 번 상품 "+amount+" 개가 담겼습니다."+amount*priceSplit[0]+" 가격입니다.");
+				alert(name+"  "+amount+" 개가 담겼습니다."+amount*priceSplit[0]+" 가격입니다.");
 				//DB에 저장 하려는 정보
 				$("<input/>")
 				.attr("type","hidden")
