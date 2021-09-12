@@ -486,6 +486,8 @@ button{
 #bulletin>span:nth-child(2){
    margin-left:10px;
    font-size:13px;
+   width:215px;
+   line-height:15px;
 }
 #etcInfo{
    margin-top:20px;
