@@ -65,6 +65,7 @@
         ul{
             list-style:none;
         }
+        
         #container{
             display: flex;
             justify-content: center;
@@ -72,6 +73,15 @@
             flex-direction: column;
             background-size: cover;
         }
+        /* 나나나나나나 잠만
+        #container{
+        	display: flex;
+		    justify-content: center;
+		    align-items: inherit;
+		    flex-direction: column;
+		    background-size: cover;
+        }
+        */
         .content{
             width: 100%;
             height: 600px;
@@ -165,21 +175,37 @@
         }
         
         
-        /* 도시추천 이미지 */
+        /* 추천순 이미지 */
         .best_wrap .best_box {
+        	width: 900px;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-between;
+            border-radius:10%;
         }
         .best_wrap .best_box img{
-            width: 100px;
-            height: 100px;
-            border: 1px solid #000;
+            width: 250px;
+            height: 250px;
+            border: 1px solid #ccc;
+            border-radius:10%;
+            object-fit:cover;
+            box-shadow: 5px 5px 5px 0px #ccc;
         }
         .moreBtn{
             text-align: right;
+            font-size: 24px;
+            margin-top: 40px;
+            margin-bottom: 40px;
         }
         .container_nav{
         	width:900px!important;
+        }
+        .bestwraptitle{
+        	font-size: 24px;
+        	margin-bottom: 40px;
+        	margin-top: 40px;
+        }
+        .more{
+        	text-decoration:none;
         }
     </style>
 </head>
@@ -200,7 +226,7 @@
             <div class="content_search">
 	            <form id="testForm" action="${pageContext.request.contextPath}/eatery/list.do?keyword=" class="search_wrap_wrap search_wrapper"> <!-- 가게리스트로 연결 -->
 	                <div class="search_wrap">
-	                    <input type="text" class="keyword" placeholder="  통합검색" name="keyword">
+	                    <input type="text" class="keyword" placeholder="     통합검색" name="keyword">
 	                </div>
 	                <button type="submit" id="searchBtn">
 	                    <i class="fas fa-search"></i>
@@ -208,17 +234,22 @@
 	            </form>
 	        </div>
         </div>
-            <div class="best_wrap">
-            <h1>추천 음식점</h1>
-                <div class="best_box">
-                    <img src="#" alt="">
-                    <img src="#" alt="">
-                    <img src="#" alt="">
-                </div>
-                <div class="moreBtn"> <!-- 추천 등 해당 선택내용 검색조건으로 리스트 들어가기 -->
-                    <a class="more" href="${pageContext.request.contextPath}/eatery/list.do?recommend=${dto.recommend}">더보기</a>
-                </div>
-            </div>
+        <div class="best_wrap">
+        	<p class="bestwraptitle">추천 음식점</p>
+             <div class="best_box">
+             	<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=4444444444">
+                 <img src="https://img.siksinhot.com/place/1628060355715382.jpg?w=307&h=300&c=Y" alt="">
+                </a>
+                <a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=0147258369">
+                 <img src="https://lh3.googleusercontent.com/proxy/p3WL3AEplNb2qxXDjK0OQsX_mBncAZMgfX1WdyrFULh9lPNJLEHQ8WaTacYteFfCarsgmDzPVDglUUQT_SCizzuek1W-YKgwFc-6N-o6WttshNwicYMdAQgDcmjY2ce534nr0wbkuUmQwvZ3IFPKftYmaZ_A" alt="">
+                </a>
+                <a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=1111177777">
+                 <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMjFfMTgz/MDAxNjE2MzMwODU3ODgw.lgOm_PLojKgyO0MI9j93y7tyIpBLhCB5mR4gLV-P1kEg.myG2JmtFPZ0QfVfRGEgZydChZrs5gM4cE-kHF8zbafkg.JPEG.nablogging/DSC09776%EF%BC%BFcopy%EF%BC%BF1600x1067.jpg?type=w800" alt="">
+                </a>
+             </div>
+             <div class="moreBtn"> <!-- 추천 등 해당 선택내용 검색조건으로 리스트 들어가기 -->
+                 <a class="more" href="${pageContext.request.contextPath}/eatery/list.do?recommend=${dto.recommend}">더보기 ></a>
+             </div>
         </div>
     </div>
     <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>

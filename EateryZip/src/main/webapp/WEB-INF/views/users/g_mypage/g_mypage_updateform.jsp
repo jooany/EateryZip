@@ -35,7 +35,6 @@
 		background-color: white;
 		height: fit-content;
 		padding: 10px 40px 26px 80px;
-		text-align:center;
 	}
 	/* 프로필 이미지를 작은 원형으로 만든다 */
 	#g_profileImage{
