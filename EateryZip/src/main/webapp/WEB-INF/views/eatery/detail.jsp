@@ -1881,30 +1881,7 @@ ul.tabs li.current{
 			}
 			
 		});
-	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
-	document.querySelector("#reservation_form")
-		.addEventListener("submit", function(e){
-			//만일 폼 제출을 막고 싶으면  
-			//e.preventDefault();
-			//을 수행하게 해서 폼 제출을 막아준다.
-			if(!g_id){
-				alert("로그인이 필요한 서비스 입니다.");
-				e.preventDefault();
-			}
-			
-		});
-	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
-	document.querySelector("#takeout_form")
-		.addEventListener("submit", function(e){
-			//만일 폼 제출을 막고 싶으면  
-			//e.preventDefault();
-			//을 수행하게 해서 폼 제출을 막아준다.
-			if(!g_id){
-				alert("로그인이 필요한 서비스 입니다.");
-				e.preventDefault();
-			}
-			
-		});
+
 
    //지도
    let lattitude = '<c:out value="${dto.lattitude}"/>';
@@ -1964,7 +1941,30 @@ ul.tabs li.current{
    // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
    infowindow.open(map, marker); 
 
-
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#reservation_form")
+		.addEventListener("submit", function(e){
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(!g_id){
+				alert("로그인이 필요한 서비스 입니다.");
+				e.preventDefault();
+			}
+			
+		});
+	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
+	document.querySelector("#takeout_form")
+		.addEventListener("submit", function(e){
+			//만일 폼 제출을 막고 싶으면  
+			//e.preventDefault();
+			//을 수행하게 해서 폼 제출을 막아준다.
+			if(!g_id){
+				alert("로그인이 필요한 서비스 입니다.");
+				e.preventDefault();
+			}
+			
+		});
    
 </script>
 
