@@ -175,7 +175,7 @@
 	    				 } 
 				  });    
 			  }else{
-				  swal({  title: "검색 실패!",
+				  swal({  title: "로그인 실패!",
 					  text: "일치한 정보가 없습니다.",
 					  icon: "error", 
 					  buttons: ["재로그인", "아이디찾기"],
