@@ -4,7 +4,7 @@
 	
 	<!-- select의 결과가 없으면 0이 된다.-->
 	<select id="getData" parameterType="string" resultType="BuserDto">
-	select b_id, b_pwd, b_name, b_address, b_email, b_email2, b_phone, b_profile, to_char(b_regdate,'YYYY-MM-DD'), grade
+	select b_id, b_pwd, b_name, b_address, b_email, b_email2, b_phone, b_profile, to_char(b_regdate,'YYYY-MM-DD') b_regdate, grade
 	from b_user
 	where b_id = #{b_id}	
 	</select>
