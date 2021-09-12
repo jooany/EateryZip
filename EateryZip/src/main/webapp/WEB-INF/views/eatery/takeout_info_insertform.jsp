@@ -30,7 +30,7 @@ button{
    margin-top:50px!important;
    width:700px;
    margin:0 auto;
-   height:800px;
+   height:900px;
 }
 #title{
    margin-bottom: 30px;
@@ -170,7 +170,7 @@ textarea::placeholder{padding:5px;}
 </head>
 <body>
 <div id="container">
-   <h2 id="title"> <i class="fas fa-angle-right"></i> 결제 페이지</h2>
+   <h2 id="title"> <i class="fas fa-angle-right"></i> 포장 주문 페이지</h2>
    <div id="info">
       <span id="store_name">${param.b_store_name }</span>
       <br />
@@ -321,7 +321,7 @@ textarea::placeholder{padding:5px;}
       <p style="font-size:12px; padding-top: 10px;">※ 포장 예약시 취소 불가능</p>
       <div style="padding-top: 10px;">
          <button id="resBtn" type="reset" onclick="location.href='javascript:history.back();'">취소</button>
-         <button id="subBtn" type="submit">예약하기</button>
+         <button id="subBtn" type="submit">주문하기</button>
       </div>   
    </form>
 </div>
@@ -393,7 +393,7 @@ textarea::placeholder{padding:5px;}
    //예약 한번 더 확인 하는 alert 띄우는 함수
    function showConfirm() {
       var rtn;
-      rtn=confirm("결제 하시겠습니까?");
+      rtn=confirm("포장 주문 하시겠습니까?");
       
          if (rtn){
             document.getElementById('takeout_insert').submit();
