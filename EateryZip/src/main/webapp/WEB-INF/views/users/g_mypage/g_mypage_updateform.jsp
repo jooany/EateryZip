@@ -118,15 +118,15 @@
 		<form action="${pageContext.request.contextPath}/users/g_mypage/update.do" method="post" id="updateForm">
 			<input type="hidden" name="g_profile" value="${ empty dto.g_profile ? '' : dto.g_profile }"/>
 			<div class="innerdiv">
-				<label for="g_id">사업자번호</label>
+				<label for="g_id">아이디</label>
 				<input type="text" id="g_id" value="${g_id }" disabled/>
 			</div>
 			<div class="innerdiv">
-				<label for="g_name">대표자</label>
+				<label for="g_name">이름</label>
 				<input type="text" name="g_name" id="name" value="${dto.g_name }"/>
 			</div>
 			<div class="innerdiv">
-				<label for="g_address">주소지</label>
+				<label for="g_address">주소</label>
 				<input type="text" name="g_address" id="address" value="${dto.g_address }"/>
 			</div>
 			<div class="innerdiv">
