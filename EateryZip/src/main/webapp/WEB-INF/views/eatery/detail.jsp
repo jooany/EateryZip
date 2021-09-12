@@ -1007,7 +1007,7 @@ ul.tabs li.current{
               	  	<li class="tab-link current" data-tab="tab-1">예약</li>
               	</c:if>
                	<c:if test="${dto.service eq 'takeout' or dto.service eq 'reserve,takeout'}">
-               		 <li class="tab-link" data-tab="tab-2">포장</li>
+               		 <li class="tab-link" data-tab="tab-2" style="${dto.service eq 'takeout' ? ' border-bottom:2px solid #fd5300!important;' : ''}">포장</li>
                	</c:if>
 
               </ul>
