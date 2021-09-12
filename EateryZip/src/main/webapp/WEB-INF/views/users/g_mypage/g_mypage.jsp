@@ -57,16 +57,16 @@
 	}
 	
 	table{
-	    width: 300px;
+	    width: 600px;
 		margin:0 auto;
 		text-align: left;
 	}
 	th{
+		width: 100px;
 		line-height: 50px;
 	}
-	
 	td {
-    	padding-left: 100px;
+	    padding-left: 10px;
 	}
 	
 	#right_content tr{
