@@ -448,7 +448,7 @@
 				          </span>
 				          <br />
 				          <span class="one_kind">
-					          <input type="radio" name="b_kind" value="cafe" ${b_kind eq 'cafe' ? 'checked' : ''}>
+					          <input type="radio" name="b_kind" value="카페" ${b_kind eq '카페' ? 'checked' : ''}>
 					          <img src="${pageContext.request.contextPath}/resources/images/coffee-cup.png"><span>카페</span>
 				          </span>
 				       	</div>

@@ -80,7 +80,7 @@
 		  	<h3>사업자 번호 찾기</h3>
 		  </div>
 	      <div class="mb-3">
-	         <input class="form-control" type="text" name="b_name" id="b_name" placeholder="회원가입 시 이름을 입력해주세요."/>
+	         <input class="form-control" type="text" name="b_name" id="b_name" placeholder="회원가입 시 사업자번호를 입력해주세요."/>
 	      </div>
 	      <div class="mt-3">
 	         <input class="form-control" type="text" name="b_phone" id="b_phone" placeholder="회원가입 시 핸드폰번호를 입력해주세요"/>
@@ -106,6 +106,7 @@
 	      </div>	
 	   </form>
 </div>
+ <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
