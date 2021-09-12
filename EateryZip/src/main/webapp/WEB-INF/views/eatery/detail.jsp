@@ -1003,10 +1003,15 @@ ul.tabs li.current{
       <div>
          <div id="container">
               <ul class="tabs">
-                  <li class="tab-link current" data-tab="tab-1">예약</li>
-                  <li class="tab-link" data-tab="tab-2">포장</li>
+              	<c:if test="${dto.service eq 'reserve' or dto.service eq 'reserve,takeout' }">
+              	  	<li class="tab-link current" data-tab="tab-1">예약</li>
+              	</c:if>
+               	<c:if test="${dto.service eq 'takeout' or dto.service eq 'reserve,takeout'}">
+               		 <li class="tab-link" data-tab="tab-2">포장</li>
+               	</c:if>
+
               </ul>
-          
+              <c:if test="${dto.service eq 'reserve' or dto.service eq 'reserve,takeout' }">
               <div id="tab-1" class="tab-content current">
                   <form style="margin:0 auto;" action="${pageContext.request.contextPath}/eatery/reservation_insertform.do" method="post" id="reservation_form" onsubmit="return confirm('예약 하시겠습니까?');">
                      <input type="hidden" id="b_id" name="b_id" value="${dto.b_id }"/><!-- ${dto.b_id} -->
@@ -1137,7 +1142,9 @@ ul.tabs li.current{
                       </div>
                   </form>  
               </div>
-              <div id="tab-2" class="tab-content">
+              </c:if>
+              <c:if test="${dto.service eq 'takeout' or dto.service eq 'reserve,takeout'}">
+              <div id="tab-2" class="tab-content" style="${dto.service eq 'takeout' ? 'display:block!important;':'' }">
                   <form action="${pageContext.request.contextPath}/eatery/takeout_insertform.do" method="post" id="takeout_form">
                         <input type="hidden" id="b_id" name="b_id" value="${dto.b_id }"/>
                         <input type="hidden" id="b_open" name="b_open" value="${dto.b_open }"/>
@@ -1149,6 +1156,7 @@ ul.tabs li.current{
                         <button id="tBtn" type="submit">포장</button>
                   </form>
               </div>
+              </c:if>
           </div>
       </div>
       
