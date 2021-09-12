@@ -211,7 +211,7 @@ button{
 			</div>
 			<div style="width:300px; height:50px;">
 				<button id="resBtn" type="reset" onclick="location.href='javascript:history.back();'">취소</button>
-				<button id="subBtn" type="submit">결제하기</button>
+				<button id="subBtn" type="submit">다음</button>
 			</div>
 		</form>
 	</div>
