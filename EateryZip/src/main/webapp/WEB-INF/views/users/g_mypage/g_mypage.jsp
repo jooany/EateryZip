@@ -10,121 +10,121 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+   @import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
    /* 공통 */
    *{
     font-family: 'Gothic A1', sans-serif;
     margin-top:0;
     }
-	body{
-		background-color:rgba(0,0,0,.04)!important;
-	}
-	
-	.inner{
-		width:1000px;
-		height: 700px;
-		margin:0 auto;
-		display:flex;
-		justify-content: space-between;
-		margin-top: 40px;
-	}
+   body{
+      background-color:rgba(0,0,0,.04)!important;
+   }
+   
+   .inner{
+      width:1000px;
+      height: 700px;
+      margin:0 auto;
+      display:flex;
+      justify-content: space-between;
+      margin-top: 40px;
+   }
 /*-------------------------------------------------------------------------*/
-/*-------------------민재님이 설정해주신 비번수정 modal css 만지지 마시오----------------------------------*/	
-	.btn {
-	    background-color: #FD5300;
-	    border-color: #FD5300;
-	    color: #FFF; 
-	    text-align:center;
-	 }
-	 
+/*-------------------민재님이 설정해주신 비번수정 modal css 만지지 마시오----------------------------------*/   
+   .btn {
+       background-color: #FD5300;
+       border-color: #FD5300;
+       color: #FFF; 
+       text-align:center;
+    }
+    
 /*-------------------민재님이 설정해주신 비번수정 modal css 만지지 마시오----------------------------------*/
 /*---------------------------------------프로필 이미지 css---------------------------------------*/
-	#g_profileImage{
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-	}
+   #g_profileImage{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+   }
 /*---------------------------------------프로필 이미지 css----------------------------------------*/
 
 /*------------------------------right_content start------------------------------*/
 
-	#right_content{
-		width: 700px;
-		height: fit-content;
-		background-color: white;
-		padding: 20px 0px 20px 40px;
-	}
-	
-	table{
-	    width: 600px;
-		margin:0 auto;
-		text-align: left;
-	}
-	th{
-		width: 100px;
-		line-height: 50px;
-	}
-	td {
-	    padding-left: 50px;
-	}
-	
-	#right_content tr{
-		border-bottom: 1px solid #efefef;
-    	margin-bottom: 20px;
-    	line-height: 36px;
-	}
+   #right_content{
+      width: 700px;
+      height: fit-content;
+      background-color: white;
+      padding: 20px 0px 20px 40px;
+   }
+   
+   table{
+       width: 600px;
+      margin:0 auto;
+      text-align: left;
+   }
+   th{
+      width: 100px;
+      line-height: 50px;
+   }
+   td {
+       padding-left: 10px;
+   }
+   
+   #right_content tr{
+      border-bottom: 1px solid #efefef;
+       margin-bottom: 20px;
+       line-height: 36px;
+   }
 
 </style>
 </head>
 <body>
 <jsp:include page="/navbar/header/navbar.jsp"></jsp:include>
-	<div id="container" class="inner" style="display:flex; justify-content:space-between;">
-	<jsp:include page="/navbar/sideBar/g_sideBar.jsp"></jsp:include>
-	<div id="right_content">
-		<table>
-			<tr>
-				<th>프로필 이미지</th>
-				<td>
-					<c:choose>
-					<c:when test="${empty dto.g_profile }">
-						<i id="g_profileImage" class="far fa-user fa-3x"></i>
-					</c:when>
-					<c:otherwise>
-						<img id="g_profileImage" src="${pageContext.request.contextPath}${dto.g_profile}"/>
-					</c:otherwise>
-				</c:choose>
-				</td>
-			</tr>
-			<tr>
-				<th>아이디</th>
-				<td>${g_id }</td>
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td><a href="javascript:" data-bs-toggle="modal" data-bs-target="#changePwdModal">수정하기</a></td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td>${dto.g_name }</td>
-			</tr>
-			<tr>
-				<th>주소</th>
-				<td>${dto.g_address }</td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td>${dto.g_email }${dto.g_email2 }</td>
-			</tr>
-			<tr>
-				<th>연락처</th>
-				<td>${dto.g_phone }</td>
-			</tr>
-			<tr>
-				<th>가입일</th>
-				<td>${dto.g_regdate }</td>
-			</tr>
-		</table>
-	</div>
+   <div id="container" class="inner" style="display:flex; justify-content:space-between;">
+   <jsp:include page="/navbar/sideBar/g_sideBar.jsp"></jsp:include>
+   <div id="right_content">
+      <table>
+         <tr>
+            <th>프로필 이미지</th>
+            <td>
+               <c:choose>
+               <c:when test="${empty dto.g_profile }">
+                  <i id="g_profileImage" class="far fa-user fa-3x"></i>
+               </c:when>
+               <c:otherwise>
+                  <img id="g_profileImage" src="${pageContext.request.contextPath}${dto.g_profile}"/>
+               </c:otherwise>
+            </c:choose>
+            </td>
+         </tr>
+         <tr>
+            <th>아이디</th>
+            <td>${g_id }</td>
+         </tr>
+         <tr>
+            <th>비밀번호</th>
+            <td><a href="javascript:" data-bs-toggle="modal" data-bs-target="#changePwdModal">수정하기</a></td>
+         </tr>
+         <tr>
+            <th>이름</th>
+            <td>${dto.g_name }</td>
+         </tr>
+         <tr>
+            <th>주소</th>
+            <td>${dto.g_address }</td>
+         </tr>
+         <tr>
+            <th>이메일</th>
+            <td>${dto.g_email }${dto.g_email2 }</td>
+         </tr>
+         <tr>
+            <th>연락처</th>
+            <td>${dto.g_phone }</td>
+         </tr>
+         <tr>
+            <th>가입일</th>
+            <td>${dto.g_regdate }</td>
+         </tr>
+      </table>
+   </div>
 </div>
 
 <!-- 패스워드 변경에 대한 Modal -->
@@ -141,21 +141,21 @@
                        <label class="form-label" for="g_pwd">현재 비밀번호</label>
                        <input class="form-control" type="password" name="g_pwd" id="g_pwd"/>
                        <small class="form-text text-muted" >현재 비밀번호를 입력해주세요.</small>
-	              	   <div class="invalid-feedback">현재 비밀번호와 다릅니다.</div>
+                       <div class="invalid-feedback">현재 비밀번호와 다릅니다.</div>
                     </div>
                     <br />
                     <div class="form-group">
                        <label class="form-label" for="g_newPwd">변경 비밀번호</label>
                        <input class="form-control" type="password" name="g_newPwd" id="g_newPwd"/>
-		              <small class="form-text text-muted" >5글자~10글자 이내로 입력하세요.</small>
-		              <div class="invalid-feedback">형식에 맞지 않는 비밀번호입니다.</div>
+                    <small class="form-text text-muted" >5글자~10글자 이내로 입력하세요.</small>
+                    <div class="invalid-feedback">형식에 맞지 않는 비밀번호입니다.</div>
                     </div>
                     <br />
                     <div class="form-group">
                        <label class="form-label" for="g_newPwd2">변경 비밀번호 확인</label>
                        <input class="form-control" type="password" name="g_newPwd2" id="g_newPwd2"/>
                        <small class="form-text text-muted" >비밀번호를 다시 한번 입력해주세요.</small>
-	                   <div class="invalid-feedback">새로운 비밀번호와 일치하지 않습니다.</div>
+                      <div class="invalid-feedback">새로운 비밀번호와 일치하지 않습니다.</div>
                     </div>
                  </form>
               </div>
@@ -169,113 +169,113 @@
 <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>	
-	   let isPwdValid = false;
-	   let isNewPwdValid = false;
-	   let isNewPwdValid2 = false;
-	   
-	   //현재 비밀번호 유효성 검사
-	   document.querySelector("#g_pwd").addEventListener("input",function(){
-		   document.querySelector("#g_pwd").classList.remove("is-valid");
-		   document.querySelector("#g_pwd").classList.remove("is-invalid");
-		   
-		   const inputPwd=document.querySelector("#g_pwd").value;
-		   
-		      ajaxPromise("${pageContext.request.contextPath}/users/g_mypage/g_checkpwd.do"
-		    		  ,"get","inputPwd="+inputPwd)
-		       .then(function(response){
-		    	   return response.json();
-		       })
-		       .then(function(data){
-		    	   console.log(data);
-		    	   if(!data.isExist){
-		    		   isPwdValid=false;
-		    		   document.querySelector("#g_pwd").classList.add("is-invalid");
-		    	   }else{
-		    		   isPwdValid=true;
-		               document.querySelector("#g_pwd").classList.add("is-valid");
-		    	   }
-		       });
-	   });
-		   
-		   //새로운 비밀번호 확인하는 함수 
-		   function newcheckPwd(){
-			  document.querySelector("#g_newPwd").classList.remove("is-valid");
-			  document.querySelector("#g_newPwd").classList.remove("is-invalid");
-			  document.querySelector("#g_newPwd2").classList.remove("is-valid");
-			  document.querySelector("#g_newPwd2").classList.remove("is-invalid");
-			   
-		      const newpwd=document.querySelector("#g_newPwd").value;
-		      const newpwd2=document.querySelector("#g_newPwd2").value;
-		      
-		      // 최소5글자 최대 10글자인지를 검증할 정규표현식
-		      const reg_pwd=/^.{5,10}$/;
-		      if(!reg_pwd.test(newpwd)){
-		    	 isNewPwdValid = false;
-		         document.querySelector("#g_newPwd").classList.add("is-invalid");
-		         return; //함수를 여기서 종료
-		      }else{
-		    	  isNewPwdValid = true;
-		          document.querySelector("#g_newPwd").classList.add("is-valid");
-		      }
-		      
-		      if(newpwd != newpwd2){//비밀번호와 비밀번호 확인란이 다르면    
-		    	     isNewPwdValid2 = false;
-			         document.querySelector("#g_newPwd2").classList.add("is-invalid");
-			         return;
-			      }else{
-			    	 isNewPwdValid2 = true;
-					 document.querySelector("#g_newPwd2").classList.add("is-valid");
-			      }
-		   }
-		   
-		   //새 비밀번호 입력란에 input 이벤트가 일어 났을때 실행할 함수 등록
-		   document.querySelector("#g_newPwd").addEventListener("input", newcheckPwd);
-		   document.querySelector("#g_newPwd2").addEventListener("input", newcheckPwd);
-		   
-	   
-	   //비밀번호 변경 버튼을 눌렀을때 호출되는 함수 등록 
-	   
-	   document.querySelector("#changePwdBtn").addEventListener("click", function(e){
-	      
-		  let isFormValid = isPwdValid && isNewPwdValid && isNewPwdValid2;
+<script>   
+      let isPwdValid = false;
+      let isNewPwdValid = false;
+      let isNewPwdValid2 = false;
+      
+      //현재 비밀번호 유효성 검사
+      document.querySelector("#g_pwd").addEventListener("input",function(){
+         document.querySelector("#g_pwd").classList.remove("is-valid");
+         document.querySelector("#g_pwd").classList.remove("is-invalid");
+         
+         const inputPwd=document.querySelector("#g_pwd").value;
+         
+            ajaxPromise("${pageContext.request.contextPath}/users/g_mypage/g_checkpwd.do"
+                  ,"get","inputPwd="+inputPwd)
+             .then(function(response){
+                return response.json();
+             })
+             .then(function(data){
+                console.log(data);
+                if(!data.isExist){
+                   isPwdValid=false;
+                   document.querySelector("#g_pwd").classList.add("is-invalid");
+                }else{
+                   isPwdValid=true;
+                     document.querySelector("#g_pwd").classList.add("is-valid");
+                }
+             });
+      });
+         
+         //새로운 비밀번호 확인하는 함수 
+         function newcheckPwd(){
+           document.querySelector("#g_newPwd").classList.remove("is-valid");
+           document.querySelector("#g_newPwd").classList.remove("is-invalid");
+           document.querySelector("#g_newPwd2").classList.remove("is-valid");
+           document.querySelector("#g_newPwd2").classList.remove("is-invalid");
+            
+            const newpwd=document.querySelector("#g_newPwd").value;
+            const newpwd2=document.querySelector("#g_newPwd2").value;
+            
+            // 최소5글자 최대 10글자인지를 검증할 정규표현식
+            const reg_pwd=/^.{5,10}$/;
+            if(!reg_pwd.test(newpwd)){
+              isNewPwdValid = false;
+               document.querySelector("#g_newPwd").classList.add("is-invalid");
+               return; //함수를 여기서 종료
+            }else{
+               isNewPwdValid = true;
+                document.querySelector("#g_newPwd").classList.add("is-valid");
+            }
+            
+            if(newpwd != newpwd2){//비밀번호와 비밀번호 확인란이 다르면    
+                  isNewPwdValid2 = false;
+                  document.querySelector("#g_newPwd2").classList.add("is-invalid");
+                  return;
+               }else{
+                 isNewPwdValid2 = true;
+                document.querySelector("#g_newPwd2").classList.add("is-valid");
+               }
+         }
+         
+         //새 비밀번호 입력란에 input 이벤트가 일어 났을때 실행할 함수 등록
+         document.querySelector("#g_newPwd").addEventListener("input", newcheckPwd);
+         document.querySelector("#g_newPwd2").addEventListener("input", newcheckPwd);
+         
+      
+      //비밀번호 변경 버튼을 눌렀을때 호출되는 함수 등록 
+      
+      document.querySelector("#changePwdBtn").addEventListener("click", function(e){
+         
+        let isFormValid = isPwdValid && isNewPwdValid && isNewPwdValid2;
 
-	      if(!isFormValid){
-	    	  e.preventDefault();
-	      }else{
-	    	  let changePwdForm=document.querySelector("#changePwdForm");
-	    	   // gura_util.js 에 있는 함수를 이용해서 ajax 전송한다. 
-	    	   ajaxFormPromise(changePwdForm)
-	    	   .then(function(response){
-	    	      return response.json();
-	    	   })
-	    	   .then(function(data){
-	    	 	  console.log(data);
-	    	      if(data.isResult){
-	    	         alert(data.g_id+" 님 비밀번호 변경에 성공하셨습니다. 로그인 화면으로 이동합니다.");
-	    	         location.href="${pageContext.request.contextPath}/users/g_login_form.do";
-	    	      }else{
-	    	    	 alert(data.g_id+" 님 비밀번호 변경에 실패했습니다.");
-	    	    	 location.href="${pageContext.request.contextPath}/g_mypage/g_mypage.do";
-	    	      }
-	    	   });
-	      }
-	   });
-	   
-	   
-	 //ajax 제출할 폼의 참조값 얻어오기
-	  
-	   document.querySelector("#resetBtn").addEventListener("click",function(){
-		   document.querySelector("#g_pwd").classList.remove("is-valid");
-		   document.querySelector("#g_pwd").classList.remove("is-invalid");
-		   document.querySelector("#g_newPwd").classList.remove("is-valid");
-		   document.querySelector("#g_newPwd").classList.remove("is-invalid");
-		   document.querySelector("#g_newPwd2").classList.remove("is-valid");
-		   document.querySelector("#g_newPwd2").classList.remove("is-invalid");
-		   document.querySelector("#g_pwd").value="";
-		   document.querySelector("#g_newPwd").value="";
-		   document.querySelector("#g_newPwd2").value="";
-	   });
+         if(!isFormValid){
+            e.preventDefault();
+         }else{
+            let changePwdForm=document.querySelector("#changePwdForm");
+             // gura_util.js 에 있는 함수를 이용해서 ajax 전송한다. 
+             ajaxFormPromise(changePwdForm)
+             .then(function(response){
+                return response.json();
+             })
+             .then(function(data){
+                console.log(data);
+                if(data.isResult){
+                   alert(data.g_id+" 님 비밀번호 변경에 성공하셨습니다. 로그인 화면으로 이동합니다.");
+                   location.href="${pageContext.request.contextPath}/users/g_login_form.do";
+                }else{
+                  alert(data.g_id+" 님 비밀번호 변경에 실패했습니다.");
+                  location.href="${pageContext.request.contextPath}/g_mypage/g_mypage.do";
+                }
+             });
+         }
+      });
+      
+      
+    //ajax 제출할 폼의 참조값 얻어오기
+     
+      document.querySelector("#resetBtn").addEventListener("click",function(){
+         document.querySelector("#g_pwd").classList.remove("is-valid");
+         document.querySelector("#g_pwd").classList.remove("is-invalid");
+         document.querySelector("#g_newPwd").classList.remove("is-valid");
+         document.querySelector("#g_newPwd").classList.remove("is-invalid");
+         document.querySelector("#g_newPwd2").classList.remove("is-valid");
+         document.querySelector("#g_newPwd2").classList.remove("is-invalid");
+         document.querySelector("#g_pwd").value="";
+         document.querySelector("#g_newPwd").value="";
+         document.querySelector("#g_newPwd2").value="";
+      });
 </script>
 </body>
 </html>

@@ -132,7 +132,7 @@
          </thead>
          <tbody>
             <c:forEach var="tmp" items="${list }">
-               <tr>
+               <tr id="tr${tmp.b_id }">
                   <td></td>
                   <td>
                      <a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${tmp.b_id}">${tmp.b_name }</a>
@@ -188,24 +188,24 @@ function scrapDo(sel){
    for(let i=0;i<scrapBtns.length;i++){
          
       scrapBtns[i].addEventListener("click",function(){
-         
-      
-         let isScrap=$(this).attr("data-isscrap");
-         let b_id=$(this).attr("data-bid");
-         console.log(isScrap+"나와라야"+b_id);
-         let btn=$(this);
-         if(isScrap){ //추천했다면
-            ajaxPromise("private/ajax_good_delete.do", "get", "b_id="+b_id)
-            .then(function(response){
-               return response.json();
-            })
-            .then(function(data){
-               if(data.isNotScrap){//유저가 테이블에 삭제되었다면
-                                       
-                  btn.html(`<i class="far fa-bookmark"></i>`);
-               }
-            });   
-         }//ajax if 함수 끝            
+    	  let isScrap=$(this).attr("data-isscrap");
+          let b_id=$(this).attr("data-bid");
+          let btn=$(this);
+    	  if(confirm("스크랩을 취소하시겠습니까?")){
+    		  if(isScrap){ //추천했다면
+    	            ajaxPromise("../../eatery/private/ajax_good_delete.do", "get", "b_id="+b_id)
+    	            .then(function(response){
+    	               return response.json();
+    	            })
+    	            .then(function(data){
+    	               if(data.isNotScrap){//유저가 테이블에 삭제되었다면                
+    	                  btn.html(`<i class="far fa-bookmark"></i>`);
+    	               	  $("#tr"+b_id).remove();
+    	               }
+    	            });   
+    	         }//ajax if 함수 끝
+    	  
+    	  }               
       });
    };
 };
