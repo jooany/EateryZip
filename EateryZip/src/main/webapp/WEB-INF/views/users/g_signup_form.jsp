@@ -13,10 +13,11 @@
    *{
     font-family: 'Gothic A1', sans-serif;
     }
-	.btn {
+	.btn{
 	    background-color: #FD5300;
 	    border-color: #FD5300;
 	    color: #FFF; }
+	.btn
 </style>
 </head>
 <body>
@@ -82,7 +83,7 @@
       </div>
       
       <div class="mt-4 mb-5" style="text-align:center;">
-	      <a href="${pageContext.request.contextPath}/home.do" type="button" class="btn">회원가입취소</a>
+	      <a href="${pageContext.request.contextPath}/home.do" type="button" class="btn btn-secondary" style="background-color: #A6A6A6;  border-color: #A6A6A6; ">회원가입취소</a>
 	      <button id="submitBtn" type="button" class="btn">회원가입</button>
       </div>
    </form>
