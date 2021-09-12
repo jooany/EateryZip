@@ -186,6 +186,54 @@
 			document.querySelector("input[name=g_profile]").value=data.imagePath;
 		});
 	});
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const name=document.querySelector("#name").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(name.length < 1){
+			alert("이름을 입력하세요!");
+			e.preventDefault();
+		}
+	});
+	
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const address=document.querySelector("#address").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(address.length < 1){
+			alert("주소를 입력하세요!");
+			e.preventDefault();
+		}
+	});
+
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const email=document.querySelector("#email").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(email.length < 1){
+			alert("이메일을 입력하세요!");
+			e.preventDefault();
+		}
+	});
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const email2=document.querySelector("#email2").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(email2 == "No"){
+			alert("도메인을 선택하세요!");
+			e.preventDefault();
+		}
+	});
+	
+	document.querySelector("#updateForm").addEventListener("submit", function(e){
+		// 내용 검증하고 
+		const phone=document.querySelector("#phone").value;
+		//만일 폼 제출을 막고 싶으면  e.preventDefault();
+		if(phone.length < 1){
+			alert("전화번호를 입력하세요!");
+			e.preventDefault();
+		}
+	});
 </script>
 </body>
 </html>
