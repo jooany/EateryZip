@@ -546,7 +546,7 @@
 			keyarr2=nowKey2.split(",");
 		}
 		console.log(keyarr2);
-		for(let i=0;i<13;i++){
+		for(let i=0;i<14;i++){
 			let keyBtn2=$("#b_Store_date").children().eq(i);
 			for(let item of keyarr2){
 				if(keyBtn2.text()==item){
