@@ -47,11 +47,11 @@
    	회원가입을 완료해주세요.
    	</div>
    	<div class="box ps-3 pt-2 pb-2
-   				    mt-2 mb-2">
+   				   	mt-2 mb-2">
    		<input type="checkbox" id="allchecked"/> <strong>전체 동의하기</strong>
    	</div>
    	<div class="ps-4 pt-2 pb-2 
-   				    mt-2 mb-1 ">
+   				     mt-2 mb-1 ">
    		<input class="pb-1" type="checkbox" id="servicechecked"/> 맛집 서비스 이용약관 동의 (필수)
    		<div>
    		<textarea>
@@ -173,9 +173,10 @@
 		</textarea>
    		</div>
    	</div>
+   	
    	<div class="ps-4 pt-2 pb-2
    				         mb-2">
-   		<input type="checkbox" id="infochecked" /> 개인정보 수집 및 이용 동의 (필수)
+   		<input type="checkbox" id="infochecked" />개인정보 수집 및 이용 동의 (필수)
    		<textarea class="mt-1" >
 	개인정보보호법에 따라 맛집에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적, 개인정보의 보유 및 이용기간, 동의 거부권 및 동의 거부 시 불이익에 관한 사항을 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다.
 	
@@ -238,24 +239,27 @@
 		</textarea>
    	</div>
    	
-     <div class="mt-1" style="text-align:center;">
+     <div class="mt-1 mb-5" style="text-align:center;">
 	      <a href="${pageContext.request.contextPath}/users/g_signup_form.do" type="button" class="btn" id="g_sign">일반회원 가입</a>
 	      <a href="${pageContext.request.contextPath}/users/b_signup_form.do" type="button" class="btn" id="b_sign">사업자회원 가입</a>
-      </div>
+     </div>
 </div>
+<jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script>
+
+	<%--이용약관 check box 관리 로직 --%> 
 	$("#allchecked").click(function(){
 		let allChecked=$("#allchecked").is(":checked");
 		$("#infochecked").prop("checked", allChecked);
 		$("#servicechecked").prop("checked", allChecked);
-		
 	});
 	
 	$("#infochecked, #servicechecked").click(function(){
 		let allChecked = $("#infochecked").is(":checked") && $("#servicechecked").is(":checked");
 		$("#allchecked").prop("checked", allChecked);
 	});
-	
+
+	<%--이용약관 미 체크시 Form 제출 불가 (alert 경고창 발생)--%>
 	$("#g_sign, #b_sign").click(function(e){
 		let isFormValid = $("#infochecked").is(":checked") && $("#servicechecked").is(":checked") && $("#allchecked").is(":checked") ;
 		if(!isFormValid){
@@ -263,6 +267,8 @@
 			e.preventDefault();	
 		}
 	});
+	
+	<%--이용약관 모두 체크 폼 이동시 정상적으로 각 회원가입 폼으로 이동 --%>
 
 </script>
 </body>

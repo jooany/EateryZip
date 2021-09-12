@@ -78,7 +78,7 @@
 		  class="mx-auto d-block mb-2" alt="" />
 		  
 		  <div class="mb-3 text-center" >
-		  	<h3>사업자 비밀번호 바꾸기</h3>
+		  	<h3>비밀번호 변경하기</h3>
 		  </div>
 		  <input type="hidden" name="b_id" value="${param.b_id}" />
 	      <div class="mb-3">
@@ -89,13 +89,14 @@
 	      <div class="mt-3">
 	         <input class="form-control" type="password" id="b_newPwd2" placeholder="새로운 비밀번호를 한번 더 입력해주세요."/>
 	          <small class="form-text text-muted" >동일한 비밀번호를 다시 한번 입력해주세요.</small>
-	         <div class="invalid-feedback">새로운 비밀번호와 일치하지 않습니다.</div>
+	         <div class="invalid-feedback">입력한 세비밀번호와 일치하지 않습니다.</div>
 	      </div>
 	      <div class="mt-3 mb-3" style="text-align:center;">
 	      	<button id="changeBtn" type="button" class="btn" style="width:350px;">확인</button>
 	      </div>
 	   </form>
 </div>
+ <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
