@@ -65,7 +65,7 @@
 		line-height: 50px;
 	}
 	td {
-	    padding-left: 10px;
+	    padding-left: 50px;
 	}
 	
 	#right_content tr{

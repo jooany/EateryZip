@@ -43,6 +43,9 @@
 		margin:0 auto;
 		text-align: center;
 	}
+	td{
+		max-width: 180px;
+	}
 /*-----------------------table 숫자 생성------------------------------*/
 	tbody>tr {
 	  counter-increment: a;
@@ -111,8 +114,6 @@
 
 /*------------------------------paging end------------------------------*/
 
-
-
 	
 </style>
 </head>
@@ -142,7 +143,7 @@
 						<td>${tmp.takeout_num }</td>
 						<td>${tmp.takeout_date } ${tmp.takeout_time }</td>
 						<td>
-							<a class="atag" style="text-overflow: ellipsis;" href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${tmp.b_id}">${tmp.b_name }</a>
+							<a style="text-overflow: ellipsis; width:200px;" href="${pageContext.request.contextPath}/eatery/detail.do?b_id=${tmp.b_id}">${tmp.b_name }</a>
 						</td>
 						<td>${tmp.takeout_price }</td>
 						<td>

@@ -177,35 +177,43 @@
         
         /* 추천순 이미지 */
         .best_wrap .best_box {
-        	width: 900px;
+        	width: 800px;
             display: flex;
             justify-content: space-between;
-            border-radius:10%;
+            border-radius:4px;
+            margin-bottom: 40px;
         }
         .best_wrap .best_box img{
-            width: 250px;
-            height: 250px;
+            width: 200px;
+            height: 200px;
             border: 1px solid #ccc;
-            border-radius:10%;
+            border-radius:4px;
             object-fit:cover;
             box-shadow: 5px 5px 5px 0px #ccc;
+            margin-bottom: 10px;
         }
         .moreBtn{
             text-align: right;
-            font-size: 24px;
-            margin-top: 40px;
-            margin-bottom: 40px;
+            display: flex;
+    		justify-content: space-between;
+    		margin:40px 0 20px;
         }
         .container_nav{
         	width:900px!important;
         }
         .bestwraptitle{
-        	font-size: 24px;
-        	margin-bottom: 40px;
-        	margin-top: 40px;
+        	font-size: 36px;
         }
         .more{
         	text-decoration:none;
+        	color: black;
+        	font-size: 18px;
+        	align-self: flex-end;
+        }
+        a{
+			text-align: center;
+			text-decoration:none!important;
+			color: black;
         }
     </style>
 </head>
@@ -215,6 +223,7 @@
             <ul class="content_slider">
                 <li class="item">
                     <img src="https://t1.daumcdn.net/cfile/tistory/995C643D5E61B5202C" alt="">
+                    <p></p>
                 </li>
                 <li class="item">
                     <img src="https://cdn.onul-hoi.com/uploads/store_package/image/705/a162ec_210329025035.jpg" alt="">
@@ -235,21 +244,24 @@
 	        </div>
         </div>
         <div class="best_wrap">
-        	<p class="bestwraptitle">추천 음식점</p>
-             <div class="best_box">
-             	<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=4444444444">
-                 <img src="https://img.siksinhot.com/place/1628060355715382.jpg?w=307&h=300&c=Y" alt="">
-                </a>
-                <a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=0147258369">
-                 <img src="https://lh3.googleusercontent.com/proxy/p3WL3AEplNb2qxXDjK0OQsX_mBncAZMgfX1WdyrFULh9lPNJLEHQ8WaTacYteFfCarsgmDzPVDglUUQT_SCizzuek1W-YKgwFc-6N-o6WttshNwicYMdAQgDcmjY2ce534nr0wbkuUmQwvZ3IFPKftYmaZ_A" alt="">
-                </a>
-                <a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=1111177777">
-                 <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMjFfMTgz/MDAxNjE2MzMwODU3ODgw.lgOm_PLojKgyO0MI9j93y7tyIpBLhCB5mR4gLV-P1kEg.myG2JmtFPZ0QfVfRGEgZydChZrs5gM4cE-kHF8zbafkg.JPEG.nablogging/DSC09776%EF%BC%BFcopy%EF%BC%BF1600x1067.jpg?type=w800" alt="">
-                </a>
-             </div>
-             <div class="moreBtn"> <!-- 추천 등 해당 선택내용 검색조건으로 리스트 들어가기 -->
-                 <a class="more" href="${pageContext.request.contextPath}/eatery/list.do?recommend=${dto.recommend}">더보기 ></a>
-             </div>
+			<div class="moreBtn"> <!-- 추천 등 해당 선택내용 검색조건으로 리스트 들어가기 -->
+				<p class="bestwraptitle">추천 음식점</p>
+				<a class="more" href="${pageContext.request.contextPath}/eatery/list.do?recommend=${dto.recommend}">더보기</a>
+			</div>
+			<div class="best_box">
+				<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=4444444444">
+					<img src="https://img.siksinhot.com/place/1628060355715382.jpg?w=307&h=300&c=Y" alt="">
+					</br>영광정 메밀국수
+				</a>
+				<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=0147258369">
+					<img src="https://mblogthumb-phinf.pstatic.net/MjAxOTAzMjZfNjAg/MDAxNTUzNTkzMTYwMzIz.JCd8zSxd-G8kX67oFcwpdBR4H-GoWqVu-PvSkZSyWkgg.sLSBAFgu92ZhbTYHd7-yrfODkHMji9YYW-ozzzMqB9og.JPEG.donusdy/SE-09a736b1-5ea2-4338-b441-140fcf0c973a.jpg?type=w800" alt="">
+					</br>갓덴스시 강남역점
+				</a>
+				<a href="${pageContext.request.contextPath}/eatery/detail.do?b_id=1111177777">
+					<img src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMjFfMTgz/MDAxNjE2MzMwODU3ODgw.lgOm_PLojKgyO0MI9j93y7tyIpBLhCB5mR4gLV-P1kEg.myG2JmtFPZ0QfVfRGEgZydChZrs5gM4cE-kHF8zbafkg.JPEG.nablogging/DSC09776%EF%BC%BFcopy%EF%BC%BF1600x1067.jpg?type=w800" alt="">
+					</br>구옥,날다
+				</a>
+			</div>
         </div>
     </div>
     <jsp:include page="/navbar/footer/footer.jsp"></jsp:include>

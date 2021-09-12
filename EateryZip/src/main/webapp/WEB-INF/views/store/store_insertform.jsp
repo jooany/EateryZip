@@ -78,14 +78,14 @@
 /*------------------------------ Ekeyword start ------------------------------*/	
 	
 	.Ekeyword{
-		border: 1px solid rgba(253,83,0)!important;
+		border: 2px solid rgba(0,0,0,.04)!important;
 		background-color: white;
 		margin-left: 15px;
     	margin-bottom: 15px;
 	}
 	
 	.Sdate{
-		border: 1px solid rgba(253,83,0)!important;
+		border: 2px solid rgba(0,0,0,.04)!important;
 		background-color: white;
 		margin-left: 30px;
 	}
@@ -552,7 +552,7 @@
 				if(keyBtn2.text()==item){
 					console.log(keyBtn2.text());
 					$("#b_Store_date").children().eq(i).prop("checked",true);
-					keyBtn2.css({"background-color":"rgba(253,83,0)","color":"white"});
+					keyBtn2.css({"background-color":"white","color":"rgba(253,83,0)","border-color":"rgba(253,83,0)","border":"2px solid rgba(253,83,0)"});
 				}
 			}
 		}
@@ -621,7 +621,7 @@
 				if(keyBtn.text()==item){
 					console.log(keyBtn.text());
 					$("#ex_keyword").children().eq(i).prop("checked",true);
-					keyBtn.css({"background-color":"rgba(253,83,0)","color":"white"});
+					keyBtn.css({"background-color":"white","color":"rgba(253,83,0)"});
 				}
 			}
 		};
@@ -636,11 +636,11 @@
 				let ischeck=$(this).attr("data-ischeck");
 				
 				if(ischeck){ //체크 되어 있다면 
-					$(this).next().css({"background-color":"white","color":"rgba(253,83,0)"});
+					$(this).next().css({"background-color":"white","color":"black"});
 					$(this).removeAttr("data-ischeck");
 					$(this).attr('data-ischeck','');
 				}else{
-					$(this).next().css({"background-color":"rgba(0,0,0,.04)","color":"rgba(253,83,0)"});
+					$(this).next().css({"background-color":"white","color":"rgba(253,83,0)"});
 					$(this).removeAttr("data-ischeck");
 					$(this).attr('data-ischeck','true');
 				}
