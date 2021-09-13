@@ -176,7 +176,7 @@ textarea::placeholder{padding:5px;}
       <br />
       <span id="store_addr">${param.b_store_addr }</span>
    </div>
-   <form id="takeout_insert" name="takeout_insert" action="${pageContext.request.contextPath }/eatery/takeout_info_insert.do" method="post" onsubmit="return confirm('결제 하시겠습니까?');">
+   <form id="takeout_insert" name="takeout_insert" action="${pageContext.request.contextPath }/eatery/takeout_info_insert.do" method="post" onsubmit="return confirm('포장 주문 하시겠습니까?');">
       <input type="hidden" name="b_id" value="${param.b_id }"/>
       <input type="hidden" name="takeout_time" id="takeout_time"/>   
       <input type="hidden" name="takeout_menu_num"  id="takeout_menu_num" value="${param.takeout_menu_num}"/>
