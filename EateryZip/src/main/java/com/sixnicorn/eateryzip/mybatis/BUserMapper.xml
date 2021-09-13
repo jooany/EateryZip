@@ -59,12 +59,11 @@
 		   (SELECT result1.*,ROWNUM AS rnum
 		    FROM (SELECT bs.b_id,bs.b_name,t.takeout_name,t.takeout_date, t.takeout_time, t.takeout_price, t.takeout_num
 				FROM b_store bs, takeout t
-				WHERE bs.b_id = t.b_id AND t.b_id=#{b_id,jdbcType=VARCHAR}) result1)
+				WHERE bs.b_id = t.b_id AND t.b_id=#{b_id,jdbcType=VARCHAR} ORDER BY takeout_date DESC, takeout_time DESC) result1)
 		
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
-		ORDER BY takeout_date DESC, takeout_time DESC
 	</select>
 	
 	<select id="getBtakeoutCount" parameterType="TakeoutDto" resultType="int">
@@ -80,11 +79,10 @@
 		   (SELECT result1.*,ROWNUM AS rnum
 		    FROM (SELECT bs.b_id,bs.b_name,r.reservation_name , r.reservation_date, r.reservation_time, r.reservation_people, r.reservation_num
 		      FROM b_store bs, reservation r
-		      WHERE bs.b_id = r.b_id AND r.b_id=#{b_id,jdbcType=VARCHAR}) result1)
+		      WHERE bs.b_id = r.b_id AND r.b_id=#{b_id,jdbcType=VARCHAR} ORDER BY reservation_date DESC, reservation_time DESC) result1)
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
-		ORDER BY reservation_date DESC, reservation_time DESC
 	</select>
 	
 	<select id="getBreservationCount" parameterType="ReservationDto" resultType="int">

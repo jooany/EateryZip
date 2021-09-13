@@ -67,11 +67,10 @@
 		 (SELECT result1.*, ROWNUM AS rnum
 		  FROM (SELECT b.b_name, takeout_date,takeout_time,takeout_price,takeout_num,t.b_id,t.g_id,(SELECT NVL(MAX(ROWNUM),0) FROM REVIEW WHERE takeout_num=t.takeout_num) did_it
 		      FROM b_store b,takeout t
-		      WHERE b.b_id=t.b_id AND t.g_id=#{g_id,jdbcType=VARCHAR}) result1)
+		      WHERE b.b_id=t.b_id AND t.g_id=#{g_id,jdbcType=VARCHAR} ORDER BY takeout_date DESC, takeout_time DESC) result1)
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
-		ORDER BY takeout_date DESC, takeout_time DESC
 	</select>
 	
 	<select id="getTakeoutCount" parameterType="takeoutDto" resultType="int">
@@ -87,11 +86,11 @@
 		 (SELECT result1.*, ROWNUM AS rnum
 		  FROM (SELECT b_store_name, reservation_date, reservation_time, reservation_name, reservation_people ,reservation_num,r.b_id,r.g_id,(SELECT NVL(MAX(ROWNUM),0) FROM REVIEW WHERE reservation_num=r.reservation_num) did_it
 		      FROM b_store b,reservation r
-		      WHERE b.b_id=r.b_id AND r.g_id=#{g_id,jdbcType=VARCHAR}) result1)
+		      WHERE b.b_id=r.b_id AND r.g_id=#{g_id,jdbcType=VARCHAR} ORDER BY reservation_date DESC,reservation_time DESC) result1)
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
-		ORDER BY reservation_date DESC, reservation_time DESC
+		
 	</select>
 	
 	<select id="getReservationCount" parameterType="ReservationDto" resultType="int">
