@@ -9,6 +9,7 @@
 		background: #333;
 		color:#fff;
 		min-width: 1100px;
+		margin-top: 50px;
 		/* 높이를 지정하지 않도록 한다 */
 	}
 </style>

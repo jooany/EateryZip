@@ -21,7 +21,7 @@
 	
 	.inner{
 		width:1000px;
-		height: 700px;
+		height: 750px;
 		margin:0 auto;
 		display:flex;
 		justify-content: space-between;
@@ -44,7 +44,7 @@
 		text-align: center;
 	}
 	td{
-		max-width: 180px;
+		max-width: 200px;
 	}
 /*-----------------------table 숫자 생성------------------------------*/
 	tbody>tr {

@@ -24,7 +24,7 @@
 	}
 	.inner{
 		width:1000px;
-		height: 700px;
+		height: 750px;
 		margin:0 auto;
 		display:flex;
 		justify-content: space-between;
@@ -139,24 +139,24 @@
 				<ul class="pagination justify-content-center">
 					<c:if test="${startPageNum ne 1 }">
 						<li class="page-link">
-							<a href="b_reservateion_list.do?pageNum=${startPageNum-1 }">Prev</a>
+							<a href="b_reservation_list.do?pageNum=${startPageNum-1 }">Prev</a>
 						</li>
 					</c:if>
 					<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 						<li class="page-item">
 							<c:choose>
 								<c:when test="${pageNum eq i }">
-									<a  class="page-link active" href="b_reservateion_list.do?pageNum=${i }">${i }</a>
+									<a  class="page-link active" href="b_reservation_list.do?pageNum=${i }">${i }</a>
 								</c:when>
 								<c:otherwise>
-									<a class="page-link" href="b_reservateion_list.do?pageNum=${i }">${i }</a>
+									<a class="page-link" href="b_reservation_list.do?pageNum=${i }">${i }</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
 					</c:forEach>
 					<c:if test="${endPageNum lt totalPageCount }">
 						<li class="page-link">
-							<a href="b_reservateion_list.do?pageNum=${endPageNum+1 }">Next</a>
+							<a href="b_reservation_list.do?pageNum=${endPageNum+1 }">Next</a>
 						</li>
 					</c:if>
 				</ul>
@@ -169,7 +169,7 @@
 	$(".reservation_btn").click(function(){
 		let reservationNum=$(this).attr("data-reservation");
 		let bId=$(this).attr("data-id");
-	window.open("${pageContext.request.contextPath}/eatery/reservation_info.do?reservation_num="+reservationNum+"&b_id="+bId, "예약내역보기", "width=1130px,height=800px");
+	window.open("${pageContext.request.contextPath}/eatery/reservation_info.do?reservation_num="+reservationNum+"&b_id="+bId, "예약내역보기", "width=800px,height=750px");
 	});
 	
 </script>
