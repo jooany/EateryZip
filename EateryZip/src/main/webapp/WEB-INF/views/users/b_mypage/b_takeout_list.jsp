@@ -24,7 +24,7 @@
 	}
 	.inner{
 		width:1000px;
-		height: 700px;
+		height: 750px;
 		margin:0 auto;
 		display:flex;
 		justify-content: space-between;

@@ -71,6 +71,7 @@
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
+		ORDER BY takeout_date DESC, takeout_time DESC
 	</select>
 	
 	<select id="getTakeoutCount" parameterType="takeoutDto" resultType="int">
@@ -90,6 +91,7 @@
 		<![CDATA[ 
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
+		ORDER BY reservation_date DESC, reservation_time DESC
 	</select>
 	
 	<select id="getReservationCount" parameterType="ReservationDto" resultType="int">

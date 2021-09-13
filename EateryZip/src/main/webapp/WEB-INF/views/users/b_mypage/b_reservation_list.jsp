@@ -24,7 +24,7 @@
 	}
 	.inner{
 		width:1000px;
-		height: 700px;
+		height: 750px;
 		margin:0 auto;
 		display:flex;
 		justify-content: space-between;
@@ -169,7 +169,7 @@
 	$(".reservation_btn").click(function(){
 		let reservationNum=$(this).attr("data-reservation");
 		let bId=$(this).attr("data-id");
-	window.open("${pageContext.request.contextPath}/eatery/reservation_info.do?reservation_num="+reservationNum+"&b_id="+bId, "예약내역보기", "width=1130px,height=800px");
+	window.open("${pageContext.request.contextPath}/eatery/reservation_info.do?reservation_num="+reservationNum+"&b_id="+bId, "예약내역보기", "width=800px,height=750px");
 	});
 	
 </script>
