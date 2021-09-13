@@ -286,6 +286,8 @@ button{
 }
 #photoList{
    display:flex;
+   transition:.5s;   
+   
 }
 .photo_item{
    margin-right:8px;
@@ -1597,7 +1599,7 @@ ul.tabs li.current{
                  marginLeft:bannerMargin
              });
             leftHide();
-            $("#rightBtn").css('visibility','visible')
+            $("#rightBtn").css('visibility','visible');
             if(bannerMargin<-maxMargin){
                $("#rightBtn").css('visibility','hidden');
             }
@@ -1678,9 +1680,10 @@ ul.tabs li.current{
   		if(phMargin>=-phListWidth){
   			phMargin-=750;
   			$("#photoList").css({
-  		        marginLeft:menuMargin
+  		        marginLeft:phMargin
   		    });
-  			leftHide2();
+  			leftHide3();
+  		  	$("#rightBtn").css('visibility','visible');
   			if(phMargin<-phListWidth){
   				$("#rightBtn3").css('visibility','hidden');
   			}
