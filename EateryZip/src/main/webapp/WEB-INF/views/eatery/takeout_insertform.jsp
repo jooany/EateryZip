@@ -203,7 +203,7 @@ button{
 	<!-- style="position: fixed; right: 300px; top:280px; width:auto; height:auto; border:1px solid rgb(224, 224, 224); border-radius:4px;" -->
 	<div id="rightContent">
 		<div style="border:1px solid rgb(224, 224, 224); border-radius:4px;">
-			<form id="add_menu" name="add_menu" method="post" action="${pageContext.request.contextPath }/eatery/takeout_info_insertform.do" onsubmit="return confirm('주문 하시겠습니까?');">
+			<form id="add_menu" name="add_menu" method="post" action="${pageContext.request.contextPath }/eatery/takeout_info_insertform.do" >
 			<input type="hidden" name="b_store_name" id="b_store_name" value="${param.b_store_name }"/>
 			<input type="hidden" name="b_store_addr" id="b_store_addr" value="${param.b_store_addr }"/>
 			<input type="hidden" name="b_id" id="b_id" value="${param.b_id }"/>
@@ -215,7 +215,7 @@ button{
 						<th>메뉴</th>
 						<th>수량</th>
 						<th>가격</th>
-						<th>취소</th>
+						<th></th>
 					</thead>
 					<tbody id="m_choice">
 						
@@ -356,6 +356,8 @@ button{
 				.text(amount*priceSplit[0])
 				.appendTo("#m_choice");
 				$("<td/>")
+				.attr("type", "button")
+				.attr("onclick", "removeCart()")
 				.attr("name", "basket")
 				.attr("id", "basket4"+num)
 				.attr("data-num", num) 
@@ -366,7 +368,14 @@ button{
 		};
 	};
 	
-	//예약 한번 더 확인 하는 alert 띄우는 함수
+ 	/* //장바구니 삭제 
+	function removeCart(){
+		$("td").remove("#one, #two"); 
+		
+	};  */
+
+	
+	/* //예약 한번 더 확인 하는 alert 띄우는 함수
 	function showConfirm() {
 		var rtn;
 		rtn=confirm("주문 하시겠습니까?");
@@ -376,7 +385,8 @@ button{
 			}else{
 				return false;
 			}
-	};
+		onsubmit="return confirm('주문 하시겠습니까?');"
+	}; */
 	//폼에 submit 이벤트가 일어났을때 실행할 함수 등록
 	document.querySelector("#add_menu")
 		.addEventListener("submit", function(e){
