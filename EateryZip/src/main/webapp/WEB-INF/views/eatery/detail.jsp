@@ -1709,7 +1709,7 @@ ul.tabs li.current{
 
    //형우 부분 script
    // 달력
-      var holidays = {
+      /* var holidays = {
               "0101":{type:0, title:"신정", year:""},
               "0301":{type:0, title:"삼일절", year:""},
               "0505":{type:0, title:"어린이날", year:""},
@@ -1728,7 +1728,7 @@ ul.tabs li.current{
               "1004":{type:0, title:"대체공휴일", year:"2021"},
               "1011":{type:0, title:"대체공휴일", year:"2021"},
               "0519":{type:0, title:"석가탄신일", year:"2021"}
-          };
+          }; */
 
     // 달력
     $(function() {
@@ -1746,7 +1746,7 @@ ul.tabs li.current{
            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
            ,minDate: "-0D" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
            ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)  
-             ,beforeShowDay: function(day) {
+             /* ,beforeShowDay: function(day) {
                   var result;
                   // 포맷에 대해선 다음 참조(http://docs.jquery.com/UI/Datepicker/formatDate)
                   var holiday = holidays[$.datepicker.formatDate("mmdd",day )];
@@ -1774,7 +1774,7 @@ ul.tabs li.current{
                   }
 
                   return result;
-               }
+               } */
          });                        
       
        //초기값을 오늘 날짜로 설정해줘야 합니다.
