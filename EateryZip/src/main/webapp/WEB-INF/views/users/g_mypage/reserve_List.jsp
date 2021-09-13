@@ -21,11 +21,12 @@
 	
 	.inner{
 		width:1000px;
-		height: 700px;
+		height: 750px;
 		margin:0 auto;
 		display:flex;
 		justify-content: space-between;
 		margin-top: 40px;
+		margin-bottom:40px;
 	}
 /*-------------------------------------------------------------------------*/
 
@@ -43,6 +44,7 @@
 		margin:0 auto;
 		text-align: center;
 	}
+
 /*-----------------------table 숫자 생성------------------------------*/
 	tbody>tr {
 	  counter-increment: a;
@@ -56,24 +58,24 @@
 
 /*--------------------------------- takeout list detail --------------------------*/
 
-	.takeout_btn{
+	.reservation_btn{
 		background-color: #efefef;
 		color: black;
 		border: 1px solid #efefef;
 		box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.3);
 	}
-	.takeout_btn:hover{
+	.reservation_btn:hover{
 		background-color: #ccc;
 		color: white;
 		font-weight: bold;
 	}
-	.takeout_btn2{
+	.reservation_btn2{
 		background-color: #efefef;
 		color: black;
 		border: 1px solid #efefef;
 		box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.3);
 	}
-	.takeout_btn2:hover{
+	.reservation_btn2:hover{
 		background-color: #ccc;
 		color: white;
 		font-weight: bold;

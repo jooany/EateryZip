@@ -27,11 +27,12 @@
       }
    .inner{
       width:1000px;
-      height: 700px;
+      height: 800px;
       margin:0 auto;
       display:flex;
       justify-content: space-between;
       margin-top: 40px;
+      margin-botom: 40px;
    }
 /*-------------------------------------------------------------------------*/
 /*------------------------------right_content start------------------------------*/
@@ -49,6 +50,12 @@
       text-align: center;
       vertical-align:middle!important;
    }
+   td{
+		max-width: 250px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+   		white-space: nowrap;
+	}
 
 /*-----------------------table 숫자 생성------------------------------*/
    tbody>tr {
